@@ -41,17 +41,11 @@
        
             
             <li  class="pure-menu-item ">   <label class="item item-input" >
-            <i class="icon ion-search placeholder-icon" ></i>
+                <a ng-href="#/search?game={{search}}"> <i class="icon ion-search placeholder-icon" ></i> </a>
             <input type="text" ng-model="search" placeholder="Search for a game">
         </label> </li>
             
-            <li class="pure-menu-item ">
-            <a ng-href="#/search?game={{search}}">
-   <button class="pure-button pure-button-primary" >
-                search 
-        </button> 
-</a>
-            </li >
+
              <li  class="pure-menu-item loginpadding" > <button class="pure-button pure-button-logout " ng-click="logout()">logout</button> </li>
         </ul>
           

@@ -58,7 +58,10 @@ app.directive 'card', ->
     templateUrl: 'views/card.html',
 app.directive 'librarycard', ->  
     restrict: 'E',
-    templateUrl: 'views/librarycard.html',
+    templateUrl: 'views/librarycard.html'
+app.directive 'searchcard', ->  
+    restrict: 'E',
+    templateUrl: 'views/searchcard.html' 
     
 app.config ($httpProvider) -> 
     $httpProvider.defaults.useXDomain = true;
@@ -170,8 +173,10 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     scoreToCheck = (score1*1.25+score2*.75)/2
                 else if score1 
                     scoreToCheck= score1
-                else
+                else if score2
                     scoreToCheck= score2
+                else 
+                    return 'unknown'
                 saying = switch
                     when scoreToCheck < 2.5 then 'negative'
                     when scoreToCheck < 4 then 'ok'

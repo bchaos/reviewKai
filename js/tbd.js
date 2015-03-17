@@ -65,6 +65,13 @@
     };
   });
 
+  app.directive('searchcard', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/searchcard.html'
+    };
+  });
+
   app.config(function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     return delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -240,8 +247,10 @@
         scoreToCheck = (score1 * 1.25 + score2 * .75) / 2;
       } else if (score1) {
         scoreToCheck = score1;
-      } else {
+      } else if (score2) {
         scoreToCheck = score2;
+      } else {
+        return 'unknown';
       }
       return saying = (function() {
         switch (false) {

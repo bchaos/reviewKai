@@ -18,24 +18,13 @@
       <div class="item item-divider">
     Results
   </div>
-    <div class="item item-text-wrap" ng-repeat="result in searchResults | filter:searchText | orderBy:sort" style="white-space:normal; overflow:normal; text-overflow:normal;"> 
+    <div class="item item-text-wrap" ng-repeat="game in searchResults | filter:searchText | orderBy:sort" style="white-space:normal; overflow:normal; text-overflow:normal;"> 
     <div class="pure-g">
-         <div class="card pure-u-1-8"  >
-            <img src="{{result.image.medium_url}}" height="250px">
+         <div class="pure-u-1-4"  >
+            <searchcard></searchcard>
          </div>
-         <div class="card pure-u-3-4">
-                <div class="pure-g-r pure-u-1">
-                <div class="pure-u-3-8">
-                 Guru's Rating:    <span ng-show="result.details.guruscore">{{result.details.guruscore}}/5</span> 
-                <span ng-hide="result.details.guruscore">TBD</span> 
-                </div>
-
-                <div class="pure-u-3-8">
-                Peer's Rating: <span ng-show="result.details.peerscore">{{result.details.peerscore}}/5</span>
-                    <span ng-hide="result.details.peerscore">TBD</span>
-                </div>
-            </div>
-             <div ng-bind-html="result.description"></div>
+         <div class="card pure-u-5-8">
+             <div class="gameDes "ng-bind-html="game.description"></div>
         </div>
        
         </div>
