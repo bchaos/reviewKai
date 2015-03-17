@@ -1,0 +1,19 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title"> What your Peers say about this game </h1> 
+        <button class="button button-clear button-assertive" ng-click="closePeer()">x</button>
+    </ion-header-bar>
+    <ion-content>
+     <div class="list">
+        <span ng-show="peerInfoLoading"> <div class="item item-divider"> loading ....</div> </span>       
+        <span ng-hide="peerInfoLoading"> 
+  <a class="item" ng-repeat ="details in gameDetails" >
+     <h2>{{details.reviewerName}}</h2>
+      <p>How they describe this game: {{convertMyRating(details.score)}}</p>
+      <p>Why did they say this: {{details.details}}</p>
+  </a>
+  
+        </span>
+         </div> 
+    </ion-content>
+</ion-modal-view>

@@ -1,0 +1,78 @@
+
+DELIMITER $$
+
+CREATE PROCEDURE  `calculateNewPros` ( IN  NewUserID INT ) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN
+
+DECLARE userCount INT DEFAULT 0;
+DECLARE userIndex INT DEFAULT 0;
+DECLARE userToAdd INT DEFAULT 0;
+Delete from  userToProreviewer where user_id=NewUserID;
+DROP TEMPORARY TABLE IF EXISTS ub_rank;
+create temporary table ub_rank as 
+select similar.user_id,count(*) rank
+FROM library target
+JOIN ProReviewerLibrary similar ON target.game_id = similar.game_id
+AND target.user_id != similar.user_id
+AND target.rating
+BETWEEN similar.rating -1
+AND similar.rating +1
+WHERE target.user_id = NewUserID
+GROUP BY similar.user_id;
+
+Select Count(*) into userCount from ub_rank;
+if userCount > 10 then
+	set userCount= 10;
+end if;
+set userIndex = 0; 
+PREPARE stmt1 FROM 'select user_id into @userToAdd 
+					from ub_rank order by rank desc
+					limit ?, 1';
+while userIndex < userCount Do
+
+set @userIndex = userIndex;
+EXECUTE stmt1 USING @userIndex;
+
+Insert into userToProreviewer  (user_id, reviewer_id) values ( NewUserID,@userToAdd );
+set userIndex=userIndex+1;
+
+end while;
+DEALLOCATE PREPARE stmt1;
+END $$
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE  `calculateNewPeers` ( IN  NewUserID INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN
+
+DECLARE userCount INT DEFAULT 0;
+DECLARE userIndex INT DEFAULT 0;
+DECLARE userToAdd INT DEFAULT 0;
+Delete from userToReviewers where user_id=NewUserID;
+DROP TEMPORARY TABLE IF EXISTS ub_rank;
+create temporary table ub_rank as 
+select similar.user_id,count(*) rank
+from library target  join library similar 
+on target.game_id= similar.game_id 
+and target.user_id != similar.user_id  
+and target.rating between similar.rating-1 
+and similar.rating+1 where target.user_id =NewUserID group by similar.user_id; 
+
+Select Count(*) into userCount from ub_rank;
+set userIndex = 0; 
+if userCount > 20 then
+	set userCount= 20;
+end if;
+PREPARE stmt1 FROM 'select user_id into @userToAdd 
+					from ub_rank order by rank desc
+					limit ?, 1';
+while userIndex < userCount Do
+set @userIndex = userIndex;
+EXECUTE stmt1 USING @userIndex;
+
+Insert into userToReviewers  (user_id, reviewer_id) values ( NewUserID,@userToAdd );
+set userIndex=userIndex+1;
+
+end while;
+DEALLOCATE PREPARE stmt1;
+END $$

@@ -1,0 +1,32 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title" ng-show = 'signUp'> Sign up  </h1> 
+        <h1 class="title" ng-hide = 'signUp'> Login  </h1> 
+        <button class="button button-clear button-assertive" ng-click="closeModal()">x</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+          <label class="item item-input">
+            <span class="input-label" >Email</span>
+            <input type="text" ng-model='logdata.username'>
+          </label>
+        <label class="item item-input" ng-show = 'signUp'>
+            <span class="input-label" >Display name</span>
+            <input type="text" ng-model='logdata.name'>
+          </label>
+          <label class="item item-input">
+            <span class="input-label" >Password</span>
+            <input type="password" ng-model='logdata.temppassword'>
+          </label>
+          <label class="item item-input" ng-show = 'signUp' >
+            <span class="input-label" >Retype Password</span>
+            <input type="password" ng-model='logdata.repeat'>
+          </label>
+        </div>
+         <div class="bar-assertive" ng-show='errormessage'> {{errormessage}} </div>
+         <div class="button-bar">
+                    <a class="button button-positive  button-outline" ng-click="signInNow()"  ng-hide = 'signUp'> Signin </a> 
+                    <a class="button button-positive  button-outline" ng-click="signUpNow()"  ng-show = 'signUp'> Signup </a> 
+        </div>
+    </ion-content>
+</ion-modal-view>

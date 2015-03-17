@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=.8, user-scalable=no">
+        <meta name="description" content="Review Gurus">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-animate.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-sanitize.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-resource.js"></script>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <script type="text/javascript" src="js/ionic.js"></script>
+        <script type="text/javascript" src="js/angular-ui-router.js"></script>
+         <script type="text/javascript" src="js/ionic-angular.js"></script>
+        <script type="text/javascript" src="js/tbd.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+       <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+            <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"> 
+       <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
+       <link href="css/ionicons.min.css" media="screen" rel="stylesheet" type="text/css">
+       <link href="css/ionic.css" media="screen" rel="stylesheet" type="text/css">
+    </head>
+    
+    <body ng-app="reviewApp" ng-controller="reviewController"> 
+      
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" >Review Kai</a>
+        <ul  ng-hide="accessList"> 
+            <li  class="pure-menu-item ">      <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button> </li>
+ <li  class="pure-menu-item ">   
+<button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button> 
+            </li>
+        </ul>
+       
+        
+        <ul class="pure-menu-list" ng-show="accessList" >
+            <li class="pure-menu-item " ng-repeat="access in accessList"  ng-class="isActive(access.link)"><a href="#/{{access.link}}" class="pure-menu-link">  {{access.name}}</a></li>
+            
+       
+            
+            <li  class="pure-menu-item ">   <label class="item item-input" >
+            <i class="icon ion-search placeholder-icon" ></i>
+            <input type="text" ng-model="search" placeholder="Search for a game">
+        </label> </li>
+            
+            <li class="pure-menu-item ">
+            <a ng-href="#/search?game={{search}}">
+   <button class="pure-button pure-button-primary" >
+                search 
+        </button> 
+</a>
+            </li >
+             <li  class="pure-menu-item loginpadding" > <button class="pure-button pure-button-logout " ng-click="logout()">logout</button> </li>
+        </ul>
+          
+             </div>
+</div>
+
+            
+
+       
+   
+                <ng-view class="slide-in-up"></ng-view>
+        
+    <div class="footer l-box is-center">
+        Copyright ReviewGuru &copy; 2015-
+        <a href="#/faqs">FAQs</a>-
+        <a href="#/contact">Contact</a>- 
+        <a href="#/blog"> Blog</a>
+ Game search powered by  <a href="giangbomb.com"> Giant bomb</a>
+</div>
+    </body>
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60567252-1', 'auto');
+  ga('send', 'pageview');
+
+
+</script>

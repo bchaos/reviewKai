@@ -1,0 +1,65 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title"> New Game </h1> 
+        <button class="button button-clear button-assertive" ng-click="closeModal()">x</button>
+    </ion-header-bar>
+    <ion-content>
+        
+        <div class="list" ng-hide="gameSelected">
+            <div class="item item-divider">
+                 <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="Search" ng-model="searchRequirements">     
+                 </label>    
+                 <button class="button button-small" ng-click="searchForAGame(searchRequirements)">
+                    Search 
+                 </button>
+            </div>
+            <div ng-show="isLoading"> Loading .... </div>
+            <span ng-hide= "isLoading"> 
+             <a class="item item-avatar" ng-repeat="game in gamesfound" ng-click="addGameToLibrary(game)">
+              <img ng-src="{{game.image.icon_url}}">
+              <h2>{{game.name}}</h2>
+            </a>
+            </span>
+        </div>
+        <div class="list" ng-show="gameSelected">
+       <button class="button  icon ion-arrow-left-a" ng-click="goback() "> back</button>
+        <p/>
+            <ul class="list">
+                 <li class="item item-avatar item-divider">
+          
+              <img ng-src="{{newgame.giantBombinfo.image.icon_url}}">
+              <h2>{{newgame.giantBombinfo.name}}</h2>
+            </li>
+             <li class="item">
+            <div class="input-label">
+                Select a phrase that best describes your thoughts about the game:
+                
+            </div>
+            <select ng-model="newgame.userInfo.rating">
+               <option value="1">Pretty much unplayable</option>
+               <option value="2">Bad but playable in a pinch</option>
+               <option selected value="3">A fairly average game</option>
+               <option value="4">Good game with some minor flaws</option>
+               <option value="5">A nearly flawless gameplay experience</option>
+                
+            </select>
+                </li>
+                 <li class="item">
+                  <form class="pure-form">
+                         <fieldset class="pure-group">
+        
+                             <textarea class="pure-input-1-2" placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="newgame.userInfo.description"></textarea>
+    </fieldset>
+                     </form>
+                </li>
+     </ul>
+        <div class="button-bar">
+            <a class="button button-positive  button-outline" ng-click="saveGame()"> Save </a> 
+        </div>
+            
+        </div>
+        
+    </ion-content>
+</ion-modal-view>

@@ -1,0 +1,21 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title"> What the Pros say say about this game </h1> 
+        <button class="button button-clear button-assertive" ng-click="closeGuru()">x</button>
+    </ion-header-bar>
+    <ion-content>
+     <div class="list">
+        <span ng-show="guruInfoLoading"> <div class="item item-divider">loading ....   </div></span>       
+        <span ng-hide="guruInfoLoading"> 
+           <a class="item" ng-repeat ="details in gameDetails" >
+               <div class="pure-u-1-2"> 
+                <h2>{{details.reviewerName}}</h2>
+                 <p>How they describe this game: {{convertMyRating(details.score)}}</p>
+                   </div><div class="pure-u-1-2"> 
+              <h2>Score: {{details.score}}/{{details.scoremax}}</h2> <p>Read full review at:   <button  class="button button-positive button-small" > Review </button></p> </div>
+            </a>
+          
+        </span>
+        </div> 
+    </ion-content>
+</ion-modal-view>

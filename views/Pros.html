@@ -1,0 +1,37 @@
+<div class="pure-g-r addedMargin">
+    <div class="pure-u-1">
+        <form class="pure-form">
+    <input  class="pure-input-2-3" ng-model="searchText" placeholder="Filter games">   
+            </form>
+    </div>
+     <span ng-show="myLibrary">
+    <div class="card pure-u-1-4"  >
+      <div class="item item-divider">
+        Add Reviewer 
+      </div>
+      <div class="item item-body" ng-click ="openProModal(false)">
+         <p>
+               <a class="button button-icon button-large icon ion-ios-plus-outline"></a>
+          </p>
+      </div>
+      <div class="item item-divider">
+      </div>
+    </div>
+    </span>
+   
+        <div class="card pure-u-1-4"  ng-repeat="reviewer in reviewers | filter:searchText">
+          <div class="item item-divider">
+            {{reviewer.name}}
+          </div>
+            <p/>
+            <a ng-href="{{reviwer.site}}">{{reviewer.site}} </a>
+    <p> 
+            <a ng-href="#/prosLibrary?reviewerid={{reviewer.id}}">
+            <button class="button"> 
+                Details
+            </button>
+            
+            </a>
+            </p>  
+</div>
+                

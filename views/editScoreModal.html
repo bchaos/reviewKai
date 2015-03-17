@@ -1,0 +1,44 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title"> Edit Game </h1> 
+        <button class="button button-clear button-assertive" ng-click="closeEdit()">x</button>
+    </ion-header-bar>
+    <ion-content>
+         
+<p/>
+            <ul class="list">
+                 <li class="item item-avatar item-divider">
+          
+              <img ng-src="{{edit.image.icon_url}}">
+              <h2>{{edit.name}}</h2>
+            </li>
+             <li class="item">
+            <div class="input-label">
+                How much did you enjoy this game
+            </div>
+            <select ng-model="edit.rating">
+               <option value="1">1</option>
+               <option value="2">2</option>
+               <option selected value="3">3</option>
+               <option value="4">4</option>
+               <option value="5">5</option>
+                
+            </select>
+                </li>
+                 <li class="item">
+                  <form class="pure-form">
+                         <fieldset class="pure-group">
+        
+                             <textarea class="pure-input-1-2" placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="edit.description"></textarea>
+    </fieldset>
+                     </form>
+                </li>
+     </ul>
+        <div class="button-bar">
+            <a class="button button-positive  button-outline" ng-click="updateGame()"> Save </a> 
+        </div>
+            
+        </div>
+        
+    </ion-content>
+</ion-modal-view>

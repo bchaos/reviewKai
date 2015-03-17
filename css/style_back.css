@@ -1,0 +1,416 @@
+html, body{
+  height:100%;
+  }
+/*****************
+LOGIN
+*****************/
+.loginWrap{
+  height: 100%;
+  width:100%;
+  background-color:#0090d6;
+}
+#loginBox{
+  margin-top:70px;
+  border-radius: 0px;
+  background-color: #fff;
+  padding: 15px 10px;
+  color: #666;
+}
+.loginLogo{
+  background-image: url(/img/loginlogo.jpg);
+  background-size: 100%;
+  background-position:top center;
+  background-repeat: no-repeat;
+  height: 170px;
+  width: 200px;
+  margin: auto;
+}
+.loginTitle{
+  color: #8dc641;
+}
+.checkbox{
+  margin-bottom:0;
+  padding:0;
+  float: right;
+}
+.checkbox span{
+  margin-left:10px;
+}
+.input-group, .input-group label{
+  width: 100%;
+}
+.input-label{
+  max-width: 400px;   
+}
+input.form-control{
+  border:1px solid #cdcdcd;
+  background-color:#eee;
+  padding:20px;
+  margin-top:10px;
+}
+.form-control:focus{
+  border:1px solid #0090d6;
+  box-shadow: none;
+}
+
+/*****************
+LEFT SIDE MENU
+*****************/
+.logo{
+  height:130px;
+  background-color: #0090d6;
+  background-image: url(/img/hla_logo.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:175px;
+}
+.list{
+  padding-top:15px !important;
+}
+.nopad{
+  padding:0 !important;
+}
+.nomarg{
+  margin:0 !important;
+}
+ion-item a{padding-left:18px;}
+.copyright{
+  position: absolute;
+  bottom: 20px;
+  font-size: 11px;
+  text-align: center;
+  width: 255px;
+  padding:10px;
+}
+
+/*****************
+Button Styles
+*****************/
+
+.button.button-positive.button-outline {
+border-color: #8cc63f;
+background: transparent;
+color: #8cc63f;
+}
+.button.button-positive.button-outline:hover{
+  color:#fff;
+  background-color: #8cc63f;
+  -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.button.button-setup.button-outline {
+border-color: #20409a;
+background: transparent;
+color: #20409a;
+}
+.button.button-setup.button-outline:hover{
+  color:#fff;
+  background-color: #20409a;
+  -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.button.button-edit.button-outline, .button.button-energized.button-outline {
+border-color: #00b1cd;
+background: transparent;
+color: #00b1cd;
+}
+.button.button-edit.button-outline:hover, .button.button-energized.button-outline:hover{
+  color:#fff;
+  background-color: #00b1cd;
+  -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+.button.button-delete.button-outline, .button.button-assertive.button-outline {
+border-color: #ef4e3a;
+background: transparent;
+color: #ef4e3a;
+}
+.button.button-delete.button-outline:hover, .button.button-assertive.button-outline:hover{
+  color:#fff;
+  background-color: #ef4e3a;
+  -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+
+
+/*****************
+Sliding Panels
+*****************/
+
+h2.title{
+  float:left;
+}
+
+.zf-green {
+    color: #68b604;
+}
+
+.btn-success {
+  background-color: #57a900;
+  background-image: -moz-linear-gradient(top, #70d900, #57a900);
+  background-image: -ms-linear-gradient(top, #70d900, #57a900);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
+  background-image: -webkit-linear-gradient(top, #70d900, #57a900);
+  background-image: -o-linear-gradient(top, #70d900, #57a900);
+  background-image: linear-gradient(top, #70d900, #57a900);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
+}
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+  background-color: #57a900;
+}
+
+.btn-success:active, .btn-success.active {
+  background-color: #57a900;
+}
+
+div.container a.brand {
+    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
+    margin-left: 0;
+    padding: 8px 20px 12px 40px;
+}
+
+
+.bar.bar-positive {
+    border-color: #00b1cd;
+    background-color: #0090d6;
+    color: #fff;
+}
+
+.bar-positive .button {
+border-color: #00b1cd;
+background-color: #0090d6;
+color: #fff;
+}
+ion-side-menu, ion-side-menu ion-list .list, ion-side-menu ion-list .list ion-item .item-content
+, ion-side-menu ion-list .list ion-item, .menu
+{
+    border-color: #00b1cd;
+    background-color: #0090d6;
+    color: #fff;
+}
+
+
+.button.button-energized.button-outline {
+border-color: #00b1cd ;
+background: transparent;
+color: #00b1cd ;
+
+}
+
+
+rect[Attributes Style] {
+stroke: none;
+stroke-width: 0px;
+fill: #8cc63f
+}
+ion-side-menu ion-list .list ion-item .item-content.activated {
+    border-color: #00b1cd;
+    background-color: #00b1cd;
+}
+.bar-positive .button.activated{
+    border-color: #00b1cd;
+    background-color: #00b1cd;
+}
+.span3{
+  width:200px;
+  margin:0 20px 20px 0;
+}
+.horizonLogo{
+max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+display: block;
+}
+
+.item-divider,.item{
+  padding-left:34px;
+}
+
+
+/*****************
+MODALS
+*****************/
+
+.modal {
+  top:10%;
+  bottom:10%;
+}
+ol.categories{
+  float: left;
+  list-style: decimal;
+  padding-left:20px;
+  margin-right:30px;
+  line-height: 2em;
+    color: #6d6e70;
+}
+ol.categories:last-child{
+ 
+  margin-right: 0;
+}
+.ChartNavButtons, .headerTitle{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width:75%;
+}
+.ChartNavButtons2, {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width:90%;
+}
+.no-right-marg{
+  margin-right:0;
+}
+
+.buttonModal{
+ margin-left: 32px;   
+}
+
+/*CHART MODAL*/
+h2.orgTitle {
+    margin-left:30px;
+    color: #6d6e70;
+    position: relative;
+    top: 20px;
+}
+h2.orgTitleChart{
+    margin-left:30px;
+    color: #6d6e70;
+    position: relative;
+}
+h5.key, h5.categoryTitle{
+text-transform: uppercase;
+    font-size:16px;
+    color: #009ade;
+}
+.self, .others{
+  width:15px;
+  height:15px;
+  padding:10px;
+  margin: auto;
+}
+.inline{
+  display: inline-block;
+}
+.self{background-color:#8cc63f;}
+.others{background-color:#0090d6;}
+.popUpContent{
+    top:130px;   
+}
+.titleImage{
+    margin: auto;
+    position: relative;
+    top:-10px;
+    width:1024px;
+    height:125px;
+}
+h5.Bcategories{
+    color: #214099;
+    text-align: center;
+    font-size: 21px;
+    margin-top: -40px;
+}
+.moreHeight {
+    
+    height:70px !important;
+}
+.newwidth{
+  width:300px;
+    min-height: 300px
+}
+.addedMargin{
+ margin-top: 50px;
+margin-left: 50px;   
+}
+.docmumentModal {
+    top: 10%;
+right: 10%;
+bottom: 10%;
+left: 10%;
+overflow: visible;
+min-height: 300px;
+width: 80%;
+}
+full-image{
+ max-width: 150px;   
+}
+.horizonPopUpGradient{
+  background: #00b2cd; /* Old browsers */
+background: -moz-linear-gradient(left,  #00b2cd 0%, #ffffff 30%, #ffffff 60%, #00b2cd 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#00b2cd), color-stop(30%,#ffffff), color-stop(60%,#ffffff), color-stop(100%,#00b2cd)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* IE10+ */
+background: linear-gradient(to right,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b2cd', endColorstr='#00b2cd',GradientType=1 ); /* IE6-9 */
+width:100%;
+    height:120px;
+} 
+
+.popup-buttons.row{
+  margin-right:  0px;
+  margin-left: 0px;
+}
+
+.organizationName{
+
+}
+.chartLogo{
+    width: 1024px;
+    position: relative;
+    margin:auto;
+}
+.horizonPopUpLogo{
+  width: 150px;
+  margin:auto;
+  background-image: url(/img/loginlogo.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+    background-position: center;
+  height:120px;
+}
+
+.scrolls {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    
+    white-space:nowrap;
+    display:inline-block;
+}
+
+.imageDiv img {
+    box-shadow: 1px 1px 10px #999;
+    margin: 2px;
+    max-height: 50px;
+    cursor: pointer;
+    display:inline-block;
+    *display:inline;/* For IE7*/
+    *zoom:1;/* For IE7*/
+    vertical-align:top;
+ }
+
+.genreheader{
+    width:25%;
+    margin-left:auto;
+    margin-right: auto;
+  
+    color: white;
+    
+}

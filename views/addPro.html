@@ -1,0 +1,22 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title"> New Pro Reviewer </h1> 
+        <button class="button button-clear button-assertive" ng-click="closeModal()">x</button>
+    </ion-header-bar>
+    <ion-content>
+<div class="list">
+    
+    <form class="pure-form pure-form-stacked">
+    <fieldset>
+        <legend ng-hide="mode">Add Pro Reviewer</legend>
+           <legend ng-show="mode">Edit Pro Reviewer</legend>
+<label for="email">name</label>
+        <input id="text" type="text"  ng-model="newPro.name"  placeholder="name">
+        <label for="email">Site</label>
+        <input id="text" type="text"  ng-model="newPro.site_address"  placeholder="site">
+
+     <button  class="pure-button pure-button-primary" ng-hide="mode" ng-click="savePro()">Add</button>
+    <button  class="pure-button pure-button-primary" ng-show="mode" ng-click="editPro()">Edit </button>
+</div>
+        
+    </form></div></ion-content></ion-modal-view>
