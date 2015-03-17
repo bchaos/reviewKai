@@ -6,22 +6,10 @@
         <div class ="pure-g-r"> 
          
              <div class="pure-u-23-24 pure-u-md-6-24  dashboard-image l-box" ng-repeat="game in recentGames | limitTo: 9"> 
-                <div class="pure-u-1">
-                    {{game.name}}
-                 </div> 
-                 <div class="pure-u-1-3 "> 
-                    <img class="full-image " src="{{game.game_picture}}"> 
-                 </div>
-                 <div class="pure-u-5-8 ">
-                 
-                <div class=" pure-u-3-4">    Pro's recomendation:<br/><span ng-show="game.guruscore" ng-style="colorForScore(game.guruscore)"> {{convertRating(game.rating)}} <span> <span ng-hide="game.guruscore">TBD  </span> </div><div class=" pure-u-1-6"> <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button></div>
-                <p/>
-                <div class=" pure-u-3-4">  Peer's recomendation:<br/><span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.rating)}}  </span><span ng-hide="game.peerscore ">TBD </span> </div><div class=" pure-u-1-6"> <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button></div>
-                <p/>
-            
-                 </div>
+                  <card ></card>
             </div>
         </div>
+        </p>
  </div>
 </div>
 <div class="splash-container"  ng-hide ="recentGames">

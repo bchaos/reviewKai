@@ -51,6 +51,20 @@
     });
   });
 
+  app.directive('card', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/card.html'
+    };
+  });
+
+  app.directive('librarycard', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/librarycard.html'
+    };
+  });
+
   app.config(function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     return delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -212,16 +226,44 @@
         }
       })();
     };
+    $scope.convertAverageLibraryClass = function(score1, score2, rating, islibrary) {
+      if (islibrary) {
+        return $scope.convertAverageClass(score1, score2);
+      } else {
+        return $scope.convertAverageClass(rating, rating);
+      }
+    };
+    $scope.convertAverageClass = function(score1, score2) {
+      var saying, scoreToCheck;
+      scoreToCheck = 0;
+      if (score1 && score2) {
+        scoreToCheck = (score1 * 1.25 + score2 * .75) / 2;
+      } else if (score1) {
+        scoreToCheck = score1;
+      } else {
+        scoreToCheck = score2;
+      }
+      return saying = (function() {
+        switch (false) {
+          case !(scoreToCheck < 2.5):
+            return 'negative';
+          case !(scoreToCheck < 4):
+            return 'ok';
+          default:
+            return 'postive';
+        }
+      })();
+    };
     $scope.convertRating = function(score) {
       var saying;
       return saying = (function() {
         switch (false) {
           case !(score < 1.5):
-            return 'You should avoid this game at all costs!';
+            return 'You should avoid this game!';
           case !(score < 2.5):
-            return 'Do not waste your time on this one.';
+            return 'Do not waste your time.';
           case !(score < 3.5):
-            return 'There are games you will like more.';
+            return 'This game is below average.';
           case !(score < 4):
             return 'You will find this game to be ok.';
           case !(score < 4.5):
@@ -231,21 +273,29 @@
         }
       })();
     };
+    $scope.getGameStyle = function(gameUrl) {
+      return {
+        'background': 'url("' + gameUrl + '")',
+        'background-size': '100% 150%',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center'
+      };
+    };
     $scope.colorForScore = function(score) {
       if (score >= 3.5) {
         return {
           'color': 'green',
-          'font-size': '20px'
+          'font-size': '12px'
         };
       } else if (score > 2.5) {
         return {
           'color': '#E6C805',
-          'font-size': '18px'
+          'font-size': '12px'
         };
       }
       return {
         'color': 'red',
-        'font-size': '16px'
+        'font-size': '12px'
       };
     };
     $ionicModal.fromTemplateUrl('views/detailsGuruModal.html', {

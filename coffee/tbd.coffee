@@ -53,6 +53,13 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
                 templateUrl: 'views/home.html'
                 controller: 'homeController'
             }
+app.directive 'card', ->  
+    restrict: 'E',
+    templateUrl: 'views/card.html',
+app.directive 'librarycard', ->  
+    restrict: 'E',
+    templateUrl: 'views/librarycard.html',
+    
 app.config ($httpProvider) -> 
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -152,21 +159,40 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     when score is 3 then 'A fairly average game'
                     when score is 4 then 'Good game with some minor flaws'
                     else 'A nearly flawless gameplay experience'
+            $scope.convertAverageLibraryClass=(score1,score2,rating,islibrary)->   
+                if islibrary
+                    return  $scope.convertAverageClass score1,score2
+                else
+                    return  $scope.convertAverageClass rating,rating
+            $scope.convertAverageClass =(score1, score2)->
+                scoreToCheck= 0
+                if score1 and score2 
+                    scoreToCheck = (score1*1.25+score2*.75)/2
+                else if score1 
+                    scoreToCheck= score1
+                else
+                    scoreToCheck= score2
+                saying = switch
+                    when scoreToCheck < 2.5 then 'negative'
+                    when scoreToCheck < 4 then 'ok'
+                    else 'postive'
             $scope.convertRating= (score)-> 
                 saying = switch
-                    when score < 1.5 then 'You should avoid this game at all costs!'
-                    when score < 2.5 then 'Do not waste your time on this one.'
-                    when score < 3.5 then 'There are games you will like more.'
+                    when score < 1.5 then 'You should avoid this game!'
+                    when score < 2.5 then 'Do not waste your time.'
+                    when score < 3.5 then 'This game is below average.'
                     when score < 4 then 'You will find this game to be ok.'
                     when score < 4.5 then 'You should play this one!'
                     else 'You will love this game!'
-                        
+            $scope.getGameStyle= (gameUrl)->  
+                 return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 150%', 'background-repeat':'no-repeat', 'background-position':'center'}
+             
             $scope.colorForScore = (score)->
             	if score >= 3.5
-            		return {'color': 'green', 'font-size':'20px'}
+            		return {'color': 'green', 'font-size':'12px'}
             	else if score >2.5
-            		return {'color': '#E6C805', 'font-size':'18px'}
-            	{'color': 'red', 'font-size':'16px'}
+            		return {'color': '#E6C805', 'font-size':'12px'}
+            	{'color': 'red', 'font-size':'12px'}
             
             $ionicModal.fromTemplateUrl('views/detailsGuruModal.html' ,  {
                 scope: $scope,
