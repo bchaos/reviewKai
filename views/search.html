@@ -12,25 +12,19 @@
             </div>
             </form>
     </div>
-</div>
+
 
 <div class="list">
-      <div class="item item-divider">
-    Results
-  </div>
-    <div class="item item-text-wrap" ng-repeat="game in searchResults | filter:searchText | orderBy:sort" style="white-space:normal; overflow:normal; text-overflow:normal;"> 
-    <div class="pure-g">
-         <div class="pure-u-1-4"  >
-            <searchcard></searchcard>
-         </div>
-         <div class="card pure-u-5-8">
-             <div class="gameDes "ng-bind-html="game.description"></div>
-        </div>
-       
-        </div>
+
+    
+    <div ng-repeat="game in searchResults | filter:searchText | orderBy:sort" style="white-space:normal; overflow:normal; text-overflow:normal;"> 
+        <searchcard></searchcard>
     </div>
 </div>
 
-<div class="bar bar-subheader" ng-show =" isLoading">
-   Loading ....
+
+</div>
+
+<div class="pure-g-r addedMargin" ng-show =" isLoading">
+   <h3> Loading ....</h3>
 </div>

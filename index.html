@@ -25,45 +25,58 @@
     <body ng-app="reviewApp" ng-controller="reviewController"> 
       
 <div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" >Review Kai</a>
-        <ul  ng-hide="accessList"> 
-            <li  class="pure-menu-item ">      <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button> </li>
- <li  class="pure-menu-item ">   
-<button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button> 
-            </li>
-        </ul>
+    <div class="home-menu pure-menu pure-u-1 pure-menu-fixed pure-g-r">
+        <div class="pure-u-1" ng-show="accessList">
+            <div class="pure-u-1-2 pure-u-lg-5-6"> <a class="pure-menu-heading" >Review Kai</a></div>
+            
+            <div class="pure-u-1-4 pure-u-lg-1-8"> <button class="pure-button pure-button-logout " ng-click="logout()">logout</button>  </div>
+            
+           
+        </div>
+          <div class="pure-u-1" ng-show="accessList">
+                    
        
-        
-        <ul class="pure-menu-list" ng-show="accessList" >
-            <li class="pure-menu-item " ng-repeat="access in accessList"  ng-class="isActive(access.link)"><a href="#/{{access.link}}" class="pure-menu-link">  {{access.name}}</a></li>
+            <div class="pure-u-1-6 " ng-repeat="access in accessList"  ng-class="isActive(access.link)"><a href="#/{{access.link}}" class="pure-menu-link">  {{access.name}}</a></div>
             
        
             
-            <li  class="pure-menu-item ">   <label class="item item-input" >
+            <div  class="pure-u-1-5"> <label class="item item-input" >
                 <a ng-href="#/search?game={{search}}"> <i class="icon ion-search placeholder-icon" ></i> </a>
-            <input type="text" ng-model="search" placeholder="Search for a game">
-        </label> </li>
+            <input type="text" ng-model="search" placeholder="Search" style="padding-left:20px">
+        </label> </div>
+        </div>
+        <div class="pure-u-1" ng-hide="accessList"> 
+            <div class="pure-u-md-1-2 pure-u-lg-5-6"> <a class="pure-menu-heading" >Review Kai</a></div>
             
+            <div class="pure-u-md-1-4 pure-u-lg-1-8" >  
+                <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
+                <button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button>   
+            </div>
+               
+       
+  
 
-             <li  class="pure-menu-item loginpadding" > <button class="pure-button pure-button-logout " ng-click="logout()">logout</button> </li>
-        </ul>
           
              </div>
 </div>
 
             
-
+ </div>
        
    
                 <ng-view class="slide-left-right"></ng-view>
+
         
-    <div class="footer l-box is-center">
+       
+    <div class="footer l-box ">
+     
+          <div class="pure-u-1 is-center"> 
         Copyright ReviewGuru &copy; 2015-
         <a href="#/faqs">FAQs</a>-
         <a href="#/contact">Contact</a>- 
         <a href="#/blog"> Blog</a>
- Game search powered by  <a href="giangbomb.com"> Giant bomb</a>
+ Game search powered by  <a href="giantbomb.com"> Giant bomb</a>
+              </div>
 </div>
     </body>
 </html>

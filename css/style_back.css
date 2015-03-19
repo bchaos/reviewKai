@@ -406,11 +406,16 @@ width:100%;
     vertical-align:top;
  }
 
-.genreheader{
+.genreheader{x
     width:25%;
     margin-left:auto;
     margin-right: auto;
   
     color: white;
+    
+}
+
+.pure-menu-selected{
+  background-color: gray;   
     
 }

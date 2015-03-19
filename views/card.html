@@ -7,7 +7,8 @@
 	</div>
 	<div class="back" ng-class="convertAverageClass(game.guruscore,game.peerscore)" >
         <div class="game_header">
-          <div class="game_name">{{game.game_name}}</div>  
+            <div class="pure-u-19-24 game_name">{{game.game_name}}</div>  
+            <div class="pure-u-1-8" ng-click='showGameDescription(game.giantBomb_id,game.game_name,game.game_picture )'><a class="button  button-icon icon ion-ios-information-outline infobutton"></a></div>  
         </div>
         <div class="game_image" ng-style="getGameStyle(game.game_picture)"> 
            

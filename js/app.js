@@ -51,13 +51,6 @@
     });
   };
 
-  app.directive('card-flipable', function() {
-    return {
-      restrict: 'E',
-      templateUrl: 'card.html'
-    };
-  });
-
   calculateNewPros = function(userId) {
     var sql;
     sql = 'call calculateNewPros(' + userId + ')';
@@ -107,8 +100,8 @@
 
   getOrCreateGame = function(data, callback) {
     var sql;
-    sql = 'Select count(*) as gamecount, id from games where giantBomb_id = ?';
-    return connection.query(sql, [data.giantBomb_id], function(err, result) {
+    sql = 'Select count(*) as gamecount, id from games where giantBomb_id = ' + data.giantBomb_id;
+    return connection.query(sql, function(err, result) {
       var firstresult;
       firstresult = result[0];
       console.log(data);
@@ -155,7 +148,7 @@
   getRecentReleases = function(userid, client) {
     var sql;
     sql = 'Select * from ';
-    sql += '(select  g.game_name , g.game_picture, g.id from  games g order by releasedate desc) t1  ';
+    sql += '(select  g.game_name , g.game_picture, g.id, g.giantBomb_id from  games g order by releasedate desc) t1  ';
     sql += ' join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
     sql += 'on t1.id = t2.game_id left  join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id ) t3 ';
     sql += 'on t3.game_id = t1.id left join (Select ((avg(pro.rating)*1.275 + avg(world.rating)*.725)/2)  as worldscore, world.game_id from library world, ProReviewerLibrary pro  where world.game_id = pro.game_id group by world.game_id ) t4 ';
@@ -168,7 +161,7 @@
   getGurusGameForUser = function(userid, client) {
     var sql;
     sql = 'Select * from ';
-    sql += '(select  g.game_name , g.game_picture, g.id from  games g order by releasedate desc) t1 ';
+    sql += '(select  g.game_name , g.game_picture, g.id, g.giantBomb_id  from  games g order by releasedate desc) t1 ';
     sql += ' join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
     sql += 'on t1.id = t2.game_id  left join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id ) t3 ';
     sql += 'on t3.game_id = t1.id left join (Select ((avg(pro.rating)*1.275 + avg(world.rating)*.725)/2)  as worldscore, world.game_id from library world, ProReviewerLibrary pro  where world.game_id = pro.game_id group by world.game_id ) t4 ';
@@ -181,7 +174,7 @@
   getPeersGameForUser = function(userid, client) {
     var sql;
     sql = 'Select * from ';
-    sql += '(select  g.game_name , g.game_picture, g.id from  games g) t1 ';
+    sql += '(select  g.game_name , g.game_picture, g.id, g.giantBomb_id  from  games g) t1 ';
     sql += 'join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
     sql += 'on t1.id = t2.game_id left join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id ) t3 ';
     sql += 'on t3.game_id = t1.id left join (Select ((avg(pro.rating)*1.275 +  avg(world.rating)*.725)/2)  as worldscore, world.game_id from library world, ProReviewerLibrary pro  where world.game_id = pro.game_id group by world.game_id ) t4 ';
@@ -195,7 +188,7 @@
     var sql;
     console.log(userid);
     sql = 'Select * from ';
-    sql += '(select l.rating,l.added, g.id, l.description , g.game_name , g.game_picture from library l, games g where l.game_id = g.id and l.user_id =' + userid + ' ) t1 ';
+    sql += '(select l.rating,l.added, g.id, l.description, g.giantBomb_id  , g.game_name , g.game_picture from library l, games g where l.game_id = g.id and l.user_id =' + userid + ' ) t1 ';
     sql += 'left join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
     sql += 'on t1.id = t2.game_id left join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id ) t3 ';
     sql += 'on t3.game_id = t1.id left join (Select ((avg(pro.rating)*1.275 +  avg(world.rating)*.725)/2)  as worldscore, world.game_id from library world, ProReviewerLibrary pro  where world.game_id = pro.game_id group by world.game_id ) t4 ';
@@ -208,7 +201,7 @@
   addGameScore = function(userid, gameid, callback) {
     var sql;
     sql = 'Select * from ';
-    sql += '(select g.id from  games g where g.giantBomb_id  = ' + gameid + ') t1 ';
+    sql += '(select g.id, g.giantBomb_id  from  games g where g.giantBomb_id  = ' + gameid + ') t1 ';
     sql += 'left join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
     sql += 'on t1.id = t2.game_id left join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id ) t3 ';
     sql += 'on t3.game_id = t1.id left join (Select ((avg(pro.rating)*1.275 +  avg(world.rating)*.725)/2)  as worldscore, world.game_id from library world, ProReviewerLibrary pro  where world.game_id = pro.game_id group by world.game_id ) t4 ';
@@ -287,7 +280,7 @@
       accessList = [
         {
           name: 'Dashboard',
-          link: 'dash'
+          link: 'dashboard'
         }, {
           name: 'Library',
           link: 'library'
@@ -499,6 +492,7 @@
           sql = 'Select count(*) as gamecount from ProReviewerLibrary where game_id = ' + gameid + ' and user_id=' + newuserid;
           return connection.query(sql, [data.giantBomb_id], function(err, result) {
             var firstresult;
+            client.emit('finishedInsert');
             firstresult = result[0];
             if (firstresult.gamecount === 0) {
               sql = 'Insert into ProReviewerLibrary  Set ?';

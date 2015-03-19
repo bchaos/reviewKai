@@ -114,14 +114,16 @@
         function InfoRequest() {}
 
         InfoRequest.prototype.searchForAGame = function(game, callback) {
-          var GamesSearchUrl, request;
-          request = {
-            api_key: '059d37ad5ca7f47e566180366eab2190e8c6da30',
-            query: game,
-            format: "jsonp",
-            field_list: "name, image, site_detail_url"
-          };
-          GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query=' + game + '&field_list=name,image,id,description,original_release_date,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
+          var GamesSearchUrl;
+          GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query=' + game + '&field_list=name,image,id,deck,original_release_date,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
+          return $http.jsonp(GamesSearchUrl).success(function(data) {
+            return callback(data);
+          });
+        };
+
+        InfoRequest.prototype.getDeckForGame = function(gameid, callback) {
+          var GamesSearchUrl;
+          GamesSearchUrl = 'http://www.giantbomb.com/api/game/' + gameid + '/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&field_list=platforms,deck,genres,videos,original_release_date&format=jsonp&json_callback=JSON_CALLBACK';
           return $http.jsonp(GamesSearchUrl).success(function(data) {
             return callback(data);
           });
@@ -175,7 +177,7 @@
     });
   };
 
-  createGameDetailViewer = function($ionicModal, $scope, socket) {
+  createGameDetailViewer = function($ionicModal, $scope, socket, InfoRequestService) {
     var pageCount;
     if ($scope.myLibrary) {
       $scope.itemsPerPage = 8;
@@ -234,30 +236,36 @@
       })();
     };
     $scope.convertAverageLibraryClass = function(score1, score2, rating, islibrary) {
-      if (islibrary) {
+      if (!islibrary) {
         return $scope.convertAverageClass(score1, score2);
       } else {
         return $scope.convertAverageClass(rating, rating);
       }
     };
     $scope.convertAverageClass = function(score1, score2) {
-      var saying, scoreToCheck;
-      scoreToCheck = 0;
+      var saying, score;
+      score = 0;
       if (score1 && score2) {
-        scoreToCheck = (score1 * 1.25 + score2 * .75) / 2;
+        score = (score1 * 1.25 + score2 * .75) / 2;
       } else if (score1) {
-        scoreToCheck = score1;
+        score = score1;
       } else if (score2) {
-        scoreToCheck = score2;
+        score = score2;
       } else {
         return 'unknown';
       }
       return saying = (function() {
         switch (false) {
-          case !(scoreToCheck < 2.5):
+          case !(score < 1.5):
             return 'negative';
-          case !(scoreToCheck < 4):
+          case !(score < 2.5):
+            return 'negative';
+          case !(score < 3.5):
             return 'ok';
+          case !(score < 4):
+            return 'ok';
+          case !(score < 4.5):
+            return 'postive';
           default:
             return 'postive';
         }
@@ -291,21 +299,59 @@
       };
     };
     $scope.colorForScore = function(score) {
-      if (score >= 3.5) {
-        return {
-          'color': 'green',
-          'font-size': '12px'
-        };
-      } else if (score > 2.5) {
-        return {
-          'color': '#E6C805',
-          'font-size': '12px'
-        };
-      }
-      return {
-        'color': 'red',
-        'font-size': '12px'
-      };
+      var saying;
+      return saying = (function() {
+        switch (false) {
+          case !(score < 1.5):
+            return {
+              'color': 'red',
+              'font-size': '12px'
+            };
+          case !(score < 2.5):
+            return {
+              'color': 'red',
+              'font-size': '12px'
+            };
+          case !(score < 3.5):
+            return {
+              'color': '#E6C805',
+              'font-size': '12px'
+            };
+          case !(score < 4):
+            return {
+              'color': '#E6C805',
+              'font-size': '12px'
+            };
+          case !(score < 4.5):
+            return {
+              'color': 'green',
+              'font-size': '12px'
+            };
+          default:
+            return {
+              'color': 'green',
+              'font-size': '12px'
+            };
+        }
+      })();
+    };
+    $ionicModal.fromTemplateUrl('views/gameDetailsModal.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      return $scope.gameDetailsModal = modal;
+    });
+    $scope.showGameDescription = function(id, gameToShownName, image) {
+      $scope.gameDetailsModal.show();
+      $scope.gamedetails = {};
+      return InfoRequestService.getDeckForGame(id, function(data) {
+        $scope.gamedetails = data.results;
+        $scope.gamedetails.name = gameToShownName;
+        return $scope.gamedetails.image = image;
+      });
+    };
+    $scope.closeGameDes = function() {
+      return $scope.gameDetailsModal.hide();
     };
     $ionicModal.fromTemplateUrl('views/detailsGuruModal.html', {
       scope: $scope,
@@ -487,7 +533,7 @@
       $scope.scoreName = 'peerscore';
       $scope.loggedin = true;
       socket.on('userLoggedin', function(data) {});
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
       searchObject = $location.search();
       InfoRequestService.searchForAGame(searchObject.game, function(data) {
         $scope.gamesfound = [];
@@ -522,7 +568,7 @@
       this.socket.on('recentReleases', function(data) {
         return $scope.recentGames = data;
       });
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
     }
 
     return dashboardController;
@@ -542,7 +588,7 @@
       this.socket.on('peerLibraryFound', function(data) {
         return $scope.games = data;
       });
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
     }
 
     return peerController;
@@ -562,7 +608,7 @@
       this.socket.on('guruLibraryFound', function(data) {
         return $scope.games = data;
       });
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
     }
 
     return guruController;
@@ -651,7 +697,7 @@
         socket.emit('updateGame', $scope.edit);
         return $scope.editModal.hide();
       };
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
     }
 
     return libraryController;
@@ -753,9 +799,13 @@
         $scope.newgame.userInfo = {};
         $scope.newgame.userInfo.user_id = searchObject.reviewerid;
         $scope.newgame.giantBombinfo = {};
+        if (game.image) {
+          gameData[index].giantBombinfo.game_picture = game.image.medium_url;
+        } else {
+          gameData[index].giantBombinfo.game_picture = '';
+        }
         $scope.newgame.giantBombinfo.giantBomb_id = game.id;
         $scope.newgame.giantBombinfo.game_name = game.name;
-        $scope.newgame.giantBombinfo.game_picture = game.image.medium_url;
         $scope.newgame.giantBombinfo.description = game.deck;
         $scope.newgame.giantBombinfo.releasedate = game.original_release_date;
         return $scope.gameSelected = true;

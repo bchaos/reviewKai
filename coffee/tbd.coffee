@@ -90,12 +90,14 @@ app.factory 'InfoRequestService', ['$http', ($http) ->
    class InfoRequest
      
         searchForAGame: (game, callback)->
-            request= {api_key:'059d37ad5ca7f47e566180366eab2190e8c6da30', query:game, format:"jsonp", field_list : "name, image, site_detail_url"}
-            GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query='+game+'&field_list=name,image,id,description,original_release_date,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
+            GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query='+game+'&field_list=name,image,id,deck,original_release_date,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
             $http.jsonp(GamesSearchUrl).success (data)->
                 callback data
 
-        
+        getDeckForGame:(gameid, callback)->
+            GamesSearchUrl = 'http://www.giantbomb.com/api/game/'+gameid+'/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&field_list=platforms,deck,genres,videos,original_release_date&format=jsonp&json_callback=JSON_CALLBACK';
+            $http.jsonp(GamesSearchUrl).success (data)->
+                callback data
             
     new InfoRequest()
 ]
@@ -129,7 +131,7 @@ isloggedin = (socket , location )->
     socket.on 'failedToLogin', (data)->
         window.location='#/home'
         
-createGameDetailViewer= ( $ionicModal, $scope, socket) ->
+createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
             if $scope.myLibrary
                 $scope.itemsPerPage = 8;
             else 
@@ -163,23 +165,26 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     when score is 4 then 'Good game with some minor flaws'
                     else 'A nearly flawless gameplay experience'
             $scope.convertAverageLibraryClass=(score1,score2,rating,islibrary)->   
-                if islibrary
+                if not islibrary
                     return  $scope.convertAverageClass score1,score2
                 else
                     return  $scope.convertAverageClass rating,rating
             $scope.convertAverageClass =(score1, score2)->
-                scoreToCheck= 0
+                score= 0
                 if score1 and score2 
-                    scoreToCheck = (score1*1.25+score2*.75)/2
+                    score = (score1*1.25+score2*.75)/2
                 else if score1 
-                    scoreToCheck= score1
+                    score= score1
                 else if score2
-                    scoreToCheck= score2
+                    score= score2
                 else 
                     return 'unknown'
                 saying = switch
-                    when scoreToCheck < 2.5 then 'negative'
-                    when scoreToCheck < 4 then 'ok'
+                    when score < 1.5 then 'negative'
+                    when score < 2.5 then 'negative'
+                    when score < 3.5 then 'ok'
+                    when score < 4 then 'ok'
+                    when score < 4.5 then  'postive'
                     else 'postive'
             $scope.convertRating= (score)-> 
                 saying = switch
@@ -193,12 +198,30 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                  return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 150%', 'background-repeat':'no-repeat', 'background-position':'center'}
              
             $scope.colorForScore = (score)->
-            	if score >= 3.5
-            		return {'color': 'green', 'font-size':'12px'}
-            	else if score >2.5
-            		return {'color': '#E6C805', 'font-size':'12px'}
-            	{'color': 'red', 'font-size':'12px'}
-            
+                saying = switch
+                    when score < 1.5 then {'color': 'red', 'font-size':'12px'}
+                    when score < 2.5 then {'color': 'red', 'font-size':'12px'}
+                    when score < 3.5 then {'color': '#E6C805', 'font-size':'12px'}
+                    when score < 4 then {'color': '#E6C805', 'font-size':'12px'}
+                    when score < 4.5 then  {'color': 'green', 'font-size':'12px'}
+                    else {'color': 'green', 'font-size':'12px'}
+            	
+            $ionicModal.fromTemplateUrl('views/gameDetailsModal.html' ,  {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then (modal) -> 
+                $scope.gameDetailsModal = modal
+                
+            $scope.showGameDescription = (id, gameToShownName, image)->
+                $scope.gameDetailsModal.show()
+                $scope.gamedetails={}
+                InfoRequestService.getDeckForGame id , (data)-> 
+                    $scope.gamedetails= data.results
+                    $scope.gamedetails.name = gameToShownName
+                    $scope.gamedetails.image= image
+            $scope.closeGameDes = ->
+                $scope.gameDetailsModal.hide()
+                
             $ionicModal.fromTemplateUrl('views/detailsGuruModal.html' ,  {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -329,7 +352,7 @@ app.controller 'searchController',
             $scope.scoreName='peerscore'
             $scope.loggedin=true
             socket.on 'userLoggedin',(data) ->
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
             searchObject = $location.search();
             InfoRequestService.searchForAGame searchObject.game, (data)->
                 $scope.gamesfound=[]
@@ -351,7 +374,7 @@ app.controller 'dashboardController',
             socket.emit 'GetRecentGames'
             @socket.on 'recentReleases', (data)->
                 $scope.recentGames = data
-            createGameDetailViewer $ionicModal, $scope, socket                    
+            createGameDetailViewer $ionicModal, $scope, socket ,InfoRequestService                   
 
 app.controller 'peerController',
 	class peerController
@@ -364,7 +387,7 @@ app.controller 'peerController',
             socket.emit 'GetPeerLibrary'
             @socket.on 'peerLibraryFound', (data)->
                 $scope.games = data
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
             
 app.controller 'guruController',
 	class guruController
@@ -378,7 +401,7 @@ app.controller 'guruController',
             
             @socket.on 'guruLibraryFound', (data)->
                 $scope.games = data
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
             
 app.controller 'libraryController',
     class libraryController
@@ -455,7 +478,7 @@ app.controller 'libraryController',
             $scope.updateGame = ->
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket ,InfoRequestService
 ####Everything under here will be removed from the live version ###            
 app.controller 'proController',
     class proController
@@ -536,9 +559,12 @@ app.controller 'proLibraryController',
                 $scope.newgame.userInfo={}
                 $scope.newgame.userInfo.user_id= searchObject.reviewerid
                 $scope.newgame.giantBombinfo={}
+                if game.image
+                        gameData[index].giantBombinfo.game_picture= game.image.medium_url
+                else 
+                        gameData[index].giantBombinfo.game_picture=''
                 $scope.newgame.giantBombinfo.giantBomb_id= game.id
                 $scope.newgame.giantBombinfo.game_name= game.name
-                $scope.newgame.giantBombinfo.game_picture= game.image.medium_url
                 $scope.newgame.giantBombinfo.description= game.deck
                 $scope.newgame.giantBombinfo.releasedate= game.original_release_date 
                 $scope.gameSelected=true
@@ -568,9 +594,9 @@ app.controller 'dataparserController',
                         gameData[index].giantBombinfo.giantBomb_id= game.id
                         gameData[index].giantBombinfo.game_name= game.name
                         if game.image
-                            gameData[index].giantBombinfo.game_picture= game.image.medium_url
+                                gameData[index].giantBombinfo.game_picture= game.image.medium_url
                         else 
-                             gameData[index].giantBombinfo.game_picture=''
+                                gameData[index].giantBombinfo.game_picture=''
                         gameData[index].giantBombinfo.description= game.deck
                         gameData[index].giantBombinfo.releasedate= game.original_release_date
                         socket.emit 'AddGameandReviewerToLibrary', gameData[index]

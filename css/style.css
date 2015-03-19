@@ -338,7 +338,9 @@ h5.Bcategories{
 .addedMargin{
  margin-top: 100px;
 margin-left: 25px;   
-    margin-bottom: 25px;
+     padding-left: 80px;
+      padding-right: 80px;
+      padding-bottom: 80px;
 }
 .docmumentModal {
     top: 10%;
@@ -709,7 +711,7 @@ body{
     menu items to the right. */
     .home-menu {
         text-align: left;
-        max-height: 85px;
+        max-height: 110px;
     }
         .home-menu ul {
             float: right;
@@ -837,8 +839,8 @@ game card maker
 
 .panel {
 		float: left;
-		width: 250px;
-		height: 300px;
+		width: 275px;
+		height: 350px;
 		margin: 10px;
 		position: relative;
 		font-size: .8em;
@@ -1113,7 +1115,7 @@ overflow: scroll;
         background-repeat: no-repeat;
         background-position: center;
  
-        height: 40%;
+        height: 42%;
     }
 .KaiadderText{
       margin-right: 20%;
@@ -1151,7 +1153,7 @@ margin-top: 10%;
 }
     .game_recomendation{
         margin-top:10px;
-     height:42%;   
+     height:38%;   
     }
     .game_name{
         margin-left:8px;   
@@ -1161,3 +1163,12 @@ margin-top: 10%;
         margin-right:8px; 
         margin-top:20px;
     }
+
+.pure-menu-selected{
+  background-color: gray;   
+    
+}
+
+.item-input{
+ padding:1px 0px 1px 12px;   
+}

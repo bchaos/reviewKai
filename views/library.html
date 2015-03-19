@@ -13,7 +13,7 @@
             </form>
     </div>
      <span ng-show="myLibrary">
-    <div class="ure-u-23-24 p pure-u-md-10-24 pure-u-lg-7-24"  >
+    <div class=""  >
         <div class="click panel circle ">
 	<div class="front" >
 		      <div class="circleLogo"  ng-click ="addNewGame()"> 
@@ -33,7 +33,7 @@
     
     </span>
    
-    <div class="pure-u-23-24   pure-u-md-10-24 pure-u-lg-7-24"   ng-repeat="game in games | filter:searchText | orderBy:sort ">
+    <div   ng-repeat="game in games | filter:searchText | orderBy:sort ">
         <librarycard></librarycard>
 
     </div>

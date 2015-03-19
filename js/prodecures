@@ -76,3 +76,17 @@ set userIndex=userIndex+1;
 end while;
 DEALLOCATE PREPARE stmt1;
 END $$
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE  `fixextraGames` ( IN  startingpoint INT, IN  endingpoint INT   ) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN
+DECLARE gamestart INT DEFAULT 0;
+set gamestart  = startingpoint+1;
+update `ProReviewerLibrary` set game_id = startingpoint where game_id  between gamestart and endingpoint;
+
+delete from  games where id  between gamestart and endingpoint;
+
+END $$
