@@ -1,11 +1,22 @@
 <div class="pure-g-r addedMargin">
     <div class="pure-u-1">
-        <form class="pure-form gamefilter">
-    <input  class="pure-input-2-3" ng-model="searchText" placeholder="Filter games">   
+        <form class="pure-form">
+       <div class="pure-u-17-24">
+        <span > 
+                 <button class="button button-stable " ng-click="setPage(currentPage-1)"><<</button>
+        </span>
+        <span ng-repeat="page in pages">
+            <button ng-show="page.elispe" class="button button-stable"  > ... </button>
+            <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">{{page.number+1}}</button>
+        </span>
+        <span > 
+               <button class="button button-stable"  ng-click="setPage(currentPage+1)">>></button>
+        </span>
+    </div>
     <div class="pure-u-1-8">
-                <select id="sort" ng-model="sort">
-                    <option value="-releasedate">Release Date </option>
-                    <option value="-added">Recently Reviewed </option>
+      
+                <select id="sort" ng-model="sort" ng-init="sort='-releasedate'">
+                    <option value="-releasedate" selected>Release Date </option>
                     <option value ="+game_name">Name </option>
                     <option value = "-{{scoreName}}">Recomendation </option>
                 </select>
@@ -30,10 +41,9 @@
  
       </div>
         
-    
     </span>
    
-    <div   ng-repeat="game in games | filter:searchText | orderBy:sort ">
+    <div  ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
         <librarycard></librarycard>
 
     </div>

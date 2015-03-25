@@ -90,3 +90,57 @@ update `ProReviewerLibrary` set game_id = startingpoint where game_id  between g
 delete from  games where id  between gamestart and endingpoint;
 
 END $$
+
+
+DELIMITER $$
+CREATE PROCEDURE  `updateFakeUsers` (  IN  startingpoint INT, IN  endingpoint INT  ) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN
+
+DECLARE currentGame INT DEFAULT 0;
+DECLARE gameID INT DEFAULT 0;
+DECLARE gameRating INT DEFAULT 0;
+DECLARE newUserIndex INT DEFAULT 0;
+set currentGame = startingpoint;
+
+while currentGame < endingpoint+1 Do
+set @currentGame= currentGame;
+
+select u.fakeuserid, r.rating, r.game_id into @newUserIndex, @gameRating,@gameID  from ProReviewers u , ProReviewerLibrary r where r.user_id = u.id and r.id  = @currentGame; 
+
+Insert into library  (user_id, game_id,rating) values ( @newUserIndex,@gameID ,@gameRating );
+set currentGame = currentGame+1;
+end while;
+
+
+
+END $$
+
+DELIMITER $$
+
+CREATE PROCEDURE  `convertProLibraryToFakeUser` ( IN  userID INT , IN name nvarchar(256) ) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN
+
+DECLARE LibraryCount INT DEFAULT 0;
+DECLARE gameIndex INT DEFAULT 0;
+DECLARE newUser INT DEFAULT 0;
+DECLARE gameID INT DEFAULT 0;
+DECLARE gameRating INT DEFAULT 0;
+DECLARE newUserIndex INT DEFAULT 0;
+Insert into user (username, password, name) values ( name , 'd1um2m2my2pa2s2s2ord', name);
+set newUserIndex = LAST_INSERT_ID();
+Select count(*) into LibraryCount from ProReviewerLibrary where user_id = userID;
+
+PREPARE stmt1 FROM 'select game_id, rating into @gameID, @gameRating
+					from ProReviewerLibrary where user_id = ? 
+					limit ?, 1';
+
+while gameIndex < LibraryCount Do
+set @gameIndex = gameIndex;
+set @userid = userID;
+set @newUserIndex = newUserIndex;
+EXECUTE stmt1 USING @userid, @gameIndex;
+Update ProReviewers set fakeuserid = @newUserIndex where id =  @userid;
+Insert into library  (user_id, game_id,rating) values ( @newUserIndex,@gameID ,@gameRating );
+set gameIndex=gameIndex+1;
+
+end while;
+DEALLOCATE PREPARE stmt1;
+END $$

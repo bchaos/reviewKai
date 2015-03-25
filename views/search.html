@@ -1,23 +1,33 @@
 <div class="pure-g-r addedMargin" ng-hide =" isLoading">
     <div class="pure-u-1">
         <form class="pure-form">
-    <input  class="pure-input-2-3" ng-model="searchText" placeholder="Filter games">   
+        <div class="pure-u-17-24">
+        <span > 
+                 <button class="button button-stable " ng-click="setPage(currentPage-1)"><<</button>
+        </span>
+        <span ng-repeat="page in pages">
+            <button ng-show="page.elispe" class="button button-stable" > ... </button>
+            <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">{{page.number+1}}</button>
+        </span>
+        <span > 
+               <button class="button button-stable"  ng-click="setPage(currentPage+1)">>></button>
+        </span>
+    </div>
     <div class="pure-u-1-8">
-                <select id="sort" ng-model="sort">
-                    <option value="-added">Most Recent </option>
+                <select id="sort" ng-model="sort" ng-init ="sort='-original_release_date'">
+                    <option value="-original_release_date" selected>Release Date </option>
                     <option value ="+game_name">Name </option>
-                    <option value = "-guruscore">Guru Score </option>
-                    <option value = "-peerscore">Peer Score </option>
+                    <option value = "-details.avgscore">Recomendation</option>
                 </select>
             </div>
             </form>
     </div>
 
 
-<div class="list">
+<div class="list" ng-init="newOffset=0">
 
     
-    <div ng-repeat="game in searchResults | filter:searchText | orderBy:sort" style="white-space:normal; overflow:normal; text-overflow:normal;"> 
+    <div ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset"> 
         <searchcard></searchcard>
     </div>
 </div>
@@ -26,5 +36,6 @@
 </div>
 
 <div class="pure-g-r addedMargin" ng-show =" isLoading">
-   <h3> Loading ....</h3>
+<searching> </searching>
+
 </div>

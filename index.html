@@ -1,19 +1,38 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194">
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=.8, user-scalable=no">
         <meta name="description" content="Review Gurus">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-animate.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-sanitize.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-resource.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-route.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-animate.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-sanitize.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-resource.js"></script>
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <script type="text/javascript" src="js/ionic.js"></script>
         <script type="text/javascript" src="js/angular-ui-router.js"></script>
          <script type="text/javascript" src="js/ionic-angular.js"></script>
         <script type="text/javascript" src="js/tbd.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+         <script src="js/underscore-min.js"></script>
        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
             <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"> 
@@ -23,41 +42,61 @@
     </head>
     
     <body ng-app="reviewApp" ng-controller="reviewController"> 
-      
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5512e9d71de14985" async="async"></script>
+
+       
 <div class="header">
-    <div class="home-menu pure-menu pure-u-1 pure-menu-fixed pure-g-r">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed pure-g-r">
         <div class="pure-u-1" ng-show="accessList">
-            <div class="pure-u-1-2 pure-u-lg-5-6"> <a class="pure-menu-heading" >Review Kai</a></div>
+            <img src="images/reviewImage.png">
+            <span style="float:right;">
+        <ul class="pure-menu-list">
             
-            <div class="pure-u-1-4 pure-u-lg-1-8"> <button class="pure-button pure-button-logout " ng-click="logout()">logout</button>  </div>
-            
-           
-        </div>
-          <div class="pure-u-1" ng-show="accessList">
+             <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item"><a href="#/{{access.link}}" class=" pure-menu-link ">  {{access.name}}</a> 
+               </li>  
+       
+            <li class=" pure-menu-item "> 
+                <label class="item item-input">
+                   <a ng-href="#/search?game={{search}}"> <i class="icon ion-search placeholder-icon" ></i> </a>
+                    <input type="text" ng-model="search" placeholder="Search" style="padding-left:20px">
+                </label>
+             </li>
+                 <li class=" pure-menu-item pure-menu-has-children pure-menu-allow-hover" > 
+                <a class="button icon ion-ios-cog-outline"></a>
+                <ul class="pure-menu-children" style="left:-30px">
+                    <li class="pure-menu-item"><a href="#/blog" class="pure-menu-link">Blog</a></li>
+                     <li class="pure-menu-item"><a href="#/contact" class="pure-menu-link">Contact</a></li>
                     
-       
-            <div class="pure-u-1-6 " ng-repeat="access in accessList"  ng-class="isActive(access.link)"><a href="#/{{access.link}}" class="pure-menu-link">  {{access.name}}</a></div>
-            
-       
-            
-            <div  class="pure-u-1-5"> <label class="item item-input" >
-                <a ng-href="#/search?game={{search}}"> <i class="icon ion-search placeholder-icon" ></i> </a>
-            <input type="text" ng-model="search" placeholder="Search" style="padding-left:20px">
-        </label> </div>
+                     <li class="pure-menu-item"><a ng-click="logout()" class="pure-menu-link">Sign Out</a></li>
+                </ul>
+            </li>
+                </ul>
+            </span>
         </div>
-        <div class="pure-u-1" ng-hide="accessList"> 
-            <div class="pure-u-md-1-2 pure-u-lg-5-6"> <a class="pure-menu-heading" >Review Kai</a></div>
+         
+         <div class="pure-u-1" ng-hide="accessList"> 
+            <img src="images/reviewImage.png">
+         
             
-            <div class="pure-u-md-1-4 pure-u-lg-1-8" >  
+            <span style="float:right;">  
                 <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
                 <button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button>   
-            </div>
+            </span>
                
        
   
 
           
-             </div>
+             </div>           
+       
+           
+            
+       
+            
+    
+        </div>
+        
 </div>
 
             
@@ -68,13 +107,14 @@
 
         
        
-    <div class="footer l-box ">
+    <div class="footer">
      
           <div class="pure-u-1 is-center"> 
         Copyright ReviewGuru &copy; 2015-
         <a href="#/faqs">FAQs</a>-
         <a href="#/contact">Contact</a>- 
-        <a href="#/blog"> Blog</a>
+        <a href="#/blog"> Blog</a> 
+              <p/>
  Game search powered by  <a href="giantbomb.com"> Giant bomb</a>
               </div>
 </div>
