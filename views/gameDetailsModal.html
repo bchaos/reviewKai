@@ -1,0 +1,23 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">{{gamedetails.name}} </h1> 
+        <button class="button button-clear button-assertive" ng-click="closeGameDes()">x</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="pure-g-r " style="margin-top: 10px;"> 
+            <div class="pure-u-11-24">
+                <img ng-src="{{gamedetails.image}}" width="100%">
+            </div>
+            <div class="pure-u-1-2">
+                Description: {{gamedetails.deck}}
+                <p/>
+                Genres: <span ng-repeat="genre in gamedetails.genres"> {{gamedetails.genres.name}} </span><p/>
+                Platforms: <span ng-repeat="platform in gamedetails.platforms"> {{platform.name}}</span> <p/>
+                Release Date : {{gamedetails.original_release_date}}<p/>
+                Trailers : <span ng-repeat="video in gamedetails.videos"> <a ng-href="{{video.site_detail_url}}" targe="_blank"> 
+                <button class="pure-button" style="max-width: 250px;white-space: normal;">{{video.name}} </button> </a> </span>
+
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>
