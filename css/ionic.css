@@ -2179,7 +2179,7 @@ table {
   box-sizing: border-box; }
 
 html {
-  overflow: scroll;
+overflow-y:scroll;
   -ms-touch-action: pan-y;
   touch-action: pan-y; }
 
@@ -2200,7 +2200,7 @@ body, .ionic-body {
   right: 0;
   bottom: 0;
   left: 0;
-  overflow: scroll;
+overflow-y:scroll;
   margin: 0;
   padding: 0;
   color: #000;

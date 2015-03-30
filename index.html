@@ -42,14 +42,19 @@
     </head>
     
     <body ng-app="reviewApp" ng-controller="reviewController"> 
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5512e9d71de14985" async="async"></script>
-
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=241270409248447&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
        
 <div class="header">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed pure-g-r">
         <div class="pure-u-1" ng-show="accessList">
-            <img src="images/reviewImage.png">
+            <a href="/" > <img src="images/reviewImage.png"></a>
             <span style="float:right;">
         <ul class="pure-menu-list">
             
@@ -76,10 +81,11 @@
         </div>
          
          <div class="pure-u-1" ng-hide="accessList"> 
-            <img src="images/reviewImage.png">
+              <a href="/#/" > <img src="images/reviewImage.png"></a>
          
             
             <span style="float:right;">  
+                 <li class="pure-menu-item"><a href="/#/" class="pure-menu-link">About Review Kai</a></li>
                 <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
                 <button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button>   
             </span>
@@ -103,7 +109,7 @@
  </div>
        
    
-                <ng-view class="slide-left-right"></ng-view>
+                <ng-view class="slide-left-right mainContent"></ng-view>
 
         
        

@@ -1,9 +1,17 @@
-<div class="pure-g-r addedMargin">
+<div class="pure-g-r addedMargin" ng-hide =" isLoading">
+    <div class="pure-menu pure-menu-horizontal" ng-show="platforms">
+        <ul class="pure-menu-list  lightblue"> 
+            <li class="pure-menu-item" ng-repeat="platform in platforms">
+                <a href="#/guru?platform={{platform.display_name}}" class="pure-menu-link white-link">{{platform.display_name}}
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="pure-u-1">
         <form class="pure-form">
-       <div class="pure-u-17-24">
-        <span > 
-                 <button class="button button-stable " ng-click="setPage(currentPage-1)"><<</button>
+        <div class="pure-u-17-24">
+        <span> 
+            <button class="button button-stable " ng-click="setPage(currentPage-1)"><<</button>
         </span>
         <span ng-repeat="page in pages">
             <button ng-show="page.elispe" class="button button-stable"  > ... </button>
@@ -47,5 +55,14 @@
         <librarycard></librarycard>
 
     </div>
-    </div>
+
+</div>
+<div class="pure-g-r addedMargin" ng-show ="isLoading && !NoLibraryError">
+    <searching text="Loading"> </searching>
+
+</div>
+
+<div class="pure-g-r addedMargin" ng-show ="NoLibraryError">
+   <h2> No Library Found</h2>
+</div>
     

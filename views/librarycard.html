@@ -18,7 +18,10 @@
             <div class="game_recomendation_text"> 
                 
                  <span ng-show="myLibrary">My thoughts:
-                   <span ng-style="colorForScore(game.rating)">{{convertMyRating(game.rating)}}</span>   <button class="button button-small button-assertive" ng-click ="showEdit($index)"> Edit</button>
+                   <span ng-style="colorForScore(game.rating)">{{convertMyRating(game.rating)}}
+                     </span>  
+                     <button class="button button-small button-assertive" ng-click ="showEdit(game)" ng-show="localLibrary"> Edit</button>
+                     <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
                 </span>
                 
                 <span ng-hide="myLibrary"> 
@@ -27,9 +30,8 @@
             Peers say:<span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
                     
                 </span>
-        </div>
-        </div>
-		
+            </div>
+        </div>	
 	</div>
 </div>
 

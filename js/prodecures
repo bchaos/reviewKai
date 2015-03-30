@@ -144,3 +144,36 @@ set gameIndex=gameIndex+1;
 end while;
 DEALLOCATE PREPARE stmt1;
 END $$
+
+
+DELIMITER $$
+
+CREATE PROCEDURE  `getGamesForUserOnplatform` ( IN  userid INT, IN name nvarchar(256) ) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN
+
+DROP TEMPORARY TABLE IF EXISTS gamesOwnedByUser ;
+create temporary table gamesOwnedByUser as 
+ Select library.game_id from library where library.user_id = userid;
+ 
+DROP TEMPORARY TABLE IF EXISTS gamesInPlatform ;
+create temporary table gamesInPlatform as 
+Select g.id from  games g, gameOnplatform gop,   platforms p  where  gop.game_id= g.id and gop.platform_id = p.id and p.display_name = name and g.id not in ( select * from gamesOwnedByUser where 1);
+
+set @Results = ( select 
+group_concat(id) from gamesInPlatform );
+
+DROP TEMPORARY TABLE IF EXISTS t1 ;
+create temporary table t1 as 
+select  g.game_name , g.game_picture, g.id, g.giantBomb_id,g.releasedate   from  games g where Find_In_Set (g.id, @Results)>0 ;
+    
+DROP TEMPORARY TABLE IF EXISTS t2 ;
+create temporary table t2 as 
+Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr  where   utr.reviewer_id = peer.user_id and utr.user_id = userid and Find_In_Set (peer.game_id, @Results) >0 group by peer.game_id ;
+
+DROP TEMPORARY TABLE IF EXISTS t3 ;
+create temporary table t3 as 
+Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = userid  and Find_In_Set (pro.game_id, @Results) >0 group by pro.game_id;
+
+
+Select * from 
+t1 join t2 on t1.id = t2.game_id left join t3 on t3.game_id = t1.id;
+END $$

@@ -115,7 +115,7 @@
 
         InfoRequest.prototype.searchForAGame = function(game, callback) {
           var GamesSearchUrl;
-          GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query=' + game + '&field_list=name,image,id,deck,original_release_date,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
+          GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query=' + game + '&field_list=name,image,id,deck,original_release_date,platforms,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
           return $http.jsonp(GamesSearchUrl).success(function(data) {
             return callback(data);
           });
@@ -857,6 +857,7 @@
         $scope.newgame.giantBombinfo.game_name = game.name;
         $scope.newgame.giantBombinfo.description = game.deck;
         $scope.newgame.giantBombinfo.releasedate = game.original_release_date;
+        $scope.newgame.platforms = game.platforms;
         return $scope.gameSelected = true;
       };
       $scope.goback = function() {
@@ -876,7 +877,7 @@
     dataparserController.$inject = ['$scope', 'InfoRequestService', 'socket'];
 
     function dataparserController($scope, InfoRequestService, socket) {
-      var addGameToLibrary;
+      var addGameToLibrary, addPlatforms;
       this.$scope = $scope;
       this.InfoRequestService = InfoRequestService;
       this.socket = socket;
@@ -904,6 +905,7 @@
             gameData[index].giantBombinfo = {};
             gameData[index].giantBombinfo.giantBomb_id = game.id;
             gameData[index].giantBombinfo.game_name = game.name;
+            gameData[index].giantBombinfo.platforms = game.platforms;
             if (game.image) {
               gameData[index].giantBombinfo.game_picture = game.image.medium_url;
             } else {
@@ -915,6 +917,34 @@
             return addGameToLibrary(index + 1, length, gameData, callback);
           });
         }
+      };
+      addPlatforms = function(games, index, length, callback) {
+        if (index === length) {
+          return callback(true);
+        } else {
+          return InfoRequestService.getDeckForGame(games[index].bombid, function(data) {
+            var newdata;
+            newdata = data.results;
+            newdata.id = games[index].gameid;
+            socket.emit('updateGamePlatforms', newdata);
+            return addPlatforms(games, index + 1, length, callback);
+          });
+        }
+      };
+      $scope.updateGamePlatforms = function(files) {
+        var file, reader;
+        file = files[0];
+        reader = new FileReader();
+        reader.readAsText(file);
+        return reader.onload = function(event) {
+          var csv, curdata, length;
+          csv = event.target.result;
+          curdata = $.csv.toObjects(csv);
+          length = curdata.length;
+          return addPlatforms(curdata, 0, length, function() {
+            return alert(finished);
+          });
+        };
       };
       $scope.uploadImage = function(files) {
         var file, reader;

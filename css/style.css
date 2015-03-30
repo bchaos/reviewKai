@@ -88,56 +88,56 @@ Button Styles
 *****************/
 
 .button.button-positive.button-outline {
-border-color: #8cc63f;
-background: transparent;
-color: #8cc63f;
+    border-color: #8cc63f;
+    background: transparent;
+    color: #8cc63f;
 }
 .button.button-positive.button-outline:hover{
-  color:#fff;
-  background-color: #8cc63f;
-  -webkit-transition: all 0.4s ease-in-out;
+    color:#fff;
+    background-color: #8cc63f;
+    -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
 
 .button.button-setup.button-outline {
-border-color: #20409a;
-background: transparent;
-color: #20409a;
+    border-color: #20409a;
+    background: transparent;
+    color: #20409a;
 }
 .button.button-setup.button-outline:hover{
-  color:#fff;
-  background-color: #20409a;
-  -webkit-transition: all 0.4s ease-in-out;
+    color:#fff;
+    background-color: #20409a;
+    -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
 
 .button.button-edit.button-outline, .button.button-energized.button-outline {
-border-color: #00b1cd;
-background: transparent;
-color: #00b1cd;
+    border-color: #00b1cd;
+    background: transparent;
+    color: #00b1cd;
 }
 .button.button-edit.button-outline:hover, .button.button-energized.button-outline:hover{
-  color:#fff;
-  background-color: #00b1cd;
-  -webkit-transition: all 0.4s ease-in-out;
+    color:#fff;
+    background-color: #00b1cd;
+    -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
 
 .button.button-delete.button-outline, .button.button-assertive.button-outline {
-border-color: #ef4e3a;
-background: transparent;
-color: #ef4e3a;
+    border-color: #ef4e3a;
+    background: transparent;
+    color: #ef4e3a;
 }
 .button.button-delete.button-outline:hover, .button.button-assertive.button-outline:hover{
-  color:#fff;
-  background-color: #ef4e3a;
-  -webkit-transition: all 0.4s ease-in-out;
+    color:#fff;
+    background-color: #ef4e3a;
+    -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
@@ -341,6 +341,7 @@ margin-left: 25px;
      padding-left: 80px;
       padding-right: 80px;
       padding-bottom: 80px;
+    min-height:800px;
 }
 .docmumentModal {
     top: 10%;
@@ -390,14 +391,13 @@ width:100%;
   background-image: url(/img/loginlogo.jpg);
   background-size: 100%;
   background-repeat: no-repeat;
-    background-position: center;
+  background-position: center;
   height:120px;
 }
 
 .scrolls {
     overflow-x: scroll;
     overflow-y: hidden;
-    
     white-space:nowrap;
     display:inline-block;
 }
@@ -417,9 +417,7 @@ width:100%;
     width:25%;
     margin-left:auto;
     margin-right: auto;
-  
     color: white;
-    
 }
 
 
@@ -472,7 +470,7 @@ label {
   text-align: center;
   left: -30px;
   position: relative;
-    background: #111;
+  background: #111;
 }
 
 
@@ -512,8 +510,9 @@ a.pure-button-primary {
     border-radius: 5px;
     font-size: 120%;
 }
+
 .pure-button-logout{
- background-color: crimson;
+    background-color: crimson;
 }
 
 /*
@@ -632,6 +631,9 @@ a.pure-button-primary {
  * -- CONTENT STYLES --
  * This represents the content area (everything below the blue section)
  */
+.content{
+  overflow-x: hidden;     
+ }
 .content-wrapper {
     /* These styles are required for the "scroll-over" effect */
     position: absolute;
@@ -863,6 +865,8 @@ game card maker
 		z-index: 900;
 		width: inherit;
 		height: inherit;
+        min-width:200px;
+        min-height:275px;
 		border: 2px ridge gold;
 		background: url('../images/cardback.png');
 		text-align: center;
@@ -891,29 +895,55 @@ game card maker
 		box-shadow: 0 15px 50px rgba(0,0,0,0.2);
 
 		-webkit-transform: rotateY(180deg);
-			 -moz-transform: rotateY(180deg);
-						transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        transform: rotateY(180deg);
 	}
-
-@keyframes example {
-    0%   { left: 38%; top:38%; z-index:2;}
-    50%  { left:200px; top:200px;z-index:1}
+body{
+    overflow-x:hidden;
+     overflow-y:scroll;
+}
+.lightblue{
+  height: 40px;
+  background-color: #265778;
+  top: -39px;
+  position: relative;
+  width: 100%;  
+}
+.white-link{
+   color: white; 
+}
+@keyframes shuffleanimation {
+    0%   {left: 38%; top:38%; z-index:2;}
+    50%  {left:200px; top:20%;z-index:1}
     100% {left: 38%; top:38%;z-index:-1;}
 }
 
+@-webkit-keyframes shuffleanimation {
+    0%   {left: 38%; top:38%; z-index:2;}
+    50%  {left:200px; top:20%;z-index:1}
+    100% {left: 38%; top:38%;z-index:-1;}
+}
+
+   .shuffle{
+        animation-name: shuffleanimation;
+        -webkit-animation-name: shuffleanimation; /* Chrome, Safari, Opera */
+        -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+        animation-duration: 1s;
+       -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+    }
 .loadingCard{
     position: absolute;				
     float: left;					
     left: 38%;	   
     top: 38%;
-    
 }
 
-   .shuffle{
-        animation-name: example;
-        animation-duration: 1s;
-        animation-iteration-count: infinite;
-    }
+.loadingPadding{
+  min-height: 400px;
+  padding:
+}
+
 	.panel .back {
 		float: none;
 		position: absolute;
@@ -945,6 +975,10 @@ game card maker
 .gameDes {
  max-height: 300px;
 overflow: scroll;   
+}
+.front .rec{
+   width: 200px;
+  height: 250px;   
 }
 	.panel.flip .back {
 		z-index: 1000;
@@ -1064,44 +1098,6 @@ overflow: scroll;
 						transform: rotate3d(45,45,0,-30deg);
 	}
 
-  /* -- swing like a gate -- */
-  .swing .front,
-  .swing .back {
-    width: 140px;
-    -webkit-backface-visibility: visible;
-			 -moz-backface-visibility: visible;
-						backface-visibility: visible;
-
-    -webkit-transition-duration: 1s;
-			 -moz-transition-duration: 1s;
-						transition-duration: 1s;
-
-    -webkit-transform-origin: 170px 0;
-			 -moz-transform-origin: 170px 0;
-						transform-origin: 170px 0;
-  }
-  .swing .front {
-    -webkit-transform: rotateY(0deg);
-			 -moz-transform: rotateY(0deg);
-						transform: rotateY(0deg);
-  }
-  .swing .back {
-    background-color: #555; /* hiding this side, so get darker */
-    -webkit-transform: rotateY(-180deg) translateX(198px) translateZ(2px);
-			 -moz-transform: rotateY(-180deg) translateX(198px) translateZ(2px);
-  }
-
-  .swing.flip .front {
-    background-color: #222; /* hiding this side, so get darker */
-    -webkit-transform: rotateY(180deg);
-			 -moz-transform: rotateY(180deg);
-  }
-  .swing.flip .back {
-    background-color: #80888f;
-    -webkit-transform: rotateY(0deg) translateX(198px) translateZ(2px);
-			 -moz-transform: rotateY(0deg) translateX(198px) translateZ(2px);
-  }
-
 
 	/* -- cosmetics -- */
 	.panel .pad {padding: 0 15px; }
@@ -1155,12 +1151,7 @@ margin-left: 20%;
   background-color:white;   
 }
 
-.{
- margin-right: 40%;
-margin-left: 40%;
-position: relative;
-margin-top: 10%;   
-}
+
 .card img{
  max-width:100px;   
 }

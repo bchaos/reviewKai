@@ -90,7 +90,7 @@ app.factory 'InfoRequestService', ['$http', ($http) ->
    class InfoRequest
      
         searchForAGame: (game, callback)->
-            GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query='+game+'&field_list=name,image,id,deck,original_release_date,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
+            GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query='+game+'&field_list=name,image,id,deck,original_release_date,platforms,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
             $http.jsonp(GamesSearchUrl).success (data)->
                 callback data
 
@@ -605,6 +605,7 @@ app.controller 'proLibraryController',
                 $scope.newgame.giantBombinfo.game_name= game.name
                 $scope.newgame.giantBombinfo.description= game.deck
                 $scope.newgame.giantBombinfo.releasedate= game.original_release_date 
+                $scope.newgame.platforms=game.platforms
                 $scope.gameSelected=true
             $scope.goback = ->
                 $scope.gameSelected=false
@@ -634,6 +635,7 @@ app.controller 'dataparserController',
 
                         gameData[index].giantBombinfo.giantBomb_id= game.id
                         gameData[index].giantBombinfo.game_name= game.name
+                        gameData[index].giantBombinfo.platforms=game.platforms
                         if game.image
                                 gameData[index].giantBombinfo.game_picture= game.image.medium_url
                         else 
@@ -642,7 +644,27 @@ app.controller 'dataparserController',
                         gameData[index].giantBombinfo.releasedate= game.original_release_date
                         socket.emit 'AddGameandReviewerToLibrary', gameData[index]
                         addGameToLibrary(index+1, length,gameData,  callback)
-                    
+            addPlatforms = (games, index,length,callback)->
+                if index is length
+                    callback(true) 
+                else 
+                    InfoRequestService.getDeckForGame games[index].bombid , (data)-> 
+                       newdata=data.results
+                       newdata.id = games[index].gameid
+                       socket.emit 'updateGamePlatforms', newdata 
+                       addPlatforms games,index+1,length,callback
+            
+            $scope.updateGamePlatforms =(files)->
+                file = files[0]
+                reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = (event)->
+                    csv= event.target.result
+                    curdata = $.csv.toObjects(csv)
+                    length =curdata.length 
+                    addPlatforms curdata, 0, length, ->
+                        alert finished
+                        
             $scope.uploadImage = (files)->
                 file = files[0]
                 reader = new FileReader();

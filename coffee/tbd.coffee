@@ -24,6 +24,15 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
                 templateUrl: 'views/contact.html'
                
             }
+        
+            $routeProvider.when '/recommendations', {
+                templateUrl: 'views/recommendations.html'
+                controller: 'recommendationController'
+            }
+            $routeProvider.when '/blog', {
+                templateUrl: 'views/blog.html'
+               
+            }
             $routeProvider.when '/peer', {
                 templateUrl: 'views/library.html'
                 controller: 'peerController'
@@ -46,8 +55,12 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
 
         
             $routeProvider.otherwise {
-                templateUrl: 'views/404.html'
+                templateUrl: 'views/library.html'
+                controller: 'libraryController'
             }
+app.directive 'platfromcard', ->  
+    restrict: 'E',
+    templateUrl: 'views/platformcard.html',
 app.directive 'card', ->  
     restrict: 'E',
     templateUrl: 'views/card.html',
@@ -86,7 +99,7 @@ app.service 'socket',($rootScope) ->
 app.factory 'InfoRequestService', ['$http', ($http) -> 
    class InfoRequest     
         searchForAGame: (game, callback)->
-            GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query='+game+'&field_list=name,image,id,deck,original_release_date,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
+            GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query='+game+'&field_list=name,image,id,deck,original_release_date,platforms,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
             $http.jsonp(GamesSearchUrl).success (data)->
 
                 callback data
@@ -122,13 +135,9 @@ app.filter('myLimitTo', [->
     
 ])
 
-isloggedin = (socket , location )-> 
+isloggedin = (socket, location)-> 
     if window.localStorage.sessionkey
         socket.emit 'isUserLoggedin' , {key:window.localStorage.sessionkey, location:location}
-    else 
-        window.location='#/home'
-    socket.on 'failedToLogin', (data)->
-        window.location='#/home'
         
 createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
             $scope.newOffset = 0;   
@@ -365,7 +374,16 @@ app.controller 'homeController',
                    
                     $scope.loggedin=true
                     window.location = '#/dashboard'
-     
+app.controller 'recommendationController', 
+    class recommendationController
+        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location']
+        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket, @$location) ->
+            $scope.isLoading=true;
+            socket.emit 'GetListOfPlatforms' , {data:'1'}
+            socket.on  'platformsFound', (data)->
+                $scope.platforms =data
+                $scope.isLoading=false;
+                
 app.controller 'searchController', 
 	class searchController
         @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location']
@@ -406,23 +424,30 @@ app.controller 'dashboardController',
 	class dashboardController
         @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket']
         constructor: (@$scope, @InfoRequestService, $ionicModal, @socket) ->
+            $scope.isLoading=true;
             socket.emit 'GetRecentGames'
             @socket.on 'recentReleases', (data)->
                 $scope.recentGames = data
+                $scope.isLoading=false;
             createGameDetailViewer $ionicModal, $scope, socket ,InfoRequestService                   
 
 app.controller 'peerController',
 	class peerController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket) ->
+        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']
+        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket,@$location) ->
 
             $scope.myLibrary=false
             $scope.scoreName='avgscore'
-
-            socket.emit 'GetPeerLibrary'
+            $scope.isLoading=true;
+            searchObject = $location.search();
+            socket.emit 'GetListOfPlatforms' , {data:'1'}
+            socket.on  'platformsFound', (data)->
+                $scope.platforms =data
+                
+            socket.emit 'GetPeerLibrary', searchObject.platform
             @socket.on 'peerLibraryFound', (data)->
                 $scope.games = []
-                for item in data
+                for item in data[0]
                     score1=item.guruscore
                     score2=item.peerscore
                     if score1 and score2 
@@ -434,21 +459,25 @@ app.controller 'peerController',
                     $scope.games.push item
                 
                 $scope.setUpPages();
+                $scope.isLoading=false;
             createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
             
 app.controller 'guruController',
 	class guruController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket) ->
-           
+        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']
+        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket,@$location) -> 
             $scope.myLibrary=false
             $scope.scoreName='avgscore'
-
-            socket.emit 'GetGuruLibrary'
-            
+            $scope.isLoading=true;
+            searchObject = $location.search();
+            socket.emit 'GetListOfPlatforms' , {data:'1'}
+            socket.on  'platformsFound', (data)->
+                $scope.platforms =data
+                
+            socket.emit 'GetGuruLibrary', searchObject.platform
             @socket.on 'guruLibraryFound', (data)->
                 $scope.games = []
-                for item in data
+                for item in data[0]
                     score1=item.guruscore
                     score2=item.peerscore
                     if score1 and score2 
@@ -459,26 +488,30 @@ app.controller 'guruController',
                         item.avgscore=score2
                     $scope.games.push item
                 $scope.setUpPages();
+                $scope.isLoading=false;
             createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
             
 app.controller 'libraryController',
     class libraryController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket) ->
+        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']
+        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket, @$location) ->
          
             $scope.loggedin=true
             $scope.myLibrary=true
+            $scope.NoLibraryError=false
             $scope.scoreName='rating'
             $scope.gameSelected=false
-
-            socket.emit 'GetLibrary'
-            @$scope.aquiredGameList = ->     
-            
+            $scope.isLoading=true;
+            path =$location.path();
+            path = path.substring(1)
+            socket.emit 'GetLibrary' , path   
             @socket.on 'init', (data) -> 
-            
+            @socket.on 'noLibraryFound', (data)->
+                $scope.NoLibraryError=true
             @socket.on 'gameLibraryFound', (data)->
+                $scope.localLibrary=data.myLibrary
                 $scope.games = []
-                for item in data
+                for item in data.games
                     score1=item.guruscore
                     score2=item.peerscore
                     if score1 and score2 
@@ -489,6 +522,7 @@ app.controller 'libraryController',
                         item.avgscore=score2
                     $scope.games.push item
                 $scope.setUpPages();
+                $scope.isLoading=false;
                 
             $ionicModal.fromTemplateUrl('views/addGameModal.html' ,  {
                 scope: $scope,
@@ -520,6 +554,7 @@ app.controller 'libraryController',
                 $scope.newgame.giantBombinfo.game_name= game.name
                 $scope.newgame.giantBombinfo.game_picture= game.image.medium_url
                 $scope.newgame.giantBombinfo.description= game.deck 
+                $scope.newgame.platforms=game.platforms
                 $scope.newgame.userInfo.rating=3
                 $scope.newgame.userInfo.enjoyment=3
                 $scope.newgame.userInfo.length=3
@@ -532,6 +567,20 @@ app.controller 'libraryController',
                 socket.emit 'AddNewGameToLibrary', $scope.newgame
                 $scope.closeModal()
                 
+            $ionicModal.fromTemplateUrl('views/detailsLibraryModal.html' ,  {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then (modal) -> 
+                $scope.detailsModal = modal
+            
+            $scope.closeLibraryDetails=()->
+                $scope.detailsModal.hide()
+            
+            $scope.getGameDetails=(game)->
+                $scope.gamedetails=game
+                $scope.gamedetails.reviewLink= $location.absUrl();
+                $scope.detailsModal.show()
+                
             $ionicModal.fromTemplateUrl('views/editScoreModal.html' ,  {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -541,9 +590,10 @@ app.controller 'libraryController',
             $scope.closeEdit  = ()->
                 $scope.editModal.hide()
                 $scope.edit = {}
-            $scope.showEdit = (index)->
-                $scope.edit=$scope.games[index]
+            $scope.showEdit = (game)->
+                $scope.edit=game
                 $scope.editModal.show()
+          
             $scope.updateGame = ->
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
