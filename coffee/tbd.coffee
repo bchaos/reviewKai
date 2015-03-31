@@ -24,6 +24,10 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
                 templateUrl: 'views/contact.html'
                
             }
+            $routeProvider.when '/PrivacyPolicy', {
+                templateUrl: 'views/PrivacyPolicy.html'
+               
+            }
         
             $routeProvider.when '/recommendations', {
                 templateUrl: 'views/recommendations.html'
@@ -138,6 +142,7 @@ app.filter('myLimitTo', [->
 isloggedin = (socket, location)-> 
     if window.localStorage.sessionkey
         socket.emit 'isUserLoggedin' , {key:window.localStorage.sessionkey, location:location}
+    
         
 createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
             $scope.newOffset = 0;   
@@ -216,7 +221,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
                     when score < 1.5 then 'negative'
                     when score < 2.5 then 'negative'
                     when score < 3.5 then 'ok'
-                    when score < 4 then 'ok'
+                    when score < 4   then 'ok'
                     when score < 4.5 then  'postive'
                     else 'postive'
             $scope.convertRating= (score)-> 
@@ -224,7 +229,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
                     when score < 1.5 then 'You should avoid this game!'
                     when score < 2.5 then 'Do not waste your time.'
                     when score < 3.5 then 'This game is below average.'
-                    when score < 4 then 'You will find this game to be ok.'
+                    when score < 4   then 'You will find this game to be ok.'
                     when score < 4.5 then 'You should play this one!'
                     else 'You will love this game!'
             $scope.getGameStyle= (gameUrl)->  
@@ -235,7 +240,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
                     when score < 1.5 then {'color': 'red', 'font-size':'12px'}
                     when score < 2.5 then {'color': 'red', 'font-size':'12px'}
                     when score < 3.5 then {'color': '#E6C805', 'font-size':'12px'}
-                    when score < 4 then {'color': '#E6C805', 'font-size':'12px'}
+                    when score < 4   then {'color': '#E6C805', 'font-size':'12px'}
                     when score < 4.5 then  {'color': 'green', 'font-size':'12px'}
                     else {'color': 'green', 'font-size':'12px'}
             	
@@ -299,6 +304,27 @@ signInSetup = ($scope, $ionicModal, socket)->
     }).then (modal) -> 
         $scope.modal = modal
         $scope.logdata = {}
+    socket.on 'NeedUsername' ,()->
+        $scope.modal.show()
+        $scope.needUsername=true;
+    $scope.createUsername = ->
+        socket.emit 'addUsername', $scope.logdata.name
+    socket.on 'usernameAdded' ,()->
+        $scope.closeModal()
+                
+    statusChangeCallback =(response )->
+        switch 
+            when response.status is 'connected' 
+                FB.api '/me', (fbresponse) ->
+                    socket.emit 'loginToFaceBook', fbresponse
+            when response.status is 'not_authorized' 
+                $scope.errormessage ='You are not authorized'
+            else
+                 $scope.errormessage ='You are not authorized'
+    
+    window.checkLoginState =->
+        FB.getLoginStatus (response)->
+            statusChangeCallback(response)
     $scope.errormessage = false
 
     $scope.closeModal  = ->
@@ -318,7 +344,6 @@ signInSetup = ($scope, $ionicModal, socket)->
     $scope.signUpNow = ->
         $scope.logdata.password ={}
         logdata ={}
-
         password ={}
         if $scope.logdata.temppassword is $scope.logdata.repeat
             logdata.username = $scope.logdata.username
@@ -338,7 +363,8 @@ signInSetup = ($scope, $ionicModal, socket)->
 app.controller 'reviewController', 
     class reviewController
         @$inject : ['$scope', 'InfoRequestService', '$location', 'socket', '$ionicModal']
-        constructor : (@$scope, @InfoRequestService, @$location, @socket,  $ionicModal ) ->  
+        constructor: (@$scope, @InfoRequestService, @$location, @socket,  $ionicModal ) ->  
+            $scope.accessList=false  
             if $location.path() isnt '/home' && $location.path() isnt '/'
                 isloggedin(socket,  $location.path())
             $scope.loggedin=true
@@ -368,7 +394,6 @@ app.controller 'homeController',
             
             if window.localStorage.sessionkey
                 socket.emit 'isUserLoggedin' , {key:window.localStorage.sessionkey , location:'/home'}
-            signInSetup $scope,$ionicModal,socket
             socket.on 'userLoggedin', (data)->
                 if data.location is '/home'
                    
@@ -427,8 +452,12 @@ app.controller 'dashboardController',
             $scope.isLoading=true;
             socket.emit 'GetRecentGames'
             @socket.on 'recentReleases', (data)->
-                $scope.recentGames = data
                 $scope.isLoading=false;
+                $scope.recentGames = data
+            @socket.on 'noGames' , ()->
+                $scope.isLoading=false
+                $scope.recentGames = false
+                
             createGameDetailViewer $ionicModal, $scope, socket ,InfoRequestService                   
 
 app.controller 'peerController',
@@ -598,3 +627,4 @@ app.controller 'libraryController',
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
             createGameDetailViewer $ionicModal, $scope, socket ,InfoRequestService
+

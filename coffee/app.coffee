@@ -114,15 +114,20 @@ validateEmail=(email) ->
     re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email)
 getRecentReleases = (userid, client)->
-    sql = 'Select * from '
-    sql +='(select  g.game_name , g.game_picture, g.id, g.giantBomb_id,g.releasedate  from  games g order by releasedate desc) t1  '
-    sql +=' join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = '+userid+' group by peer.game_id ) t2 '
-    sql +='on t1.id = t2.game_id left  join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = '+userid+' group by pro.game_id  ) t3 '
-    sql +='on t3.game_id = t1.id left join (Select ((avg(pro.rating)*1.275 + avg(world.rating)*.725)/2)  as worldscore, world.game_id from library world, ProReviewerLibrary pro  where world.game_id = pro.game_id group by world.game_id ) t4 '
-    sql +='on t4.game_id = t1.id'
-    
-    connection.query sql,  (err, result) ->
-    	client.emit 'recentReleases', result 
+      
+    sql = 'select  count(*) as count from  userToReviewers  where user_id='+userid;
+    connection.query sql, (err, result) ->
+        if result[0].count > 0 
+            sql = 'Select * from '
+            sql +='(select  g.game_name , g.game_picture, g.id, g.giantBomb_id,g.releasedate  from  games g order by releasedate desc) t1  '
+            sql +=' join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = '+userid+' group by peer.game_id ) t2 '
+            sql +='on t1.id = t2.game_id left  join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = '+userid+' group by pro.game_id  ) t3 '
+            sql +='on t3.game_id = t1.id'
+            console.log sql
+            connection.query sql,  (err, result) ->
+                client.emit 'recentReleases', result
+        else 
+            client.emit 'noGames'
         
 getGurusGameForUser = ( userid, client, platform) ->
     sql= 'call getGamesForUserOnplatform('+userid+',"'+platform+'" )'
@@ -159,7 +164,7 @@ getGamesForUser  = (username, localuserid ,client)->
                 library.games=result
                 client.emit 'gameLibraryFound', library 
 
-    addGameScore = (userid,gameid, bombid, callback) -> 
+addGameScore = (userid,gameid, bombid, callback) -> 
         sql = 'Select * from '
         sql +='(select g.id, g.giantBomb_id,g.releasedate   from  games g where g.giantBomb_id  = '+bombid+') t1 '
         sql +='left join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and utr.user_id = '+userid+'  and peer.game_id ='+gameid+' ) t2 '
@@ -196,28 +201,79 @@ io.on 'connection', (client) ->
     client.on 'SignUpUser', (data)->
         if not validator.isEmail(data.username)
             client.emit 'failureMessage', 'Not a valid email address'
-        sql = 'Select Count(*) as userCount from user where username = ?'
+        else if not validator.isAlphanumeric(data.name)
+            client.emit 'failureMessage', 'Display name many only contain Letters and numbers'
+        else
+            sql = 'Select Count(*) as userCount from user where username = ?'
+            connection.query sql, [data.username], (err, result) ->
+                if result[0].userCount >0 
+                    client.emit 'failureMessage', 'That email already exists'
+                    sql = 'Select Count(*) as userCount from user where name = data.name'
+                    connection.query sql, [data.username], (err, result) ->
+                        if result[0].userCount >0 
+                            client.emit 'failureMessage' ,'Username already exists'
+                        else 
+                            sql = 'Insert into user Set ?' 
+                            d = new Date()
+                            currentTime= d.getMilliseconds()
+                            newExpiration = currentTime + 7*86400000
+                            sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest('hex')
+                            data.sessionKey= sessionKey
+                            data.expires=newExpiration
+                            data.password = bcrypt.hashSync(data.password, salt);
+                            connection.query sql,  data,  (err,result) ->
+                                userid = result.insertId
+                                accessList =  getAccessList false
+                                client.emit 'userLoggedin', {sessionKey: sessionKey , location:'/home' , accessList:accessList}
+    client.on 'loginToFaceBook', (data)->
+        sql = 'Select Count(*) as userCount , name, id from user where username ="'+data.email+'" and facebookkey = "' +data.id+'"'
+       
         connection.query sql, [data.username], (err, result) ->
+            
             if result[0].userCount >0 
-                client.emit 'failureMessage', 'That email already exists'
-                sql = 'Select Count(*) as userCount from user where name = data.name'
-                connection.query sql, [data.username], (err, result) ->
-                    if result[0].userCount >0 
-                        client.emit 'failureMessage' ,'Username already exists'
-                    else 
-                        sql = 'Insert into user Set ?' 
+                userid=result[0].id
+                username=result[0].name
+                d = new Date()
+                currentTime= d.getMilliseconds()
+                newExpiration = currentTime + 7*86400000
+                sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest('hex')
+                sql = 'Update user set sessionkey ="'+sessionKey+'", expires = '+newExpiration+' where  id ='+userid
+                accessList =  getAccessList result[0].isAdmin
+                client.emit 'userLoggedin', {sessionKey: sessionKey, location:'/home', accessList:accessList }
+                connection.query sql,  data.userInfo,  (err,results) ->
+            else 
+                sqls = 'Insert into user Set ?'
+                newData ={}
+                newData.username= data.email
+                newData.password= 'facebookuser'
+                newData.facebookkey= data.id
+                console.log newData
+                connection.query sqls,  newData,  (err,results) ->
+                    userid = results.insertId
+                    console.log userid
+                    client.emit 'NeedUsername'
+    client.on 'addUsername', (data)->
+        if not validator.isAlphanumeric(data)
+            client.emit 'failureMessage', 'Display name many only contain Letters and numbers'
+        else
+            sql ='select  Count(*) as userCount  from user where name="'+data+'"'
+            connection.query sql, [data.username], (err, result) ->
+                if result[0].userCount >0 
+                    client.emit 'failureMessage', 'That Display name already exists please try again'
+                else 
+                    sql = 'Update user set name ="'+data+'" where id ='+userid
+                    connection.query sql, (err,results) ->
+                        client.emit 'usernameAdded'
+                        username= data
                         d = new Date()
                         currentTime= d.getMilliseconds()
                         newExpiration = currentTime + 7*86400000
                         sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest('hex')
-                        data.sessionKey= sessionKey
-                        data.expires=newExpiration
-                        data.password = bcrypt.hashSync(data.password, salt);
-                        connection.query sql,  data,  (err,result) ->
-                            userid = result.insertId
-                            accessList =  getAccessList false
-                            client.emit 'userLoggedin', {sessionKey: sessionKey , location:'/home' , accessList:accessList}
-    client.on 'SignUpUserViaFacebook', (data)->
+                        sql = 'Update user set sessionkey ="'+sessionKey+'", expires = '+newExpiration+' where  id ='+userid
+                        accessList =  getAccessList false
+                        client.emit 'userLoggedin', {sessionKey: sessionKey, location:'/home', accessList:accessList }
+                       
+            
     updateExpirationDate = (newExperationDate) ->
         sql = 'Update  user set expires ='+newExperationDate+' where  id ='+userid
         connection.query sql, (err,results) ->

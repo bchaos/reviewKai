@@ -513,7 +513,8 @@
       signInSetup($scope, $ionicModal, socket);
       socket.on('userLoggedin', function(data) {
         $scope.accessList = data.accessList;
-        return localStorage.setItem("sessionkey", data.sessionKey);
+        localStorage.setItem("sessionkey", data.sessionKey);
+        return window.location = '#/dashboard';
       });
       this.$scope.homeSelected = 'button-stable';
       this.$scope.logout = function() {

@@ -25,6 +25,9 @@
     $routeProvider.when('/contact', {
       templateUrl: 'views/contact.html'
     });
+    $routeProvider.when('/PrivacyPolicy', {
+      templateUrl: 'views/PrivacyPolicy.html'
+    });
     $routeProvider.when('/recommendations', {
       templateUrl: 'views/recommendations.html',
       controller: 'recommendationController'
@@ -448,6 +451,7 @@
   };
 
   signInSetup = function($scope, $ionicModal, socket) {
+    var statusChangeCallback;
     $ionicModal.fromTemplateUrl('views/signupSignInModal.html', {
       scope: $scope,
       animation: 'slide-in-up'
@@ -455,6 +459,33 @@
       $scope.modal = modal;
       return $scope.logdata = {};
     });
+    socket.on('NeedUsername', function() {
+      $scope.modal.show();
+      return $scope.needUsername = true;
+    });
+    $scope.createUsername = function() {
+      return socket.emit('addUsername', $scope.logdata.name);
+    };
+    socket.on('usernameAdded', function() {
+      return $scope.closeModal();
+    });
+    statusChangeCallback = function(response) {
+      switch (false) {
+        case response.status !== 'connected':
+          return FB.api('/me', function(fbresponse) {
+            return socket.emit('loginToFaceBook', fbresponse);
+          });
+        case response.status !== 'not_authorized':
+          return $scope.errormessage = 'You are not authorized';
+        default:
+          return $scope.errormessage = 'You are not authorized';
+      }
+    };
+    window.checkLoginState = function() {
+      return FB.getLoginStatus(function(response) {
+        return statusChangeCallback(response);
+      });
+    };
     $scope.errormessage = false;
     $scope.closeModal = function() {
       $scope.logdata = {};
@@ -511,6 +542,7 @@
       this.InfoRequestService = InfoRequestService;
       this.$location = $location;
       this.socket = socket;
+      $scope.accessList = false;
       if ($location.path() !== '/home' && $location.path() !== '/') {
         isloggedin(socket, $location.path());
       }
@@ -556,7 +588,6 @@
           location: '/home'
         });
       }
-      signInSetup($scope, $ionicModal, socket);
       socket.on('userLoggedin', function(data) {
         if (data.location === '/home') {
           $scope.loggedin = true;
@@ -657,8 +688,12 @@
       $scope.isLoading = true;
       socket.emit('GetRecentGames');
       this.socket.on('recentReleases', function(data) {
-        $scope.recentGames = data;
-        return $scope.isLoading = false;
+        $scope.isLoading = false;
+        return $scope.recentGames = data;
+      });
+      this.socket.on('noGames', function() {
+        $scope.isLoading = false;
+        return $scope.recentGames = false;
       });
       createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
     }

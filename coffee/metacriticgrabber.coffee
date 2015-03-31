@@ -347,6 +347,7 @@ app.controller 'reviewController',
             socket.on 'userLoggedin', (data)->
                 $scope.accessList= data.accessList
                 localStorage.setItem "sessionkey", data.sessionKey
+                window.location = '#/dashboard'
             @$scope.homeSelected = 'button-stable'
             @$scope.logout= -> 
                 localStorage.removeItem("sessionkey")

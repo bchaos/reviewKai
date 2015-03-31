@@ -1,0 +1,18 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">{{gamedetails.game_name }} </h1> 
+        <button class="button button-clear button-assertive" ng-click="closeLibraryDetails()">x</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="pure-g-r " style="margin-top: 10px;"> 
+            <div class="pure-u-11-24">
+                <img ng-src="{{gamedetails.game_picture}}" width="100%">
+            </div>
+            <div class="pure-u-1-2">
+                Review: {{gamedetails.description}}
+                <p/>
+ 
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

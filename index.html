@@ -29,27 +29,38 @@
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <script type="text/javascript" src="js/ionic.js"></script>
         <script type="text/javascript" src="js/angular-ui-router.js"></script>
-         <script type="text/javascript" src="js/ionic-angular.js"></script>
+        <script type="text/javascript" src="js/ionic-angular.js"></script>
         <script type="text/javascript" src="js/tbd.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
-         <script src="js/underscore-min.js"></script>
-       <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
+        <script src="js/underscore-min.js"></script>
+        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-            <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"> 
-       <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
-       <link href="css/ionicons.min.css" media="screen" rel="stylesheet" type="text/css">
-       <link href="css/ionic.css" media="screen" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"> 
+        <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="css/ionicons.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="css/ionic.css" media="screen" rel="stylesheet" type="text/css">
     </head>
     
     <body ng-app="reviewApp" ng-controller="reviewController"> 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=241270409248447&version=v2.3";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+  window.fbAsyncInit = function(){
+    FB.init({
+      appId      : '289588911165056',
+      xfbml      : true,
+      cookie: true,
+      version    : 'v2.3'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
        
 <div class="header">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed pure-g-r">
@@ -71,9 +82,11 @@
                 <a class="button icon ion-ios-cog-outline"></a>
                 <ul class="pure-menu-children" style="left:-30px">
                     <li class="pure-menu-item"><a href="#/blog" class="pure-menu-link">Blog</a></li>
-                     <li class="pure-menu-item"><a href="#/contact" class="pure-menu-link">Contact</a></li>
+                    <li class="pure-menu-item"><a href="#/contact" class="pure-menu-link">Contact</a></li>
+                     <li class="pure-menu-item"><a href="#/PrivacyPolicy" class="pure-menu-link">Privacy Policy</a></li>
                     
-                     <li class="pure-menu-item"><a ng-click="logout()" class="pure-menu-link">Sign Out</a></li>
+                    <li class="pure-menu-item"><a ng-click="logout()" class="pure-menu-link">Sign Out</a></li>
+                    
                 </ul>
             </li>
                 </ul>
@@ -88,19 +101,11 @@
                  <li class="pure-menu-item"><a href="/#/" class="pure-menu-link">About Review Kai</a></li>
                 <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
                 <button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button>   
+                 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button>
             </span>
-               
-       
-  
-
-          
+                         
              </div>           
-       
-           
-            
-       
-            
-    
+
         </div>
         
 </div>
@@ -119,7 +124,12 @@
         Copyright ReviewGuru &copy; 2015-
         <a href="#/faqs">FAQs</a>-
         <a href="#/contact">Contact</a>- 
-        <a href="#/blog"> Blog</a> 
+        <a href="#/blog"> Blog</a> -<div
+  class="fb-like pure-u-1-8"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
               <p/>
  Game search powered by  <a href="giantbomb.com"> Giant bomb</a>
               </div>
