@@ -1,10 +1,19 @@
-<div class="pure-g-r addedMargin" ng-hide =" isLoading">
+<div class="splash-container-dashboard " >
+    <div class="splash-dashboard">
+        <h1 class="splash-head" >Select a platform </h1>
+        
+        <p>
+
+
+<div class="pure-g-r " ng-hide =" isLoading">
     
     <span ng-repeat="platform in platforms">
         <platfromcard></platfromcard>
     </span>
 </div>
-<div class="pure-g-r addedMargin" ng-show =" isLoading">
+<div class="pure-g-r " ng-show =" isLoading">
 <searching text="Loading"> </searching>
 
+</div>    
+    </div>
 </div>

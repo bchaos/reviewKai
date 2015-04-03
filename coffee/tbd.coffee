@@ -22,10 +22,12 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
             }
             $routeProvider.when '/contact', {
                 templateUrl: 'views/contact.html'
+                controller: 'genericController'
                
             }
             $routeProvider.when '/PrivacyPolicy', {
                 templateUrl: 'views/PrivacyPolicy.html'
+                controller: 'genericController'
                
             }
         
@@ -49,7 +51,7 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
     
             $routeProvider.when '/settings', {
                 templateUrl: 'views/settings.html'
-                controller: 'settingsController'
+                controller: 's'
             }
 
             $routeProvider.when '/search', {
@@ -146,7 +148,7 @@ isloggedin = (socket, location)->
         
 createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
             $scope.newOffset = 0;   
-            if $scope.myLibrary
+            if $scope.myLibrary && $scope.localLibrary
                 $scope.itemsPerPage = 11;
             else 
                 $scope.itemsPerPage = 12;
@@ -169,15 +171,15 @@ createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
                 $scope.pages=[]
                 length =9 
                 hasElispes=false;
-                if $scope.maxPages > 10 && $scope.currentPage+4 >=   $scope.maxPages-1
+                if $scope.maxPages > length+1 && $scope.currentPage+4 >=   $scope.maxPages-1
                     firstPage=$scope.maxPages-length
                     lastPage =$scope.maxPages
                     
-                else if $scope.maxPages > 10 && $scope.currentPage >= length-1
+                else if $scope.maxPages > length+1 && $scope.currentPage >= length-1
                     firstPage=$scope.currentPage-4
                     lastPage= $scope.currentPage+4
                 
-                else if $scope.maxPages > 10
+                else if $scope.maxPages > length+1
                     lastPage= length
                 
                 if  firstPage > 0 
@@ -336,6 +338,11 @@ signInSetup = ($scope, $ionicModal, socket)->
     $scope.signInModal = ->
         $scope.modal.show()
         $scope.signUp =false
+    $scope.signInOrSignUpNow =()->
+        if $scope.signUp
+            $scope.signUpNow()
+        else 
+            $scope.signInNow()
     $scope.signInNow = ->
         logdata = {}
         logdata.username = $scope.logdata.username
@@ -364,6 +371,11 @@ app.controller 'reviewController',
     class reviewController
         @$inject : ['$scope', 'InfoRequestService', '$location', 'socket', '$ionicModal']
         constructor: (@$scope, @InfoRequestService, @$location, @socket,  $ionicModal ) ->  
+            $scope.toggleClass = ->
+                if $scope.active is 'false'
+                    $scope.active = 'true'
+                else 
+                    $scope.active ='false'
             $scope.accessList=false  
             if $location.path() isnt '/home' && $location.path() isnt '/'
                 isloggedin(socket,  $location.path())
@@ -414,37 +426,46 @@ app.controller 'searchController',
         @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location']
         constructor: (@$scope, @InfoRequestService, $ionicModal, @socket, @$location) ->
             $scope.myLibrary=false
-            $scope.isLoading =true
+            $scope.isLoading =false
             $scope.scoreName='avgscore'
             $scope.loggedin=true
+            $scope.SearchForAGame=false
             createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
             searchObject = $location.search();
-            InfoRequestService.searchForAGame searchObject.game, (data)->
-                $scope.gamesfound=[]
-                if data.results.length > 20
-                    $scope.gamesfound=data.results[0..19]
-                else 
-                    $scope.gamesfound=data.results
-                socket.emit 'searchForGames' , {list: $scope.gamesfound}
-                socket.on 'searchfinished' , (data)->
-                    $scope.games = []
-                    for item in data
-                        if item.details
-                            score1=item.details.guruscore
-                            score2=item.details.peerscore
-                            if score1 and score2 
-                                item.details.avgscore= (score1*.75+score2*1.25)/2
-                            else if score1 
-                                item.details.avgscore= score1
-                            else if score2
-                                item.details.avgscore=score2
-                        else
-                            item.details={}
-                            item.details.avgscore=0;
-                        $scope.games.push item
-                    $scope.setUpPages();
-                    $scope.isLoading = false
-
+            $scope.getGame=()->
+                $scope.isLoading =true
+                $scope.resultsFor=$scope.search
+                InfoRequestService.searchForAGame $scope.resultsFor, (data)->
+                    $scope.gamesfound=[]
+                    if data.results.length > 20
+                        $scope.gamesfound=data.results[0..19]
+                    else 
+                        $scope.gamesfound=data.results
+                    socket.emit 'searchForGames' , {list: $scope.gamesfound}
+            socket.on 'searchfinished' , (data)->
+                $scope.games = []
+                for item in data
+                    if item.details
+                        score1=item.details.guruscore
+                        score2=item.details.peerscore
+                        if score1 and score2 
+                            item.details.avgscore= (score1*.75+score2*1.25)/2
+                        else if score1 
+                            item.details.avgscore= score1
+                        else if score2
+                            item.details.avgscore=score2
+                    else
+                        item.details={}
+                        item.details.avgscore=0;
+                    $scope.games.push item
+                $scope.setUpPages();
+                $scope.isLoading = false
+            if typeof searchObject.game isnt "undefined"
+                $scope.search= searchObject.game
+                $scope.getGame()
+            else 
+                $scope.SearchForAGame=true
+                $scope.isLoading = false
 app.controller 'dashboardController',
 	class dashboardController
         @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket']
@@ -472,7 +493,7 @@ app.controller 'peerController',
             socket.emit 'GetListOfPlatforms' , {data:'1'}
             socket.on  'platformsFound', (data)->
                 $scope.platforms =data
-                
+            $scope.currentPlatform= searchObject.platform
             socket.emit 'GetPeerLibrary', searchObject.platform
             @socket.on 'peerLibraryFound', (data)->
                 $scope.games = []
@@ -502,7 +523,7 @@ app.controller 'guruController',
             socket.emit 'GetListOfPlatforms' , {data:'1'}
             socket.on  'platformsFound', (data)->
                 $scope.platforms =data
-                
+            $scope.currentPlatform= searchObject.platform
             socket.emit 'GetGuruLibrary', searchObject.platform
             @socket.on 'guruLibraryFound', (data)->
                 $scope.games = []
@@ -519,7 +540,11 @@ app.controller 'guruController',
                 $scope.setUpPages();
                 $scope.isLoading=false;
             createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
-            
+app.controller 'genericController', 
+    class genericController
+        @$inject: ['$scope']
+        constructor: (@$scope) ->
+            $scope.contact=false
 app.controller 'libraryController',
     class libraryController
         @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']
@@ -531,14 +556,24 @@ app.controller 'libraryController',
             $scope.scoreName='rating'
             $scope.gameSelected=false
             $scope.isLoading=true;
+            $scope.editMode =false
+            $scope.saveLibraryEdit =()->
+                socket.emit 'UpdateUserLibraryInfo' ,$scope.user
+                $scope.editMode =false 
+            
+            $scope.toggleEditMode =()->
+                $scope.editMode =!$scope.editMode
+                
             path =$location.path();
             path = path.substring(1)
+            $scope.Username = path;
             socket.emit 'GetLibrary' , path   
             @socket.on 'init', (data) -> 
             @socket.on 'noLibraryFound', (data)->
                 $scope.NoLibraryError=true
             @socket.on 'gameLibraryFound', (data)->
                 $scope.localLibrary=data.myLibrary
+                $scope.user=data.user[0]
                 $scope.games = []
                 for item in data.games
                     score1=item.guruscore
@@ -560,14 +595,15 @@ app.controller 'libraryController',
                 $scope.modal = modal
                 $scope.modalGame = {}
             $scope.searchForAGame = (game)->
-                $scope.isLoading = true
+                $scope.isLoadingAdder = true
                 InfoRequestService.searchForAGame game, (data)->
                     $scope.gamesfound=data.results
-                    $scope.isLoading = false
+                    $scope.isLoadingAdder = false
             
             	
             $scope.addNewGame = ->       
                 $scope.modal.show()
+                $scope.canFlip='false'
                 $scope.gameSelected=false
             $scope.editUserResponse = (index) ->
                 
@@ -577,6 +613,7 @@ app.controller 'libraryController',
                 $scope.modal.hide()
             $scope.addGameToLibrary = (game)->
                 $scope.newgame = {}
+                $scope.canFlip='flip';
                 $scope.newgame.userInfo={}
                 $scope.newgame.giantBombinfo={}
                 $scope.newgame.giantBombinfo.giantBomb_id= game.id
@@ -590,7 +627,9 @@ app.controller 'libraryController',
                 $scope.newgame.userInfo.unenjoyment=3
                 $scope.newgame.userInfo.difficulty=3
                 $scope.gameSelected=true
+                
             $scope.goback = ->
+                $scope.canFlip='false'
                 $scope.gameSelected=false
             $scope.saveGame = ()->
                 socket.emit 'AddNewGameToLibrary', $scope.newgame

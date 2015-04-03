@@ -11,7 +11,7 @@ validator = require('validator')
 
 
 __dirname=''
-
+__userImagedir='../images/userimages/'
 connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
@@ -33,17 +33,17 @@ handler = (req,res) ->
         else
             res.writeHead 200
             res.end data
-
+addImageToFolder=(image)->
+    
 calculateNewPros = (userId)->
     sql ='call calculateNewPros('+userId+')'
     connection.query sql,userId, (err, results) ->
 
-calculateNewPeers = (userId) -> 
+calculateNewPeers = (userId) ->
     sql ='call calculateNewPeers('+userId+')'
-    
     connection.query sql,  (err, results) ->
         console.log err
-        console.log results                 
+        console.log results
 
 calculateProReviewForGame= (gameid, userid, callback)->
     sql = 'Select avg(rating) as rating , avg(enjoyment) as enjoyment ,  avg(unenjoyment) as unenjoyment , avg(difficulty) as difficulty ,  avg(length) as length  from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id='+userid+' and prl.game_id = '+gameid
@@ -72,31 +72,28 @@ addPlatformTogame = (platformid, gameid)->
     connection.query sql, gameinfo,  (err,result) ->
      
 getOrCreatePlatform =( platform,gameid) -> 
-    sql = 'Select count(*) as gamecount, id from platforms where active=1 name = "'+platform+'"'
-    console.log sql 
+    sql = 'Select count(*) as gamecount, id from platforms where active=1 and name = "'+platform+'"'
     connection.query sql, (err, result) ->
         firstresult= result[0]
         if firstresult.gamecount > 0 
             addPlatformTogame firstresult.id, gameid
         else 
-             return 1
-                
+            return 1
+
 getOrCreateGame = (data,platforms, callback) -> 
     sql = 'Select count(*) as gamecount, id from games where giantBomb_id = '+data.giantBomb_id
     connection.query sql, (err, result) ->
         firstresult= result[0]
-
         if firstresult.gamecount > 0 
             return callback firstresult.id
         else 
             sql = 'Insert into games Set ?'
-           
             connection.query sql,  data,  (err,result) ->
-            
                 gameid = result.insertId
                 for platform in platforms
                     getOrCreatePlatform  platform.abbreviation,gameid
                 return callback gameid
+
 getOrCreateProReviewer= (data,callback)->
     sql ='Select count(*) as reviewerCount ,id from ProReviewers where name = "'+data.name+'"';
     console.log data
@@ -106,10 +103,10 @@ getOrCreateProReviewer= (data,callback)->
             return callback firstresult.id
         else 
             sql = 'Insert into ProReviewers Set ?'
-            connection.query sql,  data,  (err,result) ->
-    
+            connection.query sql,  data,  (err,result) ->    
                 gameid = result.insertId
                 return callback gameid
+
 validateEmail=(email) ->
     re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email)
@@ -143,15 +140,14 @@ getGamesForUserOnPlatform = (userid, client ,platform) ->
     
 getGamesForUser  = (username, localuserid ,client)->
     library = {}
-    sql = 'Select id from user where name = "'+username+'"'
-    console.log sql
+    sql = 'Select id,name,site,stream from user where name = "'+username+'"'
     connection.query sql,  (err, result) ->
-        console.log result
+        
         if result.length <=0
             client.emit 'noLibraryFound'
         else
             userid = result[0].id
-            
+            user=result
             library.myLibrary = (userid ==localuserid)
             sql = 'Select * from '
             sql +='(select l.rating,l.added, g.id, l.description, g.giantBomb_id,g.releasedate   , g.game_name , g.game_picture from library l, games g where l.game_id = g.id and l.user_id ='+userid+' order by g.releasedate desc ) t1 '
@@ -162,6 +158,7 @@ getGamesForUser  = (username, localuserid ,client)->
             console.log userid
             connection.query sql,  (err, result) ->
                 library.games=result
+                library.user=user
                 client.emit 'gameLibraryFound', library 
 
 addGameScore = (userid,gameid, bombid, callback) -> 
@@ -176,8 +173,6 @@ addGameScore = (userid,gameid, bombid, callback) ->
         
 updateGameList = (userid, gamelist, index,callback) ->
     length = gamelist.length
-    console.log 'gameindex is : '+index
-    console.log 'length is : '+length
     if index< length
         game =gamelist[index]
         sql = 'select g.id, count(*) as count from  games g where g.giantBomb_id  ='+game.id;
@@ -197,19 +192,19 @@ updateGameList = (userid, gamelist, index,callback) ->
 io.on 'connection', (client) ->
     userid=0
     username=''
-    console.log 'userConnected'    
     client.on 'SignUpUser', (data)->
-        if not validator.isEmail(data.username)
+        if not validator.isEmail data.username
             client.emit 'failureMessage', 'Not a valid email address'
-        else if not validator.isAlphanumeric(data.name)
+        else if not validator.isAlphanumeric data.name
             client.emit 'failureMessage', 'Display name many only contain Letters and numbers'
-        else
+        else 
             sql = 'Select Count(*) as userCount from user where username = ?'
             connection.query sql, [data.username], (err, result) ->
                 if result[0].userCount >0 
                     client.emit 'failureMessage', 'That email already exists'
-                    sql = 'Select Count(*) as userCount from user where name = data.name'
-                    connection.query sql, [data.username], (err, result) ->
+                else
+                    sql = 'Select Count(*) as userCount from user where name =?'
+                    connection.query sql, [data.name], (err, result) ->
                         if result[0].userCount >0 
                             client.emit 'failureMessage' ,'Username already exists'
                         else 
@@ -256,7 +251,7 @@ io.on 'connection', (client) ->
         if not validator.isAlphanumeric(data)
             client.emit 'failureMessage', 'Display name many only contain Letters and numbers'
         else
-            sql ='select  Count(*) as userCount  from user where name="'+data+'"'
+            sql ='select Count(*) as userCount  from user where name="'+data+'"'
             connection.query sql, [data.username], (err, result) ->
                 if result[0].userCount >0 
                     client.emit 'failureMessage', 'That Display name already exists please try again'
@@ -275,9 +270,8 @@ io.on 'connection', (client) ->
                        
             
     updateExpirationDate = (newExperationDate) ->
-        sql = 'Update  user set expires ='+newExperationDate+' where  id ='+userid
-        connection.query sql, (err,results) ->
-            
+        sql = 'Update user set expires ='+newExperationDate+' where  id ='+userid
+        connection.query sql, (err,results) ->        
     client.on 'logout',(data)->
         updateExpirationDate 0
     getAccessList = (isadmin)->
@@ -316,18 +310,14 @@ io.on 'connection', (client) ->
 
     client.on 'AddNewGameToLibrary' ,(data)->
         getOrCreateGame data.giantBombinfo, data.platforms, (gameid)-> 
-            
             data.userInfo.game_id = gameid
             data.userInfo.user_id = userid
             sql =  ' Insert into library Set ?'
             console.log data.userInfo
-            connection.query sql,  data.userInfo,  (err,results) ->
+            connection.query sql,  data.userInfo, (err,results)->
                 console.log err
                 calculateNewPeers data.userInfo.user_id
                 calculateNewPros data.userInfo.user_id
-                
-                
-              
                 getGamesForUser userid,client
         
     client.on 'Login', (data)->
@@ -380,7 +370,6 @@ io.on 'connection', (client) ->
         updateGameList  userid, games.list,0, (newlist)->
             client.emit 'searchfinished', newlist
             
-        
     client.on 'getGuruDetails', (gameid)->
         sql ='Select g.game_name as name, pr.name as reviewerName, prl.true_score as score, prl.true_score_max as scoremax, prl.review_link as reviewlink from userToProreviewer utp, ProReviewerLibrary prl ,games g , ProReviewers pr where utp.user_id =' + userid+' and utp.reviewer_id = pr.id and g.id ='+gameid.gameid+' and prl.user_id = utp.reviewer_id and g.id = prl.game_id'
         connection.query sql,(err, result) ->
@@ -388,7 +377,6 @@ io.on 'connection', (client) ->
 
     client.on 'getPeerDetails', (gameid)->
         sql ='Select g.game_name as name, pr.name as reviewerName, prl.rating as score, prl.description as details from userToReviewers utp, library prl, games g , user pr where utp.user_id =' + userid+' and utp.reviewer_id = pr.id and g.id ='+gameid.gameid+' and prl.user_id = utp.reviewer_id and g.id = prl.game_id'
-   
         connection.query sql,(err, result) ->
             console.log result
             client.emit 'peerDetailsFound', result
@@ -418,10 +406,13 @@ io.on 'connection', (client) ->
         connection.query sql,(err, result) ->
             client.emit 'ProLibrarysFound', result
     client.on 'GetListOfPlatforms' , (data)-> 
-        sql ='Select display_name from platforms where active =1 group by display_name' 
+        sql ='Select display_name from platforms where active =1 group by display_name order by relevanceRanking' 
         connection.query sql, (err, result) ->
             client.emit 'platformsFound', result
-    
+    client.on 'UpdateUserLibraryInfo', (data)->
+        sql ="Update user set site ='" +data.site+"', stream='"+data.stream+"' where id ="+userid
+        connection.query sql, (err, result) ->
+            
     client.on 'GetProreviewerLibrary', (data)->
         getProLibrary(data.id)
     client.on 'AddNewProGameToLibrary', (data)-> 

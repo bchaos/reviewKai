@@ -1,4 +1,23 @@
-<div class="pure-g-r addedMargin" ng-hide =" isLoading">
+
+
+<div class="splash-container-dashboard " >
+    <div class="splash-dashboard">
+        <h1 class="splash-head " ng-show="resultsFor" >Results for:{{resultsFor}} </h1>
+        <h1 class="splash-head " ng-hide="resultsFor" >Search for a game </h1>
+        <p>
+
+    <div class="pure-g-r addedMargin" >
+<form class="pure-form" ng-submit="getGame()">
+        <fieldset>
+        <input type="text" class="pure-input-2-3" ng-model="search" placeholder="Search" >
+        <button type="submit" class="pure-button pure-button-primary">Search</button>
+    </fieldset>
+    </form> 
+
+
+</div>
+<div class="pure-g-r " ng-hide ="isLoading">
+  
     <div class="pure-u-1">
         <form class="pure-form">
         <div class="pure-u-17-24">
@@ -35,7 +54,10 @@
 
 </div>
 
-<div class="pure-g-r addedMargin" ng-show =" isLoading">
+<div class="pure-g-r addedMargin" ng-show ="isLoading">
 <searching text="Searching"> </searching>
 
+</div>
+        
+    </div>
 </div>

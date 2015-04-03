@@ -1,87 +1,7 @@
 html, body{
   height:100%;
   }
-/*****************
-LOGIN
-*****************/
-.loginWrap{
-  height: 100%;
-  width:100%;
-  background-color:#0090d6;
-}
-#loginBox{
-  margin-top:70px;
-  border-radius: 0px;
-  background-color: #fff;
-  padding: 15px 10px;
-  color: #666;
-}
-.loginLogo{
-  background-image: url(/img/loginlogo.jpg);
-  background-size: 100%;
-  background-position:top center;
-  background-repeat: no-repeat;
-  height: 170px;
-  width: 200px;
-  margin: auto;
-}
-.loginTitle{
-  color: #8dc641;
-}
-.checkbox{
-  margin-bottom:0;
-  padding:0;
-  float: right;
-}
-.checkbox span{
-  margin-left:10px;
-}
-.input-group, .input-group label{
-  width: 100%;
-}
-.input-label{
-  max-width: 400px;   
-}
-input.form-control{
-  border:1px solid #cdcdcd;
-  background-color:#eee;
-  padding:20px;
-  margin-top:10px;
-}
-.form-control:focus{
-  border:1px solid #0090d6;
-  box-shadow: none;
-}
 
-/*****************
-LEFT SIDE MENU
-*****************/
-.logo{
-  height:130px;
-  background-color: #0090d6;
-  background-image: url(/img/hla_logo.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size:175px;
-}
-.list{
-  padding-top:15px !important;
-}
-.nopad{
-  padding:0 !important;
-}
-.nomarg{
-  margin:0 !important;
-}
-ion-item a{padding-left:18px;}
-.copyright{
-  position: absolute;
-  bottom: 20px;
-  font-size: 11px;
-  text-align: center;
-  width: 255px;
-  padding:10px;
-}
 
 /*****************
 Button Styles
@@ -99,147 +19,6 @@ Button Styles
     -moz-transition: all 0.4s ease-in-out;
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
-}
-
-.button.button-setup.button-outline {
-    border-color: #20409a;
-    background: transparent;
-    color: #20409a;
-}
-.button.button-setup.button-outline:hover{
-    color:#fff;
-    background-color: #20409a;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-}
-
-.button.button-edit.button-outline, .button.button-energized.button-outline {
-    border-color: #00b1cd;
-    background: transparent;
-    color: #00b1cd;
-}
-.button.button-edit.button-outline:hover, .button.button-energized.button-outline:hover{
-    color:#fff;
-    background-color: #00b1cd;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-}
-
-.button.button-delete.button-outline, .button.button-assertive.button-outline {
-    border-color: #ef4e3a;
-    background: transparent;
-    color: #ef4e3a;
-}
-.button.button-delete.button-outline:hover, .button.button-assertive.button-outline:hover{
-    color:#fff;
-    background-color: #ef4e3a;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-}
-
-
-/*****************
-Sliding Panels
-*****************/
-
-h2.title{
-  float:left;
-}
-
-.zf-green {
-    color: #68b604;
-}
-
-.btn-success {
-  background-color: #57a900;
-  background-image: -moz-linear-gradient(top, #70d900, #57a900);
-  background-image: -ms-linear-gradient(top, #70d900, #57a900);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
-  background-image: -webkit-linear-gradient(top, #70d900, #57a900);
-  background-image: -o-linear-gradient(top, #70d900, #57a900);
-  background-image: linear-gradient(top, #70d900, #57a900);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
-}
-
-.btn-success:hover,
-.btn-success:active,
-.btn-success.active,
-.btn-success.disabled,
-.btn-success[disabled] {
-  background-color: #57a900;
-}
-
-.btn-success:active, .btn-success.active {
-  background-color: #57a900;
-}
-
-div.container a.brand {
-    background: url("../img/zf2-logo.png") no-repeat scroll 0 10px transparent;
-    margin-left: 0;
-    padding: 8px 20px 12px 40px;
-}
-
-
-.bar.bar-positive {
-    border-color: #00b1cd;
-    background-color: #0090d6;
-    color: #fff;
-}
-
-.bar-positive .button {
-border-color: #00b1cd;
-background-color: #0090d6;
-color: #fff;
-}
-ion-side-menu, ion-side-menu ion-list .list, ion-side-menu ion-list .list ion-item .item-content
-, ion-side-menu ion-list .list ion-item, .menu
-{
-    border-color: #00b1cd;
-    background-color: #0090d6;
-    color: #fff;
-}
-
-
-.button.button-energized.button-outline {
-border-color: #00b1cd ;
-background: transparent;
-color: #00b1cd ;
-
-}
-
-
-rect[Attributes Style] {
-stroke: none;
-stroke-width: 0px;
-fill: #8cc63f
-}
-ion-side-menu ion-list .list ion-item .item-content.activated {
-    border-color: #00b1cd;
-    background-color: #00b1cd;
-}
-.bar-positive .button.activated{
-    border-color: #00b1cd;
-    background-color: #00b1cd;
-}
-.span3{
-  width:200px;
-  margin:0 20px 20px 0;
-}
-.horizonLogo{
-max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-display: block;
-}
-
-.item-divider,.item{
-  padding-left:34px;
 }
 
 
@@ -263,169 +42,7 @@ ol.categories:last-child{
  
   margin-right: 0;
 }
-.ChartNavButtons, .headerTitle{
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width:75%;
-}
-.ChartNavButtons2, {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width:90%;
-}
-.no-right-marg{
-  margin-right:0;
-}
 
-.buttonModal{
- margin-left: 32px;   
-}
-
-/*CHART MODAL*/
-h2.orgTitle {
-    margin-left:30px;
-    color: #6d6e70;
-    position: relative;
-    top: 20px;
-}
-h2.orgTitleChart{
-    margin-left:30px;
-    color: #6d6e70;
-    position: relative;
-}
-h5.key, h5.categoryTitle{
-text-transform: uppercase;
-    font-size:16px;
-    color: #009ade;
-}
-.self, .others{
-  width:15px;
-  height:15px;
-  padding:10px;
-  margin: auto;
-}
-.inline{
-  display: inline-block;
-}
-.self{background-color:#8cc63f;}
-.others{background-color:#0090d6;}
-.popUpContent{
-    top:130px;   
-}
-.titleImage{
-    margin: auto;
-    position: relative;
-    top:-10px;
-    width:1024px;
-    height:125px;
-}
-h5.Bcategories{
-    color: #214099;
-    text-align: center;
-    font-size: 21px;
-    margin-top: -40px;
-}
-.moreHeight {
-    
-    height:70px !important;
-}
-.newwidth{
-  width:300px;
-    min-height: 300px
-}
-.addedMargin{
- margin-top: 100px;
-margin-left: 25px;   
-     padding-left: 80px;
-      padding-right: 80px;
-      padding-bottom: 80px;
-    min-height:800px;
-}
-.docmumentModal {
-    top: 10%;
-right: 10%;
-bottom: 10%;
-left: 10%;
-overflow: visible;
-min-height: 300px;
-width: 80%;
-}
-.full-image{
- max-width: 150px;   
-max-height: 135px;
-}
-.dashboard-image{
-   margin-left: 20px;   
-}
-.horizonPopUpGradient{
-  background: #00b2cd; /* Old browsers */
-background: -moz-linear-gradient(left,  #00b2cd 0%, #ffffff 30%, #ffffff 60%, #00b2cd 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, right top, color-stop(0%,#00b2cd), color-stop(30%,#ffffff), color-stop(60%,#ffffff), color-stop(100%,#00b2cd)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(left,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(left,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(left,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* IE10+ */
-background: linear-gradient(to right,  #00b2cd 0%,#ffffff 30%,#ffffff 60%,#00b2cd 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b2cd', endColorstr='#00b2cd',GradientType=1 ); /* IE6-9 */
-width:100%;
-    height:120px;
-} 
-
-.popup-buttons.row{
-  margin-right:  0px;
-  margin-left: 0px;
-}
-
-.organizationName{
-
-}
-.chartLogo{
-    width: 1024px;
-    position: relative;
-    margin:auto;
-}
-.horizonPopUpLogo{
-  width: 150px;
-  margin:auto;
-  background-image: url(/img/loginlogo.jpg);
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  height:120px;
-}
-
-.scrolls {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space:nowrap;
-    display:inline-block;
-}
-
-.imageDiv img {
-    box-shadow: 1px 1px 10px #999;
-    margin: 2px;
-    max-height: 50px;
-    cursor: pointer;
-    display:inline-block;
-    *display:inline;/* For IE7*/
-    *zoom:1;/* For IE7*/
-    vertical-align:top;
- }
-
-.genreheader{
-    width:25%;
-    margin-left:auto;
-    margin-right: auto;
-    color: white;
-}
-
-
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
 /*
  * -- BASE STYLES --
@@ -433,23 +50,7 @@ width:100%;
  */
 body {
     line-height: 1.7em;
-    color: #7f8c8d;
     font-size: 13px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-label {
-    color: #34495e;
-}
-
-.pure-img-responsive {
-    max-width: 100%;
-    height: auto;
 }
 
 /*
@@ -511,53 +112,6 @@ a.pure-button-primary {
     font-size: 120%;
 }
 
-.pure-button-logout{
-    background-color: crimson;
-}
-
-/*
- * -- MENU STYLES --
- * I want to customize how my .pure-menu looks at the top of the page
- */
-
-.home-menu {
-    padding: 0.5em;
-    text-align: center;
-    box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
-}
-.home-menu {
-    background: #2d3e50;
-}
-.loginpadding{
-  margin-left: 80px;
-    
-}
-.pure-menu.pure-menu-fixed {
-    /* Fixed menus normally have a border at the bottom. */
-    border-bottom: none;
-    /* I need a higher z-index here because of the scroll-over effect. */
-    z-index: 4;
-}
-
-.home-menu .pure-menu-heading {
-    color: white;
-    font-weight: 400;
-    font-size: 120%;
-}
-
-.home-menu .pure-menu-selected a {
-    color: white;
-}
-
-.home-menu a , .footer a {
-    color: #6FBEF3;
-}
-.home-menu li a:hover,
-.home-menu li a:focus {
-    background: none;
-    border: none;
-    color: #AECFE5;
-}
 
 
 /*
@@ -592,7 +146,7 @@ a.pure-button-primary {
     width: 80%;
     height: 50%;
     margin: auto;
-    position: absolute;
+  
     top: 100px; left: 0; bottom: 0; right: 0;
     text-align: center;
     text-transform: uppercase;
@@ -632,12 +186,13 @@ a.pure-button-primary {
  * This represents the content area (everything below the blue section)
  */
 .content{
-  overflow-x: hidden;     
+  overflow-x: hidden;  
+     background: white;
  }
 .content-wrapper {
     /* These styles are required for the "scroll-over" effect */
     position: absolute;
-    top: 80%;
+    top: 65%;
     width: 100%;
     min-height: 12%;
     z-index: 2;
@@ -659,6 +214,7 @@ a.pure-button-primary {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin: 2em 0 1em;
+    color:white
 }
 
 /* This is a modifier class used when the content-head is inside a ribbon */
@@ -687,7 +243,7 @@ margin-bottom: 30px;
 
 /* This is the class used for the footer */
 .footer {
-  
+ position: absolute;
     color: white;
       bottom: 0px;
     z-index:500;
@@ -733,10 +289,12 @@ body{
     .splash {
         width: 50%;
         height: 50%;
+        margin-top: 30px;
     }
 
     .splash-head {
         font-size: 250%;
+        
     }
 
 
@@ -847,7 +405,7 @@ game card maker
 		float: left;
 		width: 275px;
 		height: 350px;
-		margin: 10px;
+		
 		position: relative;
 		font-size: .8em;
 
@@ -869,6 +427,8 @@ game card maker
         min-height:275px;
 		border: 2px ridge gold;
 		background: url('../images/cardback.png');
+         background-size: 100% 100%;
+    background-repeat: no-repeat;
 		text-align: center;
 		box-shadow: 0 1px 5px rgba(0,0,0,0.9);
 
@@ -892,6 +452,8 @@ game card maker
 		z-index: 900;
 		border-color: #eee;
 		background: url('../images/cardback.png');
+         background-size: 100% 100%;
+        background-repeat: no-repeat;
 		box-shadow: 0 15px 50px rgba(0,0,0,0.2);
 
 		-webkit-transform: rotateY(180deg);
@@ -1108,8 +670,8 @@ overflow: scroll;
 	.block ol li {text-align: left; margin: 0 0 0 28px; }
 	.block .action {display: block; padding: 3px; background: #333; text-align: right; font-size: .8em; opacity: 0; position: absolute; cursor: pointer; -webkit-transition: opacity .2s linear; }
 	.block:hover .action {opacity: .7; }
-	.circle div {border-radius: 20px; }
-	.circle div .circleLogo  {border-radius: 50%;  
+	.circle div { }
+	.circle div .circleLogo  {
         background-color:#2d3e50;
          box-shadow: 0 1px 0 #2d3e50;
         color:white;
@@ -1164,10 +726,10 @@ margin-left: 20%;
     margin-bottom:5px;
     background-color:#dedcc4;  
     border: 1px solid gold;
-    border-radius: 5%; 
+    
 }
     .game_recomendation{
-        margin-top:10px;
+    
      height:38%;   
     }
     .game_name{
@@ -1186,4 +748,22 @@ margin-left: 20%;
 
 .item-input{
  padding:1px 0px 1px 12px;   
+}
+
+.library-avatar{  
+  border-radius: 100px;
+  
+  margin-left: 1em;   
+  posistion:absolute;
+  right :10px;
+  top : 10px;
+}
+.library-header{
+    height: 100px;
+    font-size:3em;
+    background-color: #191818;
+    color: #dedcc4;
+}
+.library-name{
+    
 }

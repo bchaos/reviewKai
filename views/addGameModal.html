@@ -1,38 +1,58 @@
-<ion-modal-view>
+<ion-modal-view class="modalAdder">
     <ion-header-bar>
         <h1 class="title"> New Game </h1> 
         <button class="button button-clear button-assertive" ng-click="closeModal()">x</button>
-    </ion-header-bar>
-    <ion-content>
-        
+    </ion-header-bar>  
+    <div class="click panel circle pure-u-1-8" ng-class="canFlip"  >
+    
+     <div class="front" >   
+         <div class="circleLogo"> <p/>Find a Game</div>
         <div class="list" ng-hide="gameSelected">
             <div class="item item-divider">
+                <form ng-submit="searchForAGame(searchRequirements)"> 
                  <label class="item item-input">
                     <i class="icon ion-search placeholder-icon"></i>
                     <input type="text" placeholder="Search" ng-model="searchRequirements">     
                  </label>    
-                 <button class="button button-small" ng-click="searchForAGame(searchRequirements)">
+                 <button type="submit" class="button button-small" >
                     Search 
                  </button>
+                    </form>
             </div>
-            <div ng-show="isLoading"> Loading .... </div>
-            <span ng-hide= "isLoading"> 
-             <a class="item item-avatar" ng-repeat="game in gamesfound" ng-click="addGameToLibrary(game)">
-              <img ng-src="{{game.image.icon_url}}">
-              <h2>{{game.name}}</h2>
-            </a>
-            </span>
+                
         </div>
-        <div class="list" ng-show="gameSelected">
-       <button class="button  icon ion-arrow-left-a" ng-click="goback() "> back</button>
-        <p/>
-            <ul class="list">
-                 <li class="item item-avatar item-divider">
-          
-              <img ng-src="{{newgame.giantBombinfo.image.icon_url}}">
-              <h2>{{newgame.giantBombinfo.name}}</h2>
-            </li>
-             <li class="item">
+    </div>
+        <div class="back" ng-class="convertAverageClass(newgame.userInfo.rating)"  > 
+        <div class="list moveupby10" ng-show="gameSelected">
+     
+         <div class="game_header">
+          <div class="pure-u-19-24  game_name">
+               <button class="button button-small button-positive   button-outline" ng-click="goback() "> back</button>    {{newgame.giantBombinfo.game_name}}
+             </div>
+        
+        </div>
+ 
+              <img ng-src="">
+             
+              <div class="game_recomendation tall">
+                  <div class="game_recomendation_text ">
+                {{newgame.giantBombinfo.description}}
+        </div>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class=" modalSelectionArea"> 
+                <div ng-show="isLoadingAdder"> Loading .... </div>
+                <div ng-hide= "isLoadingAdder || gameSelected"> 
+                 <a class="item item-avatar" ng-repeat="game in gamesfound" ng-click="addGameToLibrary(game);">
+                  <img ng-src="{{game.image.icon_url}}">
+                  <h2>   {{game.name}}</h2>
+                </a>
+                </div>
+        <form class="pure-form"  ng-submit="saveGame()" ng-show="gameSelected">
+            
+            <br/>
             <div class="input-label">
                 Select a phrase that best describes your thoughts about the game:
                 
@@ -45,21 +65,15 @@
                <option value="5">A nearly flawless gameplay experience</option>
                 
             </select>
-                </li>
-                 <li class="item">
-                  <form class="pure-form">
-                         <fieldset class="pure-group">
-        
-                             <textarea class="pure-input-1-2" placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="newgame.userInfo.description"></textarea>
+           <fieldset class="pure-group" >
+            <textarea class="pure-input-1" height="100px" placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="newgame.userInfo.description"></textarea>
     </fieldset>
-                     </form>
-                </li>
-     </ul>
+
         <div class="button-bar">
-            <a class="button button-positive  button-outline" ng-click="saveGame()"> Save </a> 
+          <button class="button button-positive  button-outline"type="submit"> Save </button> 
         </div>
-            
-        </div>
+           </form>  
         
-    </ion-content>
+    </div>
+    
 </ion-modal-view>

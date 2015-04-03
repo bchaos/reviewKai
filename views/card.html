@@ -1,5 +1,3 @@
-
-
 <div class="click panel circle" ng-class="canFlip" ng-init="canFlip=''" ng-click ="canFlip='flip'">
 	<div class="front" >
 		<div class="circleLogo"> <p/><h2>Review<p/> Kai</h2></div>
@@ -16,12 +14,12 @@
         
         <div class="game_recomendation">
             <div class="game_recomendation_text"> 
-                Pros say: <span ng-show="game.guruscore" ng-style="colorForScore(game.guruscore)"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
-            <p/>
-            Peers say:<span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
+                Pros say: <span ng-show="game.guruscore" ng-style="colorForScore(game.guruscore)"> {{convertRating(game.guruscore)}} </span> 
+                <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
+                <p/>
+                Peers say:<span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.peerscore)}}  </span>
+                <span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
+            </div>
         </div>
-        </div>
-		
 	</div>
 </div>
-

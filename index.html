@@ -29,16 +29,17 @@
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
         <script type="text/javascript" src="js/ionic.js"></script>
         <script type="text/javascript" src="js/angular-ui-router.js"></script>
+ 
         <script type="text/javascript" src="js/ionic-angular.js"></script>
         <script type="text/javascript" src="js/tbd.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
-        <script src="js/underscore-min.js"></script>
-        <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
+
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"> 
-        <link href="css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="css/output.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/ionicons.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/ionic.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="css/sidemenu.css" media="screen" rel="stylesheet" type="text/css">
     </head>
     
     <body ng-app="reviewApp" ng-controller="reviewController"> 
@@ -62,61 +63,47 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
        
-<div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed pure-g-r">
-        <div class="pure-u-1" ng-show="accessList">
-            <a href="/" > <img src="images/reviewImage.png"></a>
-            <span style="float:right;">
-        <ul class="pure-menu-list">
+<div id="layout" ng-class="active">
+    <a  id="menuLink" class="menu-link  button  icon ion-navicon-round" ng-class="active" ng-init ="active='false'" ng-click="toggleClass()">
+      
+    </a>
+   <div id="menu" ng-class="active">
+        <div class="pure-menu" >
+           <a href="/#/"  class="pure-menu-heading"><span style="color:gold">Review</span> Kai</a>
+           
+       <ul class="pure-meu-list">
+                <span ng-hide="accessList"> 
+                 <li class="pure-menu-item"><a href="#/" class=" button  button-outline icon ion-information-circled button-positive pure-menu-link icon-left">About</a></li>
+                 <li class="pure-menu-item" ng-click ='signUpModal()' ><a class=" button  button-outline icon ion-arrow-up-a button-positive pure-menu-link icon-left"> Signup </a></li>
+                <li class="pure-menu-item" ng-click ='signInModal()' ><a class=" button  button-outline icon ion-log-in button-positive pure-menu-link icon-left"> Login</a></li>  
+               <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button></li> 
             
-             <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item"><a href="#/{{access.link}}" class=" pure-menu-link ">  {{access.name}}</a> 
+               </span>  
+             <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item"><a href="#/{{access.link}}"  class=" button  button-outline icon {{access.icon}} button-positive pure-menu-link icon-left">  {{access.name}}</a> 
                </li>  
-       
-            <li class=" pure-menu-item "> 
-                <label class="item item-input">
-                   <a ng-href="#/search?game={{search}}"> <i class="icon ion-search placeholder-icon" ></i> </a>
-                    <input type="text" ng-model="search" placeholder="Search" style="padding-left:20px">
-                </label>
-             </li>
-                 <li class=" pure-menu-item pure-menu-has-children pure-menu-allow-hover" > 
-                <a class="button icon ion-ios-cog-outline"></a>
-                <ul class="pure-menu-children" style="left:-30px">
-                    <li class="pure-menu-item"><a href="#/blog" class="pure-menu-link">Blog</a></li>
-                    <li class="pure-menu-item"><a href="#/contact" class="pure-menu-link">Contact</a></li>
-                     <li class="pure-menu-item"><a href="#/PrivacyPolicy" class="pure-menu-link">Privacy Policy</a></li>
-                    
-                    <li class="pure-menu-item"><a ng-click="logout()" class="pure-menu-link">Sign Out</a></li>
-                    
-                </ul>
-            </li>
-                </ul>
-            </span>
-        </div>
-         
-         <div class="pure-u-1" ng-hide="accessList"> 
-              <a href="/#/" > <img src="images/reviewImage.png"></a>
-         
-            
-            <span style="float:right;">  
-                 <li class="pure-menu-item"><a href="/#/" class="pure-menu-link">About Review Kai</a></li>
-                <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
-                <button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button>   
-                 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button>
-            </span>
-                         
-             </div>           
+           <li class="pure-menu-item" ng-show="accessList"><a href="#/search"  class=" button  button-outline icon ion-search button-positive pure-menu-link icon-left" >Search</a></li>
+   
 
+                 <!---   <li class="pure-menu-item"><a href="#/blog"  class=" button  button-outline icon ion-ios-paper button-positive pure-menu-link icon-left">Blog</a></li>-->
+                    <li class="pure-menu-item"><a href="#/contact"  class=" button  button-outline icon ion-paper-airplane button-positive pure-menu-link icon-left">Contact</a></li>
+                     <li class="pure-menu-item"><a href="#/PrivacyPolicy" class=" button  button-outline icon ion-flash button-positive pure-menu-link icon-left">Privacy Policy</a></li>
+                    
+                    <li class="pure-menu-item" ng-show="accessList"><a ng-click="logout()" class=" button  button-outline icon ion-log-out button-positive pure-menu-link icon-left">Sign Out</a></li>
+                    
+
+                </ul>
+            
         </div>
+            
+
+   </div>
         
-</div>
 
-            
- </div>
        
    
-                <ng-view class="slide-left-right mainContent"></ng-view>
+        <ng-view class="mainContent"></ng-view>
 
-        
+        </div>  
        
     <div class="footer">
      

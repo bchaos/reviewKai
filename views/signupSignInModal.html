@@ -6,7 +6,7 @@
         <button class="button button-clear button-assertive" ng-click="closeModal()">x</button>
     </ion-header-bar>
     <ion-content>
-        
+       <form ng-submit="signInOrSignUpNow()">
         <div class="list" ng-show="needUsername">
             Create a User name:
             <label class="item item-input" >
@@ -34,12 +34,15 @@
         </div>
          <div class="bar-assertive" ng-show='errormessage'> {{errormessage}} </div>
          <div class="button-bar" ng-hide="needUsername">
-                    <a class="button button-positive  button-outline" ng-click="signInNow()"  ng-hide = 'signUp'> Signin </a> 
-                    <a class="button button-positive  button-outline" ng-click="signUpNow()"  ng-show = 'signUp'> Signup </a> 
+                    <button class="button button-positive  button-outline" type="submit">  <span ng-hide = 'signUp'> Signin<span></span>
+                        <span ng-show = 'signUp'> Signup </span>
+                        </button > 
+               
              
               <p/>                 
             
         </div>
+        </form>
          <div class="button-bar" ng-show="needUsername">
           <a class="button button-positive  button-outline" ng-click="createUsername()"  > Create Username </a> 
         </div>

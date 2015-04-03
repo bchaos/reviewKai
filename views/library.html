@@ -1,4 +1,35 @@
-<div class="pure-g-r addedMargin" ng-hide =" isLoading">
+
+<div class="pure-u-1" ng-hide =" isLoading">
+    <div class="splash-container-dashboard "  >
+    <div class="splash-dashboard">
+        <h1 class="splash-head" ng-show="myLibrary">
+            <div class="pure-g-r pure-u-1">
+            
+            <div class="pure-u-7-12 movedown"> 
+            <span style="color:gold">{{user.name}}'s </span> Library  
+                <span ng-show="localLibrary">
+                    <button class="button button-small button-assertive" ng-hide="editMode"  ng-click="toggleEditMode()"> Edit </button>
+                    <button class="button button-small button-assertive" ng-show="editMode"  ng-click="toggleEditMode()"> Cancel </button>
+                    <button class="button button-small button-positive" ng-show="editMode"  ng-click="saveLibraryEdit()"> Save </button>
+                </span>
+            <br/>
+            <span class="smallText"> Site : <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
+                <input type="text" ng-model ="user.site" ng-show="editMode"> 
+                </span> <br/>
+                <span  class="smallText">  Stream : <a ng-hide="editMode" href="{{user.stream}}" target="_blank">{{user.stream}} </a>  
+                <input type="text" ng-model ="user.stream" ng-show="editMode"> 
+                
+                </span>
+                </div>
+            </div>
+        </h1>
+        <h1 class="splash-head" ng-hide="myLibrary">
+ <div class="pure-g-r pure-u-1">
+            <img class="platformLarge"  src="/images/platforms/{{currentPlatform}}/icon.png">
+            </div>       
+        </h1>
+    <p>
+    <p/>
     <div class="pure-menu pure-menu-horizontal" ng-show="platforms">
         <ul class="pure-menu-list  lightblue"> 
             <li class="pure-menu-item" ng-repeat="platform in platforms">
@@ -9,41 +40,38 @@
     </div>
     <div class="pure-u-1">
         <form class="pure-form">
-        <div class="pure-u-17-24">
-        <span> 
-            <button class="button button-stable " ng-click="setPage(currentPage-1)"><<</button>
-        </span>
-        <span ng-repeat="page in pages">
-            <button ng-show="page.elispe" class="button button-stable"  > ... </button>
-            <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">{{page.number+1}}</button>
-        </span>
-        <span > 
-               <button class="button button-stable"  ng-click="setPage(currentPage+1)">>></button>
-        </span>
-    </div>
-    <div class="pure-u-1-8">
-      
+            <div class="pure-u-17-24">
+                <span> 
+                    <button class="button button-stable " ng-click="setPage(currentPage-1)"><<</button>
+                </span>
+                <span ng-repeat="page in pages">
+                    <button ng-show="page.elispe" class="button button-stable"  > ... </button>
+                    <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">{{page.number+1}}</button>
+                </span>
+                <span > 
+                       <button class="button button-stable"  ng-click="setPage(currentPage+1)">>></button>
+                </span>
+            </div>
+            <div class="pure-u-1-8">
                 <select id="sort" ng-model="sort" ng-init="sort='-releasedate'">
                     <option value="-releasedate" selected>Release Date </option>
                     <option value ="+game_name">Name </option>
                     <option value = "-{{scoreName}}">Recomendation </option>
                 </select>
             </div>
-            </form>
+        </form>
     </div>
-     <span ng-show="myLibrary">
-    <div class=""  >
+     <span ng-show="myLibrary && localLibrary">
+    <div class="" >
         <div class="click panel circle ">
 	<div class="front" >
-		      <div class="circleLogo"  ng-click ="addNewGame()"> 
-          <div class="gameadderbutton"> +</div>
-      </div>
+        <div class="circleLogo"  ng-click ="addNewGame()"> 
+            <div class="gameadderbutton"> <h2>+</h2></div>
+        </div>
         <p/>
         Click to add a new 
 	</div>
 	<div class="back ">
-    
-		
 	</div>
 </div>
  
@@ -55,6 +83,8 @@
         <librarycard></librarycard>
 
     </div>
+ </div>
+</div>
 
 </div>
 <div class="pure-g-r addedMargin" ng-show ="isLoading && !NoLibraryError">
@@ -62,7 +92,7 @@
 
 </div>
 
-<div class="pure-g-r addedMargin" ng-show ="NoLibraryError">
+<div class="pure-g-r addedMargin " ng-show ="NoLibraryError">
    <h2> No Library Found</h2>
 </div>
     

@@ -1,0 +1,544 @@
+$postiveColor:#8cc63f;
+$listColor: #6d6e70; 
+$darkBlue: #2d3e50;
+$lightBlue: #1f8dd6;
+$whiteColor:#f7f7f7;
+$cardBack:'../images/cardback.png';
+html, body{
+    height :100%;
+    line-height: 1.7em;
+    font-size: 13px;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    background-color:$lightBlue;
+    }
+.button{
+
+    &.button-positive.button-outline {
+        border-color: $postiveColor;
+        background: transparent;
+        color: $postiveColor;
+        &:hover{
+            color:#fff;
+            -webkit-transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+        }
+    }
+    
+}
+
+.modal {
+  top:10%;
+  bottom:10%;
+}
+
+ol{
+    &.categories{
+        float: left;
+        list-style: decimal;
+        padding-left:20px;
+        margin-right:30px;
+        line-height: 2em;
+        color:$listColor;
+        &:last-child{
+          margin-right:0;   
+        }
+        
+      
+    }
+}
+
+.l-box{
+    padding: 1em;
+}
+
+.l-box-lrg{
+    padding: 2em;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.is-center {
+  width: 115%;
+  text-align: center;
+  left: -30px;
+  position: relative;
+  background: #111;
+}
+
+.pure-form{
+    label{
+        margin: 1em 0 0;
+        font-weight: bold;
+        font-size: 100%;
+    }
+    input[type] {
+        border: 2px solid #ddd;
+        box-shadow: none;
+        font-size: 100%;
+        width: 100%;
+        margin-bottom: 1em;
+    }
+} 
+
+.splash-container {
+    background: $lightBlue;
+    z-index: 1;
+    overflow: hidden;
+    /* The following styles are required for the "scroll-over" effect */
+    width: 100%;
+    height: 88%;
+    top: 0;
+    left: 0;
+    position: fixed !important;
+}
+
+.splash-container-dashboard{
+    background: $lightBlue;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+.splash {
+    width: 80%;
+    height: 50%;
+    margin: auto;
+    top: 100px; left: 0; bottom: 0; right: 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.splash-dashboard {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+.gamefilter{
+  margin-bottom:15px;   
+}
+.splash-head {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    border: 3px solid white;
+    padding: 1em 1.6em;
+    font-weight: 100;
+    border-radius: 5px;
+    line-height: 1em;
+    text-transform: uppercase;
+}
+.splash-subhead {
+    color: white;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+.content{
+  overflow-x: hidden;  
+     background: $whiteColor;
+ }
+.content-wrapper {
+    /* These styles are required for the "scroll-over" effect */
+    position: absolute;
+    top: 65%;
+    width: 100%;
+    min-height: 12%;
+    z-index: 2;
+    background: $whiteColor;
+
+}
+.gameObject{
+    border: 1px solid #ddd;
+    background:  $whiteColor;
+    margin: 0 0.5em 2em;
+    padding: 0 0 3em;
+    min-height: 230px;
+}
+/* This is the class used for the main content headers (<h2>) */
+.content-head {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 2em 0 1em;
+    color:white
+}
+
+/* This is a modifier class used when the content-head is inside a ribbon */
+.content-head-ribbon {
+    color: white;
+}
+.content-subhead {
+    color: #1f8dd6;
+    i {
+        margin-right: 7px;
+    }
+}
+
+.footer {
+    position: absolute;
+    color: white;
+    bottom: 0px;
+    z-index:500;
+    width: 100%;
+    background-color:$darkBlue;
+}  
+@media (min-width: 48em) {
+    body {
+            font-size: 16px;
+        }
+    .content {
+        padding: 1em;
+    }
+    .splash {
+        width: 50%;
+        height: 50%;
+        margin-top: 30px;
+    }
+    .splash-head {
+        font-size: 200%;
+        
+    }
+    .l-box-lrg {
+        border: none;
+    }
+}
+
+@media (min-width: 78em) {
+    /* We increase the header font size even more */
+    .splash-head {
+        font-size: 250%;
+    }
+}
+
+.panel {
+    float: left;
+    width: 275px;
+    height: 350px;
+    position: relative;
+    font-size: .8em;
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+    perspective: 600px;
+    .front {
+        float: none;
+        
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 900;
+		width: inherit;
+		height: inherit;
+        min-width:275px;
+        min-height:350px;
+		border: 2px ridge gold;
+		background: url($cardBack);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        text-align: center;
+		box-shadow: 0 1px 5px rgba(0,0,0,0.9);
+        -webkit-transform: rotateX(0deg) rotateY(0deg);
+        -moz-transform: rotateX(0deg) rotateY(0deg);
+        transform: rotateX(0deg) rotateY(0deg);
+
+		-webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+
+		-webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+        color:white; 
+		/* -- transition is the magic sauce for animation -- */
+		-webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
+        .rec{
+            width: 275px;
+            height: 350px;   
+        }
+    }
+    &.flip{
+        .front{
+            z-index: 900;
+            border-color: #eee;
+            background: url('../images/cardback.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+        .back{
+            z-index: 1000;
+            -webkit-transform: rotateX(0deg) rotateY(0deg);
+            -moz-transform: rotateX(0deg) rotateY(0deg);
+            transform: rotateX(0deg) rotateY(0deg);
+		    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+    }
+    .back {
+        float: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 800;
+		width: inherit;
+		height: inherit;
+		border: 1px solid #ccc;
+		
+		text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+
+		-webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-179deg); /* setting to 180 causes an unnatural-looking half-flip */
+        transform: rotateY(-179deg);
+
+		-webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+
+		-webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+
+		/* -- transition is the magic sauce for animation -- */
+		-webkit-transition: all .4s ease-in-out;
+        transition: all .4s ease-in-out;
+        &.postive{
+            background:#66cc33;
+        }
+        &.negative{
+            background:red;
+        }
+        &.unknown{
+            background:white; 
+        }
+        &.ok{
+            background:yellow;   
+        }
+    }
+}
+.lightblue{
+  height: 40px;
+  background-color: #265778;
+  top: -39px;
+  position: relative;
+  width: 100%;  
+}
+.white-link{
+   color: white; 
+}
+
+@keyframes shuffleanimation {
+    0%   {left: 38%; top:38%; z-index:2;}
+    50%  {left:200px; top:20%;z-index:1}
+    100% {left: 38%; top:38%;z-index:-1;}
+}
+
+@-webkit-keyframes shuffleanimation {
+    0%   {left: 38%; top:38%; z-index:2;}
+    50%  {left:200px; top:20%;z-index:1}
+    100% {left: 38%; top:38%;z-index:-1;}
+}
+.shuffle{
+        animation-name: shuffleanimation;
+        -webkit-animation-name: shuffleanimation; /* Chrome, Safari, Opera */
+        -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+        animation-duration: 1s;
+       -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+}
+.loadingCard{
+    position: absolute;				
+    float: left;					
+    left: 38%;	   
+    top: 38%;
+}
+.loadingPadding{
+  min-height: 400px;
+
+}
+.gameDes {
+    max-height: 300px;
+    overflow: scroll;   
+}
+
+.click {
+    .front {
+        cursor: pointer;
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+         transform: rotateX(0deg);
+    }
+    &.flip .front{
+        -webkit-transform: rotateX(180deg);
+        -moz-transform: rotateX(180deg);
+        transform: rotateX(180deg);
+    }
+    .back {
+		cursor: pointer;
+		-webkit-transform: rotateX(-180deg);
+        -moz-transform: rotateX(-180deg);
+        transform: rotateX(-180deg);
+	}
+    &.flip .back{
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+	}   
+}
+.contact {
+    width: 290px;
+    height: 240px;
+}
+.panel {
+    .pad{
+        padding: 0 15px;
+    }
+    &.flip .action {
+        display:none;   
+    }
+}
+.block{
+    ol li {text-align: left; margin: 0 0 0 28px; }
+    .action {display: block; padding: 3px; background: #333; text-align: right; font-size: .8em; opacity: 0; position: absolute; cursor: pointer; -webkit-transition: opacity .2s linear; }
+    &:hover .action {opacity: .7; }
+}
+.circle div .circleLogo  {
+    background-color:#2d3e50;
+    box-shadow: 0 1px 0 #2d3e50;
+    color:white;
+    border: 2px ridge white;
+    text-align:center;    
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 40%;
+    &.platform{
+        width: 95%;
+        height: 51px;
+    }
+}
+.circleLogo h2{
+    color: white;
+    margin-top: 15px;   
+}
+.game_image{
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px ridge gold;
+    border-radius: 10%;  
+    width: 90%;   
+    background-size: 100% 150%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 42%;
+}
+.KaiadderText{
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-top:10%;
+    font-size:1.4em;
+    color:white;
+}
+.Kaiadder{
+    background-color:#2D3E50;
+}
+.ladder{
+  background-color:white;   
+}
+.card img{
+ max-width:100px;   
+}
+.game_header, .game_recomendation{
+    margin-top:5px;
+    font-size:1.2em;
+    width: 90%;   
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:5px;
+    background-color:#dedcc4;  
+    border: 1px solid gold;
+    
+}
+.game_recomendation{
+    
+     height:38%;   
+    &.tall{
+       height:68%;   
+     }
+    
+}
+.game_name{
+        margin-left:8px;   
+}
+.game_recomendation_text{
+    margin-left:8px;   
+    margin-right:8px; 
+    margin-top:20px;
+    
+}
+
+.pure-menu-selected{
+  background-color: gray;   
+    
+}
+
+.item-input{
+ padding:1px 0px 1px 12px;   
+}
+
+
+.library-header{
+    height: 100px;
+    font-size:3em;
+    background-color: #191818;
+    color: #dedcc4;
+    .library-avatar{  
+      border-radius: 100px;
+      margin-left: 1em;   
+      posistion:absolute;
+      right :10px;
+      top : 10px;
+    }
+    .library-name{
+    
+    }
+}
+.movedown{
+  margin-top:20px;   
+}
+.avatar{
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+.platFormSmall{
+  max-width: 240px;
+  max-height: 44px;  
+}
+
+.platFormLarge{
+ max-width: 240px;
+  max-height: 44px;    
+}
+.fb_iframe_widget{
+    margin-top:10px;
+    margin-left:10px;
+}
+.smallText{
+    font-size:50%;
+}
+
+.modalSelectionArea{
+  overflow-y: scroll;
+  height: 300px;
+  margin-top: 50px;
+}
+.modalAdder{
+  min-height:350px;   
+}
+.moveupby10{
+    
+ top:-15px;   
+}
