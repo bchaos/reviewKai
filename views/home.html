@@ -9,7 +9,7 @@
             <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
 
 <button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button> 
-         
+         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button>
         </p>
     </div>
 </div>

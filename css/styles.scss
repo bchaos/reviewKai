@@ -86,18 +86,22 @@ ol{
     z-index: 1;
     overflow: hidden;
     /* The following styles are required for the "scroll-over" effect */
-    width: 100%;
+    width: 90%;
+margin-left: auto;
+margin-right: auto;
     height: 88%;
     top: 0;
-    left: 0;
+ 
     position: fixed !important;
 }
 
 .splash-container-dashboard{
     background: $lightBlue;
-    width: 100%;
+    width: 90%;
+margin-left: auto;
+margin-right: auto;
     top: 0;
-    left: 0;
+    
 }
 .splash {
     width: 80%;
@@ -132,6 +136,16 @@ ol{
     color: white;
     letter-spacing: 0.05em;
     opacity: 0.8;
+}
+.iosContent{
+    .splash-dashboard{
+        width:100%;
+
+    }
+    .splash{
+        width:100%;
+    }
+    
 }
 .content{
   overflow-x: hidden;  
@@ -182,6 +196,25 @@ ol{
     width: 100%;
     background-color:$darkBlue;
 }  
+@media(max-width:979px){
+    .hideMobile{
+      display:none;   
+    }
+    .hideDesktop{
+        display:inline-block;   
+    }
+}
+
+@media(min-width:980px){
+    .hideMobile{
+      display:inline-block;   
+    }
+    .hideDesktop{
+        display:none;   
+    }
+}
+
+
 @media (min-width: 48em) {
     body {
             font-size: 16px;
@@ -541,4 +574,20 @@ ol{
 .moveupby10{
     
  top:-15px;   
+}
+
+
+.iosMenu{
+    position: fixed;
+    bottom:0px;
+    background-color: $darkBlue;
+    .pure-menu-item{
+        height:48px;   
+        i{
+            display:block;
+            height: 24px;
+            margin:-4px;
+        }
+    }
+    
 }

@@ -406,13 +406,16 @@
       return accessList = [
         {
           name: 'Dashboard',
-          link: 'dashboard'
+          link: 'dashboard',
+          icon: 'ion-ios-home-outline'
         }, {
           name: 'Library',
-          link: username
+          link: username,
+          icon: 'ion-ios-book-outline'
         }, {
           name: 'Recomendations',
-          link: 'recommendations'
+          link: 'recommendations',
+          icon: 'ion-person-stalker'
         }
       ];
     };
@@ -446,7 +449,7 @@
       var sql;
       sql = ' Update library Set ? where id =' + data.id;
       return connection.query(sql, data, function(err, result) {
-        console.log(' game updated');
+        console.log('game updated');
         return getGamesForUser(userid, client);
       });
     });

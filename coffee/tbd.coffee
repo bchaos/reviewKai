@@ -495,6 +495,7 @@ app.controller 'peerController',
                 $scope.platforms =data
             $scope.currentPlatform= searchObject.platform
             socket.emit 'GetPeerLibrary', searchObject.platform
+            
             @socket.on 'peerLibraryFound', (data)->
                 $scope.games = []
                 for item in data[0]
@@ -521,10 +522,13 @@ app.controller 'guruController',
             $scope.isLoading=true;
             searchObject = $location.search();
             socket.emit 'GetListOfPlatforms' , {data:'1'}
+            $scope.updatePlatform = (newPlatform)->
+                $scope.isLoading=true;
+                socket.emit 'GetGuruLibrary', newPlatform
+                $scope.currentPlatform =newPlatform
             socket.on  'platformsFound', (data)->
                 $scope.platforms =data
-            $scope.currentPlatform= searchObject.platform
-            socket.emit 'GetGuruLibrary', searchObject.platform
+            $scope.updatePlatform searchObject.platform
             @socket.on 'guruLibraryFound', (data)->
                 $scope.games = []
                 for item in data[0]
@@ -540,11 +544,13 @@ app.controller 'guruController',
                 $scope.setUpPages();
                 $scope.isLoading=false;
             createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
+
 app.controller 'genericController', 
     class genericController
         @$inject: ['$scope']
         constructor: (@$scope) ->
             $scope.contact=false
+
 app.controller 'libraryController',
     class libraryController
         @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']

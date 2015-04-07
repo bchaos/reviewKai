@@ -794,11 +794,15 @@
       socket.emit('GetListOfPlatforms', {
         data: '1'
       });
+      $scope.updatePlatform = function(newPlatform) {
+        $scope.isLoading = true;
+        socket.emit('GetGuruLibrary', newPlatform);
+        return $scope.currentPlatform = newPlatform;
+      };
       socket.on('platformsFound', function(data) {
         return $scope.platforms = data;
       });
-      $scope.currentPlatform = searchObject.platform;
-      socket.emit('GetGuruLibrary', searchObject.platform);
+      $scope.updatePlatform(searchObject.platform);
       this.socket.on('guruLibraryFound', function(data) {
         var item, score1, score2, _i, _len, _ref;
         $scope.games = [];

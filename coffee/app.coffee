@@ -173,8 +173,8 @@ addGameScore = (userid,gameid, bombid, callback) ->
         
 updateGameList = (userid, gamelist, index,callback) ->
     length = gamelist.length
-    if index< length
-        game =gamelist[index]
+    if index < length
+        game = gamelist[index]
         sql = 'select g.id, count(*) as count from  games g where g.giantBomb_id  ='+game.id;
         connection.query sql, (err, result) ->
             if result[0].count is 0 
@@ -212,30 +212,30 @@ io.on 'connection', (client) ->
                             d = new Date()
                             currentTime= d.getMilliseconds()
                             newExpiration = currentTime + 7*86400000
-                            sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest('hex')
+                            sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest 'hex'
                             data.sessionKey= sessionKey
                             data.expires=newExpiration
                             data.password = bcrypt.hashSync(data.password, salt);
                             connection.query sql,  data,  (err,result) ->
                                 userid = result.insertId
                                 accessList =  getAccessList false
-                                client.emit 'userLoggedin', {sessionKey: sessionKey , location:'/home' , accessList:accessList}
+                                client.emit 'userLoggedin', {sessionKey: sessionKey , location:'/home', accessList:accessList}
     client.on 'loginToFaceBook', (data)->
         sql = 'Select Count(*) as userCount , name, id from user where username ="'+data.email+'" and facebookkey = "' +data.id+'"'
        
         connection.query sql, [data.username], (err, result) ->
             
-            if result[0].userCount >0 
+            if result[0].userCount > 0 
                 userid=result[0].id
                 username=result[0].name
                 d = new Date()
                 currentTime= d.getMilliseconds()
                 newExpiration = currentTime + 7*86400000
-                sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest('hex')
+                sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest 'hex'
                 sql = 'Update user set sessionkey ="'+sessionKey+'", expires = '+newExpiration+' where  id ='+userid
                 accessList =  getAccessList result[0].isAdmin
                 client.emit 'userLoggedin', {sessionKey: sessionKey, location:'/home', accessList:accessList }
-                connection.query sql,  data.userInfo,  (err,results) ->
+                connection.query sql,  data.userInfo, (err,results) ->
             else 
                 sqls = 'Insert into user Set ?'
                 newData ={}
@@ -243,7 +243,7 @@ io.on 'connection', (client) ->
                 newData.password= 'facebookuser'
                 newData.facebookkey= data.id
                 console.log newData
-                connection.query sqls,  newData,  (err,results) ->
+                connection.query sqls,  newData, (err,results) ->
                     userid = results.insertId
                     console.log userid
                     client.emit 'NeedUsername'
@@ -271,12 +271,12 @@ io.on 'connection', (client) ->
             
     updateExpirationDate = (newExperationDate) ->
         sql = 'Update user set expires ='+newExperationDate+' where  id ='+userid
-        connection.query sql, (err,results) ->        
+        connection.query sql, (err, results) ->        
     client.on 'logout',(data)->
         updateExpirationDate 0
     getAccessList = (isadmin)->
         console.log username
-        accessList = [{name:'Dashboard', link:'dashboard'},{name:'Library', link:username},{name:'Recomendations', link:'recommendations'}]
+        accessList = [{name:'Dashboard', link:'dashboard', icon: 'ion-ios-home-outline'},{name:'Library', link:username, icon:'ion-ios-book-outline'},{name:'Recomendations', link:'recommendations', icon:'ion-person-stalker'}]
         
     client.on 'isUserLoggedin', (data)->
         d = new Date()
@@ -300,7 +300,7 @@ io.on 'connection', (client) ->
     client.on 'updateGameInLibrary' , (data)->
         sql = ' Update library Set ? where id ='+data.id 
         connection.query sql,  data,  (err,result) ->
-            console.log ' game updated'
+            console.log 'game updated'
             getGamesForUser userid,client
     client.on 'GetGuruLibrary' , (platform)->
        getGurusGameForUser userid,client,platform

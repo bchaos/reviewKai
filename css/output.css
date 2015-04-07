@@ -61,17 +61,19 @@ ol.categories {
   z-index: 1;
   overflow: hidden;
   /* The following styles are required for the "scroll-over" effect */
-  width: 100%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   height: 88%;
   top: 0;
-  left: 0;
   position: fixed !important; }
 
 .splash-container-dashboard {
   background: #1f8dd6;
-  width: 100%;
-  top: 0;
-  left: 0; }
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0; }
 
 .splash {
   width: 80%;
@@ -108,6 +110,11 @@ ol.categories {
   color: white;
   letter-spacing: 0.05em;
   opacity: 0.8; }
+
+.iosContent .splash-dashboard {
+  width: 100%; }
+.iosContent .splash {
+  width: 100%; }
 
 .content {
   overflow-x: hidden;
@@ -154,6 +161,18 @@ ol.categories {
   width: 100%;
   background-color: #2d3e50; }
 
+@media (max-width: 979px) {
+  .hideMobile {
+    display: none; }
+
+  .hideDesktop {
+    display: inline-block; } }
+@media (min-width: 980px) {
+  .hideMobile {
+    display: inline-block; }
+
+  .hideDesktop {
+    display: none; } }
 @media (min-width: 48em) {
   body {
     font-size: 16px; }
@@ -490,3 +509,14 @@ ol.categories {
 
 .moveupby10 {
   top: -15px; }
+
+.iosMenu {
+  position: fixed;
+  bottom: 0px;
+  background-color: #2d3e50; }
+  .iosMenu .pure-menu-item {
+    height: 48px; }
+    .iosMenu .pure-menu-item i {
+      display: block;
+      height: 24px;
+      margin: -4px; }
