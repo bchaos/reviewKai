@@ -9,12 +9,11 @@
         <span ng-hide="guruInfoLoading"> 
            <a class="item" ng-repeat ="details in gameDetails" ng-href="{{details.reviewlink}}" target="_blank" >
                <div class="pure-u-1-2"> 
-                <h2>{{details.reviewerName}}</h2>
-                 <p>How they describe this game: {{convertMyRating(details.score)}}</p>
-                   </div><div class="pure-u-1-2"> 
+                    <h2>{{details.reviewerName}}</h2>
+                    <p>Thoughts: {{convertMyRating(details.score)}}</p>
+                </div><div class="pure-u-1-2"> 
               <h2>Score: {{details.score}}/{{details.scoremax}}</h2> <p> Tap to read full review</p> </div>
             </a>
-          
         </span>
         </div> 
     </ion-content>

@@ -64,15 +64,12 @@
   calculateNewPeers = function(userId) {
     var sql;
     sql = 'call calculateNewPeers(' + userId + ')';
-    return connection.query(sql, function(err, results) {
-      console.log(err);
-      return console.log(results);
-    });
+    return connection.query(sql, function(err, results) {});
   };
 
   calculateProReviewForGame = function(gameid, userid, callback) {
     var sql;
-    sql = 'Select avg(rating) as rating , avg(enjoyment) as enjoyment ,  avg(unenjoyment) as unenjoyment , avg(difficulty) as difficulty ,  avg(length) as length  from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id=' + userid + ' and prl.game_id = ' + gameid;
+    sql = 'Select avg(rating) as rating , avg(enjoyment) as enjoyment ,  avg(unenjoyment) as unenjoyment , avg(difficulty) as difficulty, avg(length) as length  from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id=' + userid + ' and prl.game_id = ' + gameid;
     return connection.query(sql, [data.id], function(err, result) {
       return callback(result[0]);
     });
@@ -96,7 +93,7 @@
 
   getReviewLinksForProReviewers = function(gameid, callback) {
     var sql;
-    sql = 'Select review_link  from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id=' + userid + ' and prl.game_id = ' + gameid;
+    sql = 'Select review_link from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id=' + userid + ' and prl.game_id = ' + gameid;
     return connection.query(sql, [data.id], function(err, result) {
       return callback(result);
     });
@@ -108,7 +105,6 @@
       game_id: gameid,
       platform_id: platformid
     };
-    console.log(gameinfo);
     sql = 'insert into  gameOnplatform  Set ? ';
     return connection.query(sql, gameinfo, function(err, result) {});
   };
@@ -142,7 +138,7 @@
           gameid = result.insertId;
           for (_i = 0, _len = platforms.length; _i < _len; _i++) {
             platform = platforms[_i];
-            getOrCreatePlatform(platform.abbreviation, gameid);
+            getOrCreatePlatform(platform.abbreviation.gameid);
           }
           return callback(gameid);
         });
@@ -153,7 +149,6 @@
   getOrCreateProReviewer = function(data, callback) {
     var sql;
     sql = 'Select count(*) as reviewerCount ,id from ProReviewers where name = "' + data.name + '"';
-    console.log(data);
     return connection.query(sql, function(err, result) {
       var firstresult;
       firstresult = result[0];
@@ -266,8 +261,6 @@
         } else {
           return addGameScore(userid, result[0].id, game.id, function(results) {
             if (results) {
-              console.log('gamefound : ');
-              console.log(results[0]);
               game.details = results[0];
               gamelist[index] = game;
             }
@@ -464,7 +457,7 @@
         var sql;
         data.userInfo.game_id = gameid;
         data.userInfo.user_id = userid;
-        sql = ' Insert into library Set ?';
+        sql = 'Insert into library Set ?';
         console.log(data.userInfo);
         return connection.query(sql, data.userInfo, function(err, results) {
           console.log(err);

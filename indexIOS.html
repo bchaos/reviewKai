@@ -18,24 +18,18 @@
         <link rel="manifest" href="/manifest.json">
         <meta name="msapplication-TileColor" content="#2b5797">
         <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-<meta name="theme-color" content="#ffffff">
+        <meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=.8, user-scalable=no">
         <meta name="description" content="Review Gurus">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-route.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-animate.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-sanitize.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-resource.js"></script>
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <script type="text/javascript" src="js/angular.js"></script>
         <script type="text/javascript" src="js/ionic.js"></script>
         <script type="text/javascript" src="js/angular-ui-router.js"></script>
  
         <script type="text/javascript" src="js/ionic-angular.js"></script>
         <script type="text/javascript" src="js/tbd.js"></script>
-        <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
+        <script src="js/socket.js"></script>
 
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"> 
+        <link rel="stylesheet" href="css/pure.css">
         <link href="css/output.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/ionicons.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/ionic.css" media="screen" rel="stylesheet" type="text/css">
@@ -49,45 +43,44 @@
             FB.init({
               appId      : '289588911165056',
               xfbml      : true,
-              cookie: true,
+              cookie     : true,
               version    : 'v2.3'
             });
           };
-          (function(d, s, id){
+            (function(d, s, id){
              var js, fjs = d.getElementsByTagName(s)[0];
              if (d.getElementById(id)) {return;}
              js = d.createElement(s); js.id = id;
              js.src = "//connect.facebook.net/en_US/sdk.js";
              fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
+            }(document, 'script', 'facebook-jssdk'));
         </script>
         <ng-view class="iosContent"></ng-view>
-        <div class="pure-menu pure-menu-horizontal iosMenu">
-           <ul class="pure-meu-list">
-            <li class="pure-menu-item">
-                <a href="/#/"  class="pure-menu-heading">
-                    <span style="color:gold">Review</span> Kai
-                </a>
-            </li>
-
-            <li ng-repeat="access in accessList" ng-class="isActive(access.link)" class="pure-menu-item">
+        <div class="pure-menu pure-menu-horizontal iosMenu pure-menu-scrollable">
+            <ul class="pure-meu-list">
+                <li class="pure-menu-item">
+                    <a href="#/home"  class="pure-menu-heading">
+                        <span style="color:gold">Review</span> Kai
+                    </a>
+                </li>
+                <li ng-repeat="access in accessList" ng-class="isActive(access.link)" class="pure-menu-item">
                     <a href="#/{{access.link}}" class=" button  button-outline icon  button-positive pure-menu-link icon-left">
                         <i class="icon {{access.icon}}"></i> {{access.name}}
                     </a> 
                 </li>  
                 <li class="pure-menu-item" ng-show="accessList">
-                   <a href="#/search" class=" button  button-outline  button-positive pure-menu-link icon-left" >
-                       <i class="icon ion-search"> </i>Search
-                   </a>
+                    <a href="#/search" class=" button button-outline button-positive pure-menu-link icon-left" >
+                        <i class="icon ion-search"></i>Search
+                    </a>
                 </li>
-                     <!---   <li class="pure-menu-item"><a href="#/blog"  class=" button  button-outline icon ion-ios-paper button-positive pure-menu-link icon-left">Blog</a></li>-->
+                <!---   <li class="pure-menu-item"><a href="#/blog"  class=" button  button-outline icon ion-ios-paper button-positive pure-menu-link icon-left">Blog</a></li>-->
                 <li class="pure-menu-item">
-                    <a href="#/contact"  class=" button  button-outline  button-positive pure-menu-link icon-left"> 
-                        <i class=" icon ion-paper-airplane" > </i>Contact
+                    <a href="#/contact"  class=" button button-outline button-positive pure-menu-link icon-left">
+                        <i class=" icon ion-paper-airplane" ></i>Contact
                     </a>
                 </li>
                 <li class="pure-menu-item">
-                    <a href="#/PrivacyPolicy" class=" button  button-outline  button-positive pure-menu-link icon-left"> 
+                    <a href="#/PrivacyPolicy" class=" button button-outline  button-positive pure-menu-link icon-left"> 
                         <i class="icon ion-flash" ></i>Privacy Policy
                     </a>
                 </li>

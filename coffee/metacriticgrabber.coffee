@@ -633,10 +633,9 @@ app.controller 'dataparserController',
                              addGameToLibrary(index+1, length,gameData,  callback)
                         game= data.results[0]
                         gameData[index].giantBombinfo={}
-
                         gameData[index].giantBombinfo.giantBomb_id= game.id
                         gameData[index].giantBombinfo.game_name= game.name
-                        gameData[index].giantBombinfo.platforms=game.platforms
+                        gameData[index].platforms=game.platforms
                         if game.image
                                 gameData[index].giantBombinfo.game_picture= game.image.medium_url
                         else 
@@ -681,7 +680,6 @@ app.controller 'dataparserController',
                         organized.pro={}
                         organized.pro.name=gamedata.name
                         organized.pro.site_address= gamedata.Site_address
-                        
                         organized.userInfo={}
                         organized.game= gamedata.game
                         organized.userInfo.review_link= gamedata.review_link

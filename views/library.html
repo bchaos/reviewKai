@@ -6,21 +6,25 @@
             <div class="pure-g-r pure-u-1">
             
             <div class="pure-u-7-12 movedown"> 
-            <span style="color:gold">{{user.name}}'s </span> Library  
+                <span style="color:gold">{{user.name}}'s </span> Library  
                 <span ng-show="localLibrary">
-                    <button class="button button-small button-assertive" ng-hide="editMode"  ng-click="toggleEditMode()"> Edit </button>
-                    <button class="button button-small button-assertive" ng-show="editMode"  ng-click="toggleEditMode()"> Cancel </button>
-                    <button class="button button-small button-positive" ng-show="editMode"  ng-click="saveLibraryEdit()"> Save </button>
+                    <button class="button button-small button-assertive" ng-hide="editMode" ng-click="toggleEditMode()"> Edit </button>
+                    <button class="button button-small button-assertive" ng-show="editMode" ng-click="toggleEditMode()"> Cancel </button>
+                    <button class="button button-small button-positive" ng-show="editMode" ng-click="saveLibraryEdit()"> Save </button>
                 </span>
             <br/>
-            <span class="smallText"> Site : <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
+            <span class="smallText"> Site :
+                <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
                 <input type="text" ng-model ="user.site" ng-show="editMode"> 
-                </span> <br/>
-                <span  class="smallText">  Stream : <a ng-hide="editMode" href="{{user.stream}}" target="_blank">{{user.stream}} </a>  
-                <input type="text" ng-model ="user.stream" ng-show="editMode"> 
-                
+            </span> 
+                <br/>
+                <span  class="smallText">  Stream : 
+                    <a ng-hide="editMode" href="{{user.stream}}" target="_blank">
+                        {{user.stream}} 
+                    </a>
+                    <input type="text" ng-model ="user.stream" ng-show="editMode">
                 </span>
-                </div>
+            </div>
             </div>
         </h1>
         <h1 class="splash-head" ng-hide="myLibrary">
@@ -39,10 +43,12 @@
         </ul>
     </div>
     <div class=" hideDesktop pure-u-1" ng-show="platforms">
-    <form class="pure-form ">
-      <span class="white-link pure-u-1-4">Platform:</span> 
+        <form class="pure-form ">
+            <span class="white-link pure-u-1-4">Platform:</span> 
             <select ng-init= "selected=currentPlatform" class="pure-u-sm-2-3" ng-change="updatePlatform(selected)" ng-model="selected">
-                <option ng-repeat="platform in platforms" value="{{platform.display_name}}">{{platform.display_name}}</option>
+                <option ng-repeat="platform in platforms" value="{{platform.display_name}}">
+                    {{platform.display_name}}
+                </option>
              
             </select>
         </form>
@@ -57,7 +63,9 @@
                 </span>
                 <span ng-repeat="page in pages">
                     <button ng-show="page.elispe" class="button button-stable"  > ... </button>
-                    <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">{{page.number+1}}</button>
+                    <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">
+                        {{page.number+1}}
+                    </button>
                 </span>
                 <span> 
                     <button class="button button-stable"  ng-click="setPage(currentPage+1)">>></button>
@@ -65,7 +73,7 @@
             </div>
             <div class="pure-u-sm-1 pure-u-lg-1-4">
                 <span class="hideDesktop white-link pure-u-1-4">
-                Sort:
+                    Sort:
                 </span>
                 <select id="sort" ng-model="sort" ng-init="sort='-releasedate'" class="pure-u-sm-2-3">
                     <option value="-releasedate" selected>Release Date </option>
@@ -82,26 +90,23 @@
         </form>
     </div>
     <span ng-show="myLibrary && localLibrary">
-    <div class="">
+       <div class="">
         <div class="click panel circle">
-	<div class="front">
-        <div class="circleLogo" ng-click ="addNewGame()"> 
-            <div class="gameadderbutton"> <h2>+</h2></div>
+            <div class="front">
+                <div class="circleLogo" ng-click ="addNewGame()"> 
+                    <div class="gameadderbutton"> <h2>+</h2></div>
+                </div>
+                <p/>
+                Click to add a new 
+            </div>
+            <div class="back">
+            </div>
         </div>
-        <p/>
-        Click to add a new 
-	</div>
-	<div class="back">
-	</div>
-    </div>
- 
-      </div>
-        
+      </div>    
     </span>
    
-    <div  ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
+    <div ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
         <librarycard></librarycard>
-
     </div>
  </div>
 </div>
@@ -109,10 +114,9 @@
 </div>
 <div class="pure-g-r addedMargin" ng-show ="isLoading && !NoLibraryError">
     <searching text="Loading"> </searching>
-
 </div>
 
-<div class="pure-g-r addedMargin " ng-show ="NoLibraryError">
+<div class="pure-g-r addedMargin" ng-show ="NoLibraryError">
    <h2> No Library Found</h2>
 </div>
     

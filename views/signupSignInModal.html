@@ -1,4 +1,3 @@
-
 <ion-modal-view>
     <ion-header-bar>
         <h1 class="title" ng-show = 'signUp'> Sign up  </h1> 
@@ -7,46 +6,42 @@
     </ion-header-bar>
     <ion-content>
        <form ng-submit="signInOrSignUpNow()">
-        <div class="list" ng-show="needUsername">
-            Create a User name:
-            <label class="item item-input" >
-            <span class="input-label" >Display name</span>
-            <input type="text" ng-model='logdata.name'>
-          </label>
-        </div>
-        <div class="list" ng-hide="needUsername">
-          <label class="item item-input">
-            <span class="input-label" >Email</span>
-            <input type="text" ng-model='logdata.username'>
-          </label>
-        <label class="item item-input" ng-show = 'signUp'>
-            <span class="input-label" >Display name</span>
-            <input type="text" ng-model='logdata.name'>
-          </label>
-          <label class="item item-input">
-            <span class="input-label" >Password</span>
-            <input type="password" ng-model='logdata.temppassword'>
-          </label>
-          <label class="item item-input" ng-show = 'signUp' >
-            <span class="input-label" >Retype Password</span>
-            <input type="password" ng-model='logdata.repeat'>
-          </label>
-        </div>
-         <div class="bar-assertive" ng-show='errormessage'> {{errormessage}} </div>
-         <div class="button-bar" ng-hide="needUsername">
-                    <button class="button button-positive  button-outline" type="submit">  <span ng-hide = 'signUp'> Signin<span></span>
-                        <span ng-show = 'signUp'> Signup </span>
-                        </button > 
-               
-             
-              <p/>                 
-            
-        </div>
+            <div class="list" ng-show="needUsername">
+                Create a User name:
+                <label class="item item-input" >
+                <span class="input-label" >Display name</span>
+                <input type="text" ng-model='logdata.name'>
+              </label>
+            </div>
+            <div class="list" ng-hide="needUsername">
+              <label class="item item-input">
+                <span class="input-label" >Email</span>
+                <input type="text" ng-model='logdata.username'>
+              </label>
+            <label class="item item-input" ng-show = 'signUp'>
+                <span class="input-label" >Display name</span>
+                <input type="text" ng-model='logdata.name'>
+            </label>
+            <label class="item item-input">
+                <span class="input-label" >Password</span>
+                <input type="password" ng-model='logdata.temppassword'>
+            </label>
+            <label class="item item-input" ng-show = 'signUp' >
+                <span class="input-label" >Retype Password</span>
+                <input type="password" ng-model='logdata.repeat'>
+            </label>
+            </div>
+             <div class="bar-assertive" ng-show='errormessage'> {{errormessage}} </div>
+             <div class="button-bar" ng-hide="needUsername">
+                <button class="button button-positive  button-outline" type="submit">  
+                    <span ng-hide = 'signUp'> Signin</span>
+                    <span ng-show = 'signUp'> Signup </span>
+                </button> 
+                <p/>                 
+            </div>
         </form>
-         <div class="button-bar" ng-show="needUsername">
-          <a class="button button-positive  button-outline" ng-click="createUsername()"  > Create Username </a> 
+        <div class="button-bar" ng-show="needUsername">
+            <a class="button button-positive  button-outline" ng-click="createUsername()"  > Create Username </a> 
         </div>
-        
-       
     </ion-content>
 </ion-modal-view>

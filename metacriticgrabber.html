@@ -50,41 +50,34 @@
               document.writeln(' - Opera: Not supported');
               return false;
             }
-          }
-
-          function handleFileSelect(evt) {
+         }
+         function handleFileSelect(evt){
             var files = evt.target.files; // FileList object
             var file = files[0];
-
-            // read the file metadata
             var output = ''
                 output += '<span style="font-weight:bold;">' + escape(file.name) + '</span><br/>\n';
                 output += ' - FileType: ' + (file.type || 'n/a') + '<br/>\n';
                 output += ' - FileSize: ' + file.size + ' bytes<br/>\n';
                 output += ' - LastModified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '<br />\n';
-
             // read the file contents
             printTable(file);
-
             // post the results
             $('#list').append(output);
-          }
+        }
         </script>
     </head>
-
- <body ng-app="reviewApp" ng-controller="dataparserController"> 
-      
-<div id=inputs class=clearfix>
-    <input type=file id=files name=files[] multiple onchange="angular.element(this).scope().uploadImage(this.files)"/>
-    
-</div>
-
-<hr />
-<output id=list>
-</output>
-<p/>
+<body ng-app="reviewApp" ng-controller="dataparserController">  
+     <div id=inputs class=clearfix>
+        <input type=file id=files name=files[] multiple onchange="angular.element(this).scope().uploadImage(this.files)"/>
+     </div>
+     <hr/>
+     <output id=list>
+     </output>
+     <p/>
      <input type="text" ng-model='bombid' placeholder="bombid"> 
      <input type="text" ng-model='gameid' placeholder="gameid"> 
-     <buttton class="button button-stable" ng-click="updateGamePlatforms()"> addgamewithid </buttton>
+     <buttton class="button button-stable" ng-click="updateGamePlatforms()"> 
+         addgamewithid 
+     </buttton>
      
 </body>

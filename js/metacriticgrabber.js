@@ -906,7 +906,7 @@
             gameData[index].giantBombinfo = {};
             gameData[index].giantBombinfo.giantBomb_id = game.id;
             gameData[index].giantBombinfo.game_name = game.name;
-            gameData[index].giantBombinfo.platforms = game.platforms;
+            gameData[index].platforms = game.platforms;
             if (game.image) {
               gameData[index].giantBombinfo.game_picture = game.image.medium_url;
             } else {

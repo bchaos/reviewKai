@@ -18,30 +18,22 @@
         <link rel="manifest" href="/manifest.json">
         <meta name="msapplication-TileColor" content="#2b5797">
         <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-<meta name="theme-color" content="#ffffff">
+        <meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=.8, user-scalable=no">
-        <meta name="description" content="Review Gurus">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-route.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-animate.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-sanitize.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.6/angular-resource.js"></script>
-        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+        <meta name="description" content="Review Kai your personal game reviewer">
+        <script type="text/javascript" src="js/angular.js"></script>
         <script type="text/javascript" src="js/ionic.js"></script>
         <script type="text/javascript" src="js/angular-ui-router.js"></script>
- 
         <script type="text/javascript" src="js/ionic-angular.js"></script>
         <script type="text/javascript" src="js/tbd.js"></script>
-        <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
-
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css"> 
+        <script src="js/socket.js"></script>
+        <link rel="stylesheet" href="css/pure.css">
         <link href="css/output.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/ionicons.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/ionic.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/sidemenu.css" media="screen" rel="stylesheet" type="text/css">
     </head>
-    
+    <a href="https://plus.google.com/118345476050457184699"  rel="publisher"></a>
     <body ng-app="reviewApp" ng-controller="reviewController"> 
 <div id="fb-root"></div>
 <script>
@@ -54,52 +46,56 @@
     });
   };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=289588911165056";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
        
 <div id="layout" ng-class="active">
     <a  id="menuLink" class="menu-link  button  icon ion-navicon-round" ng-class="active" ng-init ="active='false'" ng-click="toggleClass()">
-      
     </a>
-   <div id="menu" ng-class="active">
+    <div id="menu" ng-class="active">
         <div class="pure-menu" >
            <a href="/#/"  class="pure-menu-heading"><span style="color:gold">Review</span> Kai</a>
            
-       <ul class="pure-meu-list">
-                <span ng-hide="accessList"> 
-                 <li class="pure-menu-item"><a href="#/" class=" button  button-outline icon ion-information-circled button-positive pure-menu-link icon-left">About</a></li>
+        <ul class="pure-meu-list">
+            <span ng-hide="accessList"> 
+                <li class="pure-menu-item"><a href="#/" class=" button  button-outline icon ion-information-circled button-positive pure-menu-link icon-left">About</a></li>
                  <li class="pure-menu-item" ng-click ='signUpModal()' ><a class=" button  button-outline icon ion-arrow-up-a button-positive pure-menu-link icon-left"> Signup </a></li>
                 <li class="pure-menu-item" ng-click ='signInModal()' ><a class=" button  button-outline icon ion-log-in button-positive pure-menu-link icon-left"> Login</a></li>  
-               <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button></li> 
+                <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button></li> 
             
-               </span>  
-             <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item"><a href="#/{{access.link}}"  class=" button  button-outline icon {{access.icon}} button-positive pure-menu-link icon-left">  {{access.name}}</a> 
+            </span>  
+               <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item">
+                   <a href="#/{{access.link}}"  class=" button  button-outline icon {{access.icon}} button-positive pure-menu-link icon-left">  
+                       {{access.name}}
+                   </a> 
                </li>  
-           <li class="pure-menu-item" ng-show="accessList"><a href="#/search"  class=" button  button-outline icon ion-search button-positive pure-menu-link icon-left" >Search</a></li>
-   
-
-                 <!---   <li class="pure-menu-item"><a href="#/blog"  class=" button  button-outline icon ion-ios-paper button-positive pure-menu-link icon-left">Blog</a></li>-->
-                    <li class="pure-menu-item"><a href="#/contact"  class=" button  button-outline icon ion-paper-airplane button-positive pure-menu-link icon-left">Contact</a></li>
-                     <li class="pure-menu-item"><a href="#/PrivacyPolicy" class=" button  button-outline icon ion-flash button-positive pure-menu-link icon-left">Privacy Policy</a></li>
+                <li class="pure-menu-item" ng-show="accessList">
+                    <a href="#/search"  class=" button  button-outline icon ion-search button-positive pure-menu-link icon-left" >
+                        Search
+                    </a>
+                </li>
+                     <!---   <li class="pure-menu-item"><a href="#/blog"  class=" button  button-outline icon ion-ios-paper button-positive pure-menu-link icon-left">Blog</a></li>-->
+                <li class="pure-menu-item">
+                    <a href="#/contact"  class=" button  button-outline icon ion-paper-airplane button-positive pure-menu-link icon-left">
+                        Contact
+                    </a>
+                </li>
+                <li class="pure-menu-item">
+                    <a href="#/PrivacyPolicy" class=" button  button-outline icon ion-flash button-positive pure-menu-link icon-left">
+                        Privacy Policy
+                    </a>
+                </li>
                     
-                    <li class="pure-menu-item" ng-show="accessList"><a ng-click="logout()" class=" button  button-outline icon ion-log-out button-positive pure-menu-link icon-left">Sign Out</a></li>
-                    
-
-                </ul>
-            
+                <li class="pure-menu-item" ng-show="accessList"><a ng-click="logout()" class=" button  button-outline icon ion-log-out button-positive pure-menu-link icon-left">Sign Out</a></li>
+            </ul>
         </div>
-            
-
    </div>
-        
-
-       
    
         <ng-view class="mainContent"></ng-view>
 
@@ -107,18 +103,22 @@
        
     <div class="footer">
      
+
           <div class="pure-u-1 is-center"> 
-        Copyright ReviewGuru &copy; 2015-
-        <a href="#/faqs">FAQs</a>-
-        <a href="#/contact">Contact</a>- 
-        <a href="#/blog"> Blog</a> -<div
-  class="fb-like pure-u-1-8"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
-              <p/>
- Game search powered by  <a href="giantbomb.com"> Giant bomb</a>
+              
+        Copyright ReviewKai &copy; 2015-
+              <div class="pure-u-1-8">
+         <div
+  class="fb-like"
+ data-href="http://reviewKai.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true">
+              </div>
+     </div>        
+<a href="https://plus.google.com/u/0/118345476050457184699?prsrc=3"
+   rel="publisher" target="_top"  class="white-link" style="text-decoration:none;display:inline-block;color:#333;text-align:center; font:13px/16px arial,sans-serif;white-space:nowrap;">
+<span style="display:inline-block;font-weight:bold;vertical-align:top;margin-right:5px; margin-top:0px;">Review Kai</span><span style="display:inline-block;vertical-align:top;margin-right:13px; margin-top:0px;">on</span>
+<img src="//ssl.gstatic.com/images/icons/gplus-16.png" alt="Google+" style="border:0;width:16px;height:16px;"/>
+</a>
+ Game search powered by  <a href="http://www.giantbomb.com" class="white-link"> Giant bomb</a>
               </div>
 </div>
     </body>

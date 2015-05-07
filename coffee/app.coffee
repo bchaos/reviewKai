@@ -22,7 +22,7 @@ connection = mysql.createConnection({
 server.listen 8080, ->
     console.log 'server activated'
 
-app.get '/', (req, res) ->
+app.get '/', (req,res) ->
     res.send '<h1>Hello world</h1>'
 
 handler = (req,res) ->
@@ -39,14 +39,12 @@ calculateNewPros = (userId)->
     sql ='call calculateNewPros('+userId+')'
     connection.query sql,userId, (err, results) ->
 
-calculateNewPeers = (userId) ->
+calculateNewPeers = (userId)->
     sql ='call calculateNewPeers('+userId+')'
-    connection.query sql,  (err, results) ->
-        console.log err
-        console.log results
+    connection.query sql, (err, results) ->
 
-calculateProReviewForGame= (gameid, userid, callback)->
-    sql = 'Select avg(rating) as rating , avg(enjoyment) as enjoyment ,  avg(unenjoyment) as unenjoyment , avg(difficulty) as difficulty ,  avg(length) as length  from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id='+userid+' and prl.game_id = '+gameid
+calculateProReviewForGame = (gameid, userid, callback)->
+    sql = 'Select avg(rating) as rating , avg(enjoyment) as enjoyment ,  avg(unenjoyment) as unenjoyment , avg(difficulty) as difficulty, avg(length) as length  from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id='+userid+' and prl.game_id = '+gameid
     connection.query sql, [data.id], (err, result) ->
         callback result[0]
         
@@ -61,13 +59,12 @@ calculateAllReviewForGame = (gameid,callback)->
         callback result[0]
 
 getReviewLinksForProReviewers = (gameid, callback) ->
-    sql = 'Select review_link  from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id='+userid+' and prl.game_id = '+gameid
+    sql = 'Select review_link from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id='+userid+' and prl.game_id = '+gameid
     connection.query sql, [data.id], (err, result) ->
         callback result
         
 addPlatformTogame = (platformid, gameid)->
     gameinfo=  {game_id:gameid, platform_id:platformid }
-    console.log gameinfo
     sql = 'insert into  gameOnplatform  Set ? '
     connection.query sql, gameinfo,  (err,result) ->
      
@@ -91,12 +88,11 @@ getOrCreateGame = (data,platforms, callback) ->
             connection.query sql,  data,  (err,result) ->
                 gameid = result.insertId
                 for platform in platforms
-                    getOrCreatePlatform  platform.abbreviation,gameid
+                    getOrCreatePlatform  platform.abbreviation.gameid
                 return callback gameid
 
 getOrCreateProReviewer= (data,callback)->
     sql ='Select count(*) as reviewerCount ,id from ProReviewers where name = "'+data.name+'"';
-    console.log data
     connection.query sql, (err, result) ->
         firstresult= result[0]
         if firstresult.reviewerCount > 0 
@@ -110,10 +106,10 @@ getOrCreateProReviewer= (data,callback)->
 validateEmail=(email) ->
     re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email)
-getRecentReleases = (userid, client)->
-      
+
+getRecentReleases = (userid,client)->
     sql = 'select  count(*) as count from  userToReviewers  where user_id='+userid;
-    connection.query sql, (err, result) ->
+    connection.query sql,(err,result) ->
         if result[0].count > 0 
             sql = 'Select * from '
             sql +='(select  g.game_name , g.game_picture, g.id, g.giantBomb_id,g.releasedate  from  games g order by releasedate desc) t1  '
@@ -121,28 +117,27 @@ getRecentReleases = (userid, client)->
             sql +='on t1.id = t2.game_id left  join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = '+userid+' group by pro.game_id  ) t3 '
             sql +='on t3.game_id = t1.id'
             console.log sql
-            connection.query sql,  (err, result) ->
+            connection.query sql, (err, result) ->
                 client.emit 'recentReleases', result
         else 
             client.emit 'noGames'
         
-getGurusGameForUser = ( userid, client, platform) ->
+getGurusGameForUser = (userid, client, platform) ->
     sql= 'call getGamesForUserOnplatform('+userid+',"'+platform+'" )'
-    connection.query sql,  (err, result) ->
+    connection.query sql, (err, result) ->
     	client.emit 'guruLibraryFound', result 
     	
-getPeersGameForUser = ( userid, client ,platform) ->
+getPeersGameForUser = (userid, client ,platform) ->
     sql= 'call getGamesForUserOnplatform('+userid+',"'+platform+'" )'
     connection.query sql,  (err, result) ->
     	client.emit 'peerLibraryFound', result  
 
 getGamesForUserOnPlatform = (userid, client ,platform) ->
     
-getGamesForUser  = (username, localuserid ,client)->
+getGamesForUser  = (username, localuserid  ,client)->
     library = {}
     sql = 'Select id,name,site,stream from user where name = "'+username+'"'
     connection.query sql,  (err, result) ->
-        
         if result.length <=0
             client.emit 'noLibraryFound'
         else
@@ -182,13 +177,12 @@ updateGameList = (userid, gamelist, index,callback) ->
             else 
                 addGameScore userid, result[0].id, game.id , (results)-> 
                     if results
-                        console.log 'gamefound : '
-                        console.log  results[0]
                         game.details= results[0]
                         gamelist[index]=game
                     updateGameList userid, gamelist, index+1,callback
     else 
         callback gamelist
+
 io.on 'connection', (client) ->
     userid=0
     username=''
@@ -215,16 +209,14 @@ io.on 'connection', (client) ->
                             sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest 'hex'
                             data.sessionKey= sessionKey
                             data.expires=newExpiration
-                            data.password = bcrypt.hashSync(data.password, salt);
+                            data.password = bcrypt.hashSync data.password, salt;
                             connection.query sql,  data,  (err,result) ->
                                 userid = result.insertId
                                 accessList =  getAccessList false
                                 client.emit 'userLoggedin', {sessionKey: sessionKey , location:'/home', accessList:accessList}
     client.on 'loginToFaceBook', (data)->
         sql = 'Select Count(*) as userCount , name, id from user where username ="'+data.email+'" and facebookkey = "' +data.id+'"'
-       
         connection.query sql, [data.username], (err, result) ->
-            
             if result[0].userCount > 0 
                 userid=result[0].id
                 username=result[0].name
@@ -263,27 +255,30 @@ io.on 'connection', (client) ->
                         d = new Date()
                         currentTime= d.getMilliseconds()
                         newExpiration = currentTime + 7*86400000
-                        sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest('hex')
+                        sessionKey=crypto.createHash('md5').update(currentTime+'salt').digest 'hex'
                         sql = 'Update user set sessionkey ="'+sessionKey+'", expires = '+newExpiration+' where  id ='+userid
                         accessList =  getAccessList false
                         client.emit 'userLoggedin', {sessionKey: sessionKey, location:'/home', accessList:accessList }
-                       
-            
+                               
     updateExpirationDate = (newExperationDate) ->
         sql = 'Update user set expires ='+newExperationDate+' where  id ='+userid
         connection.query sql, (err, results) ->        
+    
     client.on 'logout',(data)->
         updateExpirationDate 0
+    
     getAccessList = (isadmin)->
         console.log username
-        accessList = [{name:'Dashboard', link:'dashboard', icon: 'ion-ios-home-outline'},{name:'Library', link:username, icon:'ion-ios-book-outline'},{name:'Recomendations', link:'recommendations', icon:'ion-person-stalker'}]
+        accessList = [{name:'Dashboard', link:'dashboard', icon: 'ion-ios-home-outline'},
+                      {name:'Library', link:username, icon:'ion-ios-book-outline'},
+                      {name:'Recomendations', link:'recommendations', icon:'ion-person-stalker'}]
         
     client.on 'isUserLoggedin', (data)->
         d = new Date()
         currentTime= d.getMilliseconds()
         sql = 'Select * from  user where sessionkey	 = ? and expires >'+currentTime
         connection.query sql, [data.key], (err, result) ->
-            if result[0]
+            if  result[0]
                 newExpiration = currentTime + 7*86400000
                 userid= result[0].id
                 username= result[0].name
@@ -293,26 +288,26 @@ io.on 'connection', (client) ->
             else 
                 client.emit 'failedToLogin', 0
             
-        
-    client.on 'GetLibrary' , (username)->
+    client.on 'GetLibrary', (username)->
        getGamesForUser username, userid,client
             
-    client.on 'updateGameInLibrary' , (data)->
+    client.on 'updateGameInLibrary', (data)->
         sql = ' Update library Set ? where id ='+data.id 
-        connection.query sql,  data,  (err,result) ->
+        connection.query sql,  data, (err,result) ->
             console.log 'game updated'
             getGamesForUser userid,client
-    client.on 'GetGuruLibrary' , (platform)->
+    
+    client.on 'GetGuruLibrary', (platform)->
        getGurusGameForUser userid,client,platform
        
-    client.on 'GetPeerLibrary' , (platform)->
+    client.on 'GetPeerLibrary', (platform)->
        getPeersGameForUser userid,client,platform
-
-    client.on 'AddNewGameToLibrary' ,(data)->
+    
+    client.on 'AddNewGameToLibrary',(data)->
         getOrCreateGame data.giantBombinfo, data.platforms, (gameid)-> 
             data.userInfo.game_id = gameid
             data.userInfo.user_id = userid
-            sql =  ' Insert into library Set ?'
+            sql = 'Insert into library Set ?'
             console.log data.userInfo
             connection.query sql,  data.userInfo, (err,results)->
                 console.log err
@@ -353,7 +348,7 @@ io.on 'connection', (client) ->
                 games.push res
             client.emit 'recentGames',games
 
-    client.on 'GetReviewForGame' , (gameid) ->
+    client.on 'GetReviewForGame', (gameid) ->
         sql = 'Select * from games where id = ? '
         connection.query sql, [gameid], (err, result) ->
             result['peerReview'] = caluclatePeerReviewsForGame gameid
@@ -361,7 +356,7 @@ io.on 'connection', (client) ->
             client.emit 'gameReview' ,result
         
     client.on 'updateGame', (game) -> 
-        sql ='Update library set rating ='+game.rating+', description = "' + game.description+'" where id ='+game.game_id
+        sql = 'Update library set rating ='+game.rating+', description = "' + game.description+'" where id ='+game.game_id
         console.log sql
         connection.query sql, [gameid], (err, result) ->
             getGamesForUser userid,client
@@ -372,18 +367,18 @@ io.on 'connection', (client) ->
             
     client.on 'getGuruDetails', (gameid)->
         sql ='Select g.game_name as name, pr.name as reviewerName, prl.true_score as score, prl.true_score_max as scoremax, prl.review_link as reviewlink from userToProreviewer utp, ProReviewerLibrary prl ,games g , ProReviewers pr where utp.user_id =' + userid+' and utp.reviewer_id = pr.id and g.id ='+gameid.gameid+' and prl.user_id = utp.reviewer_id and g.id = prl.game_id'
-        connection.query sql,(err, result) ->
+        connection.query sql, (err, result) ->
             client.emit 'guruDetailsFound', result
 
     client.on 'getPeerDetails', (gameid)->
         sql ='Select g.game_name as name, pr.name as reviewerName, prl.rating as score, prl.description as details from userToReviewers utp, library prl, games g , user pr where utp.user_id =' + userid+' and utp.reviewer_id = pr.id and g.id ='+gameid.gameid+' and prl.user_id = utp.reviewer_id and g.id = prl.game_id'
-        connection.query sql,(err, result) ->
+        connection.query sql, (err, result) ->
             console.log result
             client.emit 'peerDetailsFound', result
             
     getPros = ->
         sql= 'Select * from ProReviewers  where active = 1'
-        connection.query sql,(err, result) ->
+        connection.query sql, (err, result) ->
             console.log result
             client.emit 'ProreviewersFound', result
     client.on 'GetRecentGames', ()->
