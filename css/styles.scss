@@ -446,6 +446,7 @@ margin-right: auto;
     .action {display: block; padding: 3px; background: #333; text-align: right; font-size: .8em; opacity: 0; position: absolute; cursor: pointer; -webkit-transition: opacity .2s linear; }
     &:hover .action {opacity: .7; }
 }
+
 .circle div .circleLogo  {
     background-color:#2d3e50;
     box-shadow: 0 1px 0 #2d3e50;
@@ -462,10 +463,12 @@ margin-right: auto;
         height: 51px;
     }
 }
+
 .circleLogo h2{
     color: white;
     margin-top: 15px;   
 }
+
 .game_image{
     margin-left: auto;
     margin-right: auto;
@@ -477,6 +480,7 @@ margin-right: auto;
     background-position: center;
     height: 42%;
 }
+
 .KaiadderText{
     margin-right: 20%;
     margin-left: 20%;
@@ -484,14 +488,15 @@ margin-right: auto;
     font-size:1.4em;
     color:white;
 }
+
 .Kaiadder{
     background-color:#2D3E50;
 }
 .ladder{
-  background-color:white;   
+    background-color:white;   
 }
 .card img{
- max-width:100px;   
+    max-width:100px;   
 }
 .game_header, .game_recomendation{
     margin-top:5px;
@@ -504,16 +509,16 @@ margin-right: auto;
     border: 1px solid gold;
     
 }
+
 .game_recomendation{
     
      height:38%;   
     &.tall{
        height:68%;   
      }
-    
 }
 .game_name{
-        margin-left:8px;   
+    margin-left:8px;   
 }
 .game_recomendation_text{
     margin-left:8px;   
@@ -584,8 +589,14 @@ margin-right: auto;
     
  top:-15px;   
 }
-
-
+.ribbon{
+  background-color: $darkBlue 
+}
+.logo {
+    width: 72px; 
+    height: 72px; 
+    padding-left: 10px;
+} 
 .iosMenu{
     position: fixed;
     bottom:0px;

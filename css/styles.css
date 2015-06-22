@@ -470,7 +470,7 @@ ol.categories {
 .block:hover .action {
   opacity: .7; }
 
-/* line 449, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 450, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .circle div .circleLogo {
   background-color: #2d3e50;
   box-shadow: 0 1px 0 #2d3e50;
@@ -482,17 +482,17 @@ ol.categories {
   margin-right: auto;
   margin-bottom: auto;
   margin-top: 40%; }
-  /* line 460, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+  /* line 461, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   .circle div .circleLogo.platform {
     width: 95%;
     height: 51px; }
 
-/* line 465, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 467, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .circleLogo h2 {
   color: white;
   margin-top: 15px; }
 
-/* line 469, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 472, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .game_image {
   margin-left: auto;
   margin-right: auto;
@@ -504,7 +504,7 @@ ol.categories {
   background-position: center;
   height: 42%; }
 
-/* line 480, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 484, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .KaiadderText {
   margin-right: 20%;
   margin-left: 20%;
@@ -512,19 +512,19 @@ ol.categories {
   font-size: 1.4em;
   color: white; }
 
-/* line 487, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 492, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .Kaiadder {
   background-color: #2D3E50; }
 
-/* line 490, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 495, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .ladder {
   background-color: white; }
 
-/* line 493, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 498, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .card img {
   max-width: 100px; }
 
-/* line 496, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 501, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .game_header, .game_recomendation {
   margin-top: 5px;
   font-size: 1.2em;
@@ -535,38 +535,38 @@ ol.categories {
   background-color: #dedcc4;
   border: 1px solid gold; }
 
-/* line 507, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 513, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .game_recomendation {
   height: 38%; }
-  /* line 510, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+  /* line 516, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   .game_recomendation.tall {
     height: 68%; }
 
-/* line 515, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 520, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .game_name {
   margin-left: 8px; }
 
-/* line 518, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 523, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .game_recomendation_text {
   margin-left: 8px;
   margin-right: 8px;
   margin-top: 20px; }
 
-/* line 525, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 530, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .pure-menu-selected {
   background-color: gray; }
 
-/* line 530, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 535, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .item-input {
   padding: 1px 0px 1px 12px; }
 
-/* line 535, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 540, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .library-header {
   height: 100px;
   font-size: 3em;
   background-color: #191818;
   color: #dedcc4; }
-  /* line 540, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+  /* line 545, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   .library-header .library-avatar {
     border-radius: 100px;
     margin-left: 1em;
@@ -574,57 +574,67 @@ ol.categories {
     right: 10px;
     top: 10px; }
 
-/* line 551, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 556, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .movedown {
   margin-top: 20px; }
 
-/* line 554, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 559, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .avatar {
   -moz-border-radius: 100px;
   border-radius: 100px; }
 
-/* line 558, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 563, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .platFormSmall {
   max-width: 240px;
   max-height: 44px; }
 
-/* line 563, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 568, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .platFormLarge {
   max-width: 240px;
   max-height: 44px; }
 
-/* line 567, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 572, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .fb_iframe_widget {
   margin-top: 10px;
   margin-left: 10px; }
 
-/* line 571, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 576, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .smallText {
   font-size: 50%; }
 
-/* line 575, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 580, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .modalSelectionArea {
   overflow-y: scroll;
   height: 300px;
   margin-top: 50px; }
 
-/* line 580, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 585, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .modalAdder {
   min-height: 350px; }
 
-/* line 583, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 588, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .moveupby10 {
   top: -15px; }
 
-/* line 589, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 592, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+.ribbon {
+  background-color: #2d3e50; }
+
+/* line 595, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+.logo {
+  width: 72px;
+  height: 72px;
+  padding-left: 10px; }
+
+/* line 600, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .iosMenu {
   position: fixed;
   bottom: 0px;
   background-color: #2d3e50; }
-  /* line 593, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+  /* line 604, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   .iosMenu .pure-menu-item {
     height: 48px; }
-    /* line 595, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+    /* line 606, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
     .iosMenu .pure-menu-item i {
       display: block;
       height: 24px;

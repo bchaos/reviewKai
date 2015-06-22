@@ -19,8 +19,7 @@ html, body {
 
 .modal {
   top: 10%;
-  bottom: 10%; 
-}
+  bottom: 10%; }
 
 ol.categories {
   float: left;
@@ -519,6 +518,14 @@ ol.categories {
 
 .moveupby10 {
   top: -15px; }
+
+.ribbon {
+  background-color: #2d3e50; }
+
+.logo {
+  width: 72px;
+  height: 72px;
+  padding-left: 10px; }
 
 .iosMenu {
   position: fixed;
