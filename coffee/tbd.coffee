@@ -88,7 +88,7 @@ app.config ($httpProvider) ->
     
     
 app.service 'socket',($rootScope) ->
-    socket = io.connect 'http://166.78.129.57/:8080'
+    socket = io.connect 'http://reviewkai.com:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
