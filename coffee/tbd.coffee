@@ -1,3 +1,4 @@
+#  cfcoptions : { "out": "../js/"   }
 app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ionic'],
  ($routeProvider, $locationProvider)->
             $routeProvider.when '/library', {
@@ -87,7 +88,7 @@ app.config ($httpProvider) ->
     
     
 app.service 'socket',($rootScope) ->
-    socket = io.connect 'http://166.78.129.57:8080'
+    socket = io.connect 'http://localhost:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
@@ -101,24 +102,6 @@ app.service 'socket',($rootScope) ->
                      if callback
                         callback.apply socket, args
     }
-### move this to the server ###
-app.factory 'InfoRequestService', ['$http', ($http) -> 
-   class InfoRequest     
-        searchForAGame: (game, callback)->
-            GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query='+game+'&field_list=name,image,id,deck,original_release_date,platforms,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
-            $http.jsonp(GamesSearchUrl).success (data)->
-
-                callback data
-
-        getDeckForGame:(gameid, callback)->
-            GamesSearchUrl = 'http://www.giantbomb.com/api/game/'+gameid+'/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&field_list=platforms,deck,genres,videos,original_release_date&format=jsonp&json_callback=JSON_CALLBACK';
-            $http.jsonp(GamesSearchUrl).success (data)->
-                callback data
-        getMetaData:(link, callback)->
-            $http.get(link).success (data)->
-                callback data
-    new InfoRequest()
-]
 
 app.filter('myLimitTo', [->
      (obj, limit,offset)->
@@ -255,10 +238,12 @@ createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
             $scope.showGameDescription = (id, gameToShownName, image)->
                 $scope.gameDetailsModal.show()
                 $scope.gamedetails={}
-                InfoRequestService.getDeckForGame id , (data)-> 
-                    $scope.gamedetails= data.results
-                    $scope.gamedetails.name = gameToShownName
-                    $scope.gamedetails.image= image
+                socket.emit 'getGameInfoFromWiki', id
+            socket.on 'gameInfoForGameFromWiki' ,(data)->
+                $scope.gamedetails= data.results
+                $scope.gamedetails.name = gameToShownName
+                $scope.gamedetails.image= image
+
             $scope.closeGameDes = ->
                 $scope.gameDetailsModal.hide()
                 
@@ -435,13 +420,14 @@ app.controller 'searchController',
             $scope.getGame=()->
                 $scope.isLoading =true
                 $scope.resultsFor=$scope.search
-                InfoRequestService.searchForAGame $scope.resultsFor, (data)->
-                    $scope.gamesfound=[]
-                    if data.results.length > 20
-                        $scope.gamesfound=data.results[0..19]
-                    else 
-                        $scope.gamesfound=data.results
-                    socket.emit 'searchForGames' , {list: $scope.gamesfound}
+                socket.emit 'findGamesInWiki', $scope.resultsFor
+            socket.on 'listOfGamesFromWiki', (data)->
+                $scope.gamesfound=[]
+                if data.results.length > 20
+                    $scope.gamesfound=data.results[0..19]
+                else
+                    $scope.gamesfound=data.results
+                socket.emit 'searchForGames' , {list: $scope.gamesfound}
             socket.on 'searchfinished' , (data)->
                 $scope.games = []
                 for item in data
@@ -602,10 +588,14 @@ app.controller 'libraryController',
                 $scope.modalGame = {}
             $scope.searchForAGame = (game)->
                 $scope.isLoadingAdder = true
-                InfoRequestService.searchForAGame game, (data)->
+                socket.emit 'findGamesInWiki', game
+            socket.on 'listOfGamesFromWiki', (data)->
+                $scope.gamesfound=[]
+                if data.results.length > 20
+                    $scope.gamesfound=data.results[0..19]
+                else
                     $scope.gamesfound=data.results
-                    $scope.isLoadingAdder = false
-            
+                $scope.isLoadingAdder = false
             	
             $scope.addNewGame = ->       
                 $scope.modal.show()

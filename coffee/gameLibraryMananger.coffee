@@ -1,3 +1,4 @@
+#  cfcoptions : { "out": "../js/"   }
 module.exports =  (client,connection) -> 
     ### helper functions start ###
     calculateNewPros = (userId)->
@@ -273,4 +274,3 @@ module.exports =  (client,connection) ->
                             gameid = result.insertId
                             sql =  'call updateFakeUsers ('+gameid+','+gameid+')';
                             connection.query sql,  data.userInfo,  (err,results) ->
-                            

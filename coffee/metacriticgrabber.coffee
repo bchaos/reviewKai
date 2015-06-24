@@ -1,3 +1,4 @@
+#  cfcoptions : { "out": "../js/"   }
 app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ionic'],
  ($routeProvider, $locationProvider)->
             $routeProvider.when '/library', {

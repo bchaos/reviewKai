@@ -101,7 +101,7 @@
 
   app.service('socket', function($rootScope) {
     var socket;
-    socket = io.connect('http://166.78.129.57:8080');
+    socket = io.connect('http://localhost:8080');
     return {
       on: function(eventname, callback) {
         return socket.on(eventname, function() {
@@ -125,44 +125,6 @@
       }
     };
   });
-
-  /* move this to the server*/
-
-
-  app.factory('InfoRequestService', [
-    '$http', function($http) {
-      var InfoRequest;
-      InfoRequest = (function() {
-        function InfoRequest() {}
-
-        InfoRequest.prototype.searchForAGame = function(game, callback) {
-          var GamesSearchUrl;
-          GamesSearchUrl = 'http://www.giantbomb.com/api/search/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&query=' + game + '&field_list=name,image,id,deck,original_release_date,platforms,genres&resources=game&format=jsonp&json_callback=JSON_CALLBACK';
-          return $http.jsonp(GamesSearchUrl).success(function(data) {
-            return callback(data);
-          });
-        };
-
-        InfoRequest.prototype.getDeckForGame = function(gameid, callback) {
-          var GamesSearchUrl;
-          GamesSearchUrl = 'http://www.giantbomb.com/api/game/' + gameid + '/?api_key=059d37ad5ca7f47e566180366eab2190e8c6da30&field_list=platforms,deck,genres,videos,original_release_date&format=jsonp&json_callback=JSON_CALLBACK';
-          return $http.jsonp(GamesSearchUrl).success(function(data) {
-            return callback(data);
-          });
-        };
-
-        InfoRequest.prototype.getMetaData = function(link, callback) {
-          return $http.get(link).success(function(data) {
-            return callback(data);
-          });
-        };
-
-        return InfoRequest;
-
-      })();
-      return new InfoRequest();
-    }
-  ]);
 
   app.filter('myLimitTo', [
     function() {
@@ -399,12 +361,13 @@
     $scope.showGameDescription = function(id, gameToShownName, image) {
       $scope.gameDetailsModal.show();
       $scope.gamedetails = {};
-      return InfoRequestService.getDeckForGame(id, function(data) {
-        $scope.gamedetails = data.results;
-        $scope.gamedetails.name = gameToShownName;
-        return $scope.gamedetails.image = image;
-      });
+      return socket.emit('getGameInfoFromWiki', id);
     };
+    socket.on('gameInfoForGameFromWiki', function(data) {
+      $scope.gamedetails = data.results;
+      $scope.gamedetails.name = gameToShownName;
+      return $scope.gamedetails.image = image;
+    });
     $scope.closeGameDes = function() {
       return $scope.gameDetailsModal.hide();
     };
@@ -657,18 +620,19 @@
       $scope.getGame = function() {
         $scope.isLoading = true;
         $scope.resultsFor = $scope.search;
-        return InfoRequestService.searchForAGame($scope.resultsFor, function(data) {
-          $scope.gamesfound = [];
-          if (data.results.length > 20) {
-            $scope.gamesfound = data.results.slice(0, 20);
-          } else {
-            $scope.gamesfound = data.results;
-          }
-          return socket.emit('searchForGames', {
-            list: $scope.gamesfound
-          });
-        });
+        return socket.emit('findGamesInWiki', $scope.resultsFor);
       };
+      socket.on('listOfGamesFromWiki', function(data) {
+        $scope.gamesfound = [];
+        if (data.results.length > 20) {
+          $scope.gamesfound = data.results.slice(0, 20);
+        } else {
+          $scope.gamesfound = data.results;
+        }
+        return socket.emit('searchForGames', {
+          list: $scope.gamesfound
+        });
+      });
       socket.on('searchfinished', function(data) {
         var item, score1, score2, _i, _len;
         $scope.games = [];
@@ -904,11 +868,17 @@
       });
       $scope.searchForAGame = function(game) {
         $scope.isLoadingAdder = true;
-        return InfoRequestService.searchForAGame(game, function(data) {
-          $scope.gamesfound = data.results;
-          return $scope.isLoadingAdder = false;
-        });
+        return socket.emit('findGamesInWiki', game);
       };
+      socket.on('listOfGamesFromWiki', function(data) {
+        $scope.gamesfound = [];
+        if (data.results.length > 20) {
+          $scope.gamesfound = data.results.slice(0, 20);
+        } else {
+          $scope.gamesfound = data.results;
+        }
+        return $scope.isLoadingAdder = false;
+      });
       $scope.addNewGame = function() {
         $scope.modal.show();
         $scope.canFlip = 'false';

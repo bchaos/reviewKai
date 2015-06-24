@@ -1,3 +1,4 @@
+#  cfcoptions : { "out": "../js/"   }
 connect = require('connect')
 app = require('express')();
 server = require('http').Server(app);
@@ -5,6 +6,7 @@ io = require('socket.io')(server)
 crypto = require('crypto')
 bcrypt = require('bcrypt')
 fs= require('fs')
+request= require('request')
 mysql = require 'mysql'
 validator = require('validator')
 
@@ -33,12 +35,12 @@ handler = (req,res) ->
             res.writeHead 200
             res.end data
 addImageToFolder=(image)->
-    
+    ### add images here  ###
 
 userRegister = require('./userRegistration');
 gameLibraryMananger= require('./gameLibraryMananger');
-
+giantBombMananger = require('./giantbomb');
 io.on 'connection', (client) ->
     userRegister client,connection,bcrypt,crypto,validator 
     gameLibraryMananger client, connection    
-   
+    giantBombMananger client, request

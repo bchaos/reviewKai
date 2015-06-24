@@ -1,3 +1,4 @@
+#  cfcoptions : { "out": "../js/"   }
 module.exports =  (client,connection, bcrypt,crypto,validator) -> 
     salt = bcrypt.genSaltSync(10);
     client.on 'SignUpUser', (data)->
