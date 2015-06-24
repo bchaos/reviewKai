@@ -129,7 +129,7 @@ isloggedin = (socket, location)->
         socket.emit 'isUserLoggedin' , {key:window.localStorage.sessionkey, location:location}
     
         
-createGameDetailViewer= ( $ionicModal, $scope, socket, InfoRequestService) ->
+createGameDetailViewer= ( $ionicModal, $scope, socket) ->
             $scope.newOffset = 0;   
             if $scope.myLibrary && $scope.localLibrary
                 $scope.itemsPerPage = 11;
@@ -354,8 +354,8 @@ signInSetup = ($scope, $ionicModal, socket)->
         $scope.closeModal()
 app.controller 'reviewController', 
     class reviewController
-        @$inject : ['$scope', 'InfoRequestService', '$location', 'socket', '$ionicModal']
-        constructor: (@$scope, @InfoRequestService, @$location, @socket,  $ionicModal ) ->  
+        @$inject : ['$scope',   '$location', 'socket', '$ionicModal']
+        constructor: (@$scope,  @$location, @socket,  $ionicModal ) ->
             $scope.toggleClass = ->
                 if $scope.active is 'false'
                     $scope.active = 'true'
@@ -398,8 +398,8 @@ app.controller 'homeController',
                     window.location = '#/dashboard'
 app.controller 'recommendationController', 
     class recommendationController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket, @$location) ->
+        @$inject: ['$scope',   '$ionicModal', 'socket', '$location']
+        constructor: (@$scope,  $ionicModal, @socket, @$location) ->
             $scope.isLoading=true;
             socket.emit 'GetListOfPlatforms' , {data:'1'}
             socket.on  'platformsFound', (data)->
@@ -408,14 +408,14 @@ app.controller 'recommendationController',
                 
 app.controller 'searchController', 
 	class searchController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket, @$location) ->
+        @$inject: ['$scope',   '$ionicModal', 'socket', '$location']
+        constructor: (@$scope,  $ionicModal, @socket, @$location) ->
             $scope.myLibrary=false
             $scope.isLoading =false
             $scope.scoreName='avgscore'
             $scope.loggedin=true
             $scope.SearchForAGame=false
-            createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
+            createGameDetailViewer $ionicModal, $scope, socket
             searchObject = $location.search();
             $scope.getGame=()->
                 $scope.isLoading =true
@@ -454,8 +454,8 @@ app.controller 'searchController',
                 $scope.isLoading = false
 app.controller 'dashboardController',
 	class dashboardController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket) ->
+        @$inject: ['$scope',   '$ionicModal', 'socket']
+        constructor: (@$scope,  $ionicModal, @socket) ->
             $scope.isLoading=true;
             socket.emit 'GetRecentGames'
             @socket.on 'recentReleases', (data)->
@@ -465,12 +465,12 @@ app.controller 'dashboardController',
                 $scope.isLoading=false
                 $scope.recentGames = false
                 
-            createGameDetailViewer $ionicModal, $scope, socket ,InfoRequestService                   
+            createGameDetailViewer $ionicModal, $scope, socket
 
 app.controller 'peerController',
 	class peerController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket,@$location) ->
+        @$inject: ['$scope',   '$ionicModal', 'socket','$location']
+        constructor: (@$scope,  $ionicModal, @socket,@$location) ->
 
             $scope.myLibrary=false
             $scope.scoreName='avgscore'
@@ -497,12 +497,12 @@ app.controller 'peerController',
                 
                 $scope.setUpPages();
                 $scope.isLoading=false;
-            createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
+            createGameDetailViewer $ionicModal, $scope, socket
             
 app.controller 'guruController',
 	class guruController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket,@$location) -> 
+        @$inject: ['$scope',   '$ionicModal', 'socket','$location']
+        constructor: (@$scope,  $ionicModal, @socket,@$location) ->
             $scope.myLibrary=false
             $scope.scoreName='avgscore'
             $scope.isLoading=true;
@@ -529,7 +529,7 @@ app.controller 'guruController',
                     $scope.games.push item
                 $scope.setUpPages();
                 $scope.isLoading=false;
-            createGameDetailViewer $ionicModal, $scope, socket, InfoRequestService
+            createGameDetailViewer $ionicModal, $scope, socket
 
 app.controller 'genericController', 
     class genericController
@@ -539,8 +539,8 @@ app.controller 'genericController',
 
 app.controller 'libraryController',
     class libraryController
-        @$inject: ['$scope', 'InfoRequestService', '$ionicModal', 'socket','$location']
-        constructor: (@$scope, @InfoRequestService, $ionicModal, @socket, @$location) ->
+        @$inject: ['$scope',   '$ionicModal', 'socket','$location']
+        constructor: (@$scope,  $ionicModal, @socket, @$location) ->
          
             $scope.loggedin=true
             $scope.myLibrary=true
@@ -661,5 +661,5 @@ app.controller 'libraryController',
             $scope.updateGame = ->
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
-            createGameDetailViewer $ionicModal, $scope, socket ,InfoRequestService
+            createGameDetailViewer $ionicModal, $scope, socket
 

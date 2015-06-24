@@ -162,7 +162,7 @@
     }
   };
 
-  createGameDetailViewer = function($ionicModal, $scope, socket, InfoRequestService) {
+  createGameDetailViewer = function($ionicModal, $scope, socket) {
     var createNumberList;
     $scope.newOffset = 0;
     if ($scope.myLibrary && $scope.localLibrary) {
@@ -507,11 +507,10 @@
   };
 
   app.controller('reviewController', reviewController = (function() {
-    reviewController.$inject = ['$scope', 'InfoRequestService', '$location', 'socket', '$ionicModal'];
+    reviewController.$inject = ['$scope', '$location', 'socket', '$ionicModal'];
 
-    function reviewController($scope, InfoRequestService, $location, socket, $ionicModal) {
+    function reviewController($scope, $location, socket, $ionicModal) {
       this.$scope = $scope;
-      this.InfoRequestService = InfoRequestService;
       this.$location = $location;
       this.socket = socket;
       $scope.toggleClass = function() {
@@ -580,11 +579,10 @@
   })());
 
   app.controller('recommendationController', recommendationController = (function() {
-    recommendationController.$inject = ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location'];
+    recommendationController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
 
-    function recommendationController($scope, InfoRequestService, $ionicModal, socket, $location) {
+    function recommendationController($scope, $ionicModal, socket, $location) {
       this.$scope = $scope;
-      this.InfoRequestService = InfoRequestService;
       this.socket = socket;
       this.$location = $location;
       $scope.isLoading = true;
@@ -602,12 +600,11 @@
   })());
 
   app.controller('searchController', searchController = (function() {
-    searchController.$inject = ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location'];
+    searchController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
 
-    function searchController($scope, InfoRequestService, $ionicModal, socket, $location) {
+    function searchController($scope, $ionicModal, socket, $location) {
       var searchObject;
       this.$scope = $scope;
-      this.InfoRequestService = InfoRequestService;
       this.socket = socket;
       this.$location = $location;
       $scope.myLibrary = false;
@@ -615,7 +612,7 @@
       $scope.scoreName = 'avgscore';
       $scope.loggedin = true;
       $scope.SearchForAGame = false;
-      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
+      createGameDetailViewer($ionicModal, $scope, socket);
       searchObject = $location.search();
       $scope.getGame = function() {
         $scope.isLoading = true;
@@ -671,11 +668,10 @@
   })());
 
   app.controller('dashboardController', dashboardController = (function() {
-    dashboardController.$inject = ['$scope', 'InfoRequestService', '$ionicModal', 'socket'];
+    dashboardController.$inject = ['$scope', '$ionicModal', 'socket'];
 
-    function dashboardController($scope, InfoRequestService, $ionicModal, socket) {
+    function dashboardController($scope, $ionicModal, socket) {
       this.$scope = $scope;
-      this.InfoRequestService = InfoRequestService;
       this.socket = socket;
       $scope.isLoading = true;
       socket.emit('GetRecentGames');
@@ -687,7 +683,7 @@
         $scope.isLoading = false;
         return $scope.recentGames = false;
       });
-      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
+      createGameDetailViewer($ionicModal, $scope, socket);
     }
 
     return dashboardController;
@@ -695,12 +691,11 @@
   })());
 
   app.controller('peerController', peerController = (function() {
-    peerController.$inject = ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location'];
+    peerController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
 
-    function peerController($scope, InfoRequestService, $ionicModal, socket, $location) {
+    function peerController($scope, $ionicModal, socket, $location) {
       var searchObject;
       this.$scope = $scope;
-      this.InfoRequestService = InfoRequestService;
       this.socket = socket;
       this.$location = $location;
       $scope.myLibrary = false;
@@ -735,7 +730,7 @@
         $scope.setUpPages();
         return $scope.isLoading = false;
       });
-      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
+      createGameDetailViewer($ionicModal, $scope, socket);
     }
 
     return peerController;
@@ -743,12 +738,11 @@
   })());
 
   app.controller('guruController', guruController = (function() {
-    guruController.$inject = ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location'];
+    guruController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
 
-    function guruController($scope, InfoRequestService, $ionicModal, socket, $location) {
+    function guruController($scope, $ionicModal, socket, $location) {
       var searchObject;
       this.$scope = $scope;
-      this.InfoRequestService = InfoRequestService;
       this.socket = socket;
       this.$location = $location;
       $scope.myLibrary = false;
@@ -787,7 +781,7 @@
         $scope.setUpPages();
         return $scope.isLoading = false;
       });
-      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
+      createGameDetailViewer($ionicModal, $scope, socket);
     }
 
     return guruController;
@@ -807,12 +801,11 @@
   })());
 
   app.controller('libraryController', libraryController = (function() {
-    libraryController.$inject = ['$scope', 'InfoRequestService', '$ionicModal', 'socket', '$location'];
+    libraryController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
 
-    function libraryController($scope, InfoRequestService, $ionicModal, socket, $location) {
+    function libraryController($scope, $ionicModal, socket, $location) {
       var path;
       this.$scope = $scope;
-      this.InfoRequestService = InfoRequestService;
       this.socket = socket;
       this.$location = $location;
       $scope.loggedin = true;
@@ -948,7 +941,7 @@
         socket.emit('updateGame', $scope.edit);
         return $scope.editModal.hide();
       };
-      createGameDetailViewer($ionicModal, $scope, socket, InfoRequestService);
+      createGameDetailViewer($ionicModal, $scope, socket);
     }
 
     return libraryController;
