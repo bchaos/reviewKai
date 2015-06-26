@@ -1,4 +1,5 @@
 #  cfcoptions : { "out": "../js/"   }
+commonDB = require './commonDatabaseFiles'
 module.exports =  (client,connection) -> 
     ### helper functions start ###
     calculateNewPros = (userId)->
@@ -28,34 +29,6 @@ module.exports =  (client,connection) ->
         sql = 'Select review_link from ProReviewerLibrary prl ,userToProreviewer utp  where prl.id = utp.reviewer_id and utp.user_id='+userid+' and prl.game_id = '+gameid
         connection.query sql, [data.id], (err, result) ->
             callback result
-
-    addPlatformTogame = (platformid, gameid)->
-        gameinfo=  {game_id:gameid, platform_id:platformid }
-        sql = 'insert into  gameOnplatform  Set ? '
-        connection.query sql, gameinfo,  (err,result) ->
-
-    getOrCreatePlatform =( platform,gameid) -> 
-        sql = 'Select count(*) as gamecount, id from platforms where active=1 and name = "'+platform+'"'
-        connection.query sql, (err, result) ->
-            firstresult= result[0]
-            if firstresult.gamecount > 0 
-                addPlatformTogame firstresult.id, gameid
-            else 
-                return 1
-
-    getOrCreateGame = (data,platforms, callback) -> 
-        sql = 'Select count(*) as gamecount, id from games where giantBomb_id = '+data.giantBomb_id
-        connection.query sql, (err, result) ->
-            firstresult= result[0]
-            if firstresult.gamecount > 0 
-                return callback firstresult.id
-            else 
-                sql = 'Insert into games Set ?'
-                connection.query sql,  data,  (err,result) ->
-                    gameid = result.insertId
-                    for platform in platforms
-                        getOrCreatePlatform  platform.abbreviation.gameid
-                    return callback gameid
 
     getOrCreateProReviewer= (data,callback)->
         sql ='Select count(*) as reviewerCount ,id from ProReviewers where name = "'+data.name+'"';
@@ -155,7 +128,7 @@ module.exports =  (client,connection) ->
         sql = ' Update library Set ? where id ='+data.id 
         connection.query sql,  data, (err,result) ->
             console.log 'game updated'
-            getGamesForUser client.userid,client
+            getGamesForUser client.username, client.userid,client
     
     client.on 'GetGuruLibrary',      (platform)->
        getGurusGameForUser client.userid,client,platform
@@ -164,16 +137,15 @@ module.exports =  (client,connection) ->
        getPeersGameForUser client.userid,client,platform
     
     client.on 'AddNewGameToLibrary',(data)->
-        getOrCreateGame data.giantBombinfo, data.platforms, (gameid)-> 
+        commonDB.connection= connection
+        commonDB.getOrCreateGame data.giantBombinfo, data.platforms, (gameid)-> 
             data.userInfo.game_id = gameid
             data.userInfo.user_id = client.userid
             sql = 'Insert into library Set ?'
-            console.log data.userInfo
             connection.query sql,  data.userInfo, (err,results)->
-                console.log err
                 calculateNewPeers data.userInfo.user_id
                 calculateNewPros data.userInfo.user_id
-                getGamesForUser client.userid,client
+                getGamesForUser client.username, client.userid, client
                 
     client.on 'GetNewGameReviews', ->
         sql = 'Select * from games where 1 sort by added Desc limit 10'
@@ -197,7 +169,7 @@ module.exports =  (client,connection) ->
         sql = 'Update library set rating ='+game.rating+', description = "' + game.description+'" where id ='+game.game_id
         console.log sql
         connection.query sql, [gameid], (err, result) ->
-            getGamesForUser client.userid,client
+            getGamesForUser client.username, client.userid,client
     
     client.on 'searchForGames', (games)->
         updateGameList  client.userid, games.list,0, (newlist)->
@@ -249,18 +221,21 @@ module.exports =  (client,connection) ->
     client.on 'GetProreviewerLibrary', (data)->
         getProLibrary(data.id)
     client.on 'AddNewProGameToLibrary', (data)-> 
-        getOrCreateGame data.giantBombinfo,data.platforms, (gameid)-> 
+        commonDB.connection= connection
+        commonDB.getOrCreateGame  data.giantBombinfo,data.platforms, (gameid)-> 
             data.userInfo.game_id = gameid
             sql =  'Insert into ProReviewerLibrary  Set ?'
             connection.query sql,  data.userInfo,  (err,results) ->
                 
                 getProLibrary(data.userInfo.user_id)
     client.on 'updateGamePlatforms', (data)->
+         commonDB.connection = connection 
          for platform in data.platforms
-            getOrCreatePlatform  platform.abbreviation,data.id
+            commonDB.getOrCreatePlatform  platform.abbreviation,data.id
             
     client.on 'AddGameandReviewerToLibrary',(data)->
-         getOrCreateGame data.giantBombinfo,data.platforms, (gameid)-> 
+        commonDB.connection= connection
+        commonDB.getOrCreateGame  data.giantBombinfo,data.platforms, (gameid)-> 
             getOrCreateProReviewer data.pro ,(newuserid)->
                  data.userInfo.game_id = gameid
                  data.userInfo.user_id = newuserid

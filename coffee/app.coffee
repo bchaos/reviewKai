@@ -16,7 +16,7 @@ __userImagedir='../images/userimages/'
 connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
-    password : 'propeller1',
+    password : '',
     database : 'zf2reviewer'
 })
 
@@ -37,10 +37,10 @@ handler = (req,res) ->
 addImageToFolder=(image)->
     ### add images here  ###
 
-userRegister = require('./userRegistration');
-gameLibraryMananger= require('./gameLibraryMananger');
-giantBombMananger = require('./giantbomb');
+userRegister = require './userRegistration'
+gameLibraryMananger = require './gameLibraryMananger'
+giantBombMananger = require './giantbomb'
 io.on 'connection', (client) ->
     userRegister client,connection,bcrypt,crypto,validator 
     gameLibraryMananger client, connection    
-    giantBombMananger client, request
+    giantBombMananger client, request,connection

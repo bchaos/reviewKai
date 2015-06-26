@@ -623,18 +623,22 @@ ol.categories {
 /* line 595, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .logo {
   width: 72px;
-  height: 72px;
-  padding-left: 10px; }
+  height: 72px; }
 
 /* line 600, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+.smalllogo {
+  width: 30px;
+  height: 30px; }
+
+/* line 604, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .iosMenu {
   position: fixed;
   bottom: 0px;
   background-color: #2d3e50; }
-  /* line 604, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+  /* line 608, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   .iosMenu .pure-menu-item {
     height: 48px; }
-    /* line 606, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+    /* line 610, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
     .iosMenu .pure-menu-item i {
       display: block;
       height: 24px;

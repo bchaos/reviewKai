@@ -88,7 +88,7 @@ app.config ($httpProvider) ->
     
     
 app.service 'socket',($rootScope) ->
-    socket = io.connect 'http://reviewkai.com:8080'
+    socket = io.connect 'http://localhost:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
@@ -623,7 +623,24 @@ app.controller 'libraryController',
                 $scope.newgame.userInfo.unenjoyment=3
                 $scope.newgame.userInfo.difficulty=3
                 $scope.gameSelected=true
-                
+            $scope.importFromSteam = -> 
+                $scope.vanity={}
+                $ionicModal.fromTemplateUrl('views/steamImportModal.html' ,  {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then (modal)-> 
+                    $scope.importModal = modal
+                    $scope.importModal. show()
+                    $scope.closeImportModal = ->
+                        $scope.importModal.hide()
+                    $scope.getGamesFromSteam = () ->
+                        
+                        socket.emit 'importGamesFromSteam', $scope.vanity
+            socket.on 'steamGamesToAdd', (data)->
+                $scope.newSteamGames=data
+                $scope.importModal.hide()
+            socket.on 'vanityNameNotFound', (data)->
+                $scope.vanityErrorMessage = data
             $scope.goback = ->
                 $scope.canFlip='false'
                 $scope.gameSelected=false

@@ -101,7 +101,7 @@
 
   app.service('socket', function($rootScope) {
     var socket;
-    socket = io.connect('http://reviewkai.com:8080');
+    socket = io.connect('http://localhost:8080');
     return {
       on: function(eventname, callback) {
         return socket.on(eventname, function() {
@@ -900,6 +900,29 @@
         $scope.newgame.userInfo.difficulty = 3;
         return $scope.gameSelected = true;
       };
+      $scope.importFromSteam = function() {
+        $scope.vanity = {};
+        return $ionicModal.fromTemplateUrl('views/steamImportModal.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.importModal = modal;
+          $scope.importModal.show();
+          $scope.closeImportModal = function() {
+            return $scope.importModal.hide();
+          };
+          return $scope.getGamesFromSteam = function() {
+            return socket.emit('importGamesFromSteam', $scope.vanity);
+          };
+        });
+      };
+      socket.on('steamGamesToAdd', function(data) {
+        $scope.newSteamGames = data;
+        return $scope.importModal.hide();
+      });
+      socket.on('vanityNameNotFound', function(data) {
+        return $scope.vanityErrorMessage = data;
+      });
       $scope.goback = function() {
         $scope.canFlip = 'false';
         return $scope.gameSelected = false;

@@ -1,0 +1,18 @@
+<ion-modal-view>
+    <ion-header-bar>
+       <h1 class="title"> Import Games from Steam </h1>
+        <button class="button button-clear button-assertive" ng-click="closeImportModal()">x</button>
+    </ion-header-bar>
+    <ion-content>
+        <span class="errorMessage">  {{vanityErrorMessage}} </span>
+        <div class="list">
+            Vanity Name ( this is your steam name from your steam page)
+            <label class="item item-input" >
+                <input type="text" ng-model='vanity.name'>
+            </label>
+        </div>
+        <div class="button-bar">
+            <a class="button button-positive  button-outline" ng-click="getGamesFromSteam()">Import </a> 
+        </div>
+    </ion-content>
+</ion-modal-view>

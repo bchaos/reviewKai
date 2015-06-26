@@ -29,7 +29,7 @@
   connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'propeller1',
+    password: '',
     database: 'zf2reviewer'
   });
 
@@ -67,7 +67,7 @@
   io.on('connection', function(client) {
     userRegister(client, connection, bcrypt, crypto, validator);
     gameLibraryMananger(client, connection);
-    return giantBombMananger(client, request);
+    return giantBombMananger(client, request, connection);
   });
 
 }).call(this);
