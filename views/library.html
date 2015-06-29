@@ -91,7 +91,7 @@
         </form>
     </div>
     <span ng-show="myLibrary && localLibrary">
-       <div class="">
+       <div class="hideMobile">
         <div class="click panel circle">
             <div class="front">
                 <div class="circleLogo" ng-click ="addNewGame()"> 
@@ -103,7 +103,10 @@
             <div class="back">
             </div>
         </div>
-      </div>    
+      </div>   
+        <div class="hideDesktop pure-u-1 game_mobile  gameAdder" ng-click ="addNewGame()">
+           <span class="newGameAdder">  + New Game</span>
+        </div>
     </span>
    
     <div ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">

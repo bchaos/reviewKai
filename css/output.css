@@ -222,6 +222,11 @@ ol.categories {
 
   .hideDesktop {
     display: none; } }
+.mobileLogoPos {
+  position: absolute;
+  margin-left: 40%;
+  margin-top: 40px; }
+
 .mainBackground {
   background: url("../images/stock2.png") no-repeat fixed;
   -webkit-background-size: cover;
@@ -293,22 +298,6 @@ ol.categories {
     .panel .front .rec {
       width: 275px;
       height: 350px; }
-  .panel.flip .front {
-    z-index: 900;
-    border-color: #eee;
-    background: url("../images/$cardBack");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-    -webkit-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    transform: rotateY(180deg); }
-  .panel.flip .back {
-    z-index: 1000;
-    -webkit-transform: rotateX(0deg) rotateY(0deg);
-    -moz-transform: rotateX(0deg) rotateY(0deg);
-    transform: rotateX(0deg) rotateY(0deg);
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
   .panel .back {
     float: none;
     position: absolute;
@@ -340,6 +329,80 @@ ol.categories {
       background: #d0c0a4; }
     .panel .back.ok {
       background: yellow; }
+  .panel.flip .front {
+    z-index: 8;
+    border-color: #eee;
+    background: url("../images/cardback2.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    height: 188px;
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    transform: rotateY(180deg); }
+  .panel.flip .back {
+    z-index: 9;
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    transform: rotateX(0deg) rotateY(0deg);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
+
+.mobilePanel {
+  background-color: #d0c0a4;
+  color: #3a3a3c; }
+  .mobilePanel.flipable {
+    height: 188px;
+    background: url("../images/cardbackMobile.png"); }
+  .mobilePanel.flip .front {
+    z-index: 8;
+    border-color: #d0c0a4;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    display: none;
+    -webkit-transform: rotateX(180deg);
+    -moz-transform: rotateX(180deg);
+    transform: rotateX(180deg); }
+  .mobilePanel.flip .back {
+    z-index: 9;
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    transform: rotateX(0deg) rotateY(0deg);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
+  .mobilePanel .back {
+    -webkit-transform: rotateX(-180deg);
+    -moz-transform: rotateX(-179deg);
+    /* setting to 180 causes an unnatural-looking half-flip */
+    transform: rotateX(-179deg);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* -- transition is the magic sauce for animation -- */
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out; }
+    .mobilePanel .back.postive {
+      background: #66cc33; }
+    .mobilePanel .back.negative {
+      background: red; }
+    .mobilePanel .back.unknown {
+      background: #d0c0a4; }
+    .mobilePanel .back.ok {
+      background: yellow; }
+  .mobilePanel .front {
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    transform: rotateX(0deg) rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    color: #d0c0a4;
+    /* -- transition is the magic sauce for animation -- */
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out; }
 
 .lightblue {
   height: 40px;
@@ -541,6 +604,17 @@ ol.categories {
     background: #d0c0a4; }
     .game_mobile.platforms :focus {
       background: #beb097; }
+  .game_mobile.gameAdder {
+    height: 50px;
+    background: #d0c0a4; }
+    .game_mobile.gameAdder :focus {
+      background: #beb097; }
+
+.newGameAdder {
+  margin: 12px 30%;
+  color: #3a3a3c;
+  font-size: 1.8em;
+  position: absolute; }
 
 .pure-menu-selected {
   background-color: #beb097; }
@@ -615,6 +689,9 @@ ol.categories {
   background-color: #3a3a3c;
   color: #f8931d; }
 
+.logoLarge {
+  width: 100px; }
+
 .logo {
   width: 72px;
   height: 72px; }
@@ -634,6 +711,9 @@ ol.categories {
       height: 24px;
       margin: -4px; }
 
+.primaryOrange {
+  color: #f8931d; }
+
 a {
   color: #d0c0a4; }
 
@@ -642,3 +722,7 @@ a :visited {
 
 .platformList {
   width: 116%; }
+
+.addingGameMargin {
+  margin-top: 11px;
+  position: absolute; }

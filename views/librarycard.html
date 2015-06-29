@@ -36,8 +36,11 @@
 <div class="pure-u-1 game_mobile hideDesktop" ng-class="convertAverageLibraryClass(game.avgscore, game.rating, {{myLibrary}})">
     
 <div class="pure-u-1 game_name mobile">
-    {{game.game_name}}
+       <span  ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture)'><a class="button  button-icon icon ion-ios-information-outline infobutton"></a></span>
+    <span class="addingGameMargin"> {{game.game_name}}</span>
+       
 </div>
+
 <div class="pure-u-1-4">
     <div class="game_image mobile" ng-style="getGameStyle(game.game_picture)"> 
 </div>
