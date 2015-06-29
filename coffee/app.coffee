@@ -16,7 +16,7 @@ __userImagedir='../images/userimages/'
 connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
-    password : '',
+    password : 'propeller1',
     database : 'zf2reviewer'
 })
 

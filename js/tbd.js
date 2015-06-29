@@ -101,7 +101,7 @@
 
   app.service('socket', function($rootScope) {
     var socket;
-    socket = io.connect('http://localhost:8080');
+    socket = io.connect('http://Reviewkai.com:8080');
     return {
       on: function(eventname, callback) {
         return socket.on(eventname, function() {

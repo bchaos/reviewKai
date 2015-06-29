@@ -1,4 +1,4 @@
-<div class="click panel circle" ng-class="canFlip" ng-init="canFlip=''" ng-click ="canFlip='flip'">
+<div class="click panel circle hideMobile" ng-class="canFlip" ng-init="canFlip=''" ng-click ="canFlip='flip'">
 	<a href="#/guru?platform={{platform.display_name}}"> 
     <div class="front rec" >
 		<div class="circleLogo platform"> 
@@ -12,3 +12,11 @@
 	<div class="back">
 	</div>
 </div>  
+
+<div class="pure-u-1 game_mobile platforms hideDesktop" >
+    <a href="#/guru?platform={{platform.display_name}}"> 
+    <div class="pure-u-1 mobile">
+        <img class="platformSmall mobile"  src="images/platforms/{{platform.display_name}}/icon.png"> 
+    </div>
+    </a>
+</div>

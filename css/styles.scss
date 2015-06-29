@@ -2,15 +2,22 @@ $postiveColor:#8cc63f;
 $listColor: #6d6e70; 
 $darkBlue: #2d3e50;
 $lightBlue: #1f8dd6;
-$whiteColor:#f7f7f7;
-$cardBack:'../images/cardback.png';
+$whiteColour:#D0C0A4; 
+$whiteHover: #beb097;
+$primaryDark:#3a3a3c;
+$primaryOrange:#f8931d;
+$cardBack:'../images/cardback2.png';
+
+body {
+    color: $primaryDark;
+}
 html, body{
     height :100%;
     line-height: 1.7em;
     font-size: 13px;
     overflow-x:hidden;
     overflow-y:scroll;
-    background-color:$lightBlue;
+    background-color:$primaryDark;
     }
 .button{
 
@@ -28,12 +35,43 @@ html, body{
     }
     
 }
-
+#menu {
+    margin-left: -150px; /* "#menu" width */
+    width: 150px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* so the menu or its navicon stays above all content */
+    background: $whiteColour;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
 .modal {
   top:10%;
   bottom:10%;
 }
-
+.button.button-modal{
+    background-color:transparent;
+    border-color: $primaryOrange;
+    color:$primaryDark; 
+}
+.button.button-modal.libarybutton {
+ color:white;   
+}
+.button.button-review{
+    background-color:transparent;
+    border-color: transparent;
+    color:$primaryDark;
+}   
+.pure-menu-item{
+ width: 160px;
+border-color: $primaryOrange;
+border-width: 1px;   
+    height: 47px;
+     border-style: solid;
+}
 ol{
     &.categories{
         float: left;
@@ -63,7 +101,8 @@ ol{
   text-align: center;
   left: -30px;
   position: relative;
-  background: #111;
+  background: $primaryDark;
+  color: $whiteColour;
 }
 
 .pure-form{
@@ -96,13 +135,23 @@ margin-right: auto;
 }
 
 .splash-container-dashboard{
-    background: $lightBlue;
+    background: $primaryDark;
     width: 90%;
 margin-left: auto;
 margin-right: auto;
     top: 0;
     
 }
+.pure-button-primary{
+    
+    color:$primaryDark;
+    background-color:$whiteColour;
+}
+
+.pure-button-primary :hover{
+     background-color:$whiteHover;
+}
+
 .splash {
     width: 80%;
     height: 50%;
@@ -124,8 +173,8 @@ margin-right: auto;
 .splash-head {
     font-size: 20px;
     font-weight: bold;
-    color: white;
-    border: 3px solid white;
+    color: $primaryOrange;
+    border: 3px solid $primaryOrange;
     padding: 1em 1.6em;
     font-weight: 100;
     border-radius: 5px;
@@ -133,7 +182,7 @@ margin-right: auto;
     text-transform: uppercase;
 }
 .splash-subhead {
-    color: white;
+    color: $primaryOrange;
     letter-spacing: 0.05em;
     opacity: 0.8;
 }
@@ -149,7 +198,7 @@ margin-right: auto;
 }
 .content{
   overflow-x: hidden;  
-     background: $whiteColor;
+     background: $whiteColour;
  }
 .content-wrapper {
     /* These styles are required for the "scroll-over" effect */
@@ -158,12 +207,12 @@ margin-right: auto;
     width: 100%;
     min-height: 12%;
     z-index: 2;
-    background: $whiteColor;
+    background: $whiteColour;
 
 }
 .gameObject{
     border: 1px solid #ddd;
-    background:  $whiteColor;
+    background:  $whiteColour;
     margin: 0 0.5em 2em;
     padding: 0 0 3em;
     min-height: 230px;
@@ -174,15 +223,18 @@ margin-right: auto;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin: 2em 0 1em;
-    color:white
+    color:$primaryOrange;
+    background-color: primaryDark;
 }
 
 /* This is a modifier class used when the content-head is inside a ribbon */
 .content-head-ribbon {
-    color: white;
+    color: $whiteColour;
 }
 .content-subhead {
-    color: #1f8dd6;
+    color:$primaryDark;
+    margin: 50px 0 20px 0;
+    font-weight: 300;
     i {
         margin-right: 7px;
     }
@@ -272,7 +324,7 @@ margin-right: auto;
 		height: inherit;
         min-width:275px;
         min-height:350px;
-		border: 2px ridge gold;
+		border: 2px ridge $primaryOrange;
 		background: url($cardBack);
         background-size: 100% 100%;
         background-repeat: no-repeat;
@@ -302,7 +354,7 @@ margin-right: auto;
         .front{
             z-index: 900;
             border-color: #eee;
-            background: url('../images/cardback.png');
+            background: url('../images/$cardBack');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             box-shadow: 0 15px 50px rgba(0,0,0,0.2);
@@ -327,7 +379,7 @@ margin-right: auto;
 		z-index: 800;
 		width: inherit;
 		height: inherit;
-		border: 1px solid #ccc;
+		border: 1px solid $whiteColour;
 		
 		text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
 
@@ -353,7 +405,7 @@ margin-right: auto;
             background:red;
         }
         &.unknown{
-            background:white; 
+            background:$whiteColour; 
         }
         &.ok{
             background:yellow;   
@@ -362,7 +414,7 @@ margin-right: auto;
 }
 .lightblue{
   height: 40px;
-  background-color: #265778;
+  background-color: $darkBlue;
   top: -39px;
   position: relative;
   width: 100%;  
@@ -390,6 +442,7 @@ margin-right: auto;
        -webkit-animation-iteration-count: infinite;
         animation-iteration-count: infinite;
 }
+
 .loadingCard{
     position: absolute;				
     float: left;					
@@ -443,17 +496,16 @@ margin-right: auto;
 }
 .block{
     ol li {text-align: left; margin: 0 0 0 28px; }
-    .action {display: block; padding: 3px; background: #333; text-align: right; font-size: .8em; opacity: 0; position: absolute; cursor: pointer; -webkit-transition: opacity .2s linear; }
+    .action {display: block; padding: 3px; background:$darkBlue; text-align: right; font-size: .8em; opacity: 0; position: absolute; cursor: pointer; -webkit-transition: opacity .2s linear; }
     &:hover .action {opacity: .7; }
 }
 
 .circle div .circleLogo  {
-    background-color:#2d3e50;
-    box-shadow: 0 1px 0 #2d3e50;
-    color:white;
-    border: 2px ridge white;
+  
+    box-shadow: 0 1px 0 $whiteColour;
+    color:$primaryOrange;
     text-align:center;    
-    width: 50%;
+    width: 55%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: auto;
@@ -469,16 +521,23 @@ margin-right: auto;
     margin-top: 15px;   
 }
 
+.username{
+ color:$whiteColour;   
+}
 .game_image{
     margin-left: auto;
     margin-right: auto;
-    border: 2px ridge gold;
+    border: 2px ridge $primaryOrange;
     border-radius: 10%;  
     width: 90%;   
     background-size: 100% 150%;
     background-repeat: no-repeat;
     background-position: center;
     height: 42%;
+    &.mobile{
+        border-radius: 0%;
+        height: 140px;
+    }
 }
 
 .KaiadderText{
@@ -490,7 +549,7 @@ margin-right: auto;
 }
 
 .Kaiadder{
-    background-color:#2D3E50;
+    background-color:$darkBlue;
 }
 .ladder{
     background-color:white;   
@@ -505,8 +564,8 @@ margin-right: auto;
     margin-left: auto;
     margin-right: auto;
     margin-bottom:5px;
-    background-color:#dedcc4;  
-    border: 1px solid gold;
+    background-color:$whiteColour;  
+    border: 1px solid $primaryOrange;
     
 }
 
@@ -519,16 +578,45 @@ margin-right: auto;
 }
 .game_name{
     margin-left:8px;   
+    &.mobile{
+        color:$primaryDark;
+        font-size:1.4em;
+    }
 }
+
 .game_recomendation_text{
     margin-left:8px;   
     margin-right:8px; 
     margin-top:20px;
+    &.mobile{
+      color: $primaryDark;   
+    }
+}
+.game_mobile{
+     border: 1px solid $primaryOrange; 
+     margin-bottom:5px;
+     &.postive{
+            background:#66cc33;
+        }
+    &.negative{
+        background:red;
+    }
+    &.unknown{
+        background:$whiteColour; 
+    }
+    &.ok{
+        background:yellow;   
+    }
+    &.platforms{
+        background:$whiteColour;   
+        & :focus{
+         background:$whiteHover;
+        }
+    }
     
 }
-
 .pure-menu-selected{
-  background-color: gray;   
+  background-color: $whiteHover;   
     
 }
 
@@ -540,8 +628,8 @@ margin-right: auto;
 .library-header{
     height: 100px;
     font-size:3em;
-    background-color: #191818;
-    color: #dedcc4;
+    background-color: $darkBlue;
+    color: $whiteColour;
     .library-avatar{  
       border-radius: 100px;
       margin-left: 1em;   
@@ -563,19 +651,38 @@ margin-right: auto;
 .platFormSmall{
   max-width: 240px;
   max-height: 44px;  
+    &.mobile{
+        margin-left: 15px;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+}
+#menu .pure-menu-heading {
+     background-color: $whiteColour;   
 }
 
+#menu .pure-menu ul,
+#menu .pure-menu .menu-item-divided {
+    border-top: 1px solid $whiteColour;
+}
+        /*
+        Change color of the anchor links on hover/focus.
+*/ 
+#menu .pure-menu li a:hover,
+#menu .pure-menu li a:focus {
+    background: $whiteHover;
+}
 .platFormLarge{
  max-width: 240px;
   max-height: 44px;    
-}
+} 
 .fb_iframe_widget{
     margin-top:10px;
     margin-left:10px;
 }
 .smallText{
     font-size:50%;
-}
+} 
 
 .modalSelectionArea{
   overflow-y: scroll;
@@ -590,7 +697,8 @@ margin-right: auto;
  top:-15px;   
 }
 .ribbon{
-  background-color: $darkBlue 
+  background-color: $primaryDark; 
+  color: $primaryOrange;
 }
 .logo {
     width: 72px; 
@@ -614,4 +722,13 @@ margin-right: auto;
         }
     }
     
+}
+a {
+  color:$whiteColour;
+}
+a :visited{
+  color:$whiteHover;   
+}
+.platformList{
+ width:116%;   
 }

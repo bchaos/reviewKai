@@ -131,7 +131,7 @@
           link: client.username,
           icon: 'ion-ios-book-outline'
         }, {
-          name: 'Recomendations',
+          name: 'Suggestions',
           link: 'recommendations',
           icon: 'ion-person-stalker'
         }

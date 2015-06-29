@@ -1,6 +1,4 @@
-
-
-<div class="click panel circle flip">
+<div class="click panel circle flip hideMobile">
 	<div class="front" >
 		<div class="circleLogo"> <h2>Review<p/> Kai</h2></div>
         <p/> click to reveal
@@ -35,3 +33,32 @@
 	</div>
 </div>
 
+<div class="pure-u-1 game_mobile hideDesktop" ng-class="convertAverageLibraryClass(game.avgscore, game.rating, {{myLibrary}})">
+    
+<div class="pure-u-1 game_name mobile">
+    {{game.game_name}}
+</div>
+<div class="pure-u-1-4">
+    <div class="game_image mobile" ng-style="getGameStyle(game.game_picture)"> 
+</div>
+    </div>
+    <div class="pure-u-3-5 game_recomendation_text mobile">
+        <div class="pure-u-1">
+             <span ng-show="myLibrary"><span ng-show="localLibrary">My thoughts:</span><span ng-hide="localLibrary">Their thoughts:</span>
+                   <span >{{convertMyRating(game.rating)}}
+                     </span><br/>  
+                     <button class="button button-small button-assertive" ng-click ="showEdit(game)" ng-show="localLibrary"> Edit</button>
+                     <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
+                </span>
+        </div>
+        <div class="pure-u-1" ng-hide="myLibrary">
+             <span  >Pros say: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
+                </span>
+        </div>
+        
+                <div class="pure-u-1" ng-hide="myLibrary">
+                Peers say:<span ng-show="game.peerscore"> {{convertRating(game.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
+                    
+        </div>
+    </div>
+</div>

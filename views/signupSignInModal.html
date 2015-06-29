@@ -33,7 +33,7 @@
             </div>
              <div class="bar-assertive" ng-show='errormessage'> {{errormessage}} </div>
              <div class="button-bar" ng-hide="needUsername">
-                <button class="button button-positive  button-outline" type="submit">  
+                <button class="button button-modal" type="submit">  
                     <span ng-hide = 'signUp'> Signin</span>
                     <span ng-show = 'signUp'> Signup </span>
                 </button> 
@@ -41,7 +41,7 @@
             </div>
         </form>
         <div class="button-bar" ng-show="needUsername">
-            <a class="button button-positive  button-outline" ng-click="createUsername()"  > Create Username </a> 
+            <a class="button button-modal  " ng-click="createUsername()"  > Create Username </a> 
         </div>
     </ion-content>
 </ion-modal-view>

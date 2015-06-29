@@ -6,11 +6,11 @@
             <div class="pure-g-r pure-u-1">
             
             <div class="pure-u-7-12 movedown"> 
-                <span style="color:gold">{{user.name}}'s </span> Library  
+                <span class="username">{{user.name}}'s </span> Library  
                 <span ng-show="localLibrary">
                     <button class="button button-small button-assertive" ng-hide="editMode" ng-click="toggleEditMode()"> Edit </button>
                     <button class="button button-small button-assertive" ng-show="editMode" ng-click="toggleEditMode()"> Cancel </button>
-                    <button class="button button-small button-positive" ng-show="editMode" ng-click="saveLibraryEdit()"> Save </button>
+                    <button class="button button-small button-modal" ng-show="editMode" ng-click="saveLibraryEdit()"> Save </button>
                 </span>
             <br/>
             <span class="smallText"> Site :
@@ -25,7 +25,7 @@
                     <input type="text" ng-model ="user.stream" ng-show="editMode">
                 </span>
                 <br/> 
-                 <button class="button button-small button-postive" ng-click ="importFromSteam()" ng-show="myLibrary"> <img src="images/Steam_Icon_2014.png"  class="smalllogo"> Import Games from Steam</button>
+                 <button class="button button-small button-modal libarybutton"  ng-show ="localLibrary" ng-click ="importFromSteam()" ng-show="myLibrary"> <img src="images/Steam_Icon_2014.png"  class="smalllogo"> Import Games from Steam</button>
             </div>
             </div>
         </h1>
@@ -36,13 +36,12 @@
         </h1>
     <p>
     <p/>
-    <div class="pure-menu pure-menu-horizontal hideMobile" ng-show="platforms">
-        <ul class="pure-menu-list  lightblue"> 
-            <li class="pure-menu-item" ng-repeat="platform in platforms">
-                <a href="#/guru?platform={{platform.display_name}}" class="pure-menu-link white-link">{{platform.display_name}}
+    <div class="hideMobile platformList"  ng-show="platforms">
+       
+           
+                <a href="#/guru?platform={{platform.display_name}}" ng-repeat="platform in platforms"> <button class="button button-small button-modal libarybutton pure-u-4-24">{{platform.display_name}}</button>
                 </a>
-            </li>
-        </ul>
+     
     </div>
     <div class=" hideDesktop pure-u-1" ng-show="platforms">
         <form class="pure-form ">
