@@ -247,7 +247,7 @@ ol.categories {
 
 /* line 255, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .footer {
-  position: absolute;
+  position: fixed;
   color: white;
   bottom: 0px;
   z-index: 500;
