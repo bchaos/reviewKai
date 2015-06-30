@@ -105,11 +105,11 @@
         </div>
       </div>   
         <div class="hideDesktop pure-u-1 game_mobile  gameAdder" ng-click ="addNewGame()">
-           <span class="newGameAdder">  + New Game</span>
+           <span class="newGameAdder">+ New</span>
         </div>
     </span>
    
-    <div ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
+    <div class="" ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
         <librarycard></librarycard>
     </div>
  </div>

@@ -26,10 +26,16 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
                 controller: 'genericController'
                
             }
+
+            $routeProvider.when '/confidants', {
+                templateUrl: 'views/confidants.html'
+                controller: 'confidantController'
+
+            }
+
             $routeProvider.when '/PrivacyPolicy', {
                 templateUrl: 'views/PrivacyPolicy.html'
                 controller: 'genericController'
-               
             }
         
             $routeProvider.when '/recommendations', {
@@ -65,9 +71,13 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
                 templateUrl: 'views/library.html'
                 controller: 'libraryController'
             }
+
 app.directive 'platfromcard', ->  
     restrict: 'E',
     templateUrl: 'views/platformcard.html',
+app.directive 'confidantcard', ->
+    restrict: 'E',
+    templateUrl: 'views/confidantCard.html',
 app.directive 'card', ->  
     restrict: 'E',
     templateUrl: 'views/card.html',
@@ -84,11 +94,9 @@ app.directive 'searchcard', ->
 app.config ($httpProvider) -> 
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    
-    
-    
+
 app.service 'socket',($rootScope) ->
-    socket = io.connect 'http://Reviewkai.com:8080'
+    socket = io.connect 'http://ReviewKai.com:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
@@ -119,9 +127,7 @@ app.filter('myLimitTo', [->
                 count++;
             else 
                 startingpoint>=offset++
-        
         return ret;
-    
 ])
 
 isloggedin = (socket, location)-> 
@@ -207,7 +213,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     when score < 2.5 then 'negative'
                     when score < 3.5 then 'ok'
                     when score < 4   then 'ok'
-                    when score < 4.5 then  'postive'
+                    when score < 4.5 then 'postive'
                     else 'postive'
             $scope.convertRating= (score)-> 
                 saying = switch
@@ -219,7 +225,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     else 'You will love this game!'
             $scope.getGameStyle= (gameUrl)->  
                  return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 150%', 'background-repeat':'no-repeat', 'background-position':'center'}
-             
+
             $scope.colorForScore = (score)->
                 saying = switch
                     when score < 1.5 then {'color': 'red', 'font-size':'12px'}
@@ -269,11 +275,9 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     
             $scope.getPeerDetails = (id)->
                 $scope.peerModal.show()
-                
-                socket.emit 'getPeerDetails' , {gameid: id} 
+                socket.emit 'getPeerDetails', {gameid: id}
                 $scope.peerInfoLoading = true
-                socket.on 'peerDetailsFound' , (data)->
-                    
+                socket.on 'peerDetailsFound', (data)->
                     $scope.gameDetails= data 
                     $scope.peerInfoLoading = false
                     
@@ -291,7 +295,7 @@ signInSetup = ($scope, $ionicModal, socket)->
     }).then (modal) -> 
         $scope.modal = modal
         $scope.logdata = {}
-    socket.on 'NeedUsername' ,()->
+    socket.on 'NeedUsername',()->
         $scope.modal.show()
         $scope.needUsername=true;
     $scope.createUsername = ->
@@ -354,8 +358,8 @@ signInSetup = ($scope, $ionicModal, socket)->
         $scope.closeModal()
 app.controller 'reviewController', 
     class reviewController
-        @$inject : ['$scope',   '$location', 'socket', '$ionicModal']
-        constructor: (@$scope,  @$location, @socket,  $ionicModal ) ->
+        @$inject : ['$scope', '$location', 'socket', '$ionicModal']
+        constructor: (@$scope, @$location, @socket,  $ionicModal ) ->
             $scope.toggleClass = ->
                 if $scope.active is 'false'
                     $scope.active = 'true'
@@ -378,7 +382,7 @@ app.controller 'reviewController',
             @$scope.recomendationSeleted = 'button-stable'
             @$scope.isActive = (path)->
                 path= '/'+path
-                if path is  nextPath = $location.path()
+                if path is nextPath = $location.path()
                     return 'pure-menu-selected'
                 else 
                     return ''
@@ -393,12 +397,12 @@ app.controller 'homeController',
                 socket.emit 'isUserLoggedin' , {key:window.localStorage.sessionkey , location:'/home'}
             socket.on 'userLoggedin', (data)->
                 if data.location is '/home'
-                   
                     $scope.loggedin=true
                     window.location = '#/dashboard'
+
 app.controller 'recommendationController', 
     class recommendationController
-        @$inject: ['$scope',   '$ionicModal', 'socket', '$location']
+        @$inject: ['$scope', '$ionicModal', 'socket', '$location']
         constructor: (@$scope,  $ionicModal, @socket, @$location) ->
             $scope.isLoading=true;
             socket.emit 'GetListOfPlatforms' , {data:'1'}
@@ -408,7 +412,7 @@ app.controller 'recommendationController',
                 
 app.controller 'searchController', 
 	class searchController
-        @$inject: ['$scope',   '$ionicModal', 'socket', '$location']
+        @$inject: ['$scope', '$ionicModal', 'socket', '$location']
         constructor: (@$scope,  $ionicModal, @socket, @$location) ->
             $scope.myLibrary=false
             $scope.isLoading =false
@@ -454,24 +458,71 @@ app.controller 'searchController',
                 $scope.isLoading = false
 app.controller 'dashboardController',
 	class dashboardController
-        @$inject: ['$scope',   '$ionicModal', 'socket']
+        @$inject: ['$scope', '$ionicModal', 'socket']
         constructor: (@$scope,  $ionicModal, @socket) ->
             $scope.isLoading=true;
             socket.emit 'GetRecentGames'
             @socket.on 'recentReleases', (data)->
                 $scope.isLoading=false;
                 $scope.recentGames = data
-            @socket.on 'noGames' , ()->
+            @socket.on 'noGamMyes' , ()->
                 $scope.isLoading=false
                 $scope.recentGames = false
                 
             createGameDetailViewer $ionicModal, $scope, socket
 
+app.controller 'confidantController',
+    class confidantController
+        @$inject: ['$scope', '$ionicModal', 'socket','$location']
+        constructor: (@$scope,  $ionicModal, @socket,@$location) ->
+            socket.emit 'GetConfidants'
+            $scope.getGameStyle= (picturename)->
+                 return {'background': 'url("images/'+picturename+'")', 'background-size':'100% 100%%   ', 'background-repeat':'no-repeat', 'background-position':'center'}
+            $scope.isLoading=true
+            $scope.confidantSelected=false
+            socket.on 'listOfFriends', (data)->
+                $scope.myConfidants = data
+                $scope.isLoading=false
+            socket.on 'noFriendsFound',(data)->
+                 $scope.isLoading=false
+            socket.on 'noUsersFound', ()->
+                $scope.noneFound= true
+                $scope.isLoadingAdder = false
+            socket.on 'listofPossibleConfidants',(data)->
+                    $scope.confidantsFound= data
+                    $scope.noneFound= false
+                    $scope.isLoadingAdder = false
+            $ionicModal.fromTemplateUrl('views/addConfidantModal.html' ,  {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then (modal) ->
+                $scope.modal = modal
+                $scope.newConfidant = {}
+                $scope.selectConfidant = (confidant)->
+                    $scope.confidantSelected=true
+                    $scope.canFlip='flip'
+                    $scope.newConfidant = confidant
+                $scope.goback = ()->
+                    $scope.confidantSelected=false
+                    $scope.canFlip='false'
+                    $scope.newConfidant = {}
+                $scope.closeModal = ->
+                    $scope.modal.hide()
+                $scope.findConfidant =(requirements) ->
+                    data ={search:requirements}
+                    $scope.isLoadingAdder = true
+                    socket.emit 'SearchForConfidants', data
+                $scope.addConfidant = ()->
+                    data = {friendid : $scope.newConfidant.id}
+                    socket.emit 'AddConfidant', data
+                    $scope.modal.hide()
+                $scope.showConfidantAdder = ->
+                    $scope.modal.show()
+
 app.controller 'peerController',
 	class peerController
-        @$inject: ['$scope',   '$ionicModal', 'socket','$location']
+        @$inject: ['$scope', '$ionicModal', 'socket','$location']
         constructor: (@$scope,  $ionicModal, @socket,@$location) ->
-
             $scope.myLibrary=false
             $scope.scoreName='avgscore'
             $scope.isLoading=true;
@@ -494,14 +545,13 @@ app.controller 'peerController',
                     else if score2
                         item.avgscore=score2
                     $scope.games.push item
-                
                 $scope.setUpPages();
                 $scope.isLoading=false;
             createGameDetailViewer $ionicModal, $scope, socket
             
 app.controller 'guruController',
 	class guruController
-        @$inject: ['$scope',   '$ionicModal', 'socket','$location']
+        @$inject: ['$scope', '$ionicModal', 'socket','$location']
         constructor: (@$scope,  $ionicModal, @socket,@$location) ->
             $scope.myLibrary=false
             $scope.scoreName='avgscore'

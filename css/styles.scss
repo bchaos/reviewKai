@@ -193,6 +193,9 @@ margin-right: auto;
     color: $primaryOrange;
     letter-spacing: 0.05em;
     opacity: 0.8;
+    &.confidants{
+      font-size: .5em;
+    }
 }
 .iosContent{
     .splash-dashboard{
@@ -204,6 +207,7 @@ margin-right: auto;
     }
     
 }
+
 .content{
   overflow-x: hidden;  
      background: $whiteColour;
@@ -267,7 +271,7 @@ margin-right: auto;
 
 @media(min-width:980px){
     .hideMobile{
-      display:inline-block;   
+      display:inline;
     }
     .hideDesktop{
         display:none;   
@@ -325,6 +329,9 @@ margin-right: auto;
             color:$primaryOrange;
         }
     }
+}
+.blockCard{
+    display: inline-block;
 }
 
 .panel {

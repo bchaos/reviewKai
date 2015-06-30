@@ -7,7 +7,7 @@
   module.exports = function(client, connection) {
     /* helper functions start*/
 
-    var addGameScore, calculateAllReviewForGame, calculateNewPeers, calculateNewPros, calculateProReviewForGame, caluclatePeerReviewsForGame, getGamesForUser, getGamesForUserOnPlatform, getGurusGameForUser, getOrCreateProReviewer, getPeersGameForUser, getProLibrary, getPros, getRecentReleases, getReviewLinksForProReviewers, updateGameList;
+    var addConfidantCount, addGameScore, addGamesReviewed, calculateAllReviewForGame, calculateNewPeers, calculateNewPros, calculateProReviewForGame, caluclatePeerReviewsForGame, confidantList, getGamesForUser, getGamesForUserOnPlatform, getGurusGameForUser, getOrCreateProReviewer, getPeersGameForUser, getProLibrary, getPros, getRecentReleases, getReviewLinksForProReviewers, updateGameList;
     calculateNewPros = function(userId) {
       var sql;
       sql = 'call calculateNewPros(' + userId + ')';
@@ -101,7 +101,7 @@
     getGamesForUser = function(username, localuserid, client) {
       var library, sql;
       library = {};
-      sql = 'Select id,name,site,stream from user where name = "' + username + '"';
+      sql = 'Select id,name,site,stream, picture from user where name = "' + username + '"';
       return connection.query(sql, function(err, result) {
         var user, userid;
         if (result.length <= 0) {
@@ -318,7 +318,7 @@
       }
       return _results;
     });
-    return client.on('AddGameandReviewerToLibrary', function(data) {
+    client.on('AddGameandReviewerToLibrary', function(data) {
       commonDB.connection = connection;
       return commonDB.getOrCreateGame(data.giantBombinfo, data.platforms, function(gameid) {
         return getOrCreateProReviewer(data.pro, function(newuserid) {
@@ -335,11 +335,87 @@
               return connection.query(sql, data.userInfo, function(err, results) {
                 gameid = result.insertId;
                 sql = 'call updateFakeUsers (' + gameid + ',' + gameid + ')';
-                return connection.query(sql, data.userInfo, function(err, results) {});
+                return connection.query(sql, function(err, results) {});
               });
             }
           });
         });
+      });
+    });
+    confidantList = function() {
+      var sql;
+      sql = 'Select count(*) as friendsCount, u.name, u.site, u.picture, u.stream, u.id from user u, userToFriends uf where u.id = uf.friend_id and  uf.user_id =' + client.userid;
+      return connection.query(sql, function(err, result) {
+        var firstresult, resultLength;
+        firstresult = result[0];
+        if (firstresult.friendsCount === 0) {
+          return client.emit('noFriendsFound');
+        } else {
+          resultLength = result.length;
+          return addConfidantCount(result, 0, resultLength, function(userlistWithConfidants) {
+            return addGamesReviewed(userlistWithConfidants, 0, resultLength, function(finalUserList) {
+              return client.emit('listOfFriends', finalUserList);
+            });
+          });
+        }
+      });
+    };
+    client.on('GetConfidants', function() {
+      return confidantList();
+    });
+    client.on('AddConfidant', function(data) {
+      var sql;
+      sql = 'Select Count(*) as doesRelationshipExist from userToFriends where user_id=' + client.userid + ' and friend_id =' + data.friendid;
+      return connection.query(sql, function(err, result) {
+        if (result[0].doesRelationshipExist === 0) {
+          sql = 'Insert into userToFriends (user_id, friend_id) values(' + client.userid + ',' + data.friendid + ')';
+          console.log(sql);
+          return connection.query(sql, function(err, result) {
+            return confidantList();
+          });
+        }
+      });
+    });
+    addConfidantCount = function(userlist, index, length, callback) {
+      var sql;
+      if (index === length) {
+        return callback(userlist);
+      } else {
+        sql = 'Select Count(*) as confidantCount from userToFriends where friend_id=' + userlist[index].id;
+        return connection.query(sql, function(err, result) {
+          userlist[index].confidantCount = result[0].confidantCount;
+          return addConfidantCount(userlist, index + 1, length, callback);
+        });
+      }
+    };
+    addGamesReviewed = function(userlist, index, length, callback) {
+      var sql;
+      if (index === length) {
+        return callback(userlist);
+      } else {
+        sql = 'Select Count(*) as reviews from library where user_id=' + userlist[index].id;
+        return connection.query(sql, function(err, result) {
+          userlist[index].reviews = result[0].reviews;
+          return addGamesReviewed(userlist, index + 1, length, callback);
+        });
+      }
+    };
+    return client.on('SearchForConfidants', function(data) {
+      var sql;
+      sql = 'Select count(*) as friendsCount, u.name, u.site, u.stream, u.picture, u.id from user u where u.name like ' + connection.escape('%' + data.search + '%');
+      return connection.query(sql, function(err, result) {
+        var firstresult, resultLength;
+        firstresult = result[0];
+        if (firstresult.friendsCount === 0) {
+          return client.emit('noUsersFound');
+        } else {
+          resultLength = result.length;
+          return addConfidantCount(result, 0, resultLength, function(userlistWithConfidants) {
+            return addGamesReviewed(userlistWithConfidants, 0, resultLength, function(finalUserList) {
+              return client.emit('listofPossibleConfidants', finalUserList);
+            });
+          });
+        }
       });
     });
   };

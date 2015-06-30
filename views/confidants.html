@@ -1,0 +1,45 @@
+<div class="pure-u-1" ng-hide ="isLoading">
+    <div class="splash-container-dashboard">
+        <div class="splash-dashboard">
+            <h1 class="splash-head">
+                <div class="pure-g-r pure-u-1">
+                    <div class="pure-u-1 movedown">
+                        <span class="username">My</span> Confidants
+                        <p class="splash-subhead confidants">
+                            Confidants are other gamers who opinions you trust
+                        </p>
+                    </div>
+                </div>
+            </h1>
+            <p/>
+            <span>
+                <div class="hideMobile">
+                    <div class="click panel circle">
+                        <div class="front">
+                            <div class="circleLogo" ng-click ="addNewGame()">
+                                <div class="gameadderbutton"> <h2>+</h2></div>
+                            </div>
+                            <p/>
+                            Add Confidant
+                        </div>
+                        <div class="back">
+                        </div>
+                    </div>
+                </div>
+                <div class="hideDesktop pure-u-1 game_mobile gameAdder" ng-click ="showConfidantAdder()">
+                   <span class="newGameAdder">+ New</span>
+                </div>
+                 <div   class="" ng-repeat="confidant in myConfidants">
+                    <confidantcard></confidantcard>
+                </div>
+                <div>
+
+                </div>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="pure-g-r addedMargin" ng-show ="isLoading">
+    <searching text="Loading"> </searching>
+</div>

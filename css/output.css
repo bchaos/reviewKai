@@ -160,6 +160,8 @@ ol.categories {
   color: #f8931d;
   letter-spacing: 0.05em;
   opacity: 0.8; }
+  .splash-subhead.confidants {
+    font-size: .5em; }
 
 .iosContent .splash-dashboard {
   width: 100%; }
@@ -222,7 +224,7 @@ ol.categories {
     display: inline-block; } }
 @media (min-width: 980px) {
   .hideMobile {
-    display: inline-block; }
+    display: inline; }
 
   .hideDesktop {
     display: none; } }
@@ -269,6 +271,9 @@ ol.categories {
     border-bottom: 1px solid #f8931d; }
     .modal .bar .title {
       color: #f8931d; }
+
+.blockCard {
+  display: inline-block; }
 
 .panel {
   float: left;

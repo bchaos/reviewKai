@@ -133,6 +133,10 @@
         }, {
           name: 'Suggestions',
           link: 'recommendations',
+          icon: 'ion-ios-people-outline'
+        }, {
+          name: 'Confidants',
+          link: 'confidants',
           icon: 'ion-person-stalker'
         }
       ];

@@ -1,0 +1,50 @@
+
+<div class="click panel circle hideMobile flip" >
+	<div class="back postive ">
+        <div class="game_header">
+
+            <div class="pure-u-19-24 game_name">{{confidant.name}}</div>
+             <div class="pure-u-1-8"><a  href="#/{{confidant.name}}" class="button  button-icon icon ion-ios-information-outline infobutton"></a></div>
+        </div>
+        <div class="game_image" ng-style="getGameStyle(confidant.picture)">
+
+        </div>
+        <div class="game_recomendation">
+            <div class="game_recomendation_text">
+               <span> Games reviewed: {{confidant.reviews}}</span>
+                <p/>
+                <span> Confidant to:{{confidant.confidantCount}}</span> users
+                <p/>
+                <span ng-show="confidant.site">Site:<a href="{{confidant.site}}">  {{confidant.site}}</a></span>
+                <p/>
+                <span ng-show="confidant.stream">Stream:<a href="{{confidant.stream}}"> {{confidant.stream}}</a> </span>
+            </div>
+        </div>
+	</div>
+</div>
+
+<div class="pure-u-1 game_mobile hideDesktop postive">
+
+<div class="pure-u-1 game_name mobile">
+ <span  ><a href="#/{{confidant.name}}" class="button  button-icon icon ion-ios-information-outline infobutton"></a></span>
+    <span class="addingGameMargin"> {{confidant.name}}</span>
+</div>
+
+<div class="pure-u-1-4">
+   <img src="images/{{confidant.picture}}" class="logo">
+    </div>
+    <div class="pure-u-3-5 game_recomendation_text mobile">
+        <div class="pure-u-1">
+             <span> Games Reviewed: {{confidant.reviews}}</span>
+        </div>
+        <div class="pure-u-1">
+            <span> Confidant to: {{confidant.confidantCount}}</span> users
+        </div>
+        <div class="pure-u-1">
+             <span ng-show="confidant.site">Site: {{confidant.site}}</span>
+        </div>
+        <div class="pure-u-1">
+             <span ng-show="confidant.stream">Stream:{{confidant.stream}} </span>
+        </div>
+    </div>
+</div>

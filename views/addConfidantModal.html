@@ -1,0 +1,62 @@
+<ion-modal-view class="modalAdder">
+    <ion-header-bar>
+        <h1 class="title"> New Confidant  </h1>
+        <button class="button button-clear button-assertive" ng-click="closeModal()">x</button>
+    </ion-header-bar>
+    <div class="click panel circle pure-u-1-8" ng-class="canFlip"  >
+
+     <div class="front" >
+         <div class="circleLogo"> <p/>Find a Confidant</div>
+        <div class="list" ng-hide="confidantSelected">
+            <div class="item item-divider">
+                <form ng-submit="findConfidant(searchRequirements)">
+                 <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="Search" ng-model="searchRequirements">
+                 </label>
+                 <button type="submit" class="button button-small" >
+                    Search
+                 </button>
+                    </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="back postive" >
+        <div class="list moveupby10" ng-show="confidantSelected">
+            <div class="game_header">
+              <div class="pure-u-19-24 game_name">
+                <button class="button button-small button-modal" ng-click="goback()"> back</button>
+                  {{newConfidant.name}}
+              </div>
+
+            </div>
+
+              <div class="game_recomendation tall">
+                <div class="game_recomendation_text ">
+                     <button ng-click="addConfidant()" class="button  button-modal">Add Confidant +</button>
+                    <p/>
+                    <span> Games reviewed: {{newConfidant.reviews}}</span>
+                    <p/>
+                    <span> Confidant to: {{newConfidant.confidantCount}}</span> users
+                    <p/>
+                    <span ng-show="confidant.site">Site:{{newConfidant.site}}</span>
+                    <p/>
+                    <span ng-show="confidant.stream">Stream:{{newConfidant.stream}} </span>
+                </div>
+        </div>
+            </div>
+    </div>
+    </div>
+    <div class=" modalSelectionArea">
+        <div ng-show="isLoadingAdder"> Loading .... </div>
+        <div ng-hide="isLoadingAdder">
+             <a class="item item-avatar" ng-repeat="aConfidant in confidantsFound" ng-click="selectConfidant(aConfidant);">
+              <img class="smalllogo" ng-src="{{aConfidant.picture}}">
+              <h2>{{aConfidant.name}}</h2>
+            </a>
+            <span ng-show="noneFound"> <h2> No users found </h2></span>
+        </div>
+    </div>
+
+</ion-modal-view>

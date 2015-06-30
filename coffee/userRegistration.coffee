@@ -85,7 +85,8 @@ module.exports =  (client,connection, bcrypt,crypto,validator) ->
     getAccessList = (isadmin)->
         accessList = [{name:'Dashboard', link:'dashboard', icon: 'ion-ios-home-outline'},
                       {name:'Library', link:client.username, icon:'ion-ios-book-outline'},
-                      {name:'Suggestions', link:'recommendations', icon:'ion-person-stalker'}]
+                      {name:'Suggestions', link:'recommendations', icon:'ion-ios-people-outline'},
+                      {name:'Confidants', link:'confidants', icon:'ion-person-stalker'}]
         
     client.on 'isUserLoggedin', (data)->
         d = new Date()

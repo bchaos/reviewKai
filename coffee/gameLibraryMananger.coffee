@@ -72,7 +72,7 @@ module.exports =  (client,connection) ->
 
     getGamesForUser  = (username, localuserid  ,client)->
         library = {}
-        sql = 'Select id,name,site,stream from user where name = "'+username+'"'
+        sql = 'Select id,name,site,stream, picture from user where name = "'+username+'"'
         connection.query sql,  (err, result) ->
             if result.length <=0
                 client.emit 'noLibraryFound'
@@ -248,4 +248,58 @@ module.exports =  (client,connection) ->
                         connection.query sql,  data.userInfo,  (err,results) ->
                             gameid = result.insertId
                             sql =  'call updateFakeUsers ('+gameid+','+gameid+')';
-                            connection.query sql,  data.userInfo,  (err,results) ->
+                            connection.query sql, (err,results) ->
+    confidantList = ->
+        sql = 'Select count(*) as friendsCount, u.name, u.site, u.picture, u.stream, u.id from user u, userToFriends uf where u.id = uf.friend_id and  uf.user_id ='+client.userid
+        connection.query sql, (err, result) ->
+            firstresult= result[0]
+            if firstresult.friendsCount is 0
+                client.emit 'noFriendsFound'
+            else
+                resultLength= result.length
+                addConfidantCount result, 0, resultLength, (userlistWithConfidants)->
+                    addGamesReviewed userlistWithConfidants, 0 , resultLength , (finalUserList)->
+                        client.emit 'listOfFriends', finalUserList
+
+    client.on 'GetConfidants', ()->
+        confidantList()
+
+    client.on 'AddConfidant', (data)->
+        sql = 'Select Count(*) as doesRelationshipExist from userToFriends where user_id=' +client.userid+ ' and friend_id ='+data.friendid
+        connection.query sql, (err, result) ->
+            if result[0].doesRelationshipExist is 0
+                sql= 'Insert into userToFriends (user_id, friend_id) values('+client.userid+','+data.friendid+')';
+                console.log sql
+                connection.query sql, (err, result) ->
+                    confidantList()
+
+    addConfidantCount= (userlist, index, length, callback)->
+        if index is length
+            callback userlist
+        else
+            sql ='Select Count(*) as confidantCount from userToFriends where friend_id='+userlist[index].id
+            connection.query sql, (err, result) ->
+                userlist[index].confidantCount= result[0].confidantCount
+                addConfidantCount userlist, index+1, length, callback
+
+    addGamesReviewed = (userlist, index, length, callback)->
+        if index is length
+            callback userlist
+        else
+            sql ='Select Count(*) as reviews from library where user_id='+userlist[index].id
+            connection.query sql, (err, result) ->
+                userlist[index].reviews= result[0].reviews
+                addGamesReviewed userlist, index+1, length, callback
+
+    client.on 'SearchForConfidants',(data)->
+        sql ='Select count(*) as friendsCount, u.name, u.site, u.stream, u.picture, u.id from user u where u.name like '+ connection.escape('%'+data.search+'%')
+
+        connection.query sql, (err, result) ->
+            firstresult= result[0]
+            if firstresult.friendsCount is 0
+                client.emit 'noUsersFound'
+            else
+                resultLength= result.length
+                addConfidantCount result, 0, resultLength, (userlistWithConfidants)->
+                    addGamesReviewed userlistWithConfidants, 0 , resultLength , (finalUserList)->
+                        client.emit 'listofPossibleConfidants', finalUserList
