@@ -20,6 +20,10 @@ html, body {
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out; }
 
+.item-input {
+  background-color: #beb097;
+  border-color: #f8931d; }
+
 #menu {
   margin-left: -150px;
   /* "#menu" width */
@@ -40,7 +44,7 @@ html, body {
   bottom: 10%; }
 
 .button.button-modal {
-  background-color: transparent;
+  background-color: #beb097;
   border-color: #f8931d;
   color: #3a3a3c; }
 
@@ -257,6 +261,15 @@ ol.categories {
   /* We increase the header font size even more */
   .splash-head {
     font-size: 250%; } }
+.modal {
+  background-color: #d0c0a4;
+  color: #3a3a3c; }
+  .modal .bar {
+    background-color: #3a3a3c;
+    border-bottom: 1px solid #f8931d; }
+    .modal .bar .title {
+      color: #f8931d; }
+
 .panel {
   float: left;
   width: 275px;
@@ -574,7 +587,7 @@ ol.categories {
 .game_recomendation {
   height: 38%; }
   .game_recomendation.tall {
-    height: 68%; }
+    height: 95%; }
 
 .game_name {
   margin-left: 8px; }
@@ -711,6 +724,9 @@ ol.categories {
       height: 24px;
       margin: -4px; }
 
+.menu-logo {
+  margin-left: 7px; }
+
 .primaryOrange {
   color: #f8931d; }
 
@@ -726,3 +742,6 @@ a :visited {
 .addingGameMargin {
   margin-top: 11px;
   position: absolute; }
+
+.noDec {
+  text-decoration: none; }

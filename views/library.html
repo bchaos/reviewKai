@@ -5,7 +5,7 @@
         <h1 class="splash-head" ng-show="myLibrary">
             <div class="pure-g-r pure-u-1">
             
-            <div class="pure-u-7-12 movedown"> 
+            <div class="pure-u-1 movedown">
                 <span class="username">{{user.name}}'s </span> Library  
                 <span ng-show="localLibrary">
                     <button class="button button-small button-assertive" ng-hide="editMode" ng-click="toggleEditMode()"> Edit </button>
@@ -25,7 +25,7 @@
                     <input type="text" ng-model ="user.stream" ng-show="editMode">
                 </span>
                 <br/> 
-                 <button class="button button-small button-modal libarybutton"  ng-show ="localLibrary" ng-click ="importFromSteam()" ng-show="myLibrary"> <img src="images/Steam_Icon_2014.png"  class="smalllogo"> Import Games from Steam</button>
+                 <button class="button button-small button-modal libarybutton"  ng-show ="localLibrary" ng-click ="importFromSteam()" ng-show="myLibrary"> <img src="images/Steam_Icon_2014.png" class="smalllogo"> Import Games from Steam</button>
             </div>
             </div>
         </h1>
@@ -44,7 +44,7 @@
      
     </div>
     <div class=" hideDesktop pure-u-1" ng-show="platforms">
-        <form class="pure-form ">
+        <form class="pure-form">
             <span class="white-link pure-u-1-4">Platform:</span> 
             <select ng-init= "selected=currentPlatform" class="pure-u-sm-2-3" ng-change="updatePlatform(selected)" ng-model="selected">
                 <option ng-repeat="platform in platforms" value="{{platform.display_name}}">
@@ -64,12 +64,12 @@
                 </span>
                 <span ng-repeat="page in pages">
                     <button ng-show="page.elispe" class="button button-stable"  > ... </button>
-                    <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">
+                    <button ng-hide="page.elispe" class="button" ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">
                         {{page.number+1}}
                     </button>
                 </span>
                 <span> 
-                    <button class="button button-stable"  ng-click="setPage(currentPage+1)">>></button>
+                    <button class="button button-stable" ng-click="setPage(currentPage+1)">>></button>
                 </span>
             </div>
             <div class="pure-u-sm-1 pure-u-lg-1-4">
@@ -123,4 +123,3 @@
 <div class="pure-g-r addedMargin" ng-show ="NoLibraryError">
    <h2> No Library Found</h2>
 </div>
-    
