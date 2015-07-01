@@ -267,8 +267,21 @@ margin-right: auto;
     .hideDesktop{
         display:inline-block;   
     }
+    .modal{
+        width: 84%;
+        right:0%;
+        left:16%;
+        z-index: 99999;
+    }
 }
-
+@media(max-width:766px){
+     .modal{
+        width: 100%;
+        right:0%;
+        left:0%;
+        z-index: 99999;
+    }
+}
 @media(min-width:980px){
     .hideMobile{
       display:inline;
@@ -677,11 +690,14 @@ margin-right: auto;
 }
 
 .game_recomendation{
-    
+     overflow-y: scroll;
      height:38%;   
     &.tall{
        height:95%;
      }
+    &.medium{
+        height:50%
+    }
 }
 .game_name{
     margin-left:8px;   
