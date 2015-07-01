@@ -90,7 +90,9 @@ app.directive 'librarycard', ->
 app.directive 'searchcard', ->  
     restrict: 'E',
     templateUrl: 'views/searchcard.html' 
-    
+app.directive 'steamtransfer', ->
+    restrict: 'E',
+    templateUrl: 'views/steamTransfer.html'
 app.config ($httpProvider) -> 
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -206,7 +208,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                 else
                     return  $scope.convertAverageClass rating
             $scope.convertAverageClass =(score)->
-                if not score || score is 0
+                if not score || score is 0 || score is -1
                     return 'unknown'
                 saying = switch
                     when score < 1.5 then 'negative'
@@ -680,15 +682,17 @@ app.controller 'libraryController',
                     animation: 'slide-in-up'
                 }).then (modal)-> 
                     $scope.importModal = modal
-                    $scope.importModal. show()
+                    $scope.importModal.show()
+                    $scope.importMode=true
+                    $scope.isTransfering=true
                     $scope.closeImportModal = ->
                         $scope.importModal.hide()
                     $scope.getGamesFromSteam = () ->
-                        
+                        $scope.importMode=false
                         socket.emit 'importGamesFromSteam', $scope.vanity
             socket.on 'steamGamesToAdd', (data)->
+                $scope.isTransfering=false
                 $scope.newSteamGames=data
-                $scope.importModal.hide()
             socket.on 'vanityNameNotFound', (data)->
                 $scope.vanityErrorMessage = data
             $scope.goback = ->

@@ -1,6 +1,9 @@
 $postiveColor:#8cc63f;
+$greenColour: #92bb2c;
+$yellowColour:#fdde09;
 $listColor: #6d6e70; 
 $darkBlue: #2d3e50;
+$redColour:#fb4b0f;
 $lightBlue: #1f8dd6;
 $whiteColour:#D0C0A4; 
 $whiteHover: #beb097;
@@ -25,9 +28,9 @@ html, body{
 .button{
 
     &.button-positive.button-outline {
-        border-color: $postiveColor;
+        border-color: $greenColour;
         background: transparent;
-        color: $postiveColor;
+        color: $greenColour;
         &:hover{
             color:#fff;
             -webkit-transition: all 0.4s ease-in-out;
@@ -423,16 +426,16 @@ margin-right: auto;
 		-webkit-transition: all .4s ease-in-out;
         transition: all .4s ease-in-out;
         &.postive{
-            background:#66cc33;
+            background:$greenColour;
         }
         &.negative{
-            background:red;
+            background:$redColour;
         }
         &.unknown{
             background:$whiteColour; 
         }
         &.ok{
-            background:yellow;   
+            background:$yellowColour;
         }
     }
     &.flip{
@@ -501,16 +504,16 @@ margin-right: auto;
 		-webkit-transition: all .4s ease-in-out;
         transition: all .4s ease-in-out;
         &.postive{
-            background:#66cc33;
+            background:$greenColour;
         }
         &.negative{
-            background:red;
+            background:$redColour;
         }
         &.unknown{
             background:$whiteColour; 
         }
         &.ok{
-            background:yellow;   
+            background:$yellowColour;
         }
     }
     .front {
@@ -719,16 +722,16 @@ margin-right: auto;
      border: 1px solid $primaryOrange; 
      margin-bottom:5px;
      &.postive{
-            background:#66cc33;
+            background:$greenColour;
         }
     &.negative{
-        background:red;
+        background:$redColour;
     }
     &.unknown{
         background:$whiteColour; 
     }
     &.ok{
-        background:yellow;   
+        background:$yellowColour;
     }
     &.platforms{
         background:$whiteColour;   
@@ -816,6 +819,11 @@ margin-right: auto;
     margin-top:10px;
     margin-left:10px;
 }
+
+.adding10left{
+    margin-left:10px;
+
+}
 .smallText{
     font-size:50%;
 } 
@@ -885,4 +893,48 @@ a :visited{
 }
 .noDec{
     text-decoration: none;
+}
+@keyframes steamCardAnimation {
+     0%  {left: 90%; }
+
+    100% {left: 10%;}
+}
+
+@-webkit-keyframes steamCardAnimation {
+    0%   {left: 90%; }
+
+    100% {left: 10%; }
+}
+@keyframes rkCardAnimation {
+     0%   {opacity: 0.0; }
+
+    100% {opacity: 1.0;}
+}
+@-webkit-keyframes rkCardAnimation{
+     0%   {opacity: 0.0; }
+
+    100% {opacity: 1.0;}
+}
+.steamCard{
+        animation-name: steamCardAnimation;
+        -webkit-animation-name: steamCardAnimation; /* Chrome, Safari, Opera */
+        -webkit-animation-duration: 1.8s; /* Chrome, Safari, Opera */
+        animation-duration: 1.8s;
+       -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        position: absolute;
+        min-width: 100px;
+        min-height:127px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background:url('../images/steamcardSmall.png');
+}
+
+.rkCard{
+    animation-name: rkCardAnimation;
+    -webkit-animation-name: rkCardAnimation; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1.8s; /* Chrome, Safari, Opera */
+    animation-duration: 1.8s;
+    -webkit-animation-iteration-count: infinite;
+     animation-iteration-count: infinite;
 }

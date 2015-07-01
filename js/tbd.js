@@ -105,6 +105,13 @@
     };
   });
 
+  app.directive('steamtransfer', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'views/steamTransfer.html'
+    };
+  });
+
   app.config(function($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     return delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -279,7 +286,7 @@
     };
     $scope.convertAverageClass = function(score) {
       var saying;
-      if (!score || score === 0) {
+      if (!score || score === 0 || score === -1) {
         return 'unknown';
       }
       return saying = (function() {
@@ -998,17 +1005,20 @@
         }).then(function(modal) {
           $scope.importModal = modal;
           $scope.importModal.show();
+          $scope.importMode = true;
+          $scope.isTransfering = true;
           $scope.closeImportModal = function() {
             return $scope.importModal.hide();
           };
           return $scope.getGamesFromSteam = function() {
+            $scope.importMode = false;
             return socket.emit('importGamesFromSteam', $scope.vanity);
           };
         });
       };
       socket.on('steamGamesToAdd', function(data) {
-        $scope.newSteamGames = data;
-        return $scope.importModal.hide();
+        $scope.isTransfering = false;
+        return $scope.newSteamGames = data;
       });
       socket.on('vanityNameNotFound', function(data) {
         return $scope.vanityErrorMessage = data;

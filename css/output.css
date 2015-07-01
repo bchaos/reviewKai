@@ -10,9 +10,9 @@ html, body {
   background-color: #3a3a3c; }
 
 .button.button-positive.button-outline {
-  border-color: #8cc63f;
+  border-color: #92bb2c;
   background: transparent;
-  color: #8cc63f; }
+  color: #92bb2c; }
   .button.button-positive.button-outline:hover {
     color: #fff;
     -webkit-transition: all 0.4s ease-in-out;
@@ -352,13 +352,13 @@ ol.categories {
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out; }
     .panel .back.postive {
-      background: #66cc33; }
+      background: #92bb2c; }
     .panel .back.negative {
-      background: red; }
+      background: #fb4b0f; }
     .panel .back.unknown {
       background: #d0c0a4; }
     .panel .back.ok {
-      background: yellow; }
+      background: #fdde09; }
   .panel.flip .front {
     z-index: 8;
     border-color: #eee;
@@ -412,13 +412,13 @@ ol.categories {
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out; }
     .mobilePanel .back.postive {
-      background: #66cc33; }
+      background: #92bb2c; }
     .mobilePanel .back.negative {
-      background: red; }
+      background: #fb4b0f; }
     .mobilePanel .back.unknown {
       background: #d0c0a4; }
     .mobilePanel .back.ok {
-      background: yellow; }
+      background: #fdde09; }
   .mobilePanel .front {
     -webkit-transform: rotateX(0deg) rotateY(0deg);
     -moz-transform: rotateX(0deg) rotateY(0deg);
@@ -626,13 +626,13 @@ ol.categories {
   border: 1px solid #f8931d;
   margin-bottom: 5px; }
   .game_mobile.postive {
-    background: #66cc33; }
+    background: #92bb2c; }
   .game_mobile.negative {
-    background: red; }
+    background: #fb4b0f; }
   .game_mobile.unknown {
     background: #d0c0a4; }
   .game_mobile.ok {
-    background: yellow; }
+    background: #fdde09; }
   .game_mobile.platforms {
     background: #d0c0a4; }
     .game_mobile.platforms :focus {
@@ -704,6 +704,9 @@ ol.categories {
   margin-top: 10px;
   margin-left: 10px; }
 
+.adding10left {
+  margin-left: 10px; }
+
 .smallText {
   font-size: 50%; }
 
@@ -765,3 +768,53 @@ a :visited {
 
 .noDec {
   text-decoration: none; }
+
+@keyframes steamCardAnimation {
+  0% {
+    left: 90%; }
+
+  100% {
+    left: 10%; } }
+@-webkit-keyframes steamCardAnimation {
+  0% {
+    left: 90%; }
+
+  100% {
+    left: 10%; } }
+@keyframes rkCardAnimation {
+  0% {
+    opacity: 0.0; }
+
+  100% {
+    opacity: 1.0; } }
+@-webkit-keyframes rkCardAnimation {
+  0% {
+    opacity: 0.0; }
+
+  100% {
+    opacity: 1.0; } }
+.steamCard {
+  animation-name: steamCardAnimation;
+  -webkit-animation-name: steamCardAnimation;
+  /* Chrome, Safari, Opera */
+  -webkit-animation-duration: 1.8s;
+  /* Chrome, Safari, Opera */
+  animation-duration: 1.8s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  position: absolute;
+  min-width: 100px;
+  min-height: 127px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background: url("../images/steamcardSmall.png"); }
+
+.rkCard {
+  animation-name: rkCardAnimation;
+  -webkit-animation-name: rkCardAnimation;
+  /* Chrome, Safari, Opera */
+  -webkit-animation-duration: 1.8s;
+  /* Chrome, Safari, Opera */
+  animation-duration: 1.8s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite; }
