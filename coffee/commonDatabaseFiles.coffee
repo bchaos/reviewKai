@@ -13,8 +13,8 @@ module.exports = {
                 sql = 'Insert into games Set ?'
                 curConnection.query sql,  data,  (err,result) ->
                     gameid = result.insertId
-                    for platform in platforms
-                        curPlatformCreator platform.abbreviation, gameid
+                    ###for platform in platforms
+                        curPlatformCreator platform.abbreviation, gameid###
                     return callback gameid
                     
     getOrCreatePlatform: ( platform,gameid) -> 

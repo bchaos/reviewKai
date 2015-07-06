@@ -114,7 +114,6 @@ module.exports =  (client,request,connection) ->
                     if !error && response.statusCode is 200
                         data = JSON.parse body
                         commonDB.connection = connection
-                        commonDB.connection = connection 
                         getGiantBombVersionOfGames data.response.games, 0,  data.response.games.length, (games)->
                             client.emit 'steamGamesToAdd', games
                     else 

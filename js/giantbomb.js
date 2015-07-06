@@ -147,7 +147,6 @@
             if (!error && response.statusCode === 200) {
               data = JSON.parse(body);
               commonDB.connection = connection;
-              commonDB.connection = connection;
               return getGiantBombVersionOfGames(data.response.games, 0, data.response.games.length, function(games) {
                 return client.emit('steamGamesToAdd', games);
               });
