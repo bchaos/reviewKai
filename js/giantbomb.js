@@ -118,6 +118,7 @@
             newgame.giantBombinfo.game_name = game.name;
             newgame.giantBombinfo.game_picture = game.image.medium_url;
             newgame.giantBombinfo.description = game.deck;
+            commonDB.connection = connection;
             return commonDB.getOrCreateGame(newgame.giantBombinfo, game.platforms, function(gameid) {
               var sql;
               newgame.userInfo.game_id = gameid;

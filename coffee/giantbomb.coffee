@@ -90,6 +90,7 @@ module.exports =  (client,request,connection) ->
                     newgame.giantBombinfo.game_name= game.name
                     newgame.giantBombinfo.game_picture= game.image.medium_url
                     newgame.giantBombinfo.description= game.deck
+                    commonDB.connection = connection
                     commonDB.getOrCreateGame newgame.giantBombinfo , game.platforms, (gameid)->
                         newgame.userInfo.game_id = gameid
                         newgame.userInfo.user_id = client.userid
