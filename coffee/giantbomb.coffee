@@ -94,8 +94,8 @@ module.exports =  (client,request,connection) ->
                         newgame.userInfo.game_id = gameid
                         newgame.userInfo.user_id = client.userid
                         sql = 'Insert into library Set ?'
-                        console.log data.userInfo
-                        connection.query sql, data.userInfo, (err,results)->
+
+                        connection.query sql, newgame.userInfo, (err,results)->
                             getGiantBombVersionOfGames games, index+1, length, callback
             else 
                 getGiantBombVersionOfGames games, index+1, length, callback

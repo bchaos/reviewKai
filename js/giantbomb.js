@@ -123,8 +123,7 @@
               newgame.userInfo.game_id = gameid;
               newgame.userInfo.user_id = client.userid;
               sql = 'Insert into library Set ?';
-              console.log(data.userInfo);
-              return connection.query(sql, data.userInfo, function(err, results) {
+              return connection.query(sql, newgame.userInfo, function(err, results) {
                 return getGiantBombVersionOfGames(games, index + 1, length, callback);
               });
             });
