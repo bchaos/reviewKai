@@ -138,7 +138,7 @@
       return getSteamAccountInfo(data.name, function(returnedID) {
         var steamImportUrl, steamid;
         steamid = '&steamid=' + returnedID;
-        if (steamid === false) {
+        if (returnedID === false) {
           return client.emit('vanityNameNotFound');
         } else {
           steamImportUrl = SteamInfo.baseurl + SteamInfo.ownedPath + SteamInfo.key + steamid + SteamInfo.gameIncludes + SteamInfo.format;

@@ -103,7 +103,7 @@ module.exports =  (client,request,connection) ->
     client.on 'importGamesFromSteam', (data)->
         getSteamAccountInfo data.name, (returnedID)->
             steamid ='&steamid='+returnedID
-            if steamid is false 
+            if returnedID is false
                 client.emit 'vanityNameNotFound'
             else    
                 steamImportUrl = SteamInfo.baseurl+SteamInfo.ownedPath+SteamInfo.key+steamid+SteamInfo.gameIncludes+SteamInfo.format
