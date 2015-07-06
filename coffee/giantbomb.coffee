@@ -43,7 +43,7 @@ module.exports =  (client,request,connection) ->
         format :"&format=json"
     }
     isSteamAccountLinked = (callback)->
-        sql = 'Select Count(*) as userCount , steamID from user where steamID != -1 and id = ' + client.userid
+        sql = 'Select Count(*) as userCount , steamID from user where steamID != 0 and steamID != -1  and id = ' + client.userid
         
         connection.query sql, (err, result) ->
             if result[0].userCount is 0 

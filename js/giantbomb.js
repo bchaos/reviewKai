@@ -62,7 +62,7 @@
     };
     isSteamAccountLinked = function(callback) {
       var sql;
-      sql = 'Select Count(*) as userCount , steamID from user where steamID != -1 and id = ' + client.userid;
+      sql = 'Select Count(*) as userCount , steamID from user where steamID != 0 and steamID != -1  and id = ' + client.userid;
       return connection.query(sql, function(err, result) {
         if (result[0].userCount === 0) {
           return callback(false);
