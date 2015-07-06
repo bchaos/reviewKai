@@ -697,7 +697,7 @@
         $scope.isLoading = false;
         return $scope.recentGames = data;
       });
-      this.socket.on('noGamMyes', function() {
+      this.socket.on('noGames', function() {
         $scope.isLoading = false;
         return $scope.recentGames = false;
       });
