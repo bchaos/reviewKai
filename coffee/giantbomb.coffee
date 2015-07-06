@@ -70,6 +70,7 @@ module.exports =  (client,request,connection) ->
                 callback steamid
             
     getGiantBombVersionOfGames = (games,index, length, callback) ->
+
         if index is length 
             callback(games)
         else
@@ -112,7 +113,7 @@ module.exports =  (client,request,connection) ->
                 request steamImportUrl, (error, response, body) ->
                     if !error && response.statusCode is 200
                         data = JSON.parse body
-
+                        commonDB.connection = connection
                         commonDB.connection = connection 
                         getGiantBombVersionOfGames data.response.games, 0,  data.response.games.length, (games)->
                             client.emit 'steamGamesToAdd', games
@@ -121,7 +122,7 @@ module.exports =  (client,request,connection) ->
                         
                         
     ### XBOX ###
-    
+
     xbox = {
         key:'b5cfd5d7019993e435b7b125c4276bfb4f0a8c62'
         profileID: '2533274828210569'
