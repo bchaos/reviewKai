@@ -34,8 +34,9 @@ handler = (req,res) ->
         else
             res.writeHead 200
             res.end data
+
 addImageToFolder=(image)->
-    ### add images here  ###
+    ### add images here ###
 
 userRegister = require './userRegistration'
 gameLibraryMananger = require './gameLibraryMananger'

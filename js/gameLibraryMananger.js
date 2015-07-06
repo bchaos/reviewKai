@@ -70,7 +70,7 @@
       return connection.query(sql, function(err, result) {
         if (result[0].count > 0) {
           sql = 'Select * from ';
-          sql += '(select  g.game_name , g.game_picture, g.id, g.giantBomb_id,g.releasedate  from  games g order by releasedate desc) t1  ';
+          sql += '(select  g.game_name , g.game_picture, g.id, g.giantBomb_id,g.releasedate, UNIX_TIMESTAMP(g.releasedate) as date   from  games g order by date desc) t1  ';
           sql += ' join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and peer.rating != -1 and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
           sql += 'on t1.id = t2.game_id left  join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id  ) t3 ';
           sql += 'on t3.game_id = t1.id';
@@ -111,7 +111,7 @@
           user = result;
           library.myLibrary = userid === localuserid;
           sql = 'Select * from ';
-          sql += '(select l.rating,l.added, g.id, l.description, g.giantBomb_id,g.releasedate   , g.game_name , g.game_picture from library l, games g where l.game_id = g.id and l.user_id =' + userid + ' order by g.releasedate desc ) t1 ';
+          sql += '(select l.rating,l.added, g.id, l.description, g.giantBomb_id,g.releasedate, UNIX_TIMESTAMP(g.releasedate) as date  , g.game_name , g.game_picture from library l, games g where l.game_id = g.id and l.user_id =' + userid + ' order by date desc ) t1 ';
           sql += 'left join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id  and peer.rating != -1 and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
           sql += 'on t1.id = t2.game_id left join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id ) t3 ';
           sql += 'on t3.game_id = t1.id';
