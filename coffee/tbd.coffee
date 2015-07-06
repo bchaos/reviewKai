@@ -467,7 +467,7 @@ app.controller 'dashboardController',
             @socket.on 'recentReleases', (data)->
                 $scope.isLoading=false;
                 $scope.recentGames = data
-            @socket.on 'noGamMyes' , ()->
+            @socket.on 'noGames' , ()->
                 $scope.isLoading=false
                 $scope.recentGames = false
                 

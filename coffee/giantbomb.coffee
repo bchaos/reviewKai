@@ -57,9 +57,11 @@ module.exports =  (client,request,connection) ->
             if  steamid is false
                 vanity = '&vanityurl='+vanityName
                 getSteamIdURL=SteamInfo.baseurl+SteamInfo.vanityPath+SteamInfo.key+vanity
+                console.log getSteamIdURL
                 request getSteamIdURL, (error, response, body) ->
                     if !error && response.statusCode is 200
                         data = JSON.parse body
+                        console.log data
                         if data.response.success is 1  
                             callback data.response.steamid
                         else 

@@ -78,10 +78,12 @@
         if (steamid === false) {
           vanity = '&vanityurl=' + vanityName;
           getSteamIdURL = SteamInfo.baseurl + SteamInfo.vanityPath + SteamInfo.key + vanity;
+          console.log(getSteamIdURL);
           return request(getSteamIdURL, function(error, response, body) {
             var data;
             if (!error && response.statusCode === 200) {
               data = JSON.parse(body);
+              console.log(data);
               if (data.response.success === 1) {
                 return callback(data.response.steamid);
               } else {
