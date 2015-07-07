@@ -30,14 +30,14 @@
         <script type="text/javascript" src="js/tbd.js"></script>
         <script src="js/socket.js"></script>
         <link rel="stylesheet" href="css/pure.css">
-      
+
         <link href="css/ionicons.min.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/ionic.css" media="screen" rel="stylesheet" type="text/css">
-          <link href="css/output.css" media="screen" rel="stylesheet" type="text/css">
+          <link href="css/styles.css" media="screen" rel="stylesheet" type="text/css">
         <link href="css/sidemenu.css" media="screen" rel="stylesheet" type="text/css">
     </head>
     <a href="https://plus.google.com/118345476050457184699"  rel="publisher"></a>
-    <body ng-app="reviewApp" ng-controller="reviewController"> 
+    <body ng-app="reviewApp" ng-controller="reviewController">
 <div id="fb-root"></div>
 <script>
 (function() {
@@ -67,27 +67,28 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
-       
+
 <div id="layout" ng-class="active">
     <a  id="menuLink" class="menu-link  button  icon ion-navicon-round" ng-class="active" ng-init ="active='false'" ng-click="toggleClass()">
     </a>
     <div id="menu" ng-class="active">
         <div class="pure-menu" >
-           <a href="/#/"  class="menu-logo"><img src="images/logo.png"></a>
-           
+
+           <a href="/#/"  class="pure-menu-heading"></a>
+
         <ul class="pure-meu-list">
-            <span ng-hide="accessList"> 
+            <span ng-hide="accessList">
                 <li class="pure-menu-item"><a href="#/" class=" button   icon ion-information-circled button-review pure-menu-link icon-left">About</a></li>
                  <li class="pure-menu-item" ng-click ='signUpModal()' ><a class=" button   icon ion-arrow-up-a button-review pure-menu-link icon-left"> Signup </a></li>
-                <li class="pure-menu-item" ng-click ='signInModal()' ><a class=" button   icon ion-log-in button-review pure-menu-link icon-left"> Login</a></li>  
-                <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button></li> 
-            
-            </span>  
+                <li class="pure-menu-item" ng-click ='signInModal()' ><a class=" button   icon ion-log-in button-review pure-menu-link icon-left"> Login</a></li>
+                <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button></li>
+
+            </span>
                <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item">
-                   <a href="#/{{access.link}}"  class=" button   icon {{access.icon}} button-review pure-menu-link icon-left">  
+                   <a href="#/{{access.link}}"  class=" button   icon {{access.icon}} button-review pure-menu-link icon-left">
                        {{access.name}}
-                   </a> 
-               </li>  
+                   </a>
+               </li>
                 <li class="pure-menu-item" ng-show="accessList">
                     <a href="#/search"  class=" button   icon ion-search button-review pure-menu-link icon-left" >
                         Search
@@ -104,22 +105,22 @@
                         Privacy Policy
                     </a>
                 </li>
-                    
+
                 <li class="pure-menu-item" ng-show="accessList"><a ng-click="logout()" class=" button icon ion-log-out button-review pure-menu-link icon-left">Sign Out</a></li>
             </ul>
         </div>
    </div>
-   
+
         <ng-view class="mainContent"></ng-view>
 
-        </div>  
-       
+        </div>
+
     <div class="footer">
-     
 
           <div class="pure-u-1 is-center"> 
               
         Copyright ReviewKai &copy; 2015 ---
+
 
  Search by  <a href="http://www.giantbomb.com" class="white-link"> Giant bomb</a>
               </div>

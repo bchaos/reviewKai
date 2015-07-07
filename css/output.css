@@ -1,5 +1,5 @@
-body {
-  color: #3a3a3c; }
+body, a {
+  color: #9ca2a5; }
 
 html, body {
   height: 100%;
@@ -7,7 +7,7 @@ html, body {
   font-size: 13px;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #3a3a3c; }
+  background-color: #222222; }
 
 .button.button-positive.button-outline {
   border-color: #92bb2c;
@@ -25,16 +25,16 @@ html, body {
   border-color: #f8931d; }
 
 #menu {
-  margin-left: -150px;
+  margin-left: -200px;
   /* "#menu" width */
-  width: 150px;
+  width: 200px;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   z-index: 1000;
   /* so the menu or its navicon stays above all content */
-  background: #d0c0a4;
+  background: #222222;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch; }
@@ -46,7 +46,7 @@ html, body {
 .button.button-modal {
   background-color: #beb097;
   border-color: #f8931d;
-  color: #3a3a3c; }
+  color: #222222; }
 
 .button.button-modal.libarybutton {
   color: white; }
@@ -54,14 +54,12 @@ html, body {
 .button.button-review {
   background-color: transparent;
   border-color: transparent;
-  color: #3a3a3c; }
+  color: #9ca2a5; }
 
 .pure-menu-item {
-  width: 160px;
-  border-color: #f8931d;
-  border-width: 1px;
-  height: 47px;
-  border-style: solid; }
+  width: 200px;
+  border-bottom: 1px solid #333333;
+  height: 47px; }
 
 ol.categories {
   float: left;
@@ -85,7 +83,7 @@ ol.categories {
   text-align: center;
   left: -30px;
   position: relative;
-  background: #3a3a3c;
+  background: #222222;
   color: #d0c0a4; }
 
 .pure-form label {
@@ -112,14 +110,14 @@ ol.categories {
   position: fixed !important; }
 
 .splash-container-dashboard {
-  background: #3a3a3c;
+  background: #222222;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   top: 0; }
 
 .pure-button-primary {
-  color: #3a3a3c;
+  color: #222222;
   background-color: #d0c0a4; }
 
 .pure-button-primary :hover {
@@ -170,7 +168,7 @@ ol.categories {
 
 .content {
   overflow-x: hidden;
-  background: #d0c0a4; }
+  background: #222222; }
 
 .content-wrapper {
   /* These styles are required for the "scroll-over" effect */
@@ -179,7 +177,7 @@ ol.categories {
   width: 100%;
   min-height: 12%;
   z-index: 2;
-  background: #d0c0a4; }
+  background: #222222; }
 
 .gameObject {
   border: 1px solid #ddd;
@@ -202,7 +200,7 @@ ol.categories {
   color: #d0c0a4; }
 
 .content-subhead {
-  color: #3a3a3c;
+  color: #222222;
   margin: 50px 0 20px 0;
   font-weight: 300; }
   .content-subhead i {
@@ -236,7 +234,7 @@ ol.categories {
     z-index: 99999; } }
 @media (min-width: 980px) {
   .hideMobile {
-    display: inline; }
+    display: inline-block; }
 
   .hideDesktop {
     display: none; } }
@@ -246,7 +244,7 @@ ol.categories {
   margin-top: 40px; }
 
 .mainBackground {
-  background: url("../images/stock2.png") no-repeat fixed;
+  background: url("../images/stock2.jpg") no-repeat fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -277,9 +275,9 @@ ol.categories {
     font-size: 250%; } }
 .modal {
   background-color: #d0c0a4;
-  color: #3a3a3c; }
+  color: #222222; }
   .modal .bar {
-    background-color: #3a3a3c;
+    background-color: #222222;
     border-bottom: 1px solid #f8931d; }
     .modal .bar .title {
       color: #f8931d; }
@@ -379,7 +377,7 @@ ol.categories {
 
 .mobilePanel {
   background-color: #d0c0a4;
-  color: #3a3a3c; }
+  color: #222222; }
   .mobilePanel.flipable {
     height: 188px;
     background: url("../images/cardbackMobile.png"); }
@@ -397,6 +395,16 @@ ol.categories {
     -moz-transform: rotateX(0deg) rotateY(0deg);
     transform: rotateX(0deg) rotateY(0deg);
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
+  .mobilePanel .back {
+    float: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 800;
+    width: inherit;
+    height: inherit;
+    border: 1px solid #d0c0a4;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6); }
   .mobilePanel .back {
     -webkit-transform: rotateX(-180deg);
     -moz-transform: rotateX(-179deg);
@@ -612,7 +620,7 @@ ol.categories {
 .game_name {
   margin-left: 8px; }
   .game_name.mobile {
-    color: #3a3a3c;
+    color: #222222;
     font-size: 1.4em; }
 
 .game_recomendation_text {
@@ -620,7 +628,7 @@ ol.categories {
   margin-right: 8px;
   margin-top: 20px; }
   .game_recomendation_text.mobile {
-    color: #3a3a3c; }
+    color: #222222; }
 
 .game_mobile {
   border: 1px solid #f8931d;
@@ -645,7 +653,7 @@ ol.categories {
 
 .newGameAdder {
   margin: 12px 30%;
-  color: #3a3a3c;
+  color: #222222;
   font-size: 1.8em;
   position: absolute; }
 
@@ -683,7 +691,11 @@ ol.categories {
     margin-bottom: 10px; }
 
 #menu .pure-menu-heading {
-  background-color: #d0c0a4; }
+  height: 145px;
+  background-image: url(../images/logo-dark.png);
+  background-position: center center;
+  background-size: 50%;
+  background-repeat: no-repeat; }
 
 #menu .pure-menu ul,
 #menu .pure-menu .menu-item-divided {
@@ -694,7 +706,7 @@ ol.categories {
 */
 #menu .pure-menu li a:hover,
 #menu .pure-menu li a:focus {
-  background: #beb097; }
+  color: #f8931d; }
 
 .platFormLarge {
   max-width: 240px;
@@ -722,7 +734,7 @@ ol.categories {
   top: -15px; }
 
 .ribbon {
-  background-color: #3a3a3c;
+  background-color: #222222;
   color: #f8931d; }
 
 .logoLarge {
@@ -754,10 +766,10 @@ ol.categories {
   color: #f8931d; }
 
 a {
-  color: #d0c0a4; }
+  color: #9ca2a5; }
 
 a :visited {
-  color: #beb097; }
+  color: #f8931d; }
 
 .platformList {
   width: 116%; }

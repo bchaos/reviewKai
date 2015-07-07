@@ -1,0 +1,771 @@
+/* line 12, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+body {
+  color: #3a3a3c; }
+
+/* line 15, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+html, body {
+  height: 100%;
+  line-height: 1.7em;
+  font-size: 13px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #3a3a3c; }
+
+/* line 25, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.button.button-positive.button-outline {
+  border-color: #8cc63f;
+  background: transparent;
+  color: #8cc63f; }
+  /* line 29, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .button.button-positive.button-outline:hover {
+    color: #fff;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out; }
+
+/* line 39, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+#menu {
+  margin-left: -200px;
+  /* "#menu" width */
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  /* so the menu or its navicon stays above all content */
+  background: #D0C0A4;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; }
+
+/* line 52, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.modal {
+  top: 10%;
+  bottom: 10%; }
+
+/* line 56, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.button.button-modal {
+  background-color: transparent;
+  border-color: #f8931d;
+  color: #3a3a3c; }
+
+/* line 61, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.button.button-modal.libarybutton {
+  color: white; }
+
+/* line 64, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.button.button-review {
+  background-color: transparent;
+  border-color: transparent;
+  color: #3a3a3c; }
+
+/* line 69, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.pure-menu-item {
+  width: 200px;
+  border-bottom: 1px solid #f8931d;
+  height: 47px; }
+
+/* line 75, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+ol.categories {
+  float: left;
+  list-style: decimal;
+  padding-left: 20px;
+  margin-right: 30px;
+  line-height: 2em;
+  color: #6d6e70; }
+  /* line 82, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  ol.categories:last-child {
+    margin-right: 0; }
+
+/* line 90, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.l-box {
+  padding: 1em; }
+
+/* line 94, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.l-box-lrg {
+  padding: 2em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+
+/* line 98, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.is-center {
+  width: 115%;
+  text-align: center;
+  left: -30px;
+  position: relative;
+  background: #3a3a3c;
+  color: #D0C0A4; }
+
+/* line 108, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.pure-form label {
+  margin: 1em 0 0;
+  font-weight: bold;
+  font-size: 100%; }
+/* line 113, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.pure-form input[type] {
+  border: 2px solid #ddd;
+  box-shadow: none;
+  font-size: 100%;
+  width: 100%;
+  margin-bottom: 1em; }
+
+/* line 122, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.splash-container {
+  background: #1f8dd6;
+  z-index: 1;
+  overflow: hidden;
+  /* The following styles are required for the "scroll-over" effect */
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 88%;
+  top: 0;
+  position: fixed !important; }
+
+/* line 136, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.splash-container-dashboard {
+  background: #3a3a3c;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  top: 0; }
+
+/* line 144, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.pure-button-primary {
+  color: #3a3a3c;
+  background-color: #D0C0A4; }
+
+/* line 150, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.pure-button-primary :hover {
+  background-color: #beb097; }
+
+/* line 154, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.splash {
+  width: 80%;
+  height: 50%;
+  margin: auto;
+  top: 100px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  text-transform: uppercase; }
+
+/* line 163, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.splash-dashboard {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative; }
+
+/* line 169, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.gamefilter {
+  margin-bottom: 15px; }
+
+/* line 172, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.splash-head {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f8931d;
+  border: 3px solid #f8931d;
+  padding: 1em 1.6em;
+  font-weight: 100;
+  border-radius: 5px;
+  line-height: 1em;
+  text-transform: uppercase; }
+
+/* line 183, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.splash-subhead {
+  color: #f8931d;
+  letter-spacing: 0.05em;
+  opacity: 0.8; }
+
+/* line 189, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.iosContent .splash-dashboard {
+  width: 100%; }
+/* line 193, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.iosContent .splash {
+  width: 100%; }
+
+/* line 198, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.content {
+  overflow-x: hidden;
+  background: #D0C0A4; }
+
+/* line 202, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.content-wrapper {
+  /* These styles are required for the "scroll-over" effect */
+  position: absolute;
+  top: 65%;
+  width: 100%;
+  min-height: 12%;
+  z-index: 2;
+  background: #D0C0A4; }
+
+/* line 212, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.gameObject {
+  border: 1px solid #ddd;
+  background: #D0C0A4;
+  margin: 0 0.5em 2em;
+  padding: 0 0 3em;
+  min-height: 230px; }
+
+/* This is the class used for the main content headers (<h2>) */
+/* line 220, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.content-head {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 2em 0 1em;
+  color: #f8931d;
+  background-color: primaryDark; }
+
+/* This is a modifier class used when the content-head is inside a ribbon */
+/* line 230, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.content-head-ribbon {
+  color: #D0C0A4; }
+
+/* line 233, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.content-subhead {
+  color: #3a3a3c;
+  margin: 50px 0 20px 0;
+  font-weight: 300; }
+  /* line 237, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .content-subhead i {
+    margin-right: 7px; }
+
+/* line 242, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.footer {
+  position: absolute;
+  color: white;
+  bottom: 0px;
+  z-index: 500;
+  width: 100%;
+  background-color: #2d3e50; }
+
+@media (max-width: 979px) {
+  /* line 251, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .hideMobile {
+    display: none; }
+  /* line 254, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .hideDesktop {
+    display: inline-block; } }
+
+@media (min-width: 980px) {
+  /* line 260, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .hideMobile {
+    display: inline-block; }
+  /* line 263, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .hideDesktop {
+    display: none; } }
+
+/* line 268, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.mainBackground {
+  background: url('../images/stock2.png') no-repeat fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position-y: 100%;
+  height: 85%; }
+
+@media (min-width: 48em) {
+  /* line 278, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  body {
+    font-size: 16px; }
+  /* line 281, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .content {
+    padding: 1em; }
+  /* line 284, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .splash {
+    width: 50%;
+    height: 50%;
+    margin-top: 30px; }
+  /* line 290, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .splash-head {
+    font-size: 200%; }
+  /* line 294, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .l-box-lrg {
+    border: none; } }
+
+@media (min-width: 78em) {
+  /* We increase the header font size even more */
+  /* line 301, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .splash-head {
+    font-size: 250%; } }
+
+/* line 306, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.panel {
+  float: left;
+  width: 275px;
+  height: 350px;
+  position: relative;
+  font-size: .8em;
+  -webkit-perspective: 600px;
+  -moz-perspective: 600px;
+  perspective: 600px; }
+  /* line 315, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .panel .front {
+    float: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 900;
+    width: inherit;
+    height: inherit;
+    min-width: 275px;
+    min-height: 350px;
+    border: 2px ridge #f8931d;
+    background: url('../images/cardback2.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.9);
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    transform: rotateX(0deg) rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    color: white;
+    /* -- transition is the magic sauce for animation -- */
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out; }
+    /* line 347, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+    .panel .front .rec {
+      width: 275px;
+      height: 350px; }
+  /* line 353, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .panel.flip .front {
+    z-index: 900;
+    border-color: #eee;
+    background: url('../images/$cardBack');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    transform: rotateY(180deg); }
+  /* line 365, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .panel.flip .back {
+    z-index: 1000;
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    transform: rotateX(0deg) rotateY(0deg);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
+  /* line 373, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .panel .back {
+    float: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 800;
+    width: inherit;
+    height: inherit;
+    border: 1px solid #D0C0A4;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-179deg);
+    /* setting to 180 causes an unnatural-looking half-flip */
+    transform: rotateY(-179deg);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* -- transition is the magic sauce for animation -- */
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out; }
+    /* line 400, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+    .panel .back.postive {
+      background: #66cc33; }
+    /* line 403, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+    .panel .back.negative {
+      background: red; }
+    /* line 406, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+    .panel .back.unknown {
+      background: #D0C0A4; }
+    /* line 409, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+    .panel .back.ok {
+      background: yellow; }
+
+/* line 414, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.lightblue {
+  height: 40px;
+  background-color: #2d3e50;
+  top: -39px;
+  position: relative;
+  width: 100%; }
+
+/* line 421, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.white-link {
+  color: white; }
+
+@keyframes shuffleanimation {
+  /* line 426, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  0% {
+    left: 38%;
+    top: 38%;
+    z-index: 2; }
+
+  /* line 427, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  50% {
+    left: 200px;
+    top: 20%;
+    z-index: 1; }
+
+  /* line 428, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  100% {
+    left: 38%;
+    top: 38%;
+    z-index: -1; } }
+
+@-webkit-keyframes shuffleanimation {
+  /* line 432, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  0% {
+    left: 38%;
+    top: 38%;
+    z-index: 2; }
+
+  /* line 433, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  50% {
+    left: 200px;
+    top: 20%;
+    z-index: 1; }
+
+  /* line 434, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  100% {
+    left: 38%;
+    top: 38%;
+    z-index: -1; } }
+
+/* line 436, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.shuffle {
+  animation-name: shuffleanimation;
+  -webkit-animation-name: shuffleanimation;
+  /* Chrome, Safari, Opera */
+  -webkit-animation-duration: 1s;
+  /* Chrome, Safari, Opera */
+  animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite; }
+
+/* line 445, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.loadingCard {
+  position: absolute;
+  float: left;
+  left: 38%;
+  top: 38%; }
+
+/* line 451, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.loadingPadding {
+  min-height: 400px; }
+
+/* line 455, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.gameDes {
+  max-height: 300px;
+  overflow: scroll; }
+
+/* line 461, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.click .front {
+  cursor: pointer;
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg); }
+/* line 467, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.click.flip .front {
+  -webkit-transform: rotateX(180deg);
+  -moz-transform: rotateX(180deg);
+  transform: rotateX(180deg); }
+/* line 472, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.click .back {
+  cursor: pointer;
+  -webkit-transform: rotateX(-180deg);
+  -moz-transform: rotateX(-180deg);
+  transform: rotateX(-180deg); }
+/* line 478, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.click.flip .back {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg); }
+
+/* line 484, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.contact {
+  width: 290px;
+  height: 240px; }
+
+/* line 489, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.panel .pad {
+  padding: 0 15px; }
+/* line 492, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.panel.flip .action {
+  display: none; }
+
+/* line 497, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.block ol li {
+  text-align: left;
+  margin: 0 0 0 28px; }
+/* line 498, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.block .action {
+  display: block;
+  padding: 3px;
+  background: #2d3e50;
+  text-align: right;
+  font-size: .8em;
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+  -webkit-transition: opacity .2s linear; }
+/* line 499, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.block:hover .action {
+  opacity: .7; }
+
+/* line 502, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.circle div .circleLogo {
+  box-shadow: 0 1px 0 #D0C0A4;
+  color: #f8931d;
+  text-align: center;
+  width: 55%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-top: 40%; }
+  /* line 512, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .circle div .circleLogo.platform {
+    width: 95%;
+    height: 51px; }
+
+/* line 518, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.circleLogo h2 {
+  color: white;
+  margin-top: 15px; }
+
+/* line 523, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.username {
+  color: #D0C0A4; }
+
+/* line 526, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.game_image {
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px ridge #f8931d;
+  border-radius: 10%;
+  width: 90%;
+  background-size: 100% 150%;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 42%; }
+  /* line 536, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_image.mobile {
+    border-radius: 0%;
+    height: 140px; }
+
+/* line 542, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.KaiadderText {
+  margin-right: 20%;
+  margin-left: 20%;
+  margin-top: 10%;
+  font-size: 1.4em;
+  color: white; }
+
+/* line 550, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.Kaiadder {
+  background-color: #2d3e50; }
+
+/* line 553, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.ladder {
+  background-color: white; }
+
+/* line 556, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.card img {
+  max-width: 100px; }
+
+/* line 559, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.game_header, .game_recomendation {
+  margin-top: 5px;
+  font-size: 1.2em;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  background-color: #D0C0A4;
+  border: 1px solid #f8931d; }
+
+/* line 571, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.game_recomendation {
+  height: 38%; }
+  /* line 574, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_recomendation.tall {
+    height: 68%; }
+
+/* line 578, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.game_name {
+  margin-left: 8px; }
+  /* line 580, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_name.mobile {
+    color: #3a3a3c;
+    font-size: 1.4em; }
+
+/* line 586, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.game_recomendation_text {
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 20px; }
+  /* line 590, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_recomendation_text.mobile {
+    color: #3a3a3c; }
+
+/* line 594, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.game_mobile {
+  border: 1px solid #f8931d;
+  margin-bottom: 5px; }
+  /* line 597, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_mobile.postive {
+    background: #66cc33; }
+  /* line 600, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_mobile.negative {
+    background: red; }
+  /* line 603, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_mobile.unknown {
+    background: #D0C0A4; }
+  /* line 606, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_mobile.ok {
+    background: yellow; }
+  /* line 609, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .game_mobile.platforms {
+    background: #D0C0A4; }
+    /* line 611, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+    .game_mobile.platforms :focus {
+      background: #beb097; }
+
+/* line 617, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.pure-menu-selected {
+  background-color: #beb097; }
+
+/* line 622, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.item-input {
+  padding: 1px 0px 1px 12px; }
+
+/* line 627, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.library-header {
+  height: 100px;
+  font-size: 3em;
+  background-color: #2d3e50;
+  color: #D0C0A4; }
+  /* line 632, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .library-header .library-avatar {
+    border-radius: 100px;
+    margin-left: 1em;
+    posistion: absolute;
+    right: 10px;
+    top: 10px; }
+
+/* line 643, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.movedown {
+  margin-top: 20px; }
+
+/* line 646, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.avatar {
+  -moz-border-radius: 100px;
+  border-radius: 100px; }
+
+/* line 650, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.platFormSmall {
+  max-width: 240px;
+  max-height: 44px; }
+  /* line 653, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .platFormSmall.mobile {
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px; }
+
+/* line 659, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+#menu .pure-menu-heading {
+  background-color: #D0C0A4; }
+
+/* line 664, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+#menu .pure-menu ul, #menu .pure-menu .menu-item-divided {
+  border-top: 1px solid #D0C0A4; }
+
+/*
+        Change color of the anchor links on hover/focus.
+*/
+/* line 671, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+#menu .pure-menu li a:hover, #menu .pure-menu li a:focus {
+  background: #beb097; }
+
+/* line 674, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.platFormLarge {
+  max-width: 240px;
+  max-height: 44px; }
+
+/* line 678, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.fb_iframe_widget {
+  margin-top: 10px;
+  margin-left: 10px; }
+
+/* line 682, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.smallText {
+  font-size: 50%; }
+
+/* line 686, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.modalSelectionArea {
+  overflow-y: scroll;
+  height: 300px;
+  margin-top: 50px; }
+
+/* line 691, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.modalAdder {
+  min-height: 350px; }
+
+/* line 694, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.moveupby10 {
+  top: -15px; }
+
+/* line 698, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.ribbon {
+  background-color: #3a3a3c;
+  color: #f8931d; }
+
+/* line 702, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.logo {
+  width: 72px;
+  height: 72px; }
+
+/* line 707, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.smalllogo {
+  width: 30px;
+  height: 30px; }
+
+/* line 711, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.iosMenu {
+  position: fixed;
+  bottom: 0px;
+  background-color: #2d3e50; }
+  /* line 715, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+  .iosMenu .pure-menu-item {
+    height: 48px; }
+    /* line 717, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+    .iosMenu .pure-menu-item i {
+      display: block;
+      height: 24px;
+      margin: -4px; }
+
+/* line 725, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+a {
+  color: #D0C0A4; }
+
+/* line 728, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+a :visited {
+  color: #beb097; }
+
+/* line 731, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/stylesTEST.scss */
+.platformList {
+  width: 116%; }
+
+/*# sourceMappingURL=stylesTEST.css.map */
