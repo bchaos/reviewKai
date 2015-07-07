@@ -16,38 +16,38 @@
         } else {
           sql = 'Insert into games Set ?';
           return curConnection.query(sql, data, function(err, result) {
-            var gameid;
+            var gameid, platform, _i, _len;
             gameid = result.insertId;
-
-            /*for platform in platforms
-                curPlatformCreator platform.abbreviation, gameid
-             */
+            for (_i = 0, _len = platforms.length; _i < _len; _i++) {
+              platform = platforms[_i];
+              curPlatformCreator(platform.abbreviation, gameid(curPlatformCreator));
+            }
             return callback(gameid);
           });
         }
       });
     },
-    getOrCreatePlatform: function(platform, gameid) {
+    getOrCreatePlatform: function(platform, gameid, aconnection) {
       var sql;
       sql = 'Select count(*) as gamecount, id from platforms where active=1 and name = "' + platform + '"';
-      return this.connection.query(sql, function(err, result) {
+      return aconnection.query(sql, function(err, result) {
         var firstresult;
         firstresult = result[0];
         if (firstresult.gamecount > 0) {
-          return this.addPlatformTogame(firstresult.id, gameid);
+          return this.addPlatformTogame(firstresult.id, gameid, aconnection);
         } else {
           return 1;
         }
       });
     },
-    addPlatformTogame: function(platformid, gameid) {
+    addPlatformTogame: function(platformid, gameid, aconnection) {
       var gameinfo, sql;
       gameinfo = {
         game_id: gameid,
         platform_id: platformid
       };
       sql = 'insert into  gameOnplatform  Set ? ';
-      return this.connection.query(sql, gameinfo, function(err, result) {});
+      return aconnection.query(sql, gameinfo, function(err, result) {});
     }
   };
 

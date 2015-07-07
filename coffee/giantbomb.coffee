@@ -68,37 +68,66 @@ module.exports =  (client,request,connection) ->
                             callback false
             else     
                 callback steamid
+    addSteamIdToGame = (gameid, steamid) ->
+        sql = 'update games set steam_id ='+steamid+' where id ='+gameid
+        connection.query sql, (err,results)->
             
-    getGiantBombVersionOfGames = (games,index, length, callback) ->
+    getGameWithSteamId= (steamid,callback)->
+        sql ='select count(*) as count ,id  from games g where g.steam_id = '+steamid
+        connection.query sql, (err,results)->
+            if results[0].count is 0
+                callback false
+            else
+                callback  results[0].id
+    doesUserHaveGame = (gameid, callback)->
+        sql =  'Select count(*) as count from library l, games g where l.user_id ='+client.userid+' and g.giantBomb_id ='+gameid+' and g.id = l.game_id'
+        connection.query sql, (err,results)->
+            callback results[0]
 
+    getGiantBombVersionOfGames = (games,index, length, callback) ->
         if index is length 
             callback(games)
         else
             if games[index].playtime_forever > 20
-                getGameInfo games[index].name,(gamelist)->
-                    game = gamelist.results[0]
-                    console.log gamelist
+                getGameWithSteamId games[index].appid ,(steamToGameid)->
                     newgame={}
-                    console.log game
-                    newgame.userInfo = {}
                     newgame.userInfo.rating=-1
                     newgame.userInfo.enjoyment=3
                     newgame.userInfo.length=3
                     newgame.userInfo.unenjoyment=3
                     newgame.userInfo.difficulty=3
-                    newgame.giantBombinfo={}
-                    newgame.giantBombinfo.giantBomb_id= game.id
-                    newgame.giantBombinfo.game_name= game.name
-                    newgame.giantBombinfo.game_picture= game.image.medium_url
-                    newgame.giantBombinfo.description= game.deck
-                    commonDB.connection = connection
-                    commonDB.getOrCreateGame newgame.giantBombinfo , game.platforms, (gameid)->
-                        newgame.userInfo.game_id = gameid
-                        newgame.userInfo.user_id = client.userid
-                        sql = 'Insert into library Set ?'
-
-                        connection.query sql, newgame.userInfo, (err,results)->
-                            getGiantBombVersionOfGames games, index+1, length, callback
+                    newgame.userInfo.user_id = client.userid
+                    if steamToGameid is false
+                        getGameInfo games[index].name,(gamelist)->
+                            game = gamelist.results[0]
+                            console.log gamelist
+                            console.log game
+                            newgame.userInfo = {}
+                            newgame.giantBombinfo={}
+                            newgame.giantBombinfo.giantBomb_id= game.id
+                            newgame.giantBombinfo.game_name= game.name
+                            newgame.giantBombinfo.game_picture= game.image.medium_url
+                            newgame.giantBombinfo.description= game.deck
+                            commonDB.connection = connection
+                            doesUserHaveGame gameid, (count)->
+                                if count is 0
+                                    getGiantBombVersionOfGames games, index+1, length, callback
+                                else
+                                    commonDB.getOrCreateGame newgame.giantBombinfo , game.platforms, (gameid)->
+                                        newgame.userInfo.game_id = gameid
+                                        addSteamIdToGame gameid, games[index].appid
+                                        sql = 'Insert into library Set ?'
+                                        connection.query sql, newgame.userInfo, (err,results)->
+                                            getGiantBombVersionOfGames games, index+1, length, callback
+                    else
+                        doesUserHaveGame steamToGameid, (count)->
+                            if count is 0
+                                getGiantBombVersionOfGames games, index+1, length, callback
+                            else
+                                newgame.userInfo.game_id = steamToGameid
+                                sql = 'Insert into library Set ?'
+                                connection.query sql, newgame.userInfo, (err,results)->
+                                    getGiantBombVersionOfGames games, index+1, length, callback
             else 
                 getGiantBombVersionOfGames games, index+1, length, callback
                 

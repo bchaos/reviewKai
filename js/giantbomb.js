@@ -5,7 +5,7 @@
   commonDB = require('./commonDatabaseFiles');
 
   module.exports = function(client, request, connection) {
-    var SteamInfo, getGameInfo, getGiantBombVersionOfGames, getSteamAccountInfo, giantbombInfo, isSteamAccountLinked, xbox;
+    var SteamInfo, addSteamIdToGame, doesUserHaveGame, getGameInfo, getGameWithSteamId, getGiantBombVersionOfGames, getSteamAccountInfo, giantbombInfo, isSteamAccountLinked, xbox;
     giantbombInfo = {};
     giantbombInfo.apikey = 'api_key=059d37ad5ca7f47e566180366eab2190e8c6da30';
     giantbombInfo.baseurl = 'http://www.giantbomb.com/api/';
@@ -96,38 +96,86 @@
         }
       });
     };
+    addSteamIdToGame = function(gameid, steamid) {
+      var sql;
+      sql = 'update games set steam_id =' + steamid + ' where id =' + gameid;
+      return connection.query(sql, function(err, results) {});
+    };
+    getGameWithSteamId = function(steamid, callback) {
+      var sql;
+      sql = 'select count(*) as count ,id  from games g where g.steam_id = ' + steamid;
+      return connection.query(sql, function(err, results) {
+        if (results[0].count === 0) {
+          return callback(false);
+        } else {
+          return callback(results[0].id);
+        }
+      });
+    };
+    doesUserHaveGame = function(gameid, callback) {
+      var sql;
+      sql = 'Select count(*) as count from library l, games g where l.user_id =' + client.userid + ' and g.giantBomb_id =' + gameid + ' and g.id = l.game_id';
+      return connection.query(sql, function(err, results) {
+        return callback(results[0]);
+      });
+    };
     getGiantBombVersionOfGames = function(games, index, length, callback) {
       if (index === length) {
         return callback(games);
       } else {
         if (games[index].playtime_forever > 20) {
-          return getGameInfo(games[index].name, function(gamelist) {
-            var game, newgame;
-            game = gamelist.results[0];
-            console.log(gamelist);
+          return getGameWithSteamId(games[index].appid, function(steamToGameid) {
+            var newgame;
             newgame = {};
-            console.log(game);
-            newgame.userInfo = {};
             newgame.userInfo.rating = -1;
             newgame.userInfo.enjoyment = 3;
             newgame.userInfo.length = 3;
             newgame.userInfo.unenjoyment = 3;
             newgame.userInfo.difficulty = 3;
-            newgame.giantBombinfo = {};
-            newgame.giantBombinfo.giantBomb_id = game.id;
-            newgame.giantBombinfo.game_name = game.name;
-            newgame.giantBombinfo.game_picture = game.image.medium_url;
-            newgame.giantBombinfo.description = game.deck;
-            commonDB.connection = connection;
-            return commonDB.getOrCreateGame(newgame.giantBombinfo, game.platforms, function(gameid) {
-              var sql;
-              newgame.userInfo.game_id = gameid;
-              newgame.userInfo.user_id = client.userid;
-              sql = 'Insert into library Set ?';
-              return connection.query(sql, newgame.userInfo, function(err, results) {
-                return getGiantBombVersionOfGames(games, index + 1, length, callback);
+            newgame.userInfo.user_id = client.userid;
+            if (steamToGameid === false) {
+              return getGameInfo(games[index].name, function(gamelist) {
+                var game;
+                game = gamelist.results[0];
+                console.log(gamelist);
+                console.log(game);
+                newgame.userInfo = {};
+                newgame.giantBombinfo = {};
+                newgame.giantBombinfo.giantBomb_id = game.id;
+                newgame.giantBombinfo.game_name = game.name;
+                newgame.giantBombinfo.game_picture = game.image.medium_url;
+                newgame.giantBombinfo.description = game.deck;
+                commonDB.connection = connection;
+                return doesUserHaveGame(gameid, function(count) {
+                  if (count === 0) {
+                    return getGiantBombVersionOfGames(games, index + 1, length, callback);
+                  } else {
+                    return commonDB.getOrCreateGame(newgame.giantBombinfo, game.platforms, function(gameid) {
+                      var sql;
+                      newgame.userInfo.game_id = gameid;
+                      addSteamIdToGame(gameid, games[index].appid);
+                      sql = 'Insert into library Set ?';
+                      return connection.query(sql, newgame.userInfo, function(err, results) {
+                        return getGiantBombVersionOfGames(games, index + 1, length, callback);
+                      });
+                    });
+                  }
+                });
               });
-            });
+            } else {
+              return doesUserHaveGame(steamToGameid, function(count) {
+                var sql;
+                if (count === 0) {
+                  return getGiantBombVersionOfGames(games, index + 1, length, callback);
+                } else {
+                  newgame.userInfo.game_id = steamToGameid;
+                  sql = 'Insert into library Set ?';
+                  return connection.query(sql, newgame.userInfo, function(err, results) {
+                    return getGiantBombVersionOfGames(games, index + 1, length, callback);
+                  });
+                }
+              });
+            }
           });
         } else {
           return getGiantBombVersionOfGames(games, index + 1, length, callback);

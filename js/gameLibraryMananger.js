@@ -309,12 +309,11 @@
     });
     client.on('updateGamePlatforms', function(data) {
       var platform, _i, _len, _ref, _results;
-      commonDB.connection = connection;
       _ref = data.platforms;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         platform = _ref[_i];
-        _results.push(commonDB.getOrCreatePlatform(platform.abbreviation, data.id));
+        _results.push(commonDB.getOrCreatePlatform(platform.abbreviation, data.id, connection));
       }
       return _results;
     });

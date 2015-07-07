@@ -13,21 +13,21 @@ module.exports = {
                 sql = 'Insert into games Set ?'
                 curConnection.query sql,  data,  (err,result) ->
                     gameid = result.insertId
-                    ###for platform in platforms
-                        curPlatformCreator platform.abbreviation, gameid###
+                    for platform in platforms
+                        curPlatformCreator platform.abbreviation, gameid curPlatformCreator
                     return callback gameid
                     
-    getOrCreatePlatform: ( platform,gameid) -> 
+    getOrCreatePlatform: ( platform,gameid,aconnection) ->
         sql = 'Select count(*) as gamecount, id from platforms where active=1 and name = "'+platform+'"'
-        @connection.query sql, (err, result) ->
+        aconnection.query sql, (err, result) ->
             firstresult= result[0]
             if firstresult.gamecount > 0 
-                @addPlatformTogame firstresult.id, gameid
+                @addPlatformTogame firstresult.id, gameid,aconnection
             else 
                 return 1
                 
-    addPlatformTogame :  (platformid, gameid)->
+    addPlatformTogame :  (platformid, gameid ,aconnection)->
         gameinfo=  {game_id:gameid, platform_id:platformid }
         sql = 'insert into  gameOnplatform  Set ? '
-        @connection.query sql, gameinfo,  (err,result) ->
+        aconnection.query sql, gameinfo,  (err,result) ->
 }

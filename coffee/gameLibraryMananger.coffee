@@ -229,9 +229,9 @@ module.exports =  (client,connection) ->
                 
                 getProLibrary(data.userInfo.user_id)
     client.on 'updateGamePlatforms', (data)->
-         commonDB.connection = connection 
+
          for platform in data.platforms
-            commonDB.getOrCreatePlatform  platform.abbreviation,data.id
+            commonDB.getOrCreatePlatform  platform.abbreviation,data.id, connection
             
     client.on 'AddGameandReviewerToLibrary',(data)->
         commonDB.connection= connection
