@@ -26,12 +26,12 @@ This is the parent `<div>` that contains the menu and the content area.
     padding-left: 0;
 }
     #layout.true #menu {
-        left: 150px;
-        width: 150px;
+        left: 200px;
+        width: 200px;
     }
 
     #layout.true .menu-link {
-        left: 150px;
+        left: 200px;
     }
 /*
 The content `<div>` is where all your content goes.
@@ -39,7 +39,7 @@ The content `<div>` is where all your content goes.
 .content {
     margin: 0 auto;
     padding: 0 2em;
-    
+
     margin-bottom: 50px;
     line-height: 1.6em;
 }
@@ -79,8 +79,8 @@ appears on the left side of the page.
     All anchors inside the menu should be styled like this.
     */
     #menu a {
-   
-      
+
+
     }
 
     /*
@@ -102,8 +102,8 @@ appears on the left side of the page.
     */
     #menu .pure-menu-selected,
     #menu .pure-menu-heading {
-        
-    } 
+
+    }
         /*
         This styles a link within a selected menu item `<li>`.
         */
@@ -120,7 +120,7 @@ appears on the left side of the page.
         margin: 0;
     }
 li .button{
-  width :100%;   
+  width :100%;
 }
 /* -- Dynamic Button For Responsive Menu -------------------------------------*/
 
@@ -191,21 +191,21 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 150px; /* left col width "#menu" */
+        padding-left: 200px; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 150px;
+        left: 200px;
     }
 
     .menu-link {
         position: fixed;
-        left: 150px;
+        left: 200px;
         display: none;
     }
 
     #layout.true .menu-link {
-        left: 150px;
+        left: 200px;
     }
 }
 
@@ -218,6 +218,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     */
     #layout.true {
         position: relative;
-        left: 150px;
+        left: 200px;
     }
 }

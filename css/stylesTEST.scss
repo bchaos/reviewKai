@@ -1,17 +1,16 @@
+
 $postiveColor:#8cc63f;
 $listColor: #6d6e70;
 $darkBlue: #2d3e50;
 $lightBlue: #1f8dd6;
 $whiteColour:#D0C0A4;
 $whiteHover: #beb097;
-$primaryDark:#222;
-$lightGreyText:#9CA2A5;
+$primaryDark:#3a3a3c;
 $primaryOrange:#f8931d;
-$darkGrayBorder:#333;
 $cardBack:'../images/cardback2.png';
 
-body, a {
-    color: $lightGreyText;
+body {
+    color: $primaryDark;
 }
 html, body{
     height :100%;
@@ -45,7 +44,7 @@ html, body{
     left: 0;
     bottom: 0;
     z-index: 1000; /* so the menu or its navicon stays above all content */
-    background: $primaryDark;
+    background: $whiteColour;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -65,11 +64,11 @@ html, body{
 .button.button-review{
     background-color:transparent;
     border-color: transparent;
-    color:$lightGreyText;
+    color:$primaryDark;
 }
 .pure-menu-item{
  width: 200px;
-border-bottom: 1px solid $darkGrayBorder;
+border-bottom: 1px solid $primaryOrange;
     height: 47px;
 }
 ol{
@@ -198,7 +197,7 @@ margin-right: auto;
 }
 .content{
   overflow-x: hidden;
-     background: $primaryDark;
+     background: $whiteColour;
  }
 .content-wrapper {
     /* These styles are required for the "scroll-over" effect */
@@ -207,7 +206,7 @@ margin-right: auto;
     width: 100%;
     min-height: 12%;
     z-index: 2;
-    background: $primaryDark;
+    background: $whiteColour;
 
 }
 .gameObject{
@@ -267,7 +266,7 @@ margin-right: auto;
 }
 
 .mainBackground{
-    background:url('../images/stock2.jpg')no-repeat  fixed;
+    background:url('../images/stock2.png')no-repeat  fixed;
    -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -658,10 +657,7 @@ margin-right: auto;
     }
 }
 #menu .pure-menu-heading {
-     background-image: url(../images/logo-dark.png);
-     background-position: center center;
-     background-size: 50%;
-     background-repeat: no-repeat;
+     background-color: $whiteColour;
 }
 
 #menu .pure-menu ul,
@@ -673,7 +669,7 @@ margin-right: auto;
 */
 #menu .pure-menu li a:hover,
 #menu .pure-menu li a:focus {
-    color: $primaryOrange;
+    background: $whiteHover;
 }
 .platFormLarge{
  max-width: 240px;
@@ -727,10 +723,10 @@ margin-right: auto;
 
 }
 a {
-  color:$lightGreyText;
+  color:$whiteColour;
 }
 a :visited{
-  color:$primaryOrange;
+  color:$whiteHover;
 }
 .platformList{
  width:116%;
