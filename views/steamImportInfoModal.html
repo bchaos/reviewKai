@@ -9,7 +9,7 @@
     <steamtransfer></steamtransfer>
 </div>
 
-<div ng-hide="isTransfering || importMode">
+<div ng-hide="isTransfering || importMode || vanityErrorMessage">
  <div class="pure-u-1" ><h2>Transfer complete your games have been added</h2> </div>
   <div class="pure-u-1-8">
       <img  src="images/steamcardSmall.png"><br/>
@@ -25,5 +25,8 @@
     <button class=" button button-modal"> Understood</button>
     </div>
 
+</div>
+<div ng-show ="vanityErrorMessage">
+    Can't find vanity name.
 </div>
 </ion-content>

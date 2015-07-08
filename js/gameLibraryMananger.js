@@ -217,10 +217,17 @@
         return client.emit('gameReview', result);
       });
     });
+    client.on('deleteGame', function(game) {
+      var sql;
+      sql = 'delete from library where game_id =' + game.id + ' and user_id=' + client.userid;
+      return connection.query(sql, [gameid], function(err, result) {
+        return getGamesForUser(client.username, client.userid, client);
+      });
+    });
     client.on('updateGame', function(game) {
       var sql;
-      sql = 'Update library set rating =' + game.rating + ', description = "' + game.description + '" where id =' + game.game_id;
-      console.log(sql);
+      console.log(game);
+      sql = 'Update library set rating =' + game.rating + ', description = "' + game.description + '" where game_id =' + game.id + ' and user_id=' + client.userid;
       return connection.query(sql, [gameid], function(err, result) {
         return getGamesForUser(client.username, client.userid, client);
       });

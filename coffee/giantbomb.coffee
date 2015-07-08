@@ -53,7 +53,6 @@ module.exports =  (client,request,connection) ->
     getSteamAccountInfo =(vanityName ,callback)->
          isSteamAccountLinked (returnedid) -> 
             steamid =returnedid
-           
             if  steamid is false
                 vanity = '&vanityurl='+vanityName
                 getSteamIdURL=SteamInfo.baseurl+SteamInfo.vanityPath+SteamInfo.key+vanity
@@ -66,8 +65,10 @@ module.exports =  (client,request,connection) ->
                             callback data.response.steamid
                         else 
                             callback false
+                    else callback false
             else     
                 callback steamid
+
     addSteamIdToGame = (gameid, steamid) ->
         sql = 'update games set steam_id ='+steamid+' where id ='+gameid
         connection.query sql, (err,results)->
@@ -81,8 +82,10 @@ module.exports =  (client,request,connection) ->
                 callback  results[0].id
     doesUserHaveGame = (gameid, callback)->
         sql =  'Select count(*) as count from library l, games g where l.user_id ='+client.userid+' and g.giantBomb_id ='+gameid+' and g.id = l.game_id'
+        console.log sql
         connection.query sql, (err,results)->
-            callback results[0]
+
+            callback results[0].count
 
     getGiantBombVersionOfGames = (games,index, length, callback) ->
         if index is length 
@@ -91,6 +94,7 @@ module.exports =  (client,request,connection) ->
             if games[index].playtime_forever > 20
                 getGameWithSteamId games[index].appid ,(steamToGameid)->
                     newgame={}
+                    newgame.userInfo = {}
                     newgame.userInfo.rating=-1
                     newgame.userInfo.enjoyment=3
                     newgame.userInfo.length=3
@@ -102,14 +106,14 @@ module.exports =  (client,request,connection) ->
                             game = gamelist.results[0]
                             console.log gamelist
                             console.log game
-                            newgame.userInfo = {}
+
                             newgame.giantBombinfo={}
                             newgame.giantBombinfo.giantBomb_id= game.id
                             newgame.giantBombinfo.game_name= game.name
                             newgame.giantBombinfo.game_picture= game.image.medium_url
                             newgame.giantBombinfo.description= game.deck
                             commonDB.connection = connection
-                            doesUserHaveGame gameid, (count)->
+                            doesUserHaveGame game.id, (count)->
                                 if count is 0
                                     getGiantBombVersionOfGames games, index+1, length, callback
                                 else
@@ -135,6 +139,7 @@ module.exports =  (client,request,connection) ->
         getSteamAccountInfo data.name, (returnedID)->
             steamid ='&steamid='+returnedID
             if returnedID is false
+                console.log 'not found'
                 client.emit 'vanityNameNotFound'
             else    
                 steamImportUrl = SteamInfo.baseurl+SteamInfo.ownedPath+SteamInfo.key+steamid+SteamInfo.gameIncludes+SteamInfo.format

@@ -5,7 +5,7 @@
     </ion-header-bar>
     <ion-content>
         <div ng-show="importMode">
-        <span class="errorMessage">  {{vanityErrorMessage}} </span>
+
         <div class="list">
             Vanity Name ( this is your steam name from your steam page)
             <label class="item item-input" >
@@ -23,7 +23,7 @@
     <steamtransfer></steamtransfer>
 </div>
 
-<div ng-hide="isTransfering || importMode">
+<div ng-hide="isTransfering || importMode ||vanityErrorMessage">
     <p/>
  <div class="pure-u-1 adding10left"  ><h2>Transfer complete</h2> </div>
   <div class="pure-u-6-24">
@@ -41,5 +41,6 @@
     </div>
 
 </div>
+        <span class="errorMessage" ng-show="vanityErrorMessage"><p/>  {{vanityErrorMessage}} </span>
     </ion-content>
 </ion-modal-view>

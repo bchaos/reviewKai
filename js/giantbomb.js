@@ -89,6 +89,8 @@
               } else {
                 return callback(false);
               }
+            } else {
+              return callback(false);
             }
           });
         } else {
@@ -115,8 +117,9 @@
     doesUserHaveGame = function(gameid, callback) {
       var sql;
       sql = 'Select count(*) as count from library l, games g where l.user_id =' + client.userid + ' and g.giantBomb_id =' + gameid + ' and g.id = l.game_id';
+      console.log(sql);
       return connection.query(sql, function(err, results) {
-        return callback(results[0]);
+        return callback(results[0].count);
       });
     };
     getGiantBombVersionOfGames = function(games, index, length, callback) {
@@ -127,6 +130,7 @@
           return getGameWithSteamId(games[index].appid, function(steamToGameid) {
             var newgame;
             newgame = {};
+            newgame.userInfo = {};
             newgame.userInfo.rating = -1;
             newgame.userInfo.enjoyment = 3;
             newgame.userInfo.length = 3;
@@ -139,14 +143,13 @@
                 game = gamelist.results[0];
                 console.log(gamelist);
                 console.log(game);
-                newgame.userInfo = {};
                 newgame.giantBombinfo = {};
                 newgame.giantBombinfo.giantBomb_id = game.id;
                 newgame.giantBombinfo.game_name = game.name;
                 newgame.giantBombinfo.game_picture = game.image.medium_url;
                 newgame.giantBombinfo.description = game.deck;
                 commonDB.connection = connection;
-                return doesUserHaveGame(gameid, function(count) {
+                return doesUserHaveGame(game.id, function(count) {
                   if (count === 0) {
                     return getGiantBombVersionOfGames(games, index + 1, length, callback);
                   } else {
@@ -187,6 +190,7 @@
         var steamImportUrl, steamid;
         steamid = '&steamid=' + returnedID;
         if (returnedID === false) {
+          console.log('not found');
           return client.emit('vanityNameNotFound');
         } else {
           steamImportUrl = SteamInfo.baseurl + SteamInfo.ownedPath + SteamInfo.key + steamid + SteamInfo.gameIncludes + SteamInfo.format;

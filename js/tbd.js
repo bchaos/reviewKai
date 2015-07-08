@@ -119,7 +119,7 @@
 
   app.service('socket', function($rootScope) {
     var socket;
-    socket = io.connect('http://ReviewKai.com:8080');
+    socket = io.connect('http://Reviewkai.com:8080');
     return {
       on: function(eventname, callback) {
         return socket.on(eventname, function() {
@@ -264,6 +264,8 @@
       }
       return saying = (function() {
         switch (false) {
+          case score !== -1:
+            return 'I need to rate this game';
           case score !== 1:
             return 'This game is  unplayable';
           case score !== 2:
@@ -898,9 +900,9 @@
   })());
 
   app.controller('libraryController', libraryController = (function() {
-    libraryController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
+    libraryController.$inject = ['$scope', '$ionicModal', 'socket', '$location', '$ionicPopover'];
 
-    function libraryController($scope, $ionicModal, socket, $location) {
+    function libraryController($scope, $ionicModal, socket, $location, $ionicPopover) {
       var path;
       this.$scope = $scope;
       this.socket = socket;
@@ -1007,6 +1009,7 @@
           $scope.importModal.show();
           $scope.importMode = true;
           $scope.isTransfering = true;
+          $scope.vanityErrorMessage = false;
           $scope.closeImportModal = function() {
             return $scope.importModal.hide();
           };
@@ -1021,7 +1024,8 @@
         return $scope.newSteamGames = data;
       });
       socket.on('vanityNameNotFound', function(data) {
-        return $scope.vanityErrorMessage = data;
+        $scope.isTransfering = false;
+        return $scope.vanityErrorMessage = 'Vanity name is not found on steam';
       });
       $scope.goback = function() {
         $scope.canFlip = 'false';
@@ -1056,11 +1060,31 @@
         $scope.editModal.hide();
         return $scope.edit = {};
       };
-      $scope.showEdit = function(game) {
-        $scope.edit = game;
+      $scope.showEdit = function(index) {
+        $scope.edit = $scope.games[index];
+        $scope.editingindex = index;
         return $scope.editModal.show();
       };
+      $scope.showRemove = function(index) {
+        var template;
+        $scope.editingindex = index;
+        template = '<ion-popover-view><ion-header-bar> <h1 class="title">Delete game</h1> </ion-header-bar> <ion-content> Are you sure you want to delete this game? <br/> <button ng-click="deleteGame() class="button-modal button"> Yes</button> <button ng-click="removePopover() class="button-modal assertive">No</button> </ion-content></ion-popover-view>';
+        return $scope.popover = $ionicPopover.fromTemplate(template, {
+          scope: $scope
+        });
+      };
+      $scope.removePopover = function() {
+        return $scope.popover.remove();
+      };
+      $scope.$on('$destroy', function() {
+        return $scope.popover.remove();
+      });
+      $scope.deleteGame = function() {
+        socket.emit('deleteGame', $scope.games[$scope.editingindex]);
+        return $scope.popover.remove();
+      };
       $scope.updateGame = function() {
+        $scope.games[$scope.editingindex] = $scope.edit;
         socket.emit('updateGame', $scope.edit);
         return $scope.editModal.hide();
       };

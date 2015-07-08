@@ -234,7 +234,7 @@ ol.categories {
     z-index: 99999; } }
 @media (min-width: 980px) {
   .hideMobile {
-    display: inline-block; }
+    display: inline; }
 
   .hideDesktop {
     display: none; } }

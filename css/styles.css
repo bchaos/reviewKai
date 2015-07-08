@@ -277,7 +277,7 @@ ol.categories {
 @media (min-width: 980px) {
   /* line 288, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   .hideMobile {
-    display: inline-block; }
+    display: inline; }
   /* line 293, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   .hideDesktop {
     display: none; } }

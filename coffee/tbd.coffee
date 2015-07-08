@@ -98,7 +98,7 @@ app.config ($httpProvider) ->
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 app.service 'socket',($rootScope) ->
-    socket = io.connect 'http://ReviewKai.com:8080'
+    socket = io.connect 'http://Reviewkai.com:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
@@ -197,6 +197,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                  if score >5
                     score =score/2
                  saying = switch
+                    when score is -1 then 'I need to rate this game'
                     when score is 1 then 'This game is  unplayable'
                     when score is 2 then 'Bad but playable in a pinch'
                     when score is 3 then 'A fairly average game'
@@ -591,8 +592,8 @@ app.controller 'genericController',
 
 app.controller 'libraryController',
     class libraryController
-        @$inject: ['$scope',   '$ionicModal', 'socket','$location']
-        constructor: (@$scope,  $ionicModal, @socket, @$location) ->
+        @$inject: ['$scope',   '$ionicModal', 'socket','$location' ,'$ionicPopover']
+        constructor: (@$scope,  $ionicModal, @socket, @$location, $ionicPopover) ->
          
             $scope.loggedin=true
             $scope.myLibrary=true
@@ -685,6 +686,7 @@ app.controller 'libraryController',
                     $scope.importModal.show()
                     $scope.importMode=true
                     $scope.isTransfering=true
+                    $scope.vanityErrorMessage =false
                     $scope.closeImportModal = ->
                         $scope.importModal.hide()
                     $scope.getGamesFromSteam = () ->
@@ -694,7 +696,8 @@ app.controller 'libraryController',
                 $scope.isTransfering=false
                 $scope.newSteamGames=data
             socket.on 'vanityNameNotFound', (data)->
-                $scope.vanityErrorMessage = data
+                $scope.isTransfering=false
+                $scope.vanityErrorMessage = 'Vanity name is not found on steam'
             $scope.goback = ->
                 $scope.canFlip='false'
                 $scope.gameSelected=false
@@ -725,11 +728,23 @@ app.controller 'libraryController',
             $scope.closeEdit  = ()->
                 $scope.editModal.hide()
                 $scope.edit = {}
-            $scope.showEdit = (game)->
-                $scope.edit=game
+            $scope.showEdit = (index)->
+                $scope.edit=$scope.games[index]
+                $scope.editingindex=index
                 $scope.editModal.show()
-          
+            $scope.showRemove = (index)->
+                $scope.editingindex = index
+                template = '<ion-popover-view><ion-header-bar> <h1 class="title">Delete game</h1> </ion-header-bar> <ion-content> Are you sure you want to delete this game? <br/> <button ng-click="deleteGame() class="button-modal button"> Yes</button> <button ng-click="removePopover() class="button-modal assertive">No</button> </ion-content></ion-popover-view>';
+                $scope.popover = $ionicPopover.fromTemplate template, {scope: $scope}
+            $scope.removePopover=->
+                $scope.popover.remove()
+            $scope.$on '$destroy', ->
+                $scope.popover.remove()
+            $scope.deleteGame=->
+                socket.emit 'deleteGame', $scope.games[$scope.editingindex]
+                $scope.popover.remove()
             $scope.updateGame = ->
+                $scope.games[$scope.editingindex] = $scope.edit
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
             createGameDetailViewer $ionicModal, $scope, socket

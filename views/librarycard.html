@@ -50,7 +50,8 @@
              <span ng-show="myLibrary"><span ng-show="localLibrary">My thoughts:</span><span ng-hide="localLibrary">Their thoughts:</span>
                    <span >{{convertMyRating(game.rating)}}
                      </span><br/>  
-                     <button class="button button-small button-assertive" ng-click ="showEdit(game)" ng-show="localLibrary"> Edit</button>
+                     <button class="button button-small button-assertive" ng-click ="showEdit($index)" ng-show="localLibrary"> Edit</button>
+                 <button class="button button-small button-assertive" ng-click ="showRemove($index)" ng-show="localLibrary"> Remove</button>
                      <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
                 </span>
         </div>

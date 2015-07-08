@@ -164,10 +164,13 @@ module.exports =  (client,connection) ->
             result['peerReview'] = caluclatePeerReviewsForGame gameid
             result['proReview'] = calculateProReviewForGame gameid
             client.emit 'gameReview' ,result
-        
+    client.on 'deleteGame', (game)->
+        sql ='delete from library where game_id ='+game.id+' and user_id='+client.userid
+        connection.query sql, [gameid], (err, result) ->
+            getGamesForUser client.username, client.userid,client
     client.on 'updateGame', (game) -> 
-        sql = 'Update library set rating ='+game.rating+', description = "' + game.description+'" where id ='+game.game_id
-        console.log sql
+        console.log game
+        sql = 'Update library set rating ='+game.rating+', description = "' + game.description+'" where game_id ='+game.id+' and user_id='+client.userid
         connection.query sql, [gameid], (err, result) ->
             getGamesForUser client.username, client.userid,client
     
