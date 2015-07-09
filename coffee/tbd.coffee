@@ -741,10 +741,6 @@ app.controller 'libraryController',
                     scope: $scope
                 }).then (popover) ->
                     $scope.popover = popover;
-
-                template = '<ion-popover-view><ion-header-bar> <h1 class="title">Delete game</h1> </ion-header-bar> <ion-content> Are you sure you want to delete this game? <br/> <button ng-click="deleteGame() class="button-modal button"> Yes</button> <button ng-click="removePopover() class="button-modal assertive">No</button> </ion-content></ion-popover-view>';
-                $scope.popover = $ionicPopover.fromTemplate template, {scope: $scope}
-                $scope.popover.show();
             $scope.removePopover=->
                 $scope.popover.hide()
             $scope.$on 'popover.hidden', ->
