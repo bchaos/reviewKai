@@ -243,7 +243,7 @@
       var sql;
       console.log(game);
       sql = 'Update library set rating =' + parseInt(game.rating + ' and description = "' + game.description + '" where game_id =' + game.id + ' and user_id=' + client.userid);
-      return connection.query(sql, [gameid], function(err, result) {
+      return connection.query(sql, function(err, result) {
         return getGamesForUser(client.username, client.userid, client);
       });
     });
