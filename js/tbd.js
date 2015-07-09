@@ -1074,7 +1074,8 @@
         return $ionicPopover.fromTemplateUrl('views/deletePopover.html', {
           scope: $scope
         }).then(function(popover) {
-          return $scope.popover = popover;
+          $scope.popover = popover;
+          return $scope.popover.show();
         });
       };
       $scope.removePopover = function() {

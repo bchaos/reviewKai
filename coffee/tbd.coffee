@@ -741,6 +741,7 @@ app.controller 'libraryController',
                     scope: $scope
                 }).then (popover) ->
                     $scope.popover = popover;
+                    $scope.popover.show()
             $scope.removePopover=->
                 $scope.popover.hide()
             $scope.$on 'popover.hidden', ->
