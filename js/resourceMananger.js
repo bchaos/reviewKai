@@ -45,11 +45,11 @@
     });
     getResource = function(game, user, callback) {
       var sql;
-      return sql = 'Select * from userToResource utr, resources r where utr.user_id = ' + user + ' and utr.resource_id= r.id and r.game_id=' + game;
+      sql = 'Select * from userToResource utr, resources r where utr.user_id = ' + user + ' and utr.resource_id= r.id and r.game_id=' + game;
+      return connection.query(sql, function(err, results) {
+        return callback(results);
+      });
     };
-    connection.query(sql, function(err, results) {
-      return callback(results);
-    });
     client.on('getMyResources', function(game) {
       return getResource(game.id, client.userid, function(results) {
         return client.emit('yourResourcesForThisGame', results);

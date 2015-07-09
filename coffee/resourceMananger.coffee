@@ -25,7 +25,7 @@ module.exports =  (client,connection) ->
                     resourceid = result.insertId
                     addResourceToClientLibrary resourceid
     getResource = (game,user,callback)->
-          sql ='Select * from userToResource utr, resources r where utr.user_id = '+user+' and utr.resource_id= r.id and r.game_id='+game
+        sql ='Select * from userToResource utr, resources r where utr.user_id = '+user+' and utr.resource_id= r.id and r.game_id='+game
         connection.query sql,  (err,results)->
             callback results
 
