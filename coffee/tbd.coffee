@@ -737,7 +737,7 @@ app.controller 'libraryController',
                 $scope.editModal.show()
             $scope.showRemove = (index)->
                 $scope.editingindex = index
-                $ionicPopover.fromTemplateUrl('my-popover.html', {
+                $ionicPopover.fromTemplateUrl('views/deletePopover.html', {
                     scope: $scope
                 }).then (popover) ->
                     $scope.popover = popover;
