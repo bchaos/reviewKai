@@ -737,16 +737,21 @@ app.controller 'libraryController',
                 $scope.editModal.show()
             $scope.showRemove = (index)->
                 $scope.editingindex = index
+                $ionicPopover.fromTemplateUrl('my-popover.html', {
+                    scope: $scope
+                }).then (popover) ->
+                    $scope.popover = popover;
+
                 template = '<ion-popover-view><ion-header-bar> <h1 class="title">Delete game</h1> </ion-header-bar> <ion-content> Are you sure you want to delete this game? <br/> <button ng-click="deleteGame() class="button-modal button"> Yes</button> <button ng-click="removePopover() class="button-modal assertive">No</button> </ion-content></ion-popover-view>';
                 $scope.popover = $ionicPopover.fromTemplate template, {scope: $scope}
                 $scope.popover.show();
             $scope.removePopover=->
-                $scope.popover.remove()
-            $scope.$on '$destroy', ->
+                $scope.popover.hide()
+            $scope.$on 'popover.hidden', ->
                 $scope.popover.remove()
             $scope.deleteGame=->
                 socket.emit 'deleteGame', $scope.games[$scope.editingindex]
-                $scope.popover.remove()
+                $scope.popover.hide()
             $scope.updateGame = ->
                 $scope.games[$scope.editingindex] = $scope.edit
                 socket.emit 'updateGame', $scope.edit
