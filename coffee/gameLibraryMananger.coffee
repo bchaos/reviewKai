@@ -179,8 +179,9 @@ module.exports =  (client,connection) ->
         connection.query sql, [gameid], (err, result) ->
             getGamesForUser client.username, client.userid,client
     client.on 'updateGame', (game) -> 
-        console.log game
+
         sql = 'Update library set rating ='+parseInt game.rating+' and description = "' + game.description+'" where game_id ='+game.id+' and user_id='+client.userid
+        console.log sql
         connection.query sql, (err, result) ->
             getGamesForUser client.username, client.userid,client
     
