@@ -190,6 +190,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
             $scope.gameDetails={}
             $scope.sort = '-releasedate'
             $scope.convertMyRating= (score)->
+                 score = parseInt score
                  if score >10
                     score =score/20
                  if score >5

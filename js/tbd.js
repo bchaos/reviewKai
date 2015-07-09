@@ -256,6 +256,7 @@
     $scope.sort = '-releasedate';
     $scope.convertMyRating = function(score) {
       var saying;
+      score = parseInt(score);
       if (score > 10) {
         score = score / 20;
       }
