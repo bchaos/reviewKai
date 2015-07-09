@@ -1073,9 +1073,10 @@
         var template;
         $scope.editingindex = index;
         template = '<ion-popover-view><ion-header-bar> <h1 class="title">Delete game</h1> </ion-header-bar> <ion-content> Are you sure you want to delete this game? <br/> <button ng-click="deleteGame() class="button-modal button"> Yes</button> <button ng-click="removePopover() class="button-modal assertive">No</button> </ion-content></ion-popover-view>';
-        return $scope.popover = $ionicPopover.fromTemplate(template, {
+        $scope.popover = $ionicPopover.fromTemplate(template, {
           scope: $scope
         });
+        return $scope.popover.show();
       };
       $scope.removePopover = function() {
         return $scope.popover.remove();
