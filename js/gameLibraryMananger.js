@@ -241,7 +241,7 @@
     });
     client.on('updateGame', function(game) {
       var sql;
-      sql = 'Update library set rating =' + parseInt(game.rating + ' and description = "' + game.description + '" where game_id =' + game.id + ' and user_id=' + client.userid);
+      sql = 'Update library set rating =' + parseInt(game.rating) + ' and description = "' + game.description + '" where game_id =' + game.id + ' and user_id=' + client.userid;
       console.log(sql);
       return connection.query(sql, function(err, result) {
         return getGamesForUser(client.username, client.userid, client);
