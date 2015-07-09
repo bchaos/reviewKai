@@ -546,6 +546,9 @@
       }
       $scope.loggedin = true;
       signInSetup($scope, $ionicModal, socket);
+      socket.on('goToLogin', function() {
+        return isloggedin(socket, $location.path());
+      });
       socket.on('userLoggedin', function(data) {
         $scope.accessList = data.accessList;
         return localStorage.setItem("sessionkey", data.sessionKey);

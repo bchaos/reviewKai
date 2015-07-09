@@ -41,7 +41,10 @@ addImageToFolder=(image)->
 userRegister = require './userRegistration'
 gameLibraryMananger = require './gameLibraryMananger'
 giantBombMananger = require './giantbomb'
+resourceMananger = require './resourceMananger'
 io.on 'connection', (client) ->
+    client.emit 'goTologin'
     userRegister client,connection,bcrypt,crypto,validator 
     gameLibraryMananger client, connection    
     giantBombMananger client, request,connection
+    resourceMananger client, connection

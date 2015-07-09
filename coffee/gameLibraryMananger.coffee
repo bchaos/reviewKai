@@ -135,18 +135,28 @@ module.exports =  (client,connection) ->
        
     client.on 'GetPeerLibrary', (platform)->
        getPeersGameForUser client.userid,client,platform
-    
-    client.on 'AddNewGameToLibrary',(data)->
+
+    isGameInLibrary = (data, callback)->
+        sql ='select count(*) as count from library l where l. user_id ='+data.user_id+' and game_id = '+data.game_id
+        connection.query sql,  data.userInfo, (err,results)->
+            if results[0].count is 0
+                callback false
+            else
+                callback true
+
+    client.on 'AddNewGameToLibrary', (data)->
         commonDB.connection= connection
         commonDB.getOrCreateGame data.giantBombinfo, data.platforms, (gameid)-> 
             data.userInfo.game_id = gameid
             data.userInfo.user_id = client.userid
-            sql = 'Insert into library Set ?'
-            connection.query sql,  data.userInfo, (err,results)->
-                calculateNewPeers data.userInfo.user_id
-                calculateNewPros data.userInfo.user_id
-                getGamesForUser client.username, client.userid, client
-                
+            isGameInLibrary data, (results)->
+                if !results
+                    sql = 'Insert into library Set ?'
+                    connection.query sql,  data.userInfo, (err,results)->
+                        calculateNewPeers data.userInfo.user_id
+                        calculateNewPros data.userInfo.user_id
+                        getGamesForUser client.username, client.userid, client
+
     client.on 'GetNewGameReviews', ->
         sql = 'Select * from games where 1 sort by added Desc limit 10'
         connection.query sql,  (err, result) ->

@@ -134,7 +134,7 @@ app.filter('myLimitTo', [->
 
 isloggedin = (socket, location)-> 
     if window.localStorage.sessionkey
-        socket.emit 'isUserLoggedin' , {key:window.localStorage.sessionkey, location:location}
+        socket.emit 'isUserLoggedin', {key:window.localStorage.sessionkey, location:location}
     
         
 createGameDetailViewer= ( $ionicModal, $scope, socket) ->
@@ -143,13 +143,11 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                 $scope.itemsPerPage = 11;
             else 
                 $scope.itemsPerPage = 12;
-            
             $scope.currentPage = 0;
             $scope.onCurrentPage =(num)->
                 if num is $scope.currentPage
                     return 'button-balanced'
                 return 'button-stable';
-        
             $scope.setUpPages =()->
                 pagecount = Math.ceil($scope.games.length/$scope.itemsPerPage); 
                 $scope.maxPages=pagecount
@@ -363,6 +361,7 @@ app.controller 'reviewController',
     class reviewController
         @$inject : ['$scope', '$location', 'socket', '$ionicModal']
         constructor: (@$scope, @$location, @socket,  $ionicModal ) ->
+
             $scope.toggleClass = ->
                 if $scope.active is 'false'
                     $scope.active = 'true'
@@ -373,6 +372,9 @@ app.controller 'reviewController',
                 isloggedin(socket,  $location.path())
             $scope.loggedin=true
             signInSetup $scope,$ionicModal,socket
+            socket.on 'goToLogin', ->
+                 isloggedin(socket,  $location.path())
+
             socket.on 'userLoggedin', (data)->
                 $scope.accessList= data.accessList
                 localStorage.setItem "sessionkey", data.sessionKey

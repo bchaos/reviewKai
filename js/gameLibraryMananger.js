@@ -7,7 +7,7 @@
   module.exports = function(client, connection) {
     /* helper functions start*/
 
-    var addConfidantCount, addGameScore, addGamesReviewed, calculateAllReviewForGame, calculateNewPeers, calculateNewPros, calculateProReviewForGame, caluclatePeerReviewsForGame, confidantList, getGamesForUser, getGamesForUserOnPlatform, getGurusGameForUser, getOrCreateProReviewer, getPeersGameForUser, getProLibrary, getPros, getRecentReleases, getReviewLinksForProReviewers, updateGameList;
+    var addConfidantCount, addGameScore, addGamesReviewed, calculateAllReviewForGame, calculateNewPeers, calculateNewPros, calculateProReviewForGame, caluclatePeerReviewsForGame, confidantList, getGamesForUser, getGamesForUserOnPlatform, getGurusGameForUser, getOrCreateProReviewer, getPeersGameForUser, getProLibrary, getPros, getRecentReleases, getReviewLinksForProReviewers, isGameInLibrary, updateGameList;
     calculateNewPros = function(userId) {
       var sql;
       sql = 'call calculateNewPros(' + userId + ')';
@@ -178,17 +178,32 @@
     client.on('GetPeerLibrary', function(platform) {
       return getPeersGameForUser(client.userid, client, platform);
     });
+    isGameInLibrary = function(data, callback) {
+      var sql;
+      sql = 'select count(*) as count from library l where l. user_id =' + data.user_id + ' and game_id = ' + data.game_id;
+      return connection.query(sql, data.userInfo, function(err, results) {
+        if (results[0].count === 0) {
+          return callback(false);
+        } else {
+          return callback(true);
+        }
+      });
+    };
     client.on('AddNewGameToLibrary', function(data) {
       commonDB.connection = connection;
       return commonDB.getOrCreateGame(data.giantBombinfo, data.platforms, function(gameid) {
-        var sql;
         data.userInfo.game_id = gameid;
         data.userInfo.user_id = client.userid;
-        sql = 'Insert into library Set ?';
-        return connection.query(sql, data.userInfo, function(err, results) {
-          calculateNewPeers(data.userInfo.user_id);
-          calculateNewPros(data.userInfo.user_id);
-          return getGamesForUser(client.username, client.userid, client);
+        return isGameInLibrary(data, function(results) {
+          var sql;
+          if (!results) {
+            sql = 'Insert into library Set ?';
+            return connection.query(sql, data.userInfo, function(err, results) {
+              calculateNewPeers(data.userInfo.user_id);
+              calculateNewPros(data.userInfo.user_id);
+              return getGamesForUser(client.username, client.userid, client);
+            });
+          }
         });
       });
     });
