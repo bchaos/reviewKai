@@ -751,6 +751,7 @@ app.controller 'libraryController',
                 $scope.popover.hide()
             $scope.updateGame = ->
                 $scope.games[$scope.editingindex] = $scope.edit
+                $scope.edit.rating= parseInt $scope.edit.rating
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
             createGameDetailViewer $ionicModal, $scope, socket

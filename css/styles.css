@@ -1002,4 +1002,25 @@ a :visited {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite; }
 
+/* line 968, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+.circlebutton.activated {
+  background-color: #f8931d;
+  border-color: #f8931d;
+  color: white; }
+
+/* line 973, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+.circlebutton {
+  border-radius: 40px;
+  border-color: #f8931d;
+  background-color: transparent;
+  border-width: 2px;
+  color: white; }
+
+/* line 980, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+.circleselected {
+  border-color: #f8931d;
+  background-color: #f8931d;
+  border-width: 2px;
+  color: white; }
+
 /*# sourceMappingURL=styles.css.map */
