@@ -180,7 +180,7 @@ module.exports =  (client,connection) ->
             getGamesForUser client.username, client.userid,client
     client.on 'updateGame', (game) -> 
 
-        sql = 'Update library set rating ='+parseInt(game.rating)+' and description = "' + game.description+'" where game_id ='+game.id+' and user_id='+client.userid
+        sql = 'Update library set rating ='+game.rating+' and description = "' + game.description+'" where game_id ='+game.id+' and user_id='+client.userid
         console.log sql
         connection.query sql, (err, result) ->
             getGamesForUser client.username, client.userid,client
@@ -188,7 +188,7 @@ module.exports =  (client,connection) ->
     client.on 'searchForGames', (games)->
         updateGameList  client.userid, games.list,0, (newlist)->
             client.emit 'searchfinished', newlist
-            
+
     client.on 'getGuruDetails', (gameid)->
         sql ='Select g.game_name as name, pr.name as reviewerName, prl.true_score as score, prl.true_score_max as scoremax, prl.review_link as reviewlink from userToProreviewer utp, ProReviewerLibrary prl ,games g , ProReviewers pr where utp.user_id =' + client.userid+' and utp.reviewer_id = pr.id and g.id ='+gameid.gameid+' and prl.user_id = utp.reviewer_id and g.id = prl.game_id'
         connection.query sql, (err, result) ->
