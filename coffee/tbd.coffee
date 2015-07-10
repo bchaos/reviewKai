@@ -731,12 +731,21 @@ app.controller 'libraryController',
             $scope.closeEdit  = ()->
                 $scope.editModal.hide()
                 $scope.edit = {}
-            $scope.showEdit = (index)->
-                $scope.edit=$scope.games[index]
-                $scope.editingindex=index
+            $scope.getIndexOfGame = (gameToCheck)->
+                 foundindex=0
+                 curindex=0
+                 for agame in $scope.games
+                    if agame.id is gameTocheck.id
+                        foundindex=curindex
+                    curindex++
+                 foundindex
+
+            $scope.showEdit = (game)->
+                $scope.edit= game
+                $scope.editingindex=$scope.getIndexOfGame game
                 $scope.editModal.show()
-            $scope.showRemove = (index)->
-                $scope.editingindex = index
+            $scope.showRemove = (game)->
+                $scope.editingindex = $scope.getIndexOfGame game
                 $ionicPopover.fromTemplateUrl('views/deletePopover.html', {
                     scope: $scope
                 }).then (popover) ->

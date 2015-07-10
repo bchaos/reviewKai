@@ -1064,13 +1064,27 @@
         $scope.editModal.hide();
         return $scope.edit = {};
       };
-      $scope.showEdit = function(index) {
-        $scope.edit = $scope.games[index];
-        $scope.editingindex = index;
+      $scope.getIndexOfGame = function(gameToCheck) {
+        var agame, curindex, foundindex, _i, _len, _ref;
+        foundindex = 0;
+        curindex = 0;
+        _ref = $scope.games;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          agame = _ref[_i];
+          if (agame.id === gameTocheck.id) {
+            foundindex = curindex;
+          }
+          curindex++;
+        }
+        return foundindex;
+      };
+      $scope.showEdit = function(game) {
+        $scope.edit = game;
+        $scope.editingindex = $scope.getIndexOfGame(game);
         return $scope.editModal.show();
       };
-      $scope.showRemove = function(index) {
-        $scope.editingindex = index;
+      $scope.showRemove = function(game) {
+        $scope.editingindex = $scope.getIndexOfGame(game);
         return $ionicPopover.fromTemplateUrl('views/deletePopover.html', {
           scope: $scope
         }).then(function(popover) {
