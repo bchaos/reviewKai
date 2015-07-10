@@ -191,9 +191,9 @@
     $scope.currentPage = 0;
     $scope.onCurrentPage = function(num) {
       if (num === $scope.currentPage) {
-        return 'button-balanced';
+        return 'circleselected';
       }
-      return 'button-stable';
+      return '';
     };
     $scope.setUpPages = function() {
       var pagecount;

@@ -58,18 +58,18 @@
         <form class="pure-form">
             <div class="pure-u-17-24 hideMobile">
                 <span> 
-                    <button class="button button-stable " ng-click="setPage(currentPage-1)">
+                    <button class="button circlebutton" ng-click="setPage(currentPage-1)">
                         <<
                     </button>
                 </span>
                 <span ng-repeat="page in pages">
-                    <button ng-show="page.elispe" class="button button-stable"  > ... </button>
-                    <button ng-hide="page.elispe" class="button" ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">
+                    <button ng-show="page.elispe" class="button circlebutton "  > ... </button>
+                    <button ng-hide="page.elispe" class="button circlebutton" ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">
                         {{page.number+1}}
                     </button>
                 </span>
                 <span> 
-                    <button class="button button-stable" ng-click="setPage(currentPage+1)">>></button>
+                    <button class="button circlebutton " ng-click="setPage(currentPage+1)">>></button>
                 </span>
             </div>
             <div class="pure-u-sm-1 pure-u-lg-1-4">

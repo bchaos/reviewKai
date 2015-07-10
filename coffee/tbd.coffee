@@ -146,8 +146,8 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
             $scope.currentPage = 0;
             $scope.onCurrentPage =(num)->
                 if num is $scope.currentPage
-                    return 'button-balanced'
-                return 'button-stable';
+                    return 'circleselected'
+                return '';
             $scope.setUpPages =()->
                 pagecount = Math.ceil($scope.games.length/$scope.itemsPerPage); 
                 $scope.maxPages=pagecount

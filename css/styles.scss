@@ -965,3 +965,22 @@ a :visited{
     -webkit-animation-iteration-count: infinite;
      animation-iteration-count: infinite;
 }
+.circlebutton.activated{
+    background-color: #f8931d;
+    border-color: #f8931d;
+    color: white;
+}
+.circlebutton{
+    border-radius: 40px;
+    border-color: #f8931d;
+    background-color: transparent;
+    border-width: 2px;
+    color: white;
+}
+.circleselected{
+
+    border-color: #f8931d;
+    background-color: #f8931d;
+    border-width: 2px;
+    color: white;
+}

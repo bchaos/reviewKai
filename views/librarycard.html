@@ -16,11 +16,12 @@
             <div class="game_recomendation_text"> 
                 
                  <span ng-show="myLibrary">My thoughts:
-                   <span ng-style="colorForScore(game.rating)">{{convertMyRating(game.rating)}}
-                     </span>  
-                     <button class="button button-small button-assertive" ng-click ="showEdit($index)" ng-show="localLibrary"> Edit</button>
-                       <button class="button button-small button-assertive" ng-click ="showRemove($index)" ng-show="localLibrary"> Remove</button>
-                     <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
+                    <span ng-style="colorForScore(game.rating)">
+                       {{convertMyRating(game.rating)}}
+                    </span>
+                    <button class="button button-small button-assertive" ng-click ="showEdit($index)" ng-show="localLibrary"> Edit</button>
+                    <button class="button button-small button-assertive" ng-click ="showRemove($index)" ng-show="localLibrary"> Remove</button>
+                    <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
                 </span>
                 
                 <span ng-hide="myLibrary"> 
@@ -48,16 +49,16 @@
     </div>
     <div class="pure-u-3-5 game_recomendation_text mobile">
         <div class="pure-u-1">
-             <span ng-show="myLibrary"><span ng-show="localLibrary">My thoughts:</span><span ng-hide="localLibrary">Their thoughts:</span>
-                   <span >{{convertMyRating(game.rating)}}
-                     </span><br/>  
-                     <button class="button button-small button-assertive" ng-click ="showEdit($index)" ng-show="localLibrary"> Edit</button>
+            <span ng-show="myLibrary">
+                <span ng-show="localLibrary">My thoughts:</span><span ng-hide="localLibrary">Their thoughts:</span>
+                <span>{{convertMyRating(game.rating)}}</span><br/>
+                 <button class="button button-small button-assertive" ng-click ="showEdit($index)" ng-show="localLibrary"> Edit</button>
                  <button class="button button-small button-assertive" ng-click ="showRemove($index)" ng-show="localLibrary"> Remove</button>
-                     <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
-                </span>
+                 <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
+            </span>
         </div>
         <div class="pure-u-1" ng-hide="myLibrary">
-             <span  >Pros say: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
+             <span>Pros say: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
                 </span>
         </div>
         
