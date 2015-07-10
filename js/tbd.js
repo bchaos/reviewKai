@@ -1071,7 +1071,7 @@
         _ref = $scope.games;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           agame = _ref[_i];
-          if (agame.id === gameTocheck.id) {
+          if (agame.id === gameToCheck.id) {
             foundindex = curindex;
           }
           curindex++;

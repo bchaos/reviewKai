@@ -735,7 +735,7 @@ app.controller 'libraryController',
                  foundindex=0
                  curindex=0
                  for agame in $scope.games
-                    if agame.id is gameTocheck.id
+                    if agame.id is gameToCheck.id
                         foundindex=curindex
                     curindex++
                  foundindex
