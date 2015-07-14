@@ -13,10 +13,11 @@
         </div>
         <div class="game_recomendation">
             <div class="game_recomendation_text"> 
-                Pros say: <span ng-show="game.guruscore" ng-style="colorForScore(game.guruscore)"> {{convertRating(game.guruscore)}} </span> 
+                Recomendations From<p/>
+                Pros: <span ng-show="game.guruscore" ng-style="colorForScore(game.guruscore)"> {{convertRating(game.guruscore)}} </span>
                 <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
                 <p/>
-                Peers say:<span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.peerscore)}}  </span>
+                Peers:<span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.peerscore)}}  </span>
                 <span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
             </div>
         </div>
@@ -53,13 +54,16 @@
                              <button class="button button-small button-assertive" ng-click ="getGameDetails(game)" ng-hide="localLibrary"> Details</button>
                         </span>
                 </div>
+                 <div class="pure-u-1" ng-hide="myLibrary">
+                     Recomendations From
+                 </div>
                 <div class="pure-u-1" ng-hide="myLibrary">
-                     <span  >Pros say: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
+                     <span  >Pros: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
                         </span>
                 </div>
 
                         <div class="pure-u-1" ng-hide="myLibrary">
-                        Peers say:<span ng-show="game.peerscore"> {{convertRating(game.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
+                        Peers:<span ng-show="game.peerscore"> {{convertRating(game.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
 
                 </div>
             </div>
