@@ -73,8 +73,7 @@
           sql += '(select  g.game_name , g.game_picture, g.id, g.giantBomb_id,g.releasedate, UNIX_TIMESTAMP(g.releasedate) as date   from  games g order by date desc) t1  ';
           sql += ' join (Select avg (peer.rating) as peerscore, peer.game_id from library peer, userToReviewers utr where  utr.reviewer_id = peer.user_id and peer.rating != -1 and utr.user_id = ' + userid + ' group by peer.game_id ) t2 ';
           sql += 'on t1.id = t2.game_id left  join (Select avg (pro.rating) as guruscore, pro.game_id from ProReviewerLibrary pro, userToProreviewer utr where  utr.reviewer_id = pro.user_id and utr.user_id = ' + userid + ' group by pro.game_id  ) t3 ';
-          sql += 'on t3.game_id = t1.id';
-          console.log(sql);
+          sql += 'on t3.game_id = t1.id order by t1.date desc limit 10';
           return connection.query(sql, function(err, result) {
             return client.emit('recentReleases', result);
           });
