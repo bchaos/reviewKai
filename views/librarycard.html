@@ -6,7 +6,7 @@
 	<div class="back" ng-class="convertAverageLibraryClass(game.avgscore, game.rating, {{myLibrary}})" >
         <div class="game_header">
           <div class="pure-u-19-24  game_name">{{game.game_name}}</div>  
-            <div class="pure-u-1-8" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture)'><a class="button  button-icon icon ion-ios-information-outline infobutton"></a></i></div>  
+            <div class="pure-u-1-8" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture)'><a class="button  button-icon icon ion-ios-information-outline infobutton"></a></div>
         </div>
         <div class="game_image" ng-style="getGameStyle(game.game_picture)"> 
            
@@ -25,9 +25,9 @@
                 </span>
                 
                 <span ng-hide="myLibrary"> 
-                Pros say: <span ng-show="game.guruscore" ng-style="colorForScore(game.guruscore)"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
+                Pros say: <span ng-show="game.guruscore" ng-style="colorForScore(game.guruscore)"> {{convertRating(game.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm button-icon icon ion-ios-information-outline" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> </button>
             <p/>
-            Peers say:<span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
+            Peers say:<span ng-show="game.peerscore" ng-style="colorForScore(game.peerscore)"> {{convertRating(game.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm button-icon icon ion-ios-information-outline" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> </button>
                     
                 </span>
             </div>

@@ -314,15 +314,15 @@
       return saying = (function() {
         switch (false) {
           case !(score < 1.5):
-            return 'You should avoid this game!';
+            return 'Avoid this game!';
           case !(score < 2.5):
             return 'Do not waste your time.';
           case !(score < 3.5):
-            return 'This game is below average.';
+            return 'I might pass.';
           case !(score < 4):
-            return 'You will find this game to be ok.';
+            return 'This game is a maybe.';
           case !(score < 4.5):
-            return 'You should play this one!';
+            return 'Play this game!';
           default:
             return 'You will love this game!';
         }

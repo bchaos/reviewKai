@@ -219,11 +219,11 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     else 'postive'
             $scope.convertRating= (score)-> 
                 saying = switch
-                    when score < 1.5 then 'You should avoid this game!'
+                    when score < 1.5 then 'Avoid this game!'
                     when score < 2.5 then 'Do not waste your time.'
-                    when score < 3.5 then 'This game is below average.'
-                    when score < 4   then 'You will find this game to be ok.'
-                    when score < 4.5 then 'You should play this one!'
+                    when score < 3.5 then 'I might pass.'
+                    when score < 4   then 'This game is a maybe.'
+                    when score < 4.5 then 'Play this game!'
                     else 'You will love this game!'
             $scope.getGameStyle= (gameUrl)->  
                  return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 150%', 'background-repeat':'no-repeat', 'background-position':'center'}
