@@ -263,7 +263,6 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                 $scope.modalGame = {}
             $scope.getGuruDetails = (id)->
                 $scope.guruModal.show()
-                
                 socket.emit 'getGuruDetails' , {gameid: id} 
                 $scope.guruInfoLoading = true
                 socket.on 'guruDetailsFound' , (data)->

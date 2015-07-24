@@ -180,7 +180,7 @@
     isGameInLibrary = function(data, callback) {
       var sql;
       sql = 'select count(*) as count from library l where l. user_id =' + data.user_id + ' and game_id = ' + data.game_id;
-      return connection.query(sql, data.userInfo, function(err, results) {
+      return connection.query(sql, function(err, results) {
         if (results[0].count === 0) {
           return callback(false);
         } else {
@@ -193,7 +193,7 @@
       return commonDB.getOrCreateGame(data.giantBombinfo, data.platforms, function(gameid) {
         data.userInfo.game_id = gameid;
         data.userInfo.user_id = client.userid;
-        return isGameInLibrary(data, function(results) {
+        return isGameInLibrary(data.userInfo, function(results) {
           var sql;
           if (!results) {
             sql = 'Insert into library Set ?';

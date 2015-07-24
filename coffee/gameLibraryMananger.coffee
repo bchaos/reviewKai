@@ -138,7 +138,7 @@ module.exports =  (client,connection) ->
 
     isGameInLibrary = (data, callback)->
         sql ='select count(*) as count from library l where l. user_id ='+data.user_id+' and game_id = '+data.game_id
-        connection.query sql,  data.userInfo, (err,results)->
+        connection.query sql,  (err,results)->
             if results[0].count is 0
                 callback false
             else
@@ -149,7 +149,7 @@ module.exports =  (client,connection) ->
         commonDB.getOrCreateGame data.giantBombinfo, data.platforms, (gameid)-> 
             data.userInfo.game_id = gameid
             data.userInfo.user_id = client.userid
-            isGameInLibrary data, (results)->
+            isGameInLibrary data.userInfo, (results)->
                 if !results
                     sql = 'Insert into library Set ?'
                     connection.query sql,  data.userInfo, (err,results)->
