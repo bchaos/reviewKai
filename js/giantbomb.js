@@ -148,6 +148,7 @@
                 newgame.giantBombinfo.game_name = game.name;
                 newgame.giantBombinfo.game_picture = game.image.medium_url;
                 newgame.giantBombinfo.description = game.deck;
+                newgame.giantBombinfo.releasedate = game.original_release_date;
                 commonDB.connection = connection;
                 return doesUserHaveGame(game.id, function(count) {
                   if (count === 0) {

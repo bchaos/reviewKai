@@ -112,6 +112,7 @@ module.exports =  (client,request,connection) ->
                             newgame.giantBombinfo.game_name= game.name
                             newgame.giantBombinfo.game_picture= game.image.medium_url
                             newgame.giantBombinfo.description= game.deck
+                            newgame.giantBombinfo.releasedate= game.original_release_date
                             commonDB.connection = connection
                             doesUserHaveGame game.id, (count)->
                                 if count is 0

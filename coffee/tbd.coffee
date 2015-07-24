@@ -672,6 +672,7 @@ app.controller 'libraryController',
                 $scope.newgame.giantBombinfo.game_name= game.name
                 $scope.newgame.giantBombinfo.game_picture= game.image.medium_url
                 $scope.newgame.giantBombinfo.description= game.deck 
+                $scope.newgame.giantBombinfo.releasedate= game.original_release_date
                 $scope.newgame.platforms=game.platforms
                 $scope.newgame.userInfo.rating=3
                 $scope.newgame.userInfo.enjoyment=3
