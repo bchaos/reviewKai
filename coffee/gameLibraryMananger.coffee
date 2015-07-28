@@ -178,8 +178,7 @@ module.exports =  (client,connection) ->
         sql ='delete from library where game_id ='+game.id+' and user_id='+client.userid
         connection.query sql, [gameid], (err, result) ->
             getGamesForUser client.username, client.userid,client
-    client.on 'updateGame', (game) -> 
-
+    client.on 'updateGame', (game) ->
         sql = 'Update library set rating ='+game.rating+', description = "' + game.description+'" where game_id ='+game.id+' and user_id='+client.userid
         console.log sql
         connection.query sql, (err, result) ->
@@ -216,7 +215,6 @@ module.exports =  (client,connection) ->
             getPros()
     client.on 'ProReviewers', (data)->
         sql ='Update library set site_address ='+data.site_address+', name = "' + data.name+'" where id ='+data.id
-    
         connection.query sql, [gameid], (err, result) ->
                getPros()
     getProLibrary = (id)-> 
@@ -240,10 +238,8 @@ module.exports =  (client,connection) ->
             data.userInfo.game_id = gameid
             sql =  'Insert into ProReviewerLibrary  Set ?'
             connection.query sql,  data.userInfo,  (err,results) ->
-                
                 getProLibrary(data.userInfo.user_id)
     client.on 'updateGamePlatforms', (data)->
-
          for platform in data.platforms
             commonDB.getOrCreatePlatform  platform.abbreviation,data.id, connection
             
@@ -287,7 +283,7 @@ module.exports =  (client,connection) ->
                 connection.query sql, (err, result) ->
                     confidantList()
 
-    addConfidantCount= (userlist, index, length, callback)->
+    addConfidantCount = (userlist, index, length, callback)->
         if index is length
             callback userlist
         else

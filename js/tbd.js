@@ -140,7 +140,8 @@
             }
           });
         });
-      }
+      },
+      mySocket: socket
     };
   });
 
@@ -907,7 +908,7 @@
     libraryController.$inject = ['$scope', '$ionicModal', 'socket', '$location', '$ionicPopover'];
 
     function libraryController($scope, $ionicModal, socket, $location, $ionicPopover) {
-      var path;
+      var myDropzone, path;
       this.$scope = $scope;
       this.socket = socket;
       this.$location = $location;
@@ -923,7 +924,8 @@
         return $scope.editMode = false;
       };
       $scope.toggleEditMode = function() {
-        return $scope.editMode = !$scope.editMode;
+        $scope.editMode = !$scope.editMode;
+        return $scope.updatedPicture = false;
       };
       path = $location.path();
       path = path.substring(1);
@@ -1110,6 +1112,33 @@
         return $scope.editModal.hide();
       };
       createGameDetailViewer($ionicModal, $scope, socket);
+      $scope.dropzoneConfig = {
+        parallelUploads: 1,
+        maxFileSize: 5
+      };
+      myDropzone = new Dropzone("div#profileZone", {
+        url: "/"
+      });
+      myDropzone.previewsContainer = false;
+      myDropzone.dictDefaultMessage = 'Drop your profile image here';
+      myDropzone.options = {
+        paramName: "icon",
+        maxFilesize: 5,
+        createImageThumbnails: false,
+        dictDefaultMessage: 'Drop your profile image here',
+        accept: function(file, done) {
+          var stream;
+          stream = ss.createStream();
+          ss(socket.mySocket).emit('newProfileImage', stream, {
+            name: file.name
+          });
+          return ss.createBlobReadStream(file).pipe(stream);
+        }
+      };
+      socket.on('pictureUpdated', function(filename) {
+        $scope.user.picture = filename;
+        return $scope.updatedPicture = true;
+      });
     }
 
     return libraryController;

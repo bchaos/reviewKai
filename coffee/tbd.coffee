@@ -98,6 +98,7 @@ app.config ($httpProvider) ->
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 app.service 'socket',($rootScope) ->
+
     socket = io.connect 'http://Reviewkai.com:8080'
     {
         on: (eventname, callback) -> 
@@ -111,6 +112,7 @@ app.service 'socket',($rootScope) ->
                 $rootScope.$apply ->
                      if callback
                         callback.apply socket, args
+        mySocket: socket
     }
 
 app.filter('myLimitTo', [->
@@ -610,6 +612,7 @@ app.controller 'libraryController',
             
             $scope.toggleEditMode =()->
                 $scope.editMode =!$scope.editMode
+                $scope.updatedPicture = false;
                 
             path =$location.path();
             path = path.substring(1)
@@ -764,4 +767,23 @@ app.controller 'libraryController',
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
             createGameDetailViewer $ionicModal, $scope, socket
-
+            $scope.dropzoneConfig = {
+              parallelUploads: 1,
+              maxFileSize: 5
+            };
+            myDropzone = new Dropzone("div#profileZone", { url: "/"});
+            myDropzone.previewsContainer=false
+            myDropzone.dictDefaultMessage = 'Drop your profile image here'
+            myDropzone.options = {
+              paramName: "icon"
+              maxFilesize: 5
+              createImageThumbnails :false
+              dictDefaultMessage: 'Drop your profile image here'
+              accept: (file, done)->
+                stream = ss.createStream();
+                ss(socket.mySocket).emit('newProfileImage', stream, {name: file.name});
+                ss.createBlobReadStream(file).pipe(stream);
+            }
+            socket.on 'pictureUpdated', (filename)->
+                $scope.user.picture=filename
+                $scope.updatedPicture = true;

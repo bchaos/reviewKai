@@ -9,6 +9,7 @@ fs= require('fs')
 request= require('request')
 mysql = require 'mysql'
 validator = require('validator')
+ss= require('socket.io-stream')
 
 
 __dirname=''
@@ -42,9 +43,12 @@ userRegister = require './userRegistration'
 gameLibraryMananger = require './gameLibraryMananger'
 giantBombMananger = require './giantbomb'
 resourceMananger = require './resourceMananger'
+imageUploader= require './imageUploader'
+
 io.on 'connection', (client) ->
     client.emit 'goTologin'
     userRegister client,connection,bcrypt,crypto,validator 
     gameLibraryMananger client, connection    
     giantBombMananger client, request,connection
     resourceMananger client, connection
+    imageUploader client, ss, connection,fs

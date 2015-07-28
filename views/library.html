@@ -6,26 +6,33 @@
             <div class="pure-g-r pure-u-1">
             
             <div class="pure-u-1 movedown">
-                <span class="username">{{user.name}}'s </span> Library  
-                <span ng-show="localLibrary">
-                    <button class="button button-small button-assertive" ng-hide="editMode" ng-click="toggleEditMode()"> Edit </button>
-                    <button class="button button-small button-assertive" ng-show="editMode" ng-click="toggleEditMode()"> Cancel </button>
-                    <button class="button button-small button-modal" ng-show="editMode" ng-click="saveLibraryEdit()"> Save </button>
-                </span>
-            <br/>
-            <span class="smallText"> Site :
-                <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
-                <input type="text" ng-model ="user.site" ng-show="editMode"> 
-            </span> 
-                <br/>
-                <span  class="smallText">  Stream : 
-                    <a ng-hide="editMode" href="{{user.stream}}" target="_blank">
-                        {{user.stream}} 
-                    </a>
-                    <input type="text" ng-model ="user.stream" ng-show="editMode">
-                </span>
-                <br/> 
-                 <button class="button button-small button-modal libarybutton"  ng-show ="localLibrary" ng-click ="importFromSteam()" ng-show="myLibrary"> <img src="images/Steam_Icon_2014.png" class="smalllogo"> Import Games from Steam</button>
+                <div class="userImageInLibrary " >
+                    <img src="images/userimages/{{user.picture}}" class="userLibaryImage" ng-hide='editMode  || updatedPicture'>
+
+                </div>
+                 <div class="pure-u-6-8">
+                    <div id="profileZone" class="dropzone" ng-show="editMode || updatedPicture" ></div>
+                    <span class="username">{{user.name}}'s </span> Library
+                    <span ng-show="localLibrary">
+                        <button class="button button-small button-assertive" ng-hide="editMode" ng-click="toggleEditMode()"> Edit </button>
+                        <button class="button button-small button-assertive" ng-show="editMode" ng-click="toggleEditMode()"> Cancel </button>
+                        <button class="button button-small button-modal" ng-show="editMode" ng-click="saveLibraryEdit()"> Save </button>
+                    </span>
+                    <p/>
+                    <span class="smallText"> Site :
+                        <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
+                        <input type="text" ng-model ="user.site" ng-show="editMode">
+                    </span>
+                    <br/>
+                    <span  class="smallText">  Stream :
+                        <a ng-hide="editMode" href="{{user.stream}}" target="_blank">
+                            {{user.stream}}
+                        </a>
+                        <input type="text" ng-model ="user.stream" ng-show="editMode">
+                    </span>
+                    <br/>
+                     <button class="button button-small button-modal libarybutton"  ng-show ="localLibrary" ng-click ="importFromSteam()" ng-show="myLibrary"> <img src="images/Steam_Icon_2014.png" class="smalllogo"> Import Games from Steam</button>
+                </div>
             </div>
             </div>
         </h1>
