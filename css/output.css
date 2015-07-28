@@ -7,7 +7,7 @@ html, body {
   font-size: 13px;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #222222; }
+  background-color: #f7f1e6; }
 
 .button.button-positive.button-outline {
   border-color: #92bb2c;
@@ -20,8 +20,11 @@ html, body {
     -o-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out; }
 
+ul {
+  list-style-type: none; }
+
 .item-input {
-  background-color: #beb097;
+  background-color: #f3e2c4;
   border-color: #f8931d; }
 
 #menu {
@@ -44,7 +47,7 @@ html, body {
   bottom: 10%; }
 
 .button.button-modal {
-  background-color: #beb097;
+  background-color: #f3e2c4;
   border-color: #f8931d;
   color: #222222; }
 
@@ -84,7 +87,7 @@ ol.categories {
   left: -30px;
   position: relative;
   background: #222222;
-  color: #d0c0a4; }
+  color: #f7f1e6; }
 
 .pure-form label {
   margin: 1em 0 0;
@@ -110,7 +113,7 @@ ol.categories {
   position: fixed !important; }
 
 .splash-container-dashboard {
-  background: #222222;
+  background: #f7f1e6;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -118,10 +121,10 @@ ol.categories {
 
 .pure-button-primary {
   color: #222222;
-  background-color: #d0c0a4; }
+  background-color: #f7f1e6; }
 
 .pure-button-primary :hover {
-  background-color: #beb097; }
+  background-color: #f3e2c4; }
 
 .splash {
   width: 80%;
@@ -181,7 +184,7 @@ ol.categories {
 
 .gameObject {
   border: 1px solid #ddd;
-  background: #d0c0a4;
+  background: #f7f1e6;
   margin: 0 0.5em 2em;
   padding: 0 0 3em;
   min-height: 230px; }
@@ -197,7 +200,7 @@ ol.categories {
 
 /* This is a modifier class used when the content-head is inside a ribbon */
 .content-head-ribbon {
-  color: #d0c0a4; }
+  color: #f7f1e6; }
 
 .content-subhead {
   color: #222222;
@@ -274,7 +277,7 @@ ol.categories {
   .splash-head {
     font-size: 250%; } }
 .modal {
-  background-color: #d0c0a4;
+  background-color: #f7f1e6;
   color: #222222; }
   .modal .bar {
     background-color: #222222;
@@ -334,7 +337,7 @@ ol.categories {
     z-index: 800;
     width: inherit;
     height: inherit;
-    border: 1px solid #d0c0a4;
+    border: 1px solid #f7f1e6;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
     -webkit-transform: rotateY(-180deg);
     -moz-transform: rotateY(-179deg);
@@ -354,7 +357,7 @@ ol.categories {
     .panel .back.negative {
       background: #fb4b0f; }
     .panel .back.unknown {
-      background: #d0c0a4; }
+      background: #f7f1e6; }
     .panel .back.ok {
       background: #fdde09; }
   .panel.flip .front {
@@ -376,14 +379,14 @@ ol.categories {
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
 
 .mobilePanel {
-  background-color: #d0c0a4;
+  background-color: #f7f1e6;
   color: #222222; }
   .mobilePanel.flipable {
     height: 188px;
     background: url("../images/cardbackMobile.png"); }
   .mobilePanel.flip .front {
     z-index: 8;
-    border-color: #d0c0a4;
+    border-color: #f7f1e6;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
     display: none;
     -webkit-transform: rotateX(180deg);
@@ -403,7 +406,7 @@ ol.categories {
     z-index: 800;
     width: inherit;
     height: inherit;
-    border: 1px solid #d0c0a4;
+    border: 1px solid #f7f1e6;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6); }
   .mobilePanel .back {
     -webkit-transform: rotateX(-180deg);
@@ -424,7 +427,7 @@ ol.categories {
     .mobilePanel .back.negative {
       background: #fb4b0f; }
     .mobilePanel .back.unknown {
-      background: #d0c0a4; }
+      background: #f7f1e6; }
     .mobilePanel .back.ok {
       background: #fdde09; }
   .mobilePanel .front {
@@ -437,7 +440,7 @@ ol.categories {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
-    color: #d0c0a4;
+    color: #f7f1e6;
     /* -- transition is the magic sauce for animation -- */
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out; }
@@ -450,7 +453,7 @@ ol.categories {
   width: 100%; }
 
 .white-link {
-  color: white; }
+  color: #f8931d; }
 
 @keyframes shuffleanimation {
   0% {
@@ -550,7 +553,7 @@ ol.categories {
   opacity: .7; }
 
 .circle div .circleLogo {
-  box-shadow: 0 1px 0 #d0c0a4;
+  box-shadow: 0 1px 0 #f7f1e6;
   color: #f8931d;
   text-align: center;
   width: 55%;
@@ -567,7 +570,7 @@ ol.categories {
   margin-top: 15px; }
 
 .username {
-  color: #d0c0a4; }
+  color: #222222; }
 
 .game_image {
   margin-left: auto;
@@ -606,7 +609,7 @@ ol.categories {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5px;
-  background-color: #d0c0a4;
+  background-color: #f7f1e6;
   border: 1px solid #f8931d; }
 
 .game_recomendation {
@@ -638,18 +641,18 @@ ol.categories {
   .game_mobile.negative {
     background: #fb4b0f; }
   .game_mobile.unknown {
-    background: #d0c0a4; }
+    background: #f7f1e6; }
   .game_mobile.ok {
     background: #fdde09; }
   .game_mobile.platforms {
-    background: #d0c0a4; }
+    background: #f7f1e6; }
     .game_mobile.platforms :focus {
-      background: #beb097; }
+      background: #f3e2c4; }
   .game_mobile.gameAdder {
     height: 50px;
-    background: #d0c0a4; }
+    background: #f7f1e6; }
     .game_mobile.gameAdder :focus {
-      background: #beb097; }
+      background: #f3e2c4; }
 
 .newGameAdder {
   margin: 12px 30%;
@@ -658,7 +661,8 @@ ol.categories {
   position: absolute; }
 
 .pure-menu-selected {
-  background-color: #beb097; }
+  background-color: #f3e2c4;
+  color: #222222; }
 
 .item-input {
   padding: 1px 0px 1px 12px; }
@@ -667,7 +671,7 @@ ol.categories {
   height: 100px;
   font-size: 3em;
   background-color: #2d3e50;
-  color: #d0c0a4; }
+  color: #f7f1e6; }
   .library-header .library-avatar {
     border-radius: 100px;
     margin-left: 1em;
@@ -699,7 +703,7 @@ ol.categories {
 
 #menu .pure-menu ul,
 #menu .pure-menu .menu-item-divided {
-  border-top: 1px solid #d0c0a4; }
+  border-top: 1px solid #f7f1e6; }
 
         /*
         Change color of the anchor links on hover/focus.
@@ -720,7 +724,7 @@ ol.categories {
   margin-left: 10px; }
 
 .smallText {
-  font-size: 50%; }
+  font-size: 70%; }
 
 .modalSelectionArea {
   overflow-y: scroll;
@@ -758,6 +762,9 @@ ol.categories {
       display: block;
       height: 24px;
       margin: -4px; }
+
+.logoText {
+  vertical-align: text-top; }
 
 .menu-logo {
   margin-left: 7px; }

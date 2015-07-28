@@ -1,5 +1,5 @@
 #  cfcoptions : { "out": "../js/"   }
-app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ionic'],
+app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ionic', 'ngMaterial'],
  ($routeProvider, $locationProvider)->
             $routeProvider.when '/library', {
                 templateUrl: 'views/library.html'
@@ -71,6 +71,10 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
                 templateUrl: 'views/library.html'
                 controller: 'libraryController'
             }
+app.config ($mdThemingProvider) ->
+    $mdThemingProvider.theme('default')
+    .primaryPalette('deep-orange')
+    .accentPalette('orange');
 
 app.directive 'platfromcard', ->  
     restrict: 'E',
@@ -99,7 +103,7 @@ app.config ($httpProvider) ->
 
 app.service 'socket',($rootScope) ->
 
-    socket = io.connect 'http://Reviewkai.com:8080'
+    socket = io.connect 'http://localhost:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->

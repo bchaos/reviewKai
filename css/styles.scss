@@ -5,8 +5,8 @@ $listColor: #6d6e70;
 $darkBlue: #2d3e50;
 $redColour:#fb4b0f;
 $lightBlue: #1f8dd6;
-$whiteColour:#D0C0A4;
-$whiteHover: #beb097;
+$whiteColour:#f7f1e6;
+$whiteHover: #f3e2c4;
 $primaryDark:#222;
 $lightGreyText:#9CA2A5;
 $primaryOrange:#f8931d;
@@ -23,7 +23,7 @@ html, body{
     font-size: 13px;
     overflow-x:hidden;
     overflow-y:scroll;
-    background-color:$primaryDark;
+    background-color: $whiteColour;
 }
 
 .button{
@@ -42,7 +42,10 @@ html, body{
     }
 
 }
-
+ul
+{
+    list-style-type: none;
+}
 .item-input{
     background-color: $whiteHover;
     border-color: $primaryOrange;
@@ -145,7 +148,7 @@ margin-right: auto;
 }
 
 .splash-container-dashboard{
-    background: $primaryDark;
+    background: $whiteColour;
     width: 90%;
 margin-left: auto;
 margin-right: auto;
@@ -559,7 +562,7 @@ margin-right: auto;
   width: 100%;
 }
 .white-link{
-   color: white;
+   color: $primaryOrange;
 }
 
 @keyframes shuffleanimation {
@@ -661,7 +664,7 @@ margin-right: auto;
 }
 
 .username{
- color:$whiteColour;
+ color:$primaryDark;
 }
 .game_image{
     margin-left: auto;
@@ -778,7 +781,7 @@ margin-right: auto;
 }
 .pure-menu-selected{
   background-color: $whiteHover;
-
+    color:$primaryDark
 }
 
 .item-input{
@@ -851,7 +854,7 @@ margin-right: auto;
 
 }
 .smallText{
-    font-size:50%;
+    font-size:70%;
 }
 
 .modalSelectionArea{
@@ -895,6 +898,9 @@ margin-right: auto;
         }
     }
 
+}
+.logoText{
+    vertical-align: text-top;
 }
 .menu-logo{
   margin-left: 7px;
