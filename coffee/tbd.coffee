@@ -1,5 +1,5 @@
 #  cfcoptions : { "out": "../js/"   }
-app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ionic'],
+app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ionic', 'angularRipple'],
  ($routeProvider, $locationProvider)->
             $routeProvider.when '/library', {
                 templateUrl: 'views/library.html'
@@ -99,7 +99,7 @@ app.config ($httpProvider) ->
 
 app.service 'socket',($rootScope) ->
 
-    socket = io.connect 'http://Reviewkai.com:8080'
+    socket = io.connect 'http://localhost:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->

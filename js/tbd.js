@@ -2,7 +2,7 @@
 (function() {
   var app, confidantController, createGameDetailViewer, dashboardController, genericController, guruController, homeController, isloggedin, libraryController, peerController, recommendationController, reviewController, searchController, signInSetup;
 
-  app = angular.module('reviewApp', ['ngAnimate', 'ngRoute', 'ngResource', 'ngSanitize', 'ionic'], function($routeProvider, $locationProvider) {
+  app = angular.module('reviewApp', ['ngAnimate', 'ngRoute', 'ngResource', 'ngSanitize', 'ionic', 'angularRipple'], function($routeProvider, $locationProvider) {
     $routeProvider.when('/library', {
       templateUrl: 'views/library.html',
       controller: 'libraryController'
@@ -119,7 +119,7 @@
 
   app.service('socket', function($rootScope) {
     var socket;
-    socket = io.connect('http://Reviewkai.com:8080');
+    socket = io.connect('http://localhost:8080');
     return {
       on: function(eventname, callback) {
         return socket.on(eventname, function() {
