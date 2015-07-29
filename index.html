@@ -86,9 +86,11 @@
 
         <ul class="pure-meu-list">
             <span ng-hide="accessList">
-                <li class="pure-menu-item"><a href="#/" class=" button   icon ion-information-circled button-review pure-menu-link icon-left">About</a></li>
-                 <li class="pure-menu-item" ng-click ='signUpModal()' >  <md-button>Signup </md-button></li>
-                <li class="pure-menu-item" ng-click ='signInModal()' ><md-button>Login </md-button></li>
+                <li class="pure-menu-item"  ng-class="isActive('')"><a href="#/" > <md-button>About</md-button></a></li>
+                 <li class="pure-menu-item" ng-click ='signUpModal()' >
+                <a>     <md-button>Signup </md-button></a>
+                </li>
+                <li class="pure-menu-item" ng-click ='signInModal()' ><a><md-button>Login </md-button></a></li>
                 <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button></li>
 
             </span>

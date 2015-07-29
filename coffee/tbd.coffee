@@ -295,13 +295,9 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                 $scope.peerModal = modal
                 $scope.modalGame = {}
         
-signInSetup = ($scope, $ionicModal, socket)-> 
-   $ionicModal.fromTemplateUrl('views/signupSignInModal.html' ,  {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then (modal) -> 
-        $scope.modal = modal
-        $scope.logdata = {}
+signInSetup = ($scope, $mdDialog, socket)->
+
+    $scope.logdata = {}
     socket.on 'NeedUsername',()->
         $scope.modal.show()
         $scope.needUsername=true;
@@ -327,12 +323,22 @@ signInSetup = ($scope, $ionicModal, socket)->
 
     $scope.closeModal  = ->
         $scope.logdata = {}
-        $scope.modal.hide()
-    $scope.signUpModal = ->
-        $scope.modal.show()
+        $mdDialog.hide()
+    $scope.signUpModal =(ev) ->
+       $mdDialog.show({
+          controller: DialogController,
+          templateUrl: 'views/signupSignInModal.html',
+          parent: angular.element(document.body),
+          targetEvent: ev
+        })
         $scope.signUp =true
-    $scope.signInModal = ->
-        $scope.modal.show()
+    $scope.signInModal =(ev) ->
+        $mdDialog.show({
+          controller: DialogController,
+          templateUrl: 'views/signupSignInModal.html',
+          parent: angular.element(document.body),
+          targetEvent: ev
+        })
         $scope.signUp =false
     $scope.signInOrSignUpNow =()->
         if $scope.signUp
@@ -363,10 +369,13 @@ signInSetup = ($scope, $ionicModal, socket)->
         $scope.errormessage = message
     socket.on 'userLoggedin', ->
         $scope.closeModal()
+
+DialogController = ($scope, $mdDialog) ->
+
 app.controller 'reviewController', 
     class reviewController
-        @$inject : ['$scope', '$location', 'socket', '$ionicModal']
-        constructor: (@$scope, @$location, @socket,  $ionicModal ) ->
+        @$inject : ['$scope', '$location', 'socket', '$ionicModal','$mdDialog' ]
+        constructor: (@$scope, @$location, @socket,  $ionicModal,$mdDialog ) ->
 
             $scope.toggleClass = ->
                 if $scope.active is 'false'
@@ -377,7 +386,7 @@ app.controller 'reviewController',
             if $location.path() isnt '/home' && $location.path() isnt '/'
                 isloggedin(socket,  $location.path())
             $scope.loggedin=true
-            signInSetup $scope,$ionicModal,socket
+            signInSetup $scope,$mdDialog,socket
             socket.on 'goToLogin', ->
                  isloggedin(socket,  $location.path())
 
@@ -600,9 +609,14 @@ app.controller 'genericController',
 
 app.controller 'libraryController',
     class libraryController
-        @$inject: ['$scope',   '$ionicModal', 'socket','$location' ,'$ionicPopover']
-        constructor: (@$scope,  $ionicModal, @socket, @$location, $ionicPopover) ->
-         
+        @$inject: ['$scope',   '$ionicModal', 'socket','$location' ,'$ionicPopover', '$mdDialog']
+        constructor: (@$scope,  $ionicModal, @socket, @$location, $ionicPopover, $mdDialog) ->
+            $scope.isOpen = false;
+            $scope.demo = {
+                isOpen: false,
+                count: 0,
+                selectedAlignment: 'md-left'
+            };
             $scope.loggedin=true
             $scope.myLibrary=true
             $scope.NoLibraryError=false

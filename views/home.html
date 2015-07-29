@@ -6,9 +6,9 @@
            A personal approach to game reviews.
         </p>
         <p>
-            <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
+         <a> <md-button class="item-input" ng-click ='signUpModal($event)' > Signup </md-button>
 
-<button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button> 
+<md-button class="item-input " ng-click ='signInModal($even)' > Login  </md-button> </a>
          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button>
         </p>
     </div>
