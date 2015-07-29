@@ -27,7 +27,7 @@
         <script type="text/javascript" src="js/ionic.js"></script>
         <script type="text/javascript" src="js/angular-ui-router.js"></script>
         <script type="text/javascript" src="js/ionic-angular.js"></script>
-
+        <script type="text/javascript" src="js/ripple.js"></script>
         <script type="text/javascript" src="js/dropzone.js"></script>
         <script type="text/javascript" src="js/tbd.js"></script>
         <script src="js/socket.js"></script>
@@ -88,8 +88,9 @@
 
             </span>
                <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item">
-                   <a href="#/{{access.link}}"  class=" button   icon {{access.icon}} button-review pure-menu-link icon-left">
-                       {{access.name}}
+                   <a href="#/{{access.link}}"  >
+                       <button class=" button   icon {{access.icon}} button-review pure-menu-link icon-left"  angular-ripple> {{access.name}} </button>
+
                    </a>
                </li>
                 <li class="pure-menu-item" ng-show="accessList">
