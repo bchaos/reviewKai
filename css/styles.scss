@@ -1,6 +1,7 @@
 $postiveColor:#8cc63f;
 $greenColour: #92bb2c;
 $yellowColour:#fdde09;
+
 $listColor: #6d6e70; 
 $darkBlue: #2d3e50;
 $redColour:#fb4b0f;
@@ -51,7 +52,7 @@ ul
 .item-input{
     background-color: $whiteHover;
     border-color: $primaryOrange;
-    color: $pr
+    color: $primaryDark;
 }
 #menu {
     margin-left: -200px; /* "#menu" width */
@@ -198,6 +199,9 @@ margin-right: auto;
     border-radius: 5px;
     line-height: 1em;
     text-transform: uppercase;
+    &.library{
+        padding: .5em .5em;
+    }
 }
 .splash-subhead {
     color: $primaryOrange;
@@ -206,6 +210,9 @@ margin-right: auto;
     &.confidants{
       font-size: .5em;
     }
+}
+.md-subheader {
+  background-color: $whiteColour !important;
 }
 .iosContent{
     .splash-dashboard{
@@ -405,7 +412,9 @@ margin-right: auto;
             height: 350px;
         }
     }
-
+    md-toolbar{
+        background-color: $primaryOrange;
+    }
 
     .back {
         float: none;
@@ -570,6 +579,10 @@ margin-right: auto;
    color: $primaryOrange;
 }
 
+.white-text{
+    color:$whiteColour
+}
+
 @keyframes shuffleanimation {
     0%   {left: 38%; top:38%; z-index:2;}
     50%  {left:200px; top:20%;z-index:1}
@@ -591,7 +604,7 @@ margin-right: auto;
 }
 
 .loadingCard{
-    position: absolute;
+    position: fixed;
     float: left;
     left: 38%;
     top: 38%;
@@ -671,15 +684,10 @@ margin-right: auto;
  color:$primaryDark;
 }
 .game_image{
-    margin-left: auto;
-    margin-right: auto;
-    border: 2px ridge $primaryOrange;
-    border-radius: 10%;
-    width: 90%;
     background-size: 100% 150%;
     background-repeat: no-repeat;
     background-position: center;
-    height: 42%;
+    height: 55%;
     &.mobile{
         border-radius: 0%;
         height: 140px;
@@ -703,22 +711,40 @@ margin-right: auto;
 .card img{
     max-width:100px;
 }
-.game_header, .game_recomendation{
-    margin-top:5px;
-    font-size:1.2em;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom:5px;
-    background-color:$whiteColour;
-    border: 1px solid $primaryOrange;
 
+.infoIcon{
+   float: right;
+   top: -51px;
+   margin-right: 18px;
+}
+.postive .game_header{
+  background-color:  rgba(146,187,44,0.8);
+}
+.negative .game_header{
+  background-color:  rgba(251,75,18,0.8);
+}
+.ok .game_header{
+  background-color:  rgba(253,222,9,0.8);
 }
 
-.game_recomendation{
+.game_header, .game_recomendation{
+    margin-top:5px;
 
-     overflow-y: scroll;
-     height:38%;   
+    margin-bottom:5px;
+
+}
+.game_header{
+  position: relative;
+  top: -30px;
+  font-size: 1.4em;
+}
+.game_recomendation{
+    top: -71px;
+    position: relative;
+    width: 100%;
+    overflow-y: hidden;
+    height:38%;
+    font-size:1em;
     &.tall{
        height:95%;
 
@@ -727,6 +753,9 @@ margin-right: auto;
         height:50%
     }
 }
+.game_mobile {
+    width:100%;
+}
 .game_name{
     margin-left:8px;
     &.mobile{
@@ -734,12 +763,21 @@ margin-right: auto;
         font-size:1.4em;
     }
 }
-
+.probuttons{
+    font-size:.9em;
+    padding: 0px;
+    margin: 0px;
+}
 .game_recomendation_text{
-    margin-left:8px;
-    margin-right:8px;
     margin-top:20px;
+    font-size:1em;
+    md-list{
+        padding: 0px;
+
+    }
     &.mobile{
+        margin-top:0px;
+        margin-left: 8px;
       color: $primaryDark;
     }
 }
@@ -778,7 +816,7 @@ margin-right: auto;
 
 }
 .newGameAdder{
-  margin: 12px 30%; 
+  margin: 0px 30%;
     color:$primaryDark;
     font-size:1.8em; 
     position: absolute;
@@ -859,6 +897,9 @@ margin-right: auto;
 }
 .smallText{
     font-size:70%;
+    a{
+        color: $lightGreyText;
+    }
 }
 
 .modalSelectionArea{
@@ -913,7 +954,7 @@ margin-right: auto;
   color:$primaryOrange;   
 }
 a {
-  color:$lightGreyText;
+  color:$whiteColour;
 }
 a :visited{
   color:$primaryOrange;
@@ -951,6 +992,9 @@ a :visited{
      0%   {opacity: 0.0; }
 
     100% {opacity: 1.0;}
+}
+.reallysmall{
+    height: 30px;
 }
 .steamCard{
         animation-name: steamCardAnimation;
@@ -1004,57 +1048,40 @@ a :visited{
   width: inherit;
   height: inherit;
 }
-/// staggered animations ///
 
-/*
- * ngRepeat triggers three animation events: enter, leave and move.
- */
-.repeat-animation.ng-enter,
-.repeat-animation.ng-leave,
-.repeat-animation.ng-move {
-  -webkit-transition:0.5s linear all;
-  transition:0.5s linear all;
+
+
+.dropzone, .userLibaryImage,.userHeaderName{
+  &.ng-hide-remove.ng-hide-remove-active {
+    -webkit-animation: zoomInDown .5s;
+    -moz-animation: zoomInDown .5s;
+    -ms-animation: zoomInDown .5s;
+    animation: zoomInDown .5s;
+
+  }
+  &.ng-hide-add.ng-hide-add-active{
+    -webkit-animation: zoomOutUp .5s;
+    -moz-animation: zoomOutUp .5s;
+    -ms-animation: zoomOutUp .5s;
+    animation: zoomOutUp .5s;
+      position: absolute;
+  }
+  &.ng-enter-stagger{
+    transition-delay: 0.1s;
+    transition-duration: 0s;
+  }
 }
-
-/* ending enter and move styling
-   (this is what the element will animate from */
-.repeat-animation.ng-enter,
-.repeat-animation.ng-move { opacity:0; }
-
-/* ending enter and move styling
-   (this is what the element will animate towards */
-.repeat-animation.ng-enter.ng-enter-active,
-.repeat-animation.ng-move.ng-move-active { opacity:1; }
-
-/* starting leave animation */
-.repeat-animation.ng-leave { opacity:1; }
-
-/* ending leave animation */
-.repeat-animation.ng-leave.ng-leave-active { opacity:0; }
-
-
-.repeat-animation.ng-enter,
-.repeat-animation.ng-leave,
-.repeat-animation.ng-move {
-  -webkit-transition:0.5s linear all;
-  transition:0.5s linear all;
+md-select {
+  padding: 0;
+  background-color: $whiteColour;
+  color: $primaryOrange;
+  .md-select-label.md-placeholder{
+      color: $primaryOrange;
+  }
 }
-
-.repeat-animation.ng-enter-stagger,
-.repeat-animation.ng-leave-stagger,
-.repeat-animation.ng-move-stagger {
-  /* 50ms between each item being animated after the other */
-  -webkit-transition-delay:50ms;
-  transition-delay:50ms;
-
-  /* this is required here to prevent any CSS inheritance issues */
-  -webkit-transition-duration:0;
-  transition-duration:0;
+md-content {
+    background-color: $whiteColour !important;
 }
-
-
-
-
 /// dropzone css///
 
 /*

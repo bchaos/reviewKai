@@ -143,12 +143,9 @@ isloggedin = (socket, location)->
         socket.emit 'isUserLoggedin', {key:window.localStorage.sessionkey, location:location}
     
         
-createGameDetailViewer= ( $ionicModal, $scope, socket) ->
+createGameDetailViewer= ( $ionicModal, $scope, socket, $location) ->
             $scope.newOffset = 0;   
-            if $scope.myLibrary && $scope.localLibrary
-                $scope.itemsPerPage = 11;
-            else 
-                $scope.itemsPerPage = 12;
+            $scope.itemsPerPage = 12;
             $scope.currentPage = 0;
             $scope.onCurrentPage =(num)->
                 if num is $scope.currentPage
@@ -186,7 +183,12 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                 if lastPage < $scope.maxPages-1
                     $scope.pages.push {elispe:true, number:false}
                     $scope.pages.push {number:$scope.maxPages-1, startingPoint:($scope.maxPages-1)*$scope.itemsPerPage}
-                
+            $scope.setPlatform =(platform)->
+                newPath =platform
+                curPath = $location.search('platform');
+                if curPath isnt newPath
+                    $location.search 'platform', newPath
+
             $scope.setPage = (num)->
                 if num>=0 and num<$scope.maxPages
                     $scope.currentPage=num
@@ -232,7 +234,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     when score < 4.5 then 'Play this game!'
                     else 'You will love this game!'
             $scope.getGameStyle= (gameUrl)->  
-                 return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 150%', 'background-repeat':'no-repeat', 'background-position':'center'}
+                 return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 100%', 'background-repeat':'no-repeat'}
 
             $scope.colorForScore = (score)->
                 saying = switch
@@ -324,22 +326,15 @@ signInSetup = ($scope, $mdDialog, socket)->
     $scope.closeModal  = ->
         $scope.logdata = {}
         $mdDialog.hide()
-    $scope.signUpModal =(ev) ->
+    $scope.signUpModal =(ev ,signingup) ->
        $mdDialog.show({
-          controller: DialogController,
+          scope: $scope,
           templateUrl: 'views/signupSignInModal.html',
-          parent: angular.element(document.body),
           targetEvent: ev
+          preserveScope: true
+          clickOutsideToClose: true
         })
-        $scope.signUp =true
-    $scope.signInModal =(ev) ->
-        $mdDialog.show({
-          controller: DialogController,
-          templateUrl: 'views/signupSignInModal.html',
-          parent: angular.element(document.body),
-          targetEvent: ev
-        })
-        $scope.signUp =false
+        $scope.signUp =signingup
     $scope.signInOrSignUpNow =()->
         if $scope.signUp
             $scope.signUpNow()
@@ -370,7 +365,6 @@ signInSetup = ($scope, $mdDialog, socket)->
     socket.on 'userLoggedin', ->
         $scope.closeModal()
 
-DialogController = ($scope, $mdDialog) ->
 
 app.controller 'reviewController', 
     class reviewController
@@ -439,7 +433,7 @@ app.controller 'searchController',
             $scope.scoreName='avgscore'
             $scope.loggedin=true
             $scope.SearchForAGame=false
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket ,$location
             searchObject = $location.search();
             $scope.getGame=()->
                 $scope.isLoading =true
@@ -478,8 +472,8 @@ app.controller 'searchController',
                 $scope.isLoading = false
 app.controller 'dashboardController',
 	class dashboardController
-        @$inject: ['$scope', '$ionicModal', 'socket']
-        constructor: (@$scope,  $ionicModal, @socket) ->
+        @$inject: ['$scope', '$ionicModal', 'socket','$location']
+        constructor: (@$scope,  $ionicModal, @socket,$location) ->
             $scope.isLoading=true;
             socket.emit 'GetRecentGames'
             @socket.on 'recentReleases', (data)->
@@ -489,7 +483,7 @@ app.controller 'dashboardController',
                 $scope.isLoading=false
                 $scope.recentGames = false
                 
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket,$location
 
 app.controller 'confidantController',
     class confidantController
@@ -567,7 +561,7 @@ app.controller 'peerController',
                     $scope.games.push item
                 $scope.setUpPages();
                 $scope.isLoading=false;
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket,$location
             
 app.controller 'guruController',
 	class guruController
@@ -599,7 +593,7 @@ app.controller 'guruController',
                     $scope.games.push item
                 $scope.setUpPages();
                 $scope.isLoading=false;
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket,$location
 
 app.controller 'genericController', 
     class genericController
@@ -784,7 +778,7 @@ app.controller 'libraryController',
                 $scope.edit.rating= parseInt $scope.edit.rating
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $ionicModal, $scope, socket,$location
             $scope.dropzoneConfig = {
               parallelUploads: 1,
               maxFileSize: 5
