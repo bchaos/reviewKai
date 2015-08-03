@@ -19,10 +19,10 @@
         <div class="game_recomendation">
             <div class="game_recomendation_text"> 
            <md-button ng-click="getGuruDetails(game.id ,$event)" class="probuttons" ng-show="game.guruscore">
-                   Pros say:{{convertRating(game.guruscore)}}  <span ng-hide="game.guruscore">TBD  </span>   </md-button>
+              <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon> <span class="spacer16"></span>     Pros say:{{convertRating(game.guruscore)}}   <span ng-hide="game.guruscore">TBD  </span>   </md-button>
             <p/>
            <md-button  ng-click="getPeerDetails(game.id ,$event)" class="probuttons"  ng-show="game.peerscore">
-               Peers say:{{convertRating(game.peerscore)}} <span ng-hide="game.peerscore ">TBD </span>
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon> <span class="spacer16"></span>     Peers say:{{convertRating(game.peerscore)}} <span ng-hide="game.peerscore ">TBD </span>
                 </md-button>
             </div>
         </div>
@@ -57,7 +57,7 @@
         <div>
 
                  <md-button  class="mobileText"  ng-click="getGuruDetails(game.id ,$event)" >
-                 Pros say: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}}  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+                      <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon> <span class="spacer16"></span>   Pros say: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}}
                      </span> <span ng-hide="game.guruscore">TBD  </span>
 
                  </md-button>
@@ -65,7 +65,7 @@
 
                 <div>
                    <md-button  class="mobileText"  ng-click="getPeerDetails(game.id ,$event)">
-                Peers say:<span ng-show="game.peerscore"> {{convertRating(game.peerscore)}} <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>  </span><span ng-hide="game.peerscore ">TBD </span>
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon> <span class="spacer16"></span>      Peers say:<span ng-show="game.peerscore"> {{convertRating(game.peerscore)}} <  </span><span ng-hide="game.peerscore ">TBD </span>
                    </md-button>
         </div>
         </div>

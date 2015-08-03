@@ -36,10 +36,10 @@
                 
 
                <md-button ng-click="getGuruDetails(game.id ,$event)" class="probuttons" ng-show="game.guruscore && !myLibrary">
-                   Pros say:{{convertRating(game.guruscore)}}  <span ng-hide="game.guruscore">TBD  </span>   </md-button>
+                   Pros say:{{convertRating(game.guruscore)}} <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>   <span ng-hide="game.guruscore">TBD  </span>   </md-button>
             <p/>
            <md-button  ng-click="getPeerDetails(game.id ,$event)" class="probuttons"  ng-show="game.peerscore && !myLibrary">
-               Peers say:{{convertRating(game.peerscore)}} <span ng-hide="game.peerscore ">TBD </span>
+               Peers say:{{convertRating(game.peerscore)}} <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>   <span ng-hide="game.peerscore ">TBD </span>
                 </md-button>
                     
 

@@ -571,7 +571,10 @@ margin-right: auto;
         transition: all .4s ease-in-out;
     }
 }
-    
+.spacer16{
+    width:16px;
+    display: inline;
+}
 .lightblue{
   height: 40px;
   background-color: $darkBlue;
@@ -653,6 +656,8 @@ margin-right: auto;
 .panel {
     .pad{
         padding: 0 15px;
+        border-radius: 2px;
+
     }
     &.flip .action {
         display:none;
@@ -768,9 +773,10 @@ margin-right: auto;
     }
 }
 .probuttons{
-    font-size:.9em;
+    font-size:.7em;
     padding: 0px;
     margin: 0px;
+    margin-left: 5px;
 }
 .game_recomendation_text{
     margin-top:20px;

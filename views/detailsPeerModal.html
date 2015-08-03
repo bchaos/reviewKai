@@ -7,15 +7,17 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
-        <div class="list">
+       <md-list>
             <span ng-show="peerInfoLoading"> <div class="item item-divider"> loading ....</div> </span>       
             <span ng-hide="peerInfoLoading"> 
-                <a class="item" ng-repeat ="details in gameDetails" >
-                     <h2>{{details.reviewerName}}</h2>
-                      <p>Thoughts: {{convertMyRating(details.score)}}</p>
-                      <p>Review: {{details.details}}</p>
-                </a>
+                <md-list-item class="md-3-line" ng-repeat="details in gameDetails"  >
+                <div class="md-list-item-text">
+                <h3>{{details.reviewerName}}</h3>
+              <h4> Thoughts: {{convertMyRating(details.score)}}</h4>
+             <p>Review: {{details.details}}</p>
+                </div>
+            </md-list-item>
             </span>
-        </div> 
+        </md-list>
     </md-dialog-content>
 </md-dialog>

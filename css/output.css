@@ -460,6 +460,10 @@ ol.categories {
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out; }
 
+.spacer16 {
+  width: 16px;
+  display: inline; }
+
 .lightblue {
   height: 40px;
   background-color: #2d3e50;
@@ -550,7 +554,8 @@ ol.categories {
   height: 240px; }
 
 .panel .pad {
-  padding: 0 15px; }
+  padding: 0 15px;
+  border-radius: 2px; }
 .panel.flip .action {
   display: none; }
 
@@ -659,9 +664,10 @@ ol.categories {
     font-size: .8em; }
 
 .probuttons {
-  font-size: .9em;
+  font-size: .7em;
   padding: 0px;
-  margin: 0px; }
+  margin: 0px;
+  margin-left: 5px; }
 
 .game_recomendation_text {
   margin-top: 20px;
