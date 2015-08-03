@@ -603,6 +603,11 @@ ol.categories {
     border-radius: 0%;
     height: 140px; }
 
+.trucatedName {
+  overflow: hidden;
+  max-width: 200px;
+  white-space: nowrap; }
+
 .KaiadderText {
   margin-right: 20%;
   margin-left: 20%;
