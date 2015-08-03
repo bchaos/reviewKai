@@ -250,10 +250,16 @@ ol.categories {
 
   .hideDesktop {
     display: none; } }
+.mobileText {
+  font-size: .7em; }
+
+.md-dialog-container {
+  z-index: 9000; }
+
 .mobileLogoPos {
   position: absolute;
   margin-left: 40%;
-  margin-top: 40px; }
+  margin-top: 10px; }
 
 .mainBackground {
   background: url("../images/stock2.jpg") no-repeat fixed;
@@ -393,7 +399,6 @@ ol.categories {
   background-color: #f7f1e6;
   color: #222222; }
   .mobilePanel.flipable {
-    height: 188px;
     background: url("../images/cardbackMobile.png"); }
   .mobilePanel.flip .front {
     z-index: 8;
@@ -411,7 +416,6 @@ ol.categories {
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
   .mobilePanel .back {
     float: none;
-    position: absolute;
     top: 0;
     left: 0;
     z-index: 800;
@@ -652,7 +656,7 @@ ol.categories {
   margin-left: 8px; }
   .game_name.mobile {
     color: #222222;
-    font-size: 1.4em; }
+    font-size: .8em; }
 
 .probuttons {
   font-size: .9em;

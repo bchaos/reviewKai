@@ -16,9 +16,10 @@
       <div class="item item-divider">
         Add Game 
       </div>
-      <div class="item item-body" ng-click ="addNewGame()">
+      <div class="item item-body" >
          <p>
-               <a class="button button-icon button-large icon ion-ios-plus-outline"></a>
+
+              <md-button ng-hide='editMode'  ng-click ="addNewGame($event)"> <img src="images/rkcardSmall.png" class="reallysmall"> Add </md-button>
           </p>
       </div>
       <div class="item item-divider">

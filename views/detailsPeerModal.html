@@ -1,9 +1,12 @@
-<ion-modal-view>
-    <ion-header-bar>
-        <h1 class="title"> What your Peers say about this game </h1> 
-        <button class="button button-clear button-assertive" ng-click="closePeer()">x</button>
-    </ion-header-bar>
-    <ion-content>
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1 class="title"> What your Peers say about this game </h1>
+             <span flex></span>
+            <md-button ng-click="closePeer()">x</md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
         <div class="list">
             <span ng-show="peerInfoLoading"> <div class="item item-divider"> loading ....</div> </span>       
             <span ng-hide="peerInfoLoading"> 
@@ -14,5 +17,5 @@
                 </a>
             </span>
         </div> 
-    </ion-content>
-</ion-modal-view>
+    </md-dialog-content>
+</md-dialog>

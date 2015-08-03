@@ -1,35 +1,39 @@
-<ion-modal-view class="modalAdder">
-    <ion-header-bar>
-        <h1 class="title"> New Confidant  </h1>
-        <button class="button button-clear button-assertive" ng-click="closeModal()">x</button>
-    </ion-header-bar>
-    <div class="click panel circle pure-u-1-8" ng-class="canFlip"  >
+<md-dialog class="modalAdder">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1 class="title"> New Confidant  </h1>
+            <span flex></span>
+            <md-button ng-click="closeModal()">x</md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <div class="click panel circle pure-u-1-8" ng-class="canFlip">
 
      <div class="front" >
-         <div class="circleLogo"> <p/>Find a Confidant</div>
+        <div class="circleLogo"> <p/>Find a Confidant</div>
         <div class="list" ng-hide="confidantSelected">
             <div class="item item-divider">
                 <form ng-submit="findConfidant(searchRequirements)">
-                 <label class="item item-input">
-                    <i class="icon ion-search placeholder-icon"></i>
-                    <input type="text" placeholder="Search" ng-model="searchRequirements">
-                 </label>
-                 <button type="submit" class="button button-small" >
-                    Search
-                 </button>
-                    </form>
+                    <md-dialog-content>
+                         <label class="item item-input">
+                            Search
+                         </label>
+                         <input type="text" ng-model="searchRequirements">
+                         <md-button type="submit" class="button button-small" >
+                            Search
+                         </md-button>
+                    </md-dialog-content>
+                </form>
             </div>
-
         </div>
     </div>
     <div class="back postive" >
         <div class="list moveupby10" ng-show="confidantSelected">
             <div class="game_header">
               <div class="pure-u-19-24 game_name">
-                <button class="button button-small button-modal" ng-click="goback()"> back</button>
-                  {{newConfidant.name}}
+                <md-button ng-click="goback()"> &lang; back</md-button>
+                 {{newConfidant.name}}
               </div>
-
             </div>
 
               <div class="game_recomendation tall">
@@ -58,5 +62,5 @@
             <span ng-show="noneFound"> <h2> No users found </h2></span>
         </div>
     </div>
-
-</ion-modal-view>
+    </md-dialog-content>
+</md-dialog>

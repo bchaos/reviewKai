@@ -309,10 +309,16 @@ margin-right: auto;
         display:none;
     }
 }
+.mobileText{
+    font-size:.7em;
+}
+.md-dialog-container{
+    z-index:9000;
+}
 .mobileLogoPos{
     position: absolute;
     margin-left:  40%;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 .mainBackground{
     background:url('../images/stock2.jpg')no-repeat  fixed;
@@ -483,7 +489,6 @@ margin-right: auto;
     color:$primaryDark;
     
     &.flipable{
-        height: 188px;
         background: url($cardBackMobile);
     }
       &.flip{
@@ -507,7 +512,6 @@ margin-right: auto;
 
     .back {
         float: none;
-		position: absolute;
 		top: 0;
 		left: 0;
 		z-index: 800;
@@ -760,7 +764,7 @@ margin-right: auto;
     margin-left:8px;
     &.mobile{
         color:$primaryDark;
-        font-size:1.4em;
+        font-size:.8em;
     }
 }
 .probuttons{

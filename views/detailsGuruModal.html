@@ -1,11 +1,14 @@
-<ion-modal-view>
-    <ion-header-bar>
-        <h1 class="title"> What your Pros say say about this game </h1>
-        <button class="button button-clear button-assertive" ng-click="closeGuru()">x</button>
-    </ion-header-bar>
-    <ion-content>
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1 class="title"> What your Pros say say about this game </h1>
+             <span flex></span>
+            <md-button ng-click="closeGuru()">x</md-button>
+        </div>
+    </md-toolbar>
+     <md-dialog-content>
      <div class="list">
-        <span ng-show="guruInfoLoading"> <div class="item item-divider">loading ....   </div></span>       
+        <span ng-show="guruInfoLoading"> <div class="item item-divider">loading ....   </div></span>
         <span ng-hide="guruInfoLoading"> 
            <a class="item" ng-repeat ="details in gameDetails" ng-href="{{details.reviewlink}}" target="_blank" >
             <div class="pure-u-1-2">
@@ -19,5 +22,5 @@
             </a>
         </span>
         </div> 
-    </ion-content>
-</ion-modal-view>
+    </md-dialog-content>
+</md-dialog>

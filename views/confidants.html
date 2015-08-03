@@ -16,8 +16,10 @@
                 <div class="hideMobile">
                     <div class="click panel circle">
                         <div class="front">
-                            <div class="circleLogo" ng-click ="showConfidantAdder()">
-                                <div class="gameadderbutton"> <h2>+</h2></div>
+                            <div class="circleLogo" >
+                               <md-button ng-click ="showConfidantAdder($event)">
+                                   <div class="gameadderbutton"> <h2>+</h2></div>
+                                </md-button>
                             </div>
                             <p/>
                             Add Confidant
@@ -26,8 +28,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="hideDesktop pure-u-1 game_mobile gameAdder" ng-click ="showConfidantAdder()">
-                   <span class="newGameAdder">+ New</span>
+                <div class="hideDesktop pure-u-1 game_mobile gameAdder">
+                     <md-button ng-click ="showConfidantAdder($event)">
+                         <span class="newGameAdder">+ New</span>
+                    </md-button>
                 </div>
                  <div   class="" ng-repeat="confidant in myConfidants">
                     <confidantcard></confidantcard>
