@@ -1,51 +1,78 @@
 
 
 <div class="click panel circle flip hideMobile">
-	<div class="front" >
-		<div class="circleLogo"> <img src="images/logo.png"></div>
-        <p/> click to reveal
-	</div>
+
 	<div class="back" ng-class="convertAverageClass(game.details.avgscore)" > 
-        <div class="game_header">
-           <div class="pure-u-19-24  game_name">{{game.name}}</div>  
-            <div class="pure-u-1-8" ng-click='showGameDescription(game.id, game.name,game.image.medium_url )'><a class="button  button-icon icon ion-ios-information-outline infobutton"></a></div>  
-        </div>
-        <div class="game_image" ng-style="getGameStyle(game.image.medium_url)"> 
+      <div class="game_image" ng-style="getGameStyle(game.image.medium_url)">
            
         </div>
-        
+         <div class="game_header" >
+          <div class="game_name" >
+
+              <div flex class="trucatedName"> {{game.name}} </div>
+              <md-button class="md-fab infoIcon" ng-click='showGameDescription(game.id, game.name,game.image.medium_url,$event )'>
+                   <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+                 </md-button>
+             </div>
+        </div>
         <div class="game_recomendation">
-            <div class="game_recomendation_text">            
-                Pros say: <span ng-show="game.details.guruscore" ng-style="colorForScore(game.details.guruscore)"> {{convertRating(game.details.guruscore)}} </span> <span ng-hide="game.details.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.details.id)" ng-show="game.details.guruscore"> Details</button>
-            <p/>
-            Peers say:<span ng-show="game.details.peerscore" ng-style="colorForScore(game.details.peerscore)"> {{convertRating(game.details.peerscore)}}  </span><span ng-hide="game.details.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.details.id)" ng-show="game.details.peerscore"> Details</button>
-    
+            <div class="game_recomendation_text">
+             <md-list ng-hide="myLibrary">
+            <md-list-item class="md-3-line maxwidth" ng-click="getGuruDetails(game.details.id ,$event)">
+
+              <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+
+        <div class="md-list-item-text" >
+           <h3>Pros say:</h3>
+            <h4><span ng-show="game.details.guruscore"> {{convertRating(game.details.guruscore)}} </span>  <span ng-hide="game.details.guruscore">TBD  </span>
+            </h4>
+                </div>
+               </md-list-item>
+                 <md-list-item class="md-3-line maxwidth" ng-click="getPeerDetails(game.details.id ,$event)" >
+
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+
+                     <div class="md-list-item-text">
+                   <h3>
+                       Peers say:
+                         </h3><h4><span ng-show="game.details.peerscore">{{convertRating(game.details.peerscore)}} </span>
+
+                         <span ng-hide="game.details.peerscore">TBD </span></h4>
+                     </div>
+              </md-list-item>
+</md-list>
+            </div>
         </div>
-        </div>
+	</div>
 		
 	</div>
-</div>
+
 
 <div class="pure-u-1 game_mobile hideDesktop" ng-class="convertAverageClass(game.details.avgscore)">
-    
-<div class="pure-u-1 game_name mobile">
-      <span class="pure-u-1-8" ng-click='showGameDescription(game.id, game.name,game.image.medium_url )'><a class="button  button-icon icon ion-ios-information-outline infobutton"></a></span> 
-     <span class="addingGameMargin">   {{game.name}} </span>
-</div>
-   
-<div class="pure-u-1-4">
-    <div class="game_image mobile" ng-style="getGameStyle(game.image.medium_url)"> 
-</div>
+ <div layout="row">
+    <div flex="40" class="game_image mobile" ng-style="getGameStyle(game.image.medium_url)">
+
     </div>
-    <div class="pure-u-3-5 game_recomendation_text mobile">
-        <div class="pure-u-1" ng-hide="myLibrary">
-             <span  >Pros say: <span ng-show="game.guruscore"> {{convertRating(game.details.guruscore)}} </span> <span ng-hide="game.guruscore">TBD  </span>  <button class="button button-small button-calm" ng-click="getGuruDetails(game.id)" ng-show="game.guruscore"> Details</button>
-                </span>
-        </div>
-        
-                <div class="pure-u-1" ng-hide="myLibrary">
-                Peers say:<span ng-show="game.peerscore"> {{convertRating(game.details.peerscore)}}  </span><span ng-hide="game.peerscore ">TBD </span>  <button class="button button-small button-calm" ng-click="getPeerDetails(game.id)" ng-show="game.peerscore"> Details</button>
-                    
-        </div>
-    </div>
+    <div class="game_recomendation_text mobile">
+         <md-list>
+            <md-list-item class="md-2-line maxwidth  largeText" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.image.medium_url,$event)'>
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+                {{game.name}}
+            </md-list-item>
+          <md-divider></md-divider>
+
+       <md-list-item class="md-2-line maxwidth mobileText" ng-click="getGuruDetails(game.details.id ,$event)" >
+                      <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>   Pros say: <span ng-show="game.details.guruscore"> {{convertRating(game.details.guruscore)}}
+                     </span> <span ng-hide="game.details.guruscore">TBD  </span>
+
+        </md-list-item >
+
+
+                <md-list-item class="md-2-line maxwidth mobileText" ng-click="getPeerDetails(game.details.id ,$event)" >
+
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon> Peers say:<span ng-show="game.details.peerscore"> {{convertRating(game.details.peerscore)}}   </span><span ng-hide="game.details.peerscore">TBD </span>
+
+             </md-list-item>
+       </md-list>
+    </div></div>
 </div>

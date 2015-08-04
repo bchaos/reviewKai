@@ -2,36 +2,68 @@
 <div class="pure-u-1" ng-hide =" isLoading">
     <div class="splash-container-dashboard "  >
     <div class="splash-dashboard">
-        <h1 class="splash-head" ng-show="myLibrary">
+        <h1 class="splash-head library" ng-show="myLibrary">
             <div class="pure-g-r pure-u-1">
             
             <div class="pure-u-1 movedown">
+                  <div id="profileZone" class="dropzone" ng-show="editMode || updatedPicture"  ></div>
                 <div class="userImageInLibrary " >
                     <img src="images/userimages/{{user.picture}}" class="userLibaryImage" ng-hide='editMode  || updatedPicture'>
 
                 </div>
                  <div class="pure-u-6-8">
-                    <div id="profileZone" class="dropzone" ng-show="editMode || updatedPicture" ></div>
-                    <span class="username">{{user.name}}'s </span> Library
-                    <span ng-show="localLibrary">
-                        <button class="button button-small button-assertive" ng-hide="editMode" ng-click="toggleEditMode()"> Edit </button>
-                        <button class="button button-small button-assertive" ng-show="editMode" ng-click="toggleEditMode()"> Cancel </button>
-                        <button class="button button-small button-modal" ng-show="editMode" ng-click="saveLibraryEdit()"> Save </button>
-                    </span>
-                    <p/>
+
+                    <span class="userHeaderName" ng-hide='editMode' ><span class="username">{{user.name}}'s </span> Library</span>
+
+                </div><div class="pure-u-1">
                     <span class="smallText"> Site :
                         <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
-                        <input type="text" ng-model ="user.site" ng-show="editMode">
+                          <md-input-container   ng-show="editMode">
+                        <input type="text" ng-model ="user.site">
+                        </md-input-container>
                     </span>
                     <br/>
                     <span  class="smallText">  Stream :
                         <a ng-hide="editMode" href="{{user.stream}}" target="_blank">
                             {{user.stream}}
                         </a>
-                        <input type="text" ng-model ="user.stream" ng-show="editMode">
+                         <md-input-container   ng-show="editMode">
+
+                        <input type="text" ng-model ="user.stream" >
+                        </md-input-container>
                     </span>
                     <br/>
-                     <button class="button button-small button-modal libarybutton"  ng-show ="localLibrary" ng-click ="importFromSteam()" ng-show="myLibrary"> <img src="images/Steam_Icon_2014.png" class="smalllogo"> Import Games from Steam</button>
+                <div layout="row">
+                  <div ng-show="localLibrary">
+                        <md-button ng-click="toggleEditMode()" ng-hide='editMode'><i  class="ion-edit"></i> Edit </md-button>
+                        <md-button ng-show="editMode" ng-click="toggleEditMode()"><i  class="ion-android-cancel"></i> Cancel  </md-button>
+                        <md-button ng-show="editMode" ng-click="saveLibraryEdit()"><i  class="ion-android-done"></i> Save </md-button>
+
+                      <md-button ng-hide='editMode' ng-click ="addNewGame($event)"> <img src="images/rkcardSmall.png" class="reallysmall"> Add </md-button>
+                    </div>
+
+                    <div ng-hide="editMode">
+
+                      <md-button  aria-label="Import games from steam" ng-show ="localLibrary" ng-click ="importFromSteam($event)" ng-show="myLibrary">
+                         <img class="smalllogo" src="images/Steam_Icon_2014.png"></img> <span class="logoText"></span>import
+                     </md-button>
+
+                </div>
+                <md-content class="smallText" layout="row" ng-hide="editMode">
+                    <md-select id="sort" ng-model="sort" ng-init="sort='-releasedate'"  placeholder="Sort By">
+                        <md-option value="-releasedate" selected>Release Date </md-option>
+                        <md-option value ="+game_name">Name </md-option>
+                        <md-option value = "-{{scoreName}}">Recomendation </md-option>
+                    </md-select>
+
+
+                    <md-select id="sort" ng-model="currentPage" ng-init ="currentPage=0"  placeholder="Page" ng-change="setPage(currentPage)">
+                        <md-option value ="{{page.number}}" ng-repeat="page in pages">{{page.number+1}} </md-option>
+                    </md-select>
+                </md-content>
+
+                </div>
+
                 </div>
             </div>
             </div>
@@ -39,94 +71,51 @@
         <h1 class="splash-head" ng-hide="myLibrary">
  <div class="pure-g-r pure-u-1">
             <img class="platformLarge"  src="images/platforms/{{currentPlatform}}/icon.png">
-            </div>       
-        </h1>
-    <p>
-    <p/>
-    <div class="hideMobile platformList"  ng-show="platforms">
-       
-           
-                <a href="#/guru?platform={{platform.display_name}}" ng-repeat="platform in platforms"> <button class="button button-small button-modal libarybutton pure-u-4-24">{{platform.display_name}}</button>
-                </a>
-     
-    </div>
-    <div class=" hideDesktop pure-u-1" ng-show="platforms">
-        <form class="pure-form">
-            <span class="white-link pure-u-1-4">Platform:</span> 
-            <select ng-init= "selected=currentPlatform" class="pure-u-sm-2-3" ng-change="updatePlatform(selected)" ng-model="selected">
-                <option ng-repeat="platform in platforms" value="{{platform.display_name}}">
+            </div>
+
+          <md-content class="smallText" layout="row" ng-hide="editMode">
+            <md-select id="sort" ng-model="sort" ng-init="sort='-releasedate'"  placeholder="Sort by">
+                <md-option value="-releasedate" selected>Release Date </md-option>
+                <md-option value ="+game_name">Name </md-option>
+                <md-option value = "-{{scoreName}}">Recomendation </md-option>
+            </md-select>
+
+
+            <md-select id="sort" ng-model="currentPage" ng-init ="currentPage=0"  placeholder="Page" ng-change="setPage(currentPage)">
+                <md-option value ="{{page.number}}" ng-repeat="page in pages">{{page.number+1}} </md-option>
+            </md-select>
+
+
+            <md-select placeholder="Platform" ng-change="setPlatform(display_name)" ng-model="display_name">
+               <md-option value ="{{platform.display_name}}" ng-repeat="platform in platforms">
                     {{platform.display_name}}
-                </option>
-             
-            </select>
-        </form>
-    </div>
-    <div class="pure-u-1">
-        <form class="pure-form">
-            <div class="pure-u-17-24 hideMobile">
-                <span> 
-                    <button class="button circlebutton" ng-click="setPage(currentPage-1)">
-                        <<
-                    </button>
-                </span>
-                <span ng-repeat="page in pages">
-                    <button ng-show="page.elispe" class="button circlebutton "  > ... </button>
-                    <button ng-hide="page.elispe" class="button circlebutton" ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">
-                        {{page.number+1}}
-                    </button>
-                </span>
-                <span> 
-                    <button class="button circlebutton " ng-click="setPage(currentPage+1)">>></button>
-                </span>
-            </div>
-            <div class="pure-u-sm-1 pure-u-lg-1-4">
-                <span class="hideDesktop white-link pure-u-1-4">
-                    Sort:
-                </span>
-                <select id="sort" ng-model="sort" ng-init="sort='-releasedate'" class="pure-u-sm-2-3">
-                    <option value="-releasedate" selected>Release Date </option>
-                    <option value ="+game_name">Name </option>
-                    <option value = "-{{scoreName}}">Recomendation </option>
-                </select>
-            </div>
-            <div class="hideDesktop pure-u-1"> 
-                <span class="white-link pure-u-1-4"> Page:</span>
-                <select id="sort" ng-model="currentPage" ng-init ="currentPage=0"  class="pure-u-sm-2-3" ng-change="setPage(currentPage)">
-                    <option value ="{{page.number}}" ng-repeat="page in pages">{{page.number+1}} </option>
-                </select>
-            </div>
-        </form>
-    </div>
+                </md-option>
+            </md-select>
+        </md-content>
+        </h1>
+
+
+
     <span ng-show="myLibrary && localLibrary">
-       <div class="hideMobile">
-        <div class="click panel circle">
-            <div class="front">
-                <div class="circleLogo" ng-click ="addNewGame()"> 
-                    <div class="gameadderbutton"> <h2>+</h2></div>
-                </div>
-                <p/>
-                Click to add a new 
+
+            <div class="hideDesktop pure-u-1 game_mobile  gameAdder" ng-click ="addNewGame($event)">
+               <span class="newGameAdder">+ New</span>
             </div>
-            <div class="back">
-            </div>
-        </div>
-      </div>   
-        <div class="hideDesktop pure-u-1 game_mobile  gameAdder" ng-click ="addNewGame()">
-           <span class="newGameAdder">+ New</span>
-        </div>
+
     </span>
    
     <div class="" ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
-        <librarycard></librarycard>
+        <librarycard ></librarycard>
     </div>
+
  </div>
 </div>
 
 </div>
-<div class="pure-g-r addedMargin" ng-show ="isLoading && !NoLibraryError">
+<div class="addedMargin" ng-show ="isLoading && !NoLibraryError">
     <searching text="Loading"> </searching>
 </div>
 
-<div class="pure-g-r addedMargin" ng-show ="NoLibraryError">
+<div class="addedMargin" ng-show ="NoLibraryError">
    <h2> No Library Found</h2>
 </div>

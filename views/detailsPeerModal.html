@@ -1,18 +1,23 @@
-<ion-modal-view>
-    <ion-header-bar>
-        <h1 class="title"> What your Peers say about this game </h1> 
-        <button class="button button-clear button-assertive" ng-click="closePeer()">x</button>
-    </ion-header-bar>
-    <ion-content>
-        <div class="list">
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1 class="title"> What your Peers say about this game </h1>
+             <span flex></span>
+            <md-button ng-click="closePeer()">x</md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+       <md-list>
             <span ng-show="peerInfoLoading"> <div class="item item-divider"> loading ....</div> </span>       
             <span ng-hide="peerInfoLoading"> 
-                <a class="item" ng-repeat ="details in gameDetails" >
-                     <h2>{{details.reviewerName}}</h2>
-                      <p>Thoughts: {{convertMyRating(details.score)}}</p>
-                      <p>Review: {{details.details}}</p>
-                </a>
+                <md-list-item class="md-3-line" ng-repeat="details in gameDetails"  >
+                <div class="md-list-item-text">
+                <h3>{{details.reviewerName}}</h3>
+              <h4> Thoughts: {{convertMyRating(details.score)}}</h4>
+             <p>Review: {{details.details}}</p>
+                </div>
+            </md-list-item>
             </span>
-        </div> 
-    </ion-content>
-</ion-modal-view>
+        </md-list>
+    </md-dialog-content>
+</md-dialog>

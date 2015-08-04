@@ -1,5 +1,7 @@
 #  cfcoptions : { "out": "../js/"   }
-app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ionic', 'angularRipple'],
+
+app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitize', 'ngMaterial'],
+
  ($routeProvider, $locationProvider)->
             $routeProvider.when '/library', {
                 templateUrl: 'views/library.html'
@@ -71,6 +73,10 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
                 templateUrl: 'views/library.html'
                 controller: 'libraryController'
             }
+app.config ($mdThemingProvider) ->
+    $mdThemingProvider.theme('default')
+    .primaryPalette('deep-orange')
+    .accentPalette('orange');
 
 app.directive 'platfromcard', ->  
     restrict: 'E',
@@ -99,7 +105,8 @@ app.config ($httpProvider) ->
 
 app.service 'socket',($rootScope) ->
 
-    socket = io.connect 'http://localhost:8080'
+    socket = io.connect 'http://Reviewkai.com:8080'
+
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
@@ -139,12 +146,9 @@ isloggedin = (socket, location)->
         socket.emit 'isUserLoggedin', {key:window.localStorage.sessionkey, location:location}
     
         
-createGameDetailViewer= ( $ionicModal, $scope, socket) ->
+createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
             $scope.newOffset = 0;   
-            if $scope.myLibrary && $scope.localLibrary
-                $scope.itemsPerPage = 11;
-            else 
-                $scope.itemsPerPage = 12;
+            $scope.itemsPerPage = 12;
             $scope.currentPage = 0;
             $scope.onCurrentPage =(num)->
                 if num is $scope.currentPage
@@ -182,7 +186,12 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                 if lastPage < $scope.maxPages-1
                     $scope.pages.push {elispe:true, number:false}
                     $scope.pages.push {number:$scope.maxPages-1, startingPoint:($scope.maxPages-1)*$scope.itemsPerPage}
-                
+            $scope.setPlatform =(platform)->
+                newPath =platform
+                curPath = $location.search('platform');
+                if curPath isnt newPath
+                    $location.search 'platform', newPath
+
             $scope.setPage = (num)->
                 if num>=0 and num<$scope.maxPages
                     $scope.currentPage=num
@@ -228,7 +237,7 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     when score < 4.5 then 'Play this game!'
                     else 'You will love this game!'
             $scope.getGameStyle= (gameUrl)->  
-                 return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 150%', 'background-repeat':'no-repeat', 'background-position':'center'}
+                 return {'background': 'url("'+gameUrl+'")', 'background-size':'100% 100%', 'background-repeat':'no-repeat'}
 
             $scope.colorForScore = (score)->
                 saying = switch
@@ -239,65 +248,64 @@ createGameDetailViewer= ( $ionicModal, $scope, socket) ->
                     when score < 4.5 then  {'color': 'green', 'font-size':'12px'}
                     else {'color': 'green', 'font-size':'12px'}
             	
-            $ionicModal.fromTemplateUrl('views/gameDetailsModal.html' ,  {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then (modal) -> 
-                $scope.gameDetailsModal = modal
-                
-            $scope.showGameDescription = (id, gameToShownName, image)->
-                $scope.gameDetailsModal.show()
+
+            $scope.showGameDescription = (id, gameToShownName, image,ev)->
+                $mdDialog.show({
+                      scope: $scope,
+                      templateUrl: 'views/gameDetailsModal.html',
+                      targetEvent: ev
+                      preserveScope: true
+                      clickOutsideToClose: true
+                })
                 $scope.gamedetails={}
                 socket.emit 'getGameInfoFromWiki', id
+
             socket.on 'gameInfoForGameFromWiki' ,(data)->
                 $scope.gamedetails= data.results
                 $scope.gamedetails.name = gameToShownName
                 $scope.gamedetails.image= image
 
             $scope.closeGameDes = ->
-                $scope.gameDetailsModal.hide()
-                
-            $ionicModal.fromTemplateUrl('views/detailsGuruModal.html' ,  {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then (modal) -> 
-                $scope.guruModal = modal
-                $scope.modalGame = {}
-            $scope.getGuruDetails = (id)->
-                $scope.guruModal.show()
+                $mdDialog.hide()
+            $scope.getGuruDetails = (id,ev)->
+                $mdDialog.show({
+                  scope: $scope,
+                  templateUrl: 'views/detailsGuruModal.html',
+                  targetEvent: ev
+                  preserveScope: true
+                  clickOutsideToClose: true
+                })
                 socket.emit 'getGuruDetails' , {gameid: id} 
                 $scope.guruInfoLoading = true
                 socket.on 'guruDetailsFound' , (data)->
                     $scope.gameDetails= data
                     $scope.guruInfoLoading = false
+
             $scope.closeGuru = ()->
-                $scope.guruModal.hide()
+                $mdDialog.hide()
         
             $scope.closePeer = ()->
-                $scope.peerModal.hide()
+                $mdDialog.hide()
                     
-            $scope.getPeerDetails = (id)->
-                $scope.peerModal.show()
+            $scope.getPeerDetails = (id,ev)->
+                $scope.modalGame = {}
+                $mdDialog.show({
+                  scope: $scope,
+                  templateUrl: 'views/detailsPeerModal.html',
+                  targetEvent: ev
+                  preserveScope: true
+                  clickOutsideToClose: true
+                })
                 socket.emit 'getPeerDetails', {gameid: id}
                 $scope.peerInfoLoading = true
                 socket.on 'peerDetailsFound', (data)->
                     $scope.gameDetails= data 
                     $scope.peerInfoLoading = false
-                    
-            $ionicModal.fromTemplateUrl('views/detailsPeerModal.html' ,  {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then (modal) -> 
-                $scope.peerModal = modal
-                $scope.modalGame = {}
+
         
-signInSetup = ($scope, $ionicModal, socket)-> 
-   $ionicModal.fromTemplateUrl('views/signupSignInModal.html' ,  {
-        scope: $scope,
-        animation: 'slide-in-up'
-    }).then (modal) -> 
-        $scope.modal = modal
-        $scope.logdata = {}
+signInSetup = ($scope, $mdDialog, socket)->
+
+    $scope.logdata = {}
     socket.on 'NeedUsername',()->
         $scope.modal.show()
         $scope.needUsername=true;
@@ -323,13 +331,16 @@ signInSetup = ($scope, $ionicModal, socket)->
 
     $scope.closeModal  = ->
         $scope.logdata = {}
-        $scope.modal.hide()
-    $scope.signUpModal = ->
-        $scope.modal.show()
-        $scope.signUp =true
-    $scope.signInModal = ->
-        $scope.modal.show()
-        $scope.signUp =false
+        $mdDialog.hide()
+    $scope.signUpModal =(ev ,signingup) ->
+       $mdDialog.show({
+          scope: $scope,
+          templateUrl: 'views/signupSignInModal.html',
+          targetEvent: ev
+          preserveScope: true
+          clickOutsideToClose: true
+        })
+        $scope.signUp =signingup
     $scope.signInOrSignUpNow =()->
         if $scope.signUp
             $scope.signUpNow()
@@ -359,10 +370,12 @@ signInSetup = ($scope, $ionicModal, socket)->
         $scope.errormessage = message
     socket.on 'userLoggedin', ->
         $scope.closeModal()
+
+
 app.controller 'reviewController', 
     class reviewController
-        @$inject : ['$scope', '$location', 'socket', '$ionicModal']
-        constructor: (@$scope, @$location, @socket,  $ionicModal ) ->
+        @$inject : ['$scope', '$location', 'socket',  '$mdDialog']
+        constructor: (@$scope, @$location, @socket,  $mdDialog ) ->
 
             $scope.toggleClass = ->
                 if $scope.active is 'false'
@@ -373,7 +386,7 @@ app.controller 'reviewController',
             if $location.path() isnt '/home' && $location.path() isnt '/'
                 isloggedin(socket,  $location.path())
             $scope.loggedin=true
-            signInSetup $scope,$ionicModal,socket
+            signInSetup $scope,$mdDialog,socket
             socket.on 'goToLogin', ->
                  isloggedin(socket,  $location.path())
 
@@ -396,8 +409,8 @@ app.controller 'reviewController',
 
 app.controller 'homeController', 
 	class homeController
-        @$inject: ['$scope', '$ionicModal', 'socket']
-        constructor: (@$scope,  $ionicModal, @socket) ->
+        @$inject: ['$scope',   '$mdDialog','socket']
+        constructor: (@$scope,  $mdDialog, @socket) ->
             $scope.loggedin=false
             
             if window.localStorage.sessionkey
@@ -409,8 +422,8 @@ app.controller 'homeController',
 
 app.controller 'recommendationController', 
     class recommendationController
-        @$inject: ['$scope', '$ionicModal', 'socket', '$location']
-        constructor: (@$scope,  $ionicModal, @socket, @$location) ->
+        @$inject: ['$scope',   '$mdDialog','socket', '$location']
+        constructor: (@$scope,  $mdDialog, @socket, @$location) ->
             $scope.isLoading=true;
             socket.emit 'GetListOfPlatforms' , {data:'1'}
             socket.on  'platformsFound', (data)->
@@ -419,14 +432,14 @@ app.controller 'recommendationController',
                 
 app.controller 'searchController', 
 	class searchController
-        @$inject: ['$scope', '$ionicModal', 'socket', '$location']
-        constructor: (@$scope,  $ionicModal, @socket, @$location) ->
+        @$inject: ['$scope',   '$mdDialog','socket', '$location']
+        constructor: (@$scope,  $mdDialog, @socket, @$location) ->
             $scope.myLibrary=false
             $scope.isLoading =false
             $scope.scoreName='avgscore'
             $scope.loggedin=true
             $scope.SearchForAGame=false
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $mdDialog, $scope, socket ,$location
             searchObject = $location.search();
             $scope.getGame=()->
                 $scope.isLoading =true
@@ -465,8 +478,8 @@ app.controller 'searchController',
                 $scope.isLoading = false
 app.controller 'dashboardController',
 	class dashboardController
-        @$inject: ['$scope', '$ionicModal', 'socket']
-        constructor: (@$scope,  $ionicModal, @socket) ->
+        @$inject: ['$scope',   '$mdDialog','socket','$location']
+        constructor: (@$scope,  $mdDialog, @socket,$location) ->
             $scope.isLoading=true;
             socket.emit 'GetRecentGames'
             @socket.on 'recentReleases', (data)->
@@ -476,12 +489,12 @@ app.controller 'dashboardController',
                 $scope.isLoading=false
                 $scope.recentGames = false
                 
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $mdDialog, $scope, socket,$location
 
 app.controller 'confidantController',
     class confidantController
-        @$inject: ['$scope', '$ionicModal', 'socket','$location']
-        constructor: (@$scope,  $ionicModal, @socket,@$location) ->
+        @$inject: ['$scope',   '$mdDialog','socket','$location']
+        constructor: (@$scope,  $mdDialog, @socket,@$location) ->
             socket.emit 'GetConfidants'
             $scope.getGameStyle= (picturename)->
                  return {'background': 'url("images/'+picturename+'")', 'background-size':'100% 100%%   ', 'background-repeat':'no-repeat', 'background-position':'center'}
@@ -499,37 +512,38 @@ app.controller 'confidantController',
                     $scope.confidantsFound= data
                     $scope.noneFound= false
                     $scope.isLoadingAdder = false
-            $ionicModal.fromTemplateUrl('views/addConfidantModal.html' ,  {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then (modal) ->
-                $scope.modal = modal
+            $scope.selectConfidant = (confidant)->
+                $scope.confidantSelected=true
+                $scope.canFlip='flip'
+                $scope.newConfidant = confidant
+            $scope.goback = ()->
+                $scope.confidantSelected=false
+                $scope.canFlip='false'
                 $scope.newConfidant = {}
-                $scope.selectConfidant = (confidant)->
-                    $scope.confidantSelected=true
-                    $scope.canFlip='flip'
-                    $scope.newConfidant = confidant
-                $scope.goback = ()->
-                    $scope.confidantSelected=false
-                    $scope.canFlip='false'
-                    $scope.newConfidant = {}
-                $scope.closeModal = ->
-                    $scope.modal.hide()
-                $scope.findConfidant =(requirements) ->
-                    data ={search:requirements}
-                    $scope.isLoadingAdder = true
-                    socket.emit 'SearchForConfidants', data
-                $scope.addConfidant = ()->
-                    data = {friendid : $scope.newConfidant.id}
-                    socket.emit 'AddConfidant', data
-                    $scope.modal.hide()
-                $scope.showConfidantAdder = ->
-                    $scope.modal.show()
+            $scope.closeModal = ->
+               $mdDialog.hide()
+            $scope.findConfidant =(requirements) ->
+                data ={search:requirements}
+                $scope.isLoadingAdder = true
+                socket.emit 'SearchForConfidants', data
+            $scope.addConfidant = ()->
+                data = {friendid : $scope.newConfidant.id}
+                socket.emit 'AddConfidant', data
+                $scope.closeModal();
+            $scope.showConfidantAdder = (ev)->
+                $scope.newConfidant = {}
+                $mdDialog.show({
+                  scope: $scope,
+                  templateUrl: 'views/addConfidantModal.html',
+                  targetEvent: ev
+                  preserveScope: true
+                  clickOutsideToClose: true
+                })
 
 app.controller 'peerController',
 	class peerController
-        @$inject: ['$scope', '$ionicModal', 'socket','$location']
-        constructor: (@$scope,  $ionicModal, @socket,@$location) ->
+        @$inject: ['$scope',   '$mdDialog','socket','$location']
+        constructor: (@$scope,  $mdDialog, @socket,@$location) ->
             $scope.myLibrary=false
             $scope.scoreName='avgscore'
             $scope.isLoading=true;
@@ -554,12 +568,12 @@ app.controller 'peerController',
                     $scope.games.push item
                 $scope.setUpPages();
                 $scope.isLoading=false;
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $mdDialog, $scope, socket,$location
             
 app.controller 'guruController',
 	class guruController
-        @$inject: ['$scope', '$ionicModal', 'socket','$location']
-        constructor: (@$scope,  $ionicModal, @socket,@$location) ->
+        @$inject: ['$scope',   '$mdDialog','socket','$location']
+        constructor: (@$scope,  $mdDialog, @socket,@$location) ->
             $scope.myLibrary=false
             $scope.scoreName='avgscore'
             $scope.isLoading=true;
@@ -586,7 +600,7 @@ app.controller 'guruController',
                     $scope.games.push item
                 $scope.setUpPages();
                 $scope.isLoading=false;
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $mdDialog, $scope, socket,$location
 
 app.controller 'genericController', 
     class genericController
@@ -596,9 +610,14 @@ app.controller 'genericController',
 
 app.controller 'libraryController',
     class libraryController
-        @$inject: ['$scope',   '$ionicModal', 'socket','$location' ,'$ionicPopover']
-        constructor: (@$scope,  $ionicModal, @socket, @$location, $ionicPopover) ->
-         
+        @$inject: ['$scope',     '$mdDialog','socket','$location' ]
+        constructor: (@$scope,  $mdDialog, @socket, @$location) ->
+            $scope.isOpen = false;
+            $scope.demo = {
+                isOpen: false,
+                count: 0,
+                selectedAlignment: 'md-left'
+            };
             $scope.loggedin=true
             $scope.myLibrary=true
             $scope.NoLibraryError=false
@@ -637,13 +656,7 @@ app.controller 'libraryController',
                     $scope.games.push item
                 $scope.setUpPages();
                 $scope.isLoading=false;
-                
-            $ionicModal.fromTemplateUrl('views/addGameModal.html' ,  {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then (modal) -> 
-                $scope.modal = modal
-                $scope.modalGame = {}
+
             $scope.searchForAGame = (game)->
                 $scope.isLoadingAdder = true
                 socket.emit 'findGamesInWiki', game
@@ -655,8 +668,15 @@ app.controller 'libraryController',
                     $scope.gamesfound=data.results
                 $scope.isLoadingAdder = false
             	
-            $scope.addNewGame = ->       
-                $scope.modal.show()
+            $scope.addNewGame = (ev)->
+                $scope.modalGame = {}
+                $mdDialog.show({
+                  scope: $scope,
+                  templateUrl: 'views/addGameModal.html',
+                  targetEvent: ev
+                  preserveScope: true
+                  clickOutsideToClose: true
+                })
                 $scope.canFlip='false'
                 $scope.gameSelected=false
             $scope.editUserResponse = (index) ->
@@ -664,7 +684,7 @@ app.controller 'libraryController',
             $scope.closeModal  = ->
                 $scope.newgame={}
                 $scope.gamesfound={}
-                $scope.modal.hide()
+                $mdDialog.hide()
             $scope.addGameToLibrary = (game)->
                 $scope.newgame = {}
                 $scope.canFlip='flip';
@@ -682,22 +702,24 @@ app.controller 'libraryController',
                 $scope.newgame.userInfo.unenjoyment=3
                 $scope.newgame.userInfo.difficulty=3
                 $scope.gameSelected=true
-            $scope.importFromSteam = -> 
+            $scope.importFromSteam = (ev)->
                 $scope.vanity={}
-                $ionicModal.fromTemplateUrl('views/steamImportModal.html' ,  {
-                    scope: $scope,
-                    animation: 'slide-in-up'
-                }).then (modal)-> 
-                    $scope.importModal = modal
-                    $scope.importModal.show()
-                    $scope.importMode=true
-                    $scope.isTransfering=true
-                    $scope.vanityErrorMessage =false
-                    $scope.closeImportModal = ->
-                        $scope.importModal.hide()
-                    $scope.getGamesFromSteam = () ->
-                        $scope.importMode=false
-                        socket.emit 'importGamesFromSteam', $scope.vanity
+                $mdDialog.show({
+                  scope: $scope,
+                  templateUrl: 'views/steamImportModal.html',
+                  targetEvent: ev
+                  preserveScope: true
+                  clickOutsideToClose: true
+                })
+                $scope.importMode=true
+                $scope.isTransfering=true
+                $scope.vanityErrorMessage =false
+
+            $scope.closeImportModal = ->
+                    $mdDialog.hide()
+            $scope.getGamesFromSteam = () ->
+                $scope.importMode=false
+                socket.emit 'importGamesFromSteam', $scope.vanity
             socket.on 'steamGamesToAdd', (data)->
                 $scope.isTransfering=false
                 $scope.newSteamGames=data
@@ -710,29 +732,23 @@ app.controller 'libraryController',
             $scope.saveGame = ()->
                 socket.emit 'AddNewGameToLibrary', $scope.newgame
                 $scope.closeModal()
-                
-            $ionicModal.fromTemplateUrl('views/detailsLibraryModal.html' ,  {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then (modal) -> 
-                $scope.detailsModal = modal
-            
+
             $scope.closeLibraryDetails=()->
-                $scope.detailsModal.hide()
+                $mdDialog.hide()
             
-            $scope.getGameDetails=(game)->
+            $scope.getGameDetails=(game,ev)->
                 $scope.gamedetails=game
                 $scope.gamedetails.reviewLink= $location.absUrl();
-                $scope.detailsModal.show()
-                
-            $ionicModal.fromTemplateUrl('views/editScoreModal.html' ,  {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then (modal) -> 
-                $scope.editModal = modal
-                $scope.edit = {}
+                $mdDialog.show({
+                  scope: $scope,
+                  templateUrl: 'views/detailsLibraryModal.html',
+                  targetEvent: ev
+                  preserveScope: true
+                  clickOutsideToClose: true
+                })
+
             $scope.closeEdit  = ()->
-                $scope.editModal.hide()
+                $mdDialog.hide()
                 $scope.edit = {}
             $scope.getIndexOfGame = (gameToCheck)->
                  foundindex=0
@@ -743,30 +759,36 @@ app.controller 'libraryController',
                     curindex++
                  foundindex
 
-            $scope.showEdit = (game)->
+            $scope.showEdit = (game,ev)->
+                $scope.edit = {}
                 $scope.edit= game
                 $scope.editingindex=$scope.getIndexOfGame game
-                $scope.editModal.show()
-            $scope.showRemove = (game)->
+                $mdDialog.show({
+                  scope: $scope,
+                  templateUrl: 'views/editScoreModal.html',
+                  targetEvent: ev
+                  preserveScope: true
+                  clickOutsideToClose: true
+                })
+            $scope.showRemove = (game,ev)->
                 $scope.editingindex = $scope.getIndexOfGame game
-                $ionicPopover.fromTemplateUrl('views/deletePopover.html', {
-                    scope: $scope
-                }).then (popover) ->
-                    $scope.popover = popover;
-                    $scope.popover.show()
-            $scope.removePopover=->
-                $scope.popover.hide()
-            $scope.$on 'popover.hidden', ->
-                $scope.popover.remove()
-            $scope.deleteGame=->
-                socket.emit 'deleteGame', $scope.games[$scope.editingindex]
-                $scope.popover.hide()
+                confirm  = $mdDialog.confirm()
+                .parent(angular.element(document.body))
+                .title('Would you like to delete this game?')
+                .content('Deleting this game will remove it from your library.')
+                .ok('Yes')
+                .cancel('No')
+                .targetEvent(ev);
+                $mdDialog.show(confirm).then ->
+                      socket.emit 'deleteGame', $scope.games[$scope.editingindex]
+                    , ->
+
             $scope.updateGame = ->
                 $scope.games[$scope.editingindex] = $scope.edit
                 $scope.edit.rating= parseInt $scope.edit.rating
                 socket.emit 'updateGame', $scope.edit
                 $scope.editModal.hide()
-            createGameDetailViewer $ionicModal, $scope, socket
+            createGameDetailViewer $mdDialog, $scope, socket,$location
             $scope.dropzoneConfig = {
               parallelUploads: 1,
               maxFileSize: 5

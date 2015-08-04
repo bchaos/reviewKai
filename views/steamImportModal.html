@@ -1,9 +1,12 @@
-<ion-modal-view>
-    <ion-header-bar>
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
        <h1 class="title"> Import Games from Steam </h1>
-        <button class="button button-clear button-assertive" ng-click="closeImportModal()" ng-show="importMode">x</button>
-    </ion-header-bar>
-    <ion-content>
+        <span flex></span>
+        <md-button ng-click="closeImportModal()" ng-show="importMode">x</md-button>
+        </div>
+    </md-toolbar>
+     <md-dialog-content>
         <div ng-show="importMode">
 
         <div class="list">
@@ -42,5 +45,5 @@
 
 </div>
         <span class="errorMessage" ng-show="vanityErrorMessage"><p/>  {{vanityErrorMessage}} </span>
-    </ion-content>
-</ion-modal-view>
+    </md-dialog-content>
+</md-dialog>

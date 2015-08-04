@@ -20,7 +20,7 @@
             gameid = result.insertId;
             for (_i = 0, _len = platforms.length; _i < _len; _i++) {
               platform = platforms[_i];
-              curPlatformCreator(platform.abbreviation, gameid(curPlatformCreator));
+              curPlatformCreator(platform.abbreviation, gameid, curConnection);
             }
             return callback(gameid);
           });

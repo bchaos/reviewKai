@@ -6,9 +6,9 @@
            A personal approach to game reviews.
         </p>
         <p>
-            <button class='pure-button pure-button-primary' ng-click ='signUpModal()' > Signup </button>
+         <a> <md-button class="item-input" ng-click ='signUpModal($event,true)' > Signup </md-button>
 
-<button class='pure-button pure-button-primary' ng-click ='signInModal()' > Login  </button> 
+<md-button class="item-input " ng-click ='signUpModal($event,false)' > Login  </md-button> </a>
          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button>
         </p>
     </div>
@@ -18,8 +18,8 @@
     <div class="content">
         <h2 class="content-head is-center">About Review Kai</h2>
 
-        <div class="pure-g">
-            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+        <div layout layout-sm="column" class="white-text">
+            <div flex>
                 <h3 class="content-subhead">
                     <i class="icon ion-ios-game-controller-b"></i>
                     Create a game Library
@@ -28,7 +28,8 @@
                     Enter in some of the games you have played along with a quick rating.
                 </p>
             </div>
-            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+            <div flex="5"></div>
+            <div flex>
                 <h3 class="content-subhead">
                     <i class="icon ion-person"></i>
                     Matching you
@@ -37,7 +38,9 @@
                    Review Kai with work its magic to match you up to Professional reviews and other Review Kai memebers who have similar opinions of games that you have
                 </p>
             </div>
-            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+        </div>
+        <div layout layout-sm="column"  class="white-text">
+            <div flex>
                 <h3 class="content-subhead">
                     <i class="icon ion-ios-book"></i>
                     Reviews
@@ -46,7 +49,8 @@
                   You can then browse the library of games that your matches have and see the what they had to say about these games. To find the perfect game just for you
                 </p>
             </div>
-            <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+            <div flex="5"></div>
+            <div flex>
                 <h3 class="content-subhead">
                     <i class="icon ion-star"></i>
                     Your ratings and reviews 

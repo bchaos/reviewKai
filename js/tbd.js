@@ -2,7 +2,7 @@
 (function() {
   var app, confidantController, createGameDetailViewer, dashboardController, genericController, guruController, homeController, isloggedin, libraryController, peerController, recommendationController, reviewController, searchController, signInSetup;
 
-  app = angular.module('reviewApp', ['ngAnimate', 'ngRoute', 'ngResource', 'ngSanitize', 'ionic', 'angularRipple'], function($routeProvider, $locationProvider) {
+  app = angular.module('reviewApp', ['ngAnimate', 'ngRoute', 'ngResource', 'ngSanitize', 'ngMaterial'], function($routeProvider, $locationProvider) {
     $routeProvider.when('/library', {
       templateUrl: 'views/library.html',
       controller: 'libraryController'
@@ -63,6 +63,10 @@
     });
   });
 
+  app.config(function($mdThemingProvider) {
+    return $mdThemingProvider.theme('default').primaryPalette('deep-orange').accentPalette('orange');
+  });
+
   app.directive('platfromcard', function() {
     return {
       restrict: 'E',
@@ -119,7 +123,7 @@
 
   app.service('socket', function($rootScope) {
     var socket;
-    socket = io.connect('http://localhost:8080');
+    socket = io.connect('http://Reviewkai.com:8080');
     return {
       on: function(eventname, callback) {
         return socket.on(eventname, function() {
@@ -181,14 +185,10 @@
     }
   };
 
-  createGameDetailViewer = function($ionicModal, $scope, socket) {
+  createGameDetailViewer = function($mdDialog, $scope, socket, $location) {
     var createNumberList;
     $scope.newOffset = 0;
-    if ($scope.myLibrary && $scope.localLibrary) {
-      $scope.itemsPerPage = 11;
-    } else {
-      $scope.itemsPerPage = 12;
-    }
+    $scope.itemsPerPage = 12;
     $scope.currentPage = 0;
     $scope.onCurrentPage = function(num) {
       if (num === $scope.currentPage) {
@@ -244,6 +244,14 @@
           number: $scope.maxPages - 1,
           startingPoint: ($scope.maxPages - 1) * $scope.itemsPerPage
         });
+      }
+    };
+    $scope.setPlatform = function(platform) {
+      var curPath, newPath;
+      newPath = platform;
+      curPath = $location.search('platform');
+      if (curPath !== newPath) {
+        return $location.search('platform', newPath);
       }
     };
     $scope.setPage = function(num) {
@@ -332,9 +340,8 @@
     $scope.getGameStyle = function(gameUrl) {
       return {
         'background': 'url("' + gameUrl + '")',
-        'background-size': '100% 150%',
-        'background-repeat': 'no-repeat',
-        'background-position': 'center'
+        'background-size': '100% 100%',
+        'background-repeat': 'no-repeat'
       };
     };
     $scope.colorForScore = function(score) {
@@ -374,14 +381,14 @@
         }
       })();
     };
-    $ionicModal.fromTemplateUrl('views/gameDetailsModal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      return $scope.gameDetailsModal = modal;
-    });
-    $scope.showGameDescription = function(id, gameToShownName, image) {
-      $scope.gameDetailsModal.show();
+    $scope.showGameDescription = function(id, gameToShownName, image, ev) {
+      $mdDialog.show({
+        scope: $scope,
+        templateUrl: 'views/gameDetailsModal.html',
+        targetEvent: ev,
+        preserveScope: true,
+        clickOutsideToClose: true
+      });
       $scope.gamedetails = {};
       return socket.emit('getGameInfoFromWiki', id);
     };
@@ -391,17 +398,16 @@
       return $scope.gamedetails.image = image;
     });
     $scope.closeGameDes = function() {
-      return $scope.gameDetailsModal.hide();
+      return $mdDialog.hide();
     };
-    $ionicModal.fromTemplateUrl('views/detailsGuruModal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.guruModal = modal;
-      return $scope.modalGame = {};
-    });
-    $scope.getGuruDetails = function(id) {
-      $scope.guruModal.show();
+    $scope.getGuruDetails = function(id, ev) {
+      $mdDialog.show({
+        scope: $scope,
+        templateUrl: 'views/detailsGuruModal.html',
+        targetEvent: ev,
+        preserveScope: true,
+        clickOutsideToClose: true
+      });
       socket.emit('getGuruDetails', {
         gameid: id
       });
@@ -412,13 +418,20 @@
       });
     };
     $scope.closeGuru = function() {
-      return $scope.guruModal.hide();
+      return $mdDialog.hide();
     };
     $scope.closePeer = function() {
-      return $scope.peerModal.hide();
+      return $mdDialog.hide();
     };
-    $scope.getPeerDetails = function(id) {
-      $scope.peerModal.show();
+    return $scope.getPeerDetails = function(id, ev) {
+      $scope.modalGame = {};
+      $mdDialog.show({
+        scope: $scope,
+        templateUrl: 'views/detailsPeerModal.html',
+        targetEvent: ev,
+        preserveScope: true,
+        clickOutsideToClose: true
+      });
       socket.emit('getPeerDetails', {
         gameid: id
       });
@@ -428,24 +441,11 @@
         return $scope.peerInfoLoading = false;
       });
     };
-    return $ionicModal.fromTemplateUrl('views/detailsPeerModal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.peerModal = modal;
-      return $scope.modalGame = {};
-    });
   };
 
-  signInSetup = function($scope, $ionicModal, socket) {
+  signInSetup = function($scope, $mdDialog, socket) {
     var statusChangeCallback;
-    $ionicModal.fromTemplateUrl('views/signupSignInModal.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-      return $scope.logdata = {};
-    });
+    $scope.logdata = {};
     socket.on('NeedUsername', function() {
       $scope.modal.show();
       return $scope.needUsername = true;
@@ -476,15 +476,17 @@
     $scope.errormessage = false;
     $scope.closeModal = function() {
       $scope.logdata = {};
-      return $scope.modal.hide();
+      return $mdDialog.hide();
     };
-    $scope.signUpModal = function() {
-      $scope.modal.show();
-      return $scope.signUp = true;
-    };
-    $scope.signInModal = function() {
-      $scope.modal.show();
-      return $scope.signUp = false;
+    $scope.signUpModal = function(ev, signingup) {
+      $mdDialog.show({
+        scope: $scope,
+        templateUrl: 'views/signupSignInModal.html',
+        targetEvent: ev,
+        preserveScope: true,
+        clickOutsideToClose: true
+      });
+      return $scope.signUp = signingup;
     };
     $scope.signInOrSignUpNow = function() {
       if ($scope.signUp) {
@@ -529,9 +531,9 @@
   };
 
   app.controller('reviewController', reviewController = (function() {
-    reviewController.$inject = ['$scope', '$location', 'socket', '$ionicModal'];
+    reviewController.$inject = ['$scope', '$location', 'socket', '$mdDialog'];
 
-    function reviewController($scope, $location, socket, $ionicModal) {
+    function reviewController($scope, $location, socket, $mdDialog) {
       this.$scope = $scope;
       this.$location = $location;
       this.socket = socket;
@@ -547,7 +549,7 @@
         isloggedin(socket, $location.path());
       }
       $scope.loggedin = true;
-      signInSetup($scope, $ionicModal, socket);
+      signInSetup($scope, $mdDialog, socket);
       socket.on('goToLogin', function() {
         return isloggedin(socket, $location.path());
       });
@@ -579,9 +581,9 @@
   })());
 
   app.controller('homeController', homeController = (function() {
-    homeController.$inject = ['$scope', '$ionicModal', 'socket'];
+    homeController.$inject = ['$scope', '$mdDialog', 'socket'];
 
-    function homeController($scope, $ionicModal, socket) {
+    function homeController($scope, $mdDialog, socket) {
       this.$scope = $scope;
       this.socket = socket;
       $scope.loggedin = false;
@@ -604,9 +606,9 @@
   })());
 
   app.controller('recommendationController', recommendationController = (function() {
-    recommendationController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
+    recommendationController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
-    function recommendationController($scope, $ionicModal, socket, $location) {
+    function recommendationController($scope, $mdDialog, socket, $location) {
       this.$scope = $scope;
       this.socket = socket;
       this.$location = $location;
@@ -625,9 +627,9 @@
   })());
 
   app.controller('searchController', searchController = (function() {
-    searchController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
+    searchController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
-    function searchController($scope, $ionicModal, socket, $location) {
+    function searchController($scope, $mdDialog, socket, $location) {
       var searchObject;
       this.$scope = $scope;
       this.socket = socket;
@@ -637,7 +639,7 @@
       $scope.scoreName = 'avgscore';
       $scope.loggedin = true;
       $scope.SearchForAGame = false;
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($mdDialog, $scope, socket, $location);
       searchObject = $location.search();
       $scope.getGame = function() {
         $scope.isLoading = true;
@@ -693,9 +695,9 @@
   })());
 
   app.controller('dashboardController', dashboardController = (function() {
-    dashboardController.$inject = ['$scope', '$ionicModal', 'socket'];
+    dashboardController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
-    function dashboardController($scope, $ionicModal, socket) {
+    function dashboardController($scope, $mdDialog, socket, $location) {
       this.$scope = $scope;
       this.socket = socket;
       $scope.isLoading = true;
@@ -708,7 +710,7 @@
         $scope.isLoading = false;
         return $scope.recentGames = false;
       });
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($mdDialog, $scope, socket, $location);
     }
 
     return dashboardController;
@@ -716,9 +718,9 @@
   })());
 
   app.controller('confidantController', confidantController = (function() {
-    confidantController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
+    confidantController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
-    function confidantController($scope, $ionicModal, socket, $location) {
+    function confidantController($scope, $mdDialog, socket, $location) {
       this.$scope = $scope;
       this.socket = socket;
       this.$location = $location;
@@ -749,45 +751,45 @@
         $scope.noneFound = false;
         return $scope.isLoadingAdder = false;
       });
-      $ionicModal.fromTemplateUrl('views/addConfidantModal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-        $scope.modal = modal;
+      $scope.selectConfidant = function(confidant) {
+        $scope.confidantSelected = true;
+        $scope.canFlip = 'flip';
+        return $scope.newConfidant = confidant;
+      };
+      $scope.goback = function() {
+        $scope.confidantSelected = false;
+        $scope.canFlip = 'false';
+        return $scope.newConfidant = {};
+      };
+      $scope.closeModal = function() {
+        return $mdDialog.hide();
+      };
+      $scope.findConfidant = function(requirements) {
+        var data;
+        data = {
+          search: requirements
+        };
+        $scope.isLoadingAdder = true;
+        return socket.emit('SearchForConfidants', data);
+      };
+      $scope.addConfidant = function() {
+        var data;
+        data = {
+          friendid: $scope.newConfidant.id
+        };
+        socket.emit('AddConfidant', data);
+        return $scope.closeModal();
+      };
+      $scope.showConfidantAdder = function(ev) {
         $scope.newConfidant = {};
-        $scope.selectConfidant = function(confidant) {
-          $scope.confidantSelected = true;
-          $scope.canFlip = 'flip';
-          return $scope.newConfidant = confidant;
-        };
-        $scope.goback = function() {
-          $scope.confidantSelected = false;
-          $scope.canFlip = 'false';
-          return $scope.newConfidant = {};
-        };
-        $scope.closeModal = function() {
-          return $scope.modal.hide();
-        };
-        $scope.findConfidant = function(requirements) {
-          var data;
-          data = {
-            search: requirements
-          };
-          $scope.isLoadingAdder = true;
-          return socket.emit('SearchForConfidants', data);
-        };
-        $scope.addConfidant = function() {
-          var data;
-          data = {
-            friendid: $scope.newConfidant.id
-          };
-          socket.emit('AddConfidant', data);
-          return $scope.modal.hide();
-        };
-        return $scope.showConfidantAdder = function() {
-          return $scope.modal.show();
-        };
-      });
+        return $mdDialog.show({
+          scope: $scope,
+          templateUrl: 'views/addConfidantModal.html',
+          targetEvent: ev,
+          preserveScope: true,
+          clickOutsideToClose: true
+        });
+      };
     }
 
     return confidantController;
@@ -795,9 +797,9 @@
   })());
 
   app.controller('peerController', peerController = (function() {
-    peerController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
+    peerController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
-    function peerController($scope, $ionicModal, socket, $location) {
+    function peerController($scope, $mdDialog, socket, $location) {
       var searchObject;
       this.$scope = $scope;
       this.socket = socket;
@@ -834,7 +836,7 @@
         $scope.setUpPages();
         return $scope.isLoading = false;
       });
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($mdDialog, $scope, socket, $location);
     }
 
     return peerController;
@@ -842,9 +844,9 @@
   })());
 
   app.controller('guruController', guruController = (function() {
-    guruController.$inject = ['$scope', '$ionicModal', 'socket', '$location'];
+    guruController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
-    function guruController($scope, $ionicModal, socket, $location) {
+    function guruController($scope, $mdDialog, socket, $location) {
       var searchObject;
       this.$scope = $scope;
       this.socket = socket;
@@ -885,7 +887,7 @@
         $scope.setUpPages();
         return $scope.isLoading = false;
       });
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($mdDialog, $scope, socket, $location);
     }
 
     return guruController;
@@ -905,13 +907,19 @@
   })());
 
   app.controller('libraryController', libraryController = (function() {
-    libraryController.$inject = ['$scope', '$ionicModal', 'socket', '$location', '$ionicPopover'];
+    libraryController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
-    function libraryController($scope, $ionicModal, socket, $location, $ionicPopover) {
+    function libraryController($scope, $mdDialog, socket, $location) {
       var myDropzone, path;
       this.$scope = $scope;
       this.socket = socket;
       this.$location = $location;
+      $scope.isOpen = false;
+      $scope.demo = {
+        isOpen: false,
+        count: 0,
+        selectedAlignment: 'md-left'
+      };
       $scope.loggedin = true;
       $scope.myLibrary = true;
       $scope.NoLibraryError = false;
@@ -957,13 +965,6 @@
         $scope.setUpPages();
         return $scope.isLoading = false;
       });
-      $ionicModal.fromTemplateUrl('views/addGameModal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-        $scope.modal = modal;
-        return $scope.modalGame = {};
-      });
       $scope.searchForAGame = function(game) {
         $scope.isLoadingAdder = true;
         return socket.emit('findGamesInWiki', game);
@@ -977,8 +978,15 @@
         }
         return $scope.isLoadingAdder = false;
       });
-      $scope.addNewGame = function() {
-        $scope.modal.show();
+      $scope.addNewGame = function(ev) {
+        $scope.modalGame = {};
+        $mdDialog.show({
+          scope: $scope,
+          templateUrl: 'views/addGameModal.html',
+          targetEvent: ev,
+          preserveScope: true,
+          clickOutsideToClose: true
+        });
         $scope.canFlip = 'false';
         return $scope.gameSelected = false;
       };
@@ -986,7 +994,7 @@
       $scope.closeModal = function() {
         $scope.newgame = {};
         $scope.gamesfound = {};
-        return $scope.modal.hide();
+        return $mdDialog.hide();
       };
       $scope.addGameToLibrary = function(game) {
         $scope.newgame = {};
@@ -1006,25 +1014,25 @@
         $scope.newgame.userInfo.difficulty = 3;
         return $scope.gameSelected = true;
       };
-      $scope.importFromSteam = function() {
+      $scope.importFromSteam = function(ev) {
         $scope.vanity = {};
-        return $ionicModal.fromTemplateUrl('views/steamImportModal.html', {
+        $mdDialog.show({
           scope: $scope,
-          animation: 'slide-in-up'
-        }).then(function(modal) {
-          $scope.importModal = modal;
-          $scope.importModal.show();
-          $scope.importMode = true;
-          $scope.isTransfering = true;
-          $scope.vanityErrorMessage = false;
-          $scope.closeImportModal = function() {
-            return $scope.importModal.hide();
-          };
-          return $scope.getGamesFromSteam = function() {
-            $scope.importMode = false;
-            return socket.emit('importGamesFromSteam', $scope.vanity);
-          };
+          templateUrl: 'views/steamImportModal.html',
+          targetEvent: ev,
+          preserveScope: true,
+          clickOutsideToClose: true
         });
+        $scope.importMode = true;
+        $scope.isTransfering = true;
+        return $scope.vanityErrorMessage = false;
+      };
+      $scope.closeImportModal = function() {
+        return $mdDialog.hide();
+      };
+      $scope.getGamesFromSteam = function() {
+        $scope.importMode = false;
+        return socket.emit('importGamesFromSteam', $scope.vanity);
       };
       socket.on('steamGamesToAdd', function(data) {
         $scope.isTransfering = false;
@@ -1042,29 +1050,22 @@
         socket.emit('AddNewGameToLibrary', $scope.newgame);
         return $scope.closeModal();
       };
-      $ionicModal.fromTemplateUrl('views/detailsLibraryModal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-        return $scope.detailsModal = modal;
-      });
       $scope.closeLibraryDetails = function() {
-        return $scope.detailsModal.hide();
+        return $mdDialog.hide();
       };
-      $scope.getGameDetails = function(game) {
+      $scope.getGameDetails = function(game, ev) {
         $scope.gamedetails = game;
         $scope.gamedetails.reviewLink = $location.absUrl();
-        return $scope.detailsModal.show();
+        return $mdDialog.show({
+          scope: $scope,
+          templateUrl: 'views/detailsLibraryModal.html',
+          targetEvent: ev,
+          preserveScope: true,
+          clickOutsideToClose: true
+        });
       };
-      $ionicModal.fromTemplateUrl('views/editScoreModal.html', {
-        scope: $scope,
-        animation: 'slide-in-up'
-      }).then(function(modal) {
-        $scope.editModal = modal;
-        return $scope.edit = {};
-      });
       $scope.closeEdit = function() {
-        $scope.editModal.hide();
+        $mdDialog.hide();
         return $scope.edit = {};
       };
       $scope.getIndexOfGame = function(gameToCheck) {
@@ -1081,29 +1082,25 @@
         }
         return foundindex;
       };
-      $scope.showEdit = function(game) {
+      $scope.showEdit = function(game, ev) {
+        $scope.edit = {};
         $scope.edit = game;
         $scope.editingindex = $scope.getIndexOfGame(game);
-        return $scope.editModal.show();
-      };
-      $scope.showRemove = function(game) {
-        $scope.editingindex = $scope.getIndexOfGame(game);
-        return $ionicPopover.fromTemplateUrl('views/deletePopover.html', {
-          scope: $scope
-        }).then(function(popover) {
-          $scope.popover = popover;
-          return $scope.popover.show();
+        return $mdDialog.show({
+          scope: $scope,
+          templateUrl: 'views/editScoreModal.html',
+          targetEvent: ev,
+          preserveScope: true,
+          clickOutsideToClose: true
         });
       };
-      $scope.removePopover = function() {
-        return $scope.popover.hide();
-      };
-      $scope.$on('popover.hidden', function() {
-        return $scope.popover.remove();
-      });
-      $scope.deleteGame = function() {
-        socket.emit('deleteGame', $scope.games[$scope.editingindex]);
-        return $scope.popover.hide();
+      $scope.showRemove = function(game, ev) {
+        var confirm;
+        $scope.editingindex = $scope.getIndexOfGame(game);
+        confirm = $mdDialog.confirm().parent(angular.element(document.body)).title('Would you like to delete this game?').content('Deleting this game will remove it from your library.').ok('Yes').cancel('No').targetEvent(ev);
+        return $mdDialog.show(confirm).then(function() {
+          return socket.emit('deleteGame', $scope.games[$scope.editingindex]);
+        }, function() {});
       };
       $scope.updateGame = function() {
         $scope.games[$scope.editingindex] = $scope.edit;
@@ -1111,7 +1108,7 @@
         socket.emit('updateGame', $scope.edit);
         return $scope.editModal.hide();
       };
-      createGameDetailViewer($ionicModal, $scope, socket);
+      createGameDetailViewer($mdDialog, $scope, socket, $location);
       $scope.dropzoneConfig = {
         parallelUploads: 1,
         maxFileSize: 5

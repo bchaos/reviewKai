@@ -1,12 +1,13 @@
 $postiveColor:#8cc63f;
 $greenColour: #92bb2c;
 $yellowColour:#fdde09;
+
 $listColor: #6d6e70; 
 $darkBlue: #2d3e50;
 $redColour:#fb4b0f;
 $lightBlue: #1f8dd6;
-$whiteColour:#D0C0A4;
-$whiteHover: #beb097;
+$whiteColour:#f7f1e6;
+$whiteHover: #f3e2c4;
 $primaryDark:#222;
 $lightGreyText:#9CA2A5;
 $primaryOrange:#f8931d;
@@ -19,11 +20,11 @@ body, a {
 
 html, body{
     height :100%;
-    line-height: 1.7em;
+    line-height: 1.3em;
     font-size: 13px;
     overflow-x:hidden;
     overflow-y:scroll;
-    background-color:$primaryDark;
+    background-color: $whiteColour;
 }
 
 .button{
@@ -43,9 +44,15 @@ html, body{
 
 }
 
+
+ul
+{
+    list-style-type: none;
+}
 .item-input{
     background-color: $whiteHover;
     border-color: $primaryOrange;
+    color: $primaryDark;
 }
 #menu {
     margin-left: -200px; /* "#menu" width */
@@ -54,7 +61,7 @@ html, body{
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000; /* so the menu or its navicon stays above all content */
+    z-index: 96; /* so the menu or its navicon stays above all content */
     background: $primaryDark;
     overflow-y: auto;
     overflow-x: hidden;
@@ -101,7 +108,9 @@ ol{
 .l-box{
     padding: 1em;
 }
-
+.l-box p{
+  color:$whiteColour;
+}
 .l-box-lrg{
     padding: 2em;
     border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -145,7 +154,7 @@ margin-right: auto;
 }
 
 .splash-container-dashboard{
-    background: $primaryDark;
+    background: $whiteColour;
     width: 90%;
 margin-left: auto;
 margin-right: auto;
@@ -190,6 +199,9 @@ margin-right: auto;
     border-radius: 5px;
     line-height: 1em;
     text-transform: uppercase;
+    &.library{
+        padding: .5em .5em;
+    }
 }
 .splash-subhead {
     color: $primaryOrange;
@@ -198,6 +210,9 @@ margin-right: auto;
     &.confidants{
       font-size: .5em;
     }
+}
+.md-subheader {
+  background-color: $whiteColour !important;
 }
 .iosContent{
     .splash-dashboard{
@@ -246,7 +261,7 @@ margin-right: auto;
     color: $whiteColour;
 }
 .content-subhead {
-    color:$primaryDark;
+    color:$whiteColour;
     margin: 50px 0 20px 0;
     font-weight: 300;
     i {
@@ -258,7 +273,7 @@ margin-right: auto;
     position: fixed;
     color: white;
     bottom: 0px;
-    z-index:500;
+    z-index:97;
     width: 100%;
     background-color:$darkBlue;
 }
@@ -294,10 +309,27 @@ margin-right: auto;
         display:none;
     }
 }
+.mobileText{
+    font-size:.7em;
+    button .md-list-item-inner{
+        float:left;
+    }
+}
+.largeText{
+    button .md-list-item-inner{
+        float:left;
+    }
+}
+.md-dialog-container{
+    z-index:98;
+}
+.md-select-menu-container {
+
+}
 .mobileLogoPos{
     position: absolute;
     margin-left:  40%;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 .mainBackground{
     background:url('../images/stock2.jpg')no-repeat  fixed;
@@ -306,7 +338,7 @@ margin-right: auto;
     -o-background-size: cover;
     background-size: cover;
     background-position-y: 100%;
-    height: 85%;
+    height: 65%;
 }
 @media (min-width: 48em) {
     body {
@@ -350,7 +382,9 @@ margin-right: auto;
 .blockCard{
     display: inline-block;
 }
-
+ md-toolbar{
+        background-color: $primaryOrange !important;
+    }
 .panel {
     float: left;
     width: 275px;
@@ -466,7 +500,6 @@ margin-right: auto;
     color:$primaryDark;
     
     &.flipable{
-        height: 188px;
         background: url($cardBackMobile);
     }
       &.flip{
@@ -490,7 +523,6 @@ margin-right: auto;
 
     .back {
         float: none;
-		position: absolute;
 		top: 0;
 		left: 0;
 		z-index: 800;
@@ -550,7 +582,10 @@ margin-right: auto;
         transition: all .4s ease-in-out;
     }
 }
-    
+.spacer16{
+    width:16px;
+    display: inline;
+}
 .lightblue{
   height: 40px;
   background-color: $darkBlue;
@@ -559,7 +594,11 @@ margin-right: auto;
   width: 100%;
 }
 .white-link{
-   color: white;
+   color: $primaryOrange;
+}
+
+.white-text{
+    color:$whiteColour
 }
 
 @keyframes shuffleanimation {
@@ -583,7 +622,7 @@ margin-right: auto;
 }
 
 .loadingCard{
-    position: absolute;
+    position: fixed;
     float: left;
     left: 38%;
     top: 38%;
@@ -628,6 +667,8 @@ margin-right: auto;
 .panel {
     .pad{
         padding: 0 15px;
+        border-radius: 2px;
+
     }
     &.flip .action {
         display:none;
@@ -641,7 +682,6 @@ margin-right: auto;
 
 .circle div .circleLogo  {
 
-    box-shadow: 0 1px 0 $whiteColour;
     color:$primaryOrange;
     text-align:center;
     width: 55%;
@@ -661,24 +701,26 @@ margin-right: auto;
 }
 
 .username{
- color:$whiteColour;
+ color:$primaryDark;
 }
 .game_image{
-    margin-left: auto;
-    margin-right: auto;
-    border: 2px ridge $primaryOrange;
-    border-radius: 10%;
-    width: 90%;
     background-size: 100% 150%;
     background-repeat: no-repeat;
     background-position: center;
-    height: 42%;
+    height: 55%;
     &.mobile{
         border-radius: 0%;
         height: 140px;
     }
+    &.confidant{
+        background-color: $whiteColour  !important;
+    }
 }
-
+.trucatedName{
+  overflow: hidden;
+  max-width: 200px;
+  white-space: nowrap;
+}
 .KaiadderText{
     margin-right: 20%;
     margin-left: 20%;
@@ -696,22 +738,49 @@ margin-right: auto;
 .card img{
     max-width:100px;
 }
+
+.infoIcon{
+   float: right;
+   top: -51px;
+   margin-right: 18px;
+}
+.postive .game_header{
+  background-color:  rgba(146,187,44,0.8);
+}
+.negative .game_header{
+  background-color:  rgba(251,75,18,0.8);
+}
+.ok .game_header{
+  background-color:  rgba(253,222,9,0.8);
+}
+ .unknown .game_header{
+            background-color:  rgba(247,241,230,0.8);
+        }
 .game_header, .game_recomendation{
     margin-top:5px;
-    font-size:1.2em;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+
     margin-bottom:5px;
-    background-color:$whiteColour;
-    border: 1px solid $primaryOrange;
 
 }
-
+.game_header{
+  position: relative;
+  top: -25px;
+  font-size: 1.4em;
+}
+.maxwidth{
+ width:100%;
+}
+.contact_text{
+    top:150px;
+    position: relative;
+}
 .game_recomendation{
+    top: -11px;
+    position: relative;
+    width: 100%;
 
-     overflow-y: scroll;
-     height:38%;   
+    height:38%;
+    font-size:1em;
     &.tall{
        height:95%;
 
@@ -720,19 +789,33 @@ margin-right: auto;
         height:50%
     }
 }
+.game_mobile {
+    width:100%;
+}
 .game_name{
     margin-left:8px;
     &.mobile{
         color:$primaryDark;
-        font-size:1.4em;
+        font-size:.8em;
     }
 }
-
+.probuttons{
+    font-size:.7em;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 5px;
+}
 .game_recomendation_text{
-    margin-left:8px;
-    margin-right:8px;
-    margin-top:20px;
+    margin-top:-15px;
+    margin-left: 10px;
+    font-size:1em;
+    md-list{
+        padding: 0px;
+
+    }
     &.mobile{
+        margin-top:0px;
+        margin-left: 8px;
       color: $primaryDark;
     }
 }
@@ -770,15 +853,31 @@ margin-right: auto;
     
 
 }
+.editHeader{
+    &.postive{
+            color:$greenColour;
+        }
+    &.negative{
+        color:$redColour;
+    }
+    &.unknown{
+        color:$whiteColour;
+    }
+    &.ok{
+
+        color:$yellowColour;
+
+    }
+}
 .newGameAdder{
-  margin: 12px 30%; 
+  margin: 0px 30%;
     color:$primaryDark;
     font-size:1.8em; 
     position: absolute;
 }
 .pure-menu-selected{
   background-color: $whiteHover;
-
+    color:$primaryDark
 }
 
 .item-input{
@@ -851,13 +950,16 @@ margin-right: auto;
 
 }
 .smallText{
-    font-size:50%;
+    font-size:70%;
+    a{
+        color: $lightGreyText;
+    }
 }
 
 .modalSelectionArea{
   overflow-y: scroll;
   height: 300px;
-  margin-top: 50px;
+    width: 300px;
 }
 .modalAdder{
   min-height:350px;
@@ -881,6 +983,9 @@ margin-right: auto;
 .smalllogo{
     width: 30px;
     height: 30px;
+    &.marign16{
+        margin-right: 16px;
+    }
 }
 .iosMenu{
     position: fixed;
@@ -896,6 +1001,9 @@ margin-right: auto;
     }
 
 }
+.logoText{
+    vertical-align: text-top;
+}
 .menu-logo{
   margin-left: 7px;
 }
@@ -903,7 +1011,7 @@ margin-right: auto;
   color:$primaryOrange;   
 }
 a {
-  color:$lightGreyText;
+  color:$whiteColour;
 }
 a :visited{
   color:$primaryOrange;
@@ -941,6 +1049,9 @@ a :visited{
      0%   {opacity: 0.0; }
 
     100% {opacity: 1.0;}
+}
+.reallysmall{
+    height: 30px;
 }
 .steamCard{
         animation-name: steamCardAnimation;
@@ -995,6 +1106,39 @@ a :visited{
   height: inherit;
 }
 
+
+
+.dropzone, .userLibaryImage,.userHeaderName{
+  &.ng-hide-remove.ng-hide-remove-active {
+    -webkit-animation: zoomInDown .5s;
+    -moz-animation: zoomInDown .5s;
+    -ms-animation: zoomInDown .5s;
+    animation: zoomInDown .5s;
+
+  }
+  &.ng-hide-add.ng-hide-add-active{
+    -webkit-animation: zoomOutUp .5s;
+    -moz-animation: zoomOutUp .5s;
+    -ms-animation: zoomOutUp .5s;
+    animation: zoomOutUp .5s;
+      position: absolute;
+  }
+  &.ng-enter-stagger{
+    transition-delay: 0.1s;
+    transition-duration: 0s;
+  }
+}
+md-select {
+  padding: 0;
+  background-color: $whiteColour;
+  color: $primaryOrange;
+  .md-select-label.md-placeholder{
+      color: $primaryOrange;
+  }
+}
+md-content {
+    background-color: $whiteColour !important;
+}
 /// dropzone css///
 
 /*

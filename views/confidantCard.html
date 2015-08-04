@@ -1,23 +1,41 @@
 
 <div class="click panel circle hideMobile flip" >
 	<div class="back postive ">
-        <div class="game_header">
+        <div class="game_image confidant" ng-style="getGameStyle('userimages/'+confidant.picture)">
+
+        </div>
+        <div class="game_header ">
 
             <div class="pure-u-19-24 game_name">{{confidant.name}}</div>
-             <div class="pure-u-1-8"><a  href="#/{{confidant.name}}" class="button  button-icon icon ion-ios-information-outline infobutton"></a></div>
-        </div>
-        <div class="game_image" ng-style="getGameStyle('userimages/'+confidant.picture)">
+            <a  href="#/{{confidant.name}}" >
+            <md-button class="md-fab infoIcon">
+                   <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+                 </md-button>
+        </a>
 
         </div>
+
         <div class="game_recomendation">
             <div class="game_recomendation_text">
-               <span> Games reviewed: {{confidant.reviews}}</span>
-                <p/>
-                <span> Confidant to:{{confidant.confidantCount}}</span> users
-                <p/>
-                <span ng-show="confidant.site">Site:<a href="{{confidant.site}}">  {{confidant.site}}</a></span>
-                <p/>
-                <span ng-show="confidant.stream">Stream:<a href="{{confidant.stream}}"> {{confidant.stream}}</a> </span>
+                 <md-list>
+                     <md-list-item>
+                    <md-list-item-text class="md-3-line maxwidth">
+
+               Games reviewed: {{confidant.reviews}}
+                     </md-list-item-text>
+                         </md-list-item> <md-list-item>
+                     <md-list-item-text class="md-3-line maxwidth">  Confidant to:{{confidant.confidantCount}}  users
+                     </md-list-item-text>
+            </md-list-item> <md-list-item>
+                      <md-list-item-text class="md-3-line maxwidth">
+
+               <span ng-show="confidant.site"> Site: <a href="{{confidant.site}}">  {{confidant.site}}</a></span>
+                     </md-list-item-text></md-list-item>
+                     <md-list-item>
+
+                           <md-list-item-text class="md-3-line maxwidth">
+                <span ng-show="confidant.stream"> Stream:<a href="{{confidant.stream}}"> {{confidant.stream}}</a></span>
+                           </md-list-item-text></md-list-item>
             </div>
         </div>
 	</div>

@@ -1,23 +1,26 @@
-<ion-modal-view>
-    <ion-header-bar>
-        <h1 class="title"> What your Pros say say about this game </h1>
-        <button class="button button-clear button-assertive" ng-click="closeGuru()">x</button>
-    </ion-header-bar>
-    <ion-content>
-     <div class="list">
-        <span ng-show="guruInfoLoading"> <div class="item item-divider">loading ....   </div></span>       
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1 class="title"> What your Pros say say about this game </h1>
+             <span flex></span>
+            <md-button ng-click="closeGuru()">x</md-button>
+        </div>
+    </md-toolbar>
+     <md-dialog-content>
+     <md-list>
+        <span ng-show="guruInfoLoading"> <div class="item item-divider">loading ....   </div></span>
         <span ng-hide="guruInfoLoading"> 
-           <a class="item" ng-repeat ="details in gameDetails" ng-href="{{details.reviewlink}}" target="_blank" >
-            <div class="pure-u-1-2">
-                <h2>{{details.reviewerName}}</h2>
-                <p>Thoughts: {{convertMyRating(details.score)}}</p>
-            </div>
-            <div class="pure-u-1-2">
-                <h2>Score: {{details.score}}/{{details.scoremax}}</h2>
-                <p> Tap to read full review</p>
-            </div>
-            </a>
+            <md-list-item class="md-3-line" ng-repeat="details in gameDetails" >
+                <a ng-href="{{details.reviewlink}}" target="_blank">
+                <md-button style="text-align:left">
+                <div class="md-list-item-text">
+                <h3>{{details.reviewerName}}</h3>
+              <h4> Thoughts: {{convertMyRating(details.score)}}</h4>
+              <p>Score: {{details.score}}/{{details.scoremax}}  </p>
+                </div>
+                    </md-button></a>
+            </md-list-item>
         </span>
-        </div> 
-    </ion-content>
-</ion-modal-view>
+         </md-list>
+    </md-dialog-content>
+</md-dialog>
