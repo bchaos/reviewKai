@@ -7,7 +7,8 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
-    <div class="click panel circle pure-u-1-8" ng-class="canFlip">
+         <div layout="row">
+    <div class="click panel circle" flex="50" ng-class="canFlip">
 
      <div class="front" >
         <div class="circleLogo"> <p/>Find a Confidant</div>
@@ -15,10 +16,12 @@
             <div class="item item-divider">
                 <form ng-submit="findConfidant(searchRequirements)">
                     <md-dialog-content>
+                         <md-input-container>
                          <label class="item item-input">
                             Search
                          </label>
                          <input type="text" ng-model="searchRequirements">
+                        </md-input-container>
                          <md-button type="submit" class="button button-small" >
                             Search
                          </md-button>
@@ -52,15 +55,21 @@
             </div>
     </div>
     </div>
-    <div class=" modalSelectionArea">
+    <div class=" modalSelectionArea" flex>
+        <md-list>
         <div ng-show="isLoadingAdder"> Loading .... </div>
         <div ng-hide="isLoadingAdder">
-             <a class="item item-avatar" ng-repeat="aConfidant in confidantsFound" ng-click="selectConfidant(aConfidant);">
-              <img class="smalllogo" ng-src="{{aConfidant.picture}}">
-              <h2>{{aConfidant.name}}</h2>
-            </a>
+            <md-list-item ng-repeat="aConfidant in confidantsFound" ng-click="selectConfidant(aConfidant);" ng-hide="noneFound">
+              <img class="smalllogo marign16"  src="images/userimages/{{aConfidant.picture}}" >
+                 <div class="md-list-item-text">
+                     {{aConfidant.name}}
+                 </div>
+
+            </md-list-item>
             <span ng-show="noneFound"> <h2> No users found </h2></span>
         </div>
+        </md-list>
     </div>
+        </div>
     </md-dialog-content>
 </md-dialog>

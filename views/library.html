@@ -95,21 +95,19 @@
         </h1>
 
 
-     <md-content style="height: 600px;">
-        <section style="overflow-x:hidden">
+
     <span ng-show="myLibrary && localLibrary">
-        <md-subheader class="md-primary">
+
             <div class="hideDesktop pure-u-1 game_mobile  gameAdder" ng-click ="addNewGame($event)">
                <span class="newGameAdder">+ New</span>
             </div>
-        </md-subheader>
+
     </span>
    
     <div class="" ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
         <librarycard ></librarycard>
     </div>
-    </section>
-        </md-content>
+
  </div>
 </div>
 

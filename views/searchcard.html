@@ -1,37 +1,52 @@
 
 
 <div class="click panel circle flip hideMobile">
-	<div class="front" >
-		<div class="circleLogo"> <img src="images/logo.png"></div>
-        <p/> click to reveal
-	</div>
+
 	<div class="back" ng-class="convertAverageClass(game.details.avgscore)" > 
       <div class="game_image" ng-style="getGameStyle(game.image.medium_url)">
            
         </div>
          <div class="game_header" >
-          <div class=" game_name" >
+          <div class="game_name" >
 
-              <div flex class="trucatedName"> {{game.game_name}} </div>
+              <div flex class="trucatedName"> {{game.name}} </div>
               <md-button class="md-fab infoIcon" ng-click='showGameDescription(game.id, game.name,game.image.medium_url,$event )'>
                    <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
                  </md-button>
              </div>
-
+        </div>
         <div class="game_recomendation">
             <div class="game_recomendation_text">
-           <md-button ng-click="getGuruDetails(game.id ,$event)" class="probuttons" ng-show="game.guruscore">
-                   Pros say:{{convertRating(game.guruscore)}} <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>    <span ng-hide="game.guruscore">TBD  </span>   </md-button>
-            <p/>
-           <md-button  ng-click="getPeerDetails(game.id ,$event)" class="probuttons"  ng-show="game.peerscore">
-               Peers say:{{convertRating(game.peerscore)}} <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>   <span ng-hide="game.peerscore ">TBD </span>
-                </md-button>
+             <md-list ng-hide="myLibrary">
+            <md-list-item class="md-3-line maxwidth" ng-click="getGuruDetails(game.details.id ,$event)">
+
+              <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+
+        <div class="md-list-item-text" >
+           <h3>Pros say:</h3>
+            <h4><span ng-show="game.details.guruscore"> {{convertRating(game.details.guruscore)}} </span>  <span ng-hide="game.details.guruscore">TBD  </span>
+            </h4>
+                </div>
+               </md-list-item>
+                 <md-list-item class="md-3-line maxwidth" ng-click="getPeerDetails(game.details.id ,$event)" >
+
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+
+                     <div class="md-list-item-text">
+                   <h3>
+                       Peers say:
+                         </h3><h4><span ng-show="game.details.peerscore">{{convertRating(game.details.peerscore)}} </span>
+
+                         <span ng-hide="game.details.peerscore">TBD </span></h4>
+                     </div>
+              </md-list-item>
+</md-list>
             </div>
         </div>
 	</div>
 		
 	</div>
-</div>
+
 
 <div class="pure-u-1 game_mobile hideDesktop" ng-class="convertAverageClass(game.details.avgscore)">
  <div layout="row">
@@ -39,30 +54,25 @@
 
     </div>
     <div class="game_recomendation_text mobile">
-        <div layout="column">
-        <div>
-            <md-button  ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture,$event)'  class="game_name mobile">
+         <md-list>
+            <md-list-item class="md-2-line maxwidth  largeText" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.image.medium_url,$event)'>
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+                {{game.name}}
+            </md-list-item>
+          <md-divider></md-divider>
 
-                {{game.game_name}}
+       <md-list-item class="md-2-line maxwidth mobileText" ng-click="getGuruDetails(game.details.id ,$event)" >
+                      <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>   Pros say: <span ng-show="game.details.guruscore"> {{convertRating(game.details.guruscore)}}
+                     </span> <span ng-hide="game.details.guruscore">TBD  </span>
 
-                   <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+        </md-list-item >
 
-            </md-button>
-            </div>
-        <div>
 
-                 <md-button  class="mobileText"  ng-click="getGuruDetails(game.id ,$event)" >
-                 Pros say: <span ng-show="game.guruscore"> {{convertRating(game.guruscore)}}  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
-                     </span> <span ng-hide="game.guruscore">TBD  </span>
+                <md-list-item class="md-2-line maxwidth mobileText" ng-click="getPeerDetails(game.details.id ,$event)" >
 
-                 </md-button>
-        </div>
-        
-                <div>
-                   <md-button  class="mobileText"  ng-click="getPeerDetails(game.id ,$event)">
-                Peers say:<span ng-show="game.peerscore"> {{convertRating(game.peerscore)}} <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>  </span><span ng-hide="game.peerscore ">TBD </span>
-                   </md-button>
-        </div>
-        </div>
+                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon> Peers say:<span ng-show="game.details.peerscore"> {{convertRating(game.details.peerscore)}}   </span><span ng-hide="game.details.peerscore">TBD </span>
+
+
+       </md-list>
     </div></div>
 </div>

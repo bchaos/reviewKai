@@ -5,37 +5,24 @@
              <span flex></span>
             <md-button ng-click="closeEdit()">x</md-button>
         </div>
-    </ion-header-bar>
-    <ion-content>
-    <p/>
-    <ul class="list">
-         <li class="item item-avatar item-divider">
-          
-              <img ng-src="{{edit.image.icon_url}}">
-              <h2>{{edit.name}}</h2>
-         </li>
-         <li class="item">
-            <div class="input-label">
-                How much did you enjoy this game
-            </div>
-            <select ng-model="edit.rating">
-               <option value="1">Pretty much unplayable</option>
-               <option value="2">Bad but playable in a pinch</option>
-               <option selected value="3">A fairly average game</option>
-               <option value="4">Good game with some minor flaws</option>
-               <option value="5">A nearly flawless gameplay experience</option>
-            </select>
-         </li>
-         <li class="item">
+    </md-toolbar>
+   <md-dialog-content>
+            <h2 class="md-title"> How much did you enjoy <span class="editHeader" ng-class="convertAverageClass(edit.rating)"> {{edit.game_name}}</span></h2>
+
+            <md-select placeholder="Enjoyment Value" ng-model="edit.rating">
+               <md-option value="1">Pretty much unplayable</md-option>
+               <md-option value="2">Bad but playable in a pinch</md-option>
+               <md-option  value="3">A fairly average game</md-option>
+               <md-option value="4">Good game with some minor flaws</md-option>
+               <md-option value="5">A nearly flawless gameplay experience</md-option>
+            </md-select>
+
           <form class="pure-form">
-             <fieldset class="pure-group">
-                <textarea class="pure-input-1-2" placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="edit.description"></textarea>
-             </fieldset>
+            <md-input-container flex>
+                <label>Review</label>
+                <textarea  placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="edit.description"></textarea>
+              </md-input-container>
           </form>
-        </li>
-    </ul>
-    <div class="button-bar">
-        <a class="button button-modal" ng-click="updateGame()"> Save </a>
-    </div>
-    </ion-content>
-</ion-modal-view>
+       <md-button ng-click="updateGame()"> Save </md-button>
+    </md-dialog-content>
+</md-dialog>

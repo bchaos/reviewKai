@@ -6,42 +6,42 @@
         <h1 class="splash-head " ng-hide="resultsFor" >Search for a game </h1>
         <p>
 
-    <div class="pure-g-r addedMargin" >
-<form class="pure-form" ng-submit="getGame()">
-        <fieldset>
-        <input type="text" class="pure-input-2-3" ng-model="search" placeholder="Search" >
-        <button type="submit" class="pure-button pure-button-primary">Search</button>
-    </fieldset>
+    <div class="" >
+<form  ng-submit="getGame()">
+      <md-input-container class="md-icon-float"  >
+          <label> Search</label>
+          <md-icon md-svg-src="images/ic_search_black_24px.svg" class="name" ng-click="getGame()">
+          </md-icon>
+        <input type="text"  ng-model="search"  >
+
+    </md-input-container>
+
+
+
+
     </form> 
 
 
 </div>
-<div class="pure-g-r " ng-hide ="isLoading">
+<div  ng-hide ="isLoading">
   
-    <div class="pure-u-1">
-        <form class="pure-form">
-        <div class="pure-u-17-24">
-        <span > 
-                 <button class="button button-stable " ng-click="setPage(currentPage-1)"><<</button>
-        </span>
-        <span ng-repeat="page in pages">
-            <button ng-show="page.elispe" class="button button-stable" > ... </button>
-            <button ng-hide="page.elispe" class="button  " ng-class="onCurrentPage(page.number)" ng-click="setPage(page.number) ">{{page.number+1}}</button>
-        </span>
-        <span > 
-               <button class="button button-stable"  ng-click="setPage(currentPage+1)">>></button>
-        </span>
-    </div>
-    <div class="pure-u-1-8">
-                <select id="sort" ng-model="sort" ng-init ="sort='-original_release_date'">
-                    <option value="-original_release_date" selected>Release Date </option>
-                    <option value ="+game_name">Name </option>
-                    <option value = "-details.avgscore">Recomendation</option>
-                </select>
-            </div>
-            </form>
-    </div>
+    <div layout="row" ng-show="games">
 
+        <div flex="50">
+            <md-select id="sort" ng-model="currentPage" ng-init ="currentPage=0"  placeholder="Page" ng-change="setPage(currentPage)">
+                        <md-option value ="{{page.number}}" ng-repeat="page in pages">{{page.number+1}} </md-option>
+                    </md-select>
+        </div>
+            <div flex>
+                <md-select id="sort" ng-model="sort" ng-init ="sort='-original_release_date'" placeholder="sort">
+                    <md-option value="-original_release_date" selected>Release Date </md-option >
+                    <md-option  value ="+game_name">Name </md-option >
+                    <md-option  value = "-details.avgscore">Recomendation</md-option>
+                </md-select>
+            </div>
+
+    </div>
+<p/>
 
 <div class="list" ng-init="newOffset=0">
 

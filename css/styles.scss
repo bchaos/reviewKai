@@ -20,7 +20,7 @@ body, a {
 
 html, body{
     height :100%;
-    line-height: 1.7em;
+    line-height: 1.3em;
     font-size: 13px;
     overflow-x:hidden;
     overflow-y:scroll;
@@ -61,7 +61,7 @@ ul
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 1000; /* so the menu or its navicon stays above all content */
+    z-index: 96; /* so the menu or its navicon stays above all content */
     background: $primaryDark;
     overflow-y: auto;
     overflow-x: hidden;
@@ -273,7 +273,7 @@ margin-right: auto;
     position: fixed;
     color: white;
     bottom: 0px;
-    z-index:500;
+    z-index:97;
     width: 100%;
     background-color:$darkBlue;
 }
@@ -311,9 +311,20 @@ margin-right: auto;
 }
 .mobileText{
     font-size:.7em;
+    button .md-list-item-inner{
+        float:left;
+    }
+}
+.largeText{
+    button .md-list-item-inner{
+        float:left;
+    }
 }
 .md-dialog-container{
-    z-index:9000;
+    z-index:98;
+}
+.md-select-menu-container {
+
 }
 .mobileLogoPos{
     position: absolute;
@@ -371,7 +382,9 @@ margin-right: auto;
 .blockCard{
     display: inline-block;
 }
-
+ md-toolbar{
+        background-color: $primaryOrange !important;
+    }
 .panel {
     float: left;
     width: 275px;
@@ -418,9 +431,7 @@ margin-right: auto;
             height: 350px;
         }
     }
-    md-toolbar{
-        background-color: $primaryOrange;
-    }
+
 
     .back {
         float: none;
@@ -701,6 +712,9 @@ margin-right: auto;
         border-radius: 0%;
         height: 140px;
     }
+    &.confidant{
+        background-color: $whiteColour  !important;
+    }
 }
 .trucatedName{
   overflow: hidden;
@@ -739,7 +753,9 @@ margin-right: auto;
 .ok .game_header{
   background-color:  rgba(253,222,9,0.8);
 }
-
+ .unknown .game_header{
+            background-color:  rgba(247,241,230,0.8);
+        }
 .game_header, .game_recomendation{
     margin-top:5px;
 
@@ -748,14 +764,21 @@ margin-right: auto;
 }
 .game_header{
   position: relative;
-  top: -30px;
+  top: -25px;
   font-size: 1.4em;
 }
+.maxwidth{
+ width:100%;
+}
+.contact_text{
+    top:150px;
+    position: relative;
+}
 .game_recomendation{
-    top: -71px;
+    top: -11px;
     position: relative;
     width: 100%;
-    overflow-y: hidden;
+
     height:38%;
     font-size:1em;
     &.tall{
@@ -783,7 +806,8 @@ margin-right: auto;
     margin-left: 5px;
 }
 .game_recomendation_text{
-    margin-top:20px;
+    margin-top:-15px;
+    margin-left: 10px;
     font-size:1em;
     md-list{
         padding: 0px;
@@ -828,6 +852,22 @@ margin-right: auto;
     }
     
 
+}
+.editHeader{
+    &.postive{
+            color:$greenColour;
+        }
+    &.negative{
+        color:$redColour;
+    }
+    &.unknown{
+        color:$whiteColour;
+    }
+    &.ok{
+
+        color:$yellowColour;
+
+    }
 }
 .newGameAdder{
   margin: 0px 30%;
@@ -919,7 +959,7 @@ margin-right: auto;
 .modalSelectionArea{
   overflow-y: scroll;
   height: 300px;
-  margin-top: 50px;
+    width: 300px;
 }
 .modalAdder{
   min-height:350px;
@@ -943,6 +983,9 @@ margin-right: auto;
 .smalllogo{
     width: 30px;
     height: 30px;
+    &.marign16{
+        margin-right: 16px;
+    }
 }
 .iosMenu{
     position: fixed;

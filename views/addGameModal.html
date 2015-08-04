@@ -7,9 +7,10 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
-    <div class="click panel circle pure-u-1-8" ng-class="canFlip"  >
+        <div layout="row">
+    <div class="click panel circle " flex="50" ng-class="canFlip"  >
          <div class="front">
-             <div class="circleLogo"> <p/>Find a Game</div>
+             <div class="circleLogo"> Find a Game</div>
             <div class="list" ng-hide="gameSelected">
                 <div class="item item-divider">
                     <form ng-submit="searchForAGame(searchRequirements)">
@@ -29,8 +30,11 @@
         <div class="back" ng-class="convertAverageClass(newgame.userInfo.rating)">
             <div class="list moveupby10" ng-show="gameSelected">
                 <div class="game_header">
-                    <div class="pure-u-19-24 game_name">
-                        <md-button  ng-click="goback()"> &lang; back</md-button>    {{newgame.giantBombinfo.game_name}}
+                    <div class="game_name">
+                        <md-button  ng-click="goback()"> &lang; back</md-button>
+                    </div>
+                    <div class="game_name">
+                         {{newgame.giantBombinfo.game_name}}
                     </div>
                 </div>
                 <img ng-src="">
@@ -42,13 +46,17 @@
             </div>
         </div>
     </div>
-    <div class="modalSelectionArea">
+    <div class="modalSelectionArea" flex>
+        <md-list>
         <div ng-show="isLoadingAdder"> Loading .... </div>
         <div ng-hide= "isLoadingAdder || gameSelected">
-         <a class="item item-avatar" ng-repeat="game in gamesfound" ng-click="addGameToLibrary(game);">
+
+         <md-list-item class="md-3-line" class="item item-avatar" ng-repeat="game in gamesfound" ng-click="addGameToLibrary(game);">
           <img ng-src="{{game.image.icon_url}}">
-          <h2>   {{game.name}}</h2>
-        </a>
+             <div class="md-list-item-text">
+          {{game.name}}
+             </div>
+        </md-list-item>
         </div>
         <form class="pure-form"  ng-submit="saveGame()" ng-show="gameSelected">
             <br/>
@@ -61,15 +69,19 @@
                <md-option selected value="3">A fairly average game</md-option>
                <md-option value="4">Good game with some minor flaws</md-option>
                <md-option value="5">A nearly flawless gameplay experience</md-option>
-            </select>
-           <fieldset class="pure-group" >
-                <textarea class="pure-input-1" height="100px" placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="newgame.userInfo.description"></textarea>
-            </fieldset>
+            </md-select>
+                    <form class="pure-form">
+            <md-input-container flex>
+                <label>Review</label>
+                <textarea  placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="newgame.userInfo.description"></textarea>
+              </md-input-container>
+
             <div class="button-bar">
               <md-button type="submit"> Save </md0button>
             </div>
         </form>
-
+        </md-list>
     </div>
+        </div>
     </md-dialog-content>
 </md-dialog>
