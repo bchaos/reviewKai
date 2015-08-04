@@ -102,8 +102,7 @@ app.config ($httpProvider) ->
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 app.service 'socket',($rootScope) ->
-
-    socket = io.connect 'http://166.78.129.57:8080'
+    socket = io.connect 'http://Reviewkai.com:8080'
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
