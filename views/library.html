@@ -35,20 +35,10 @@
                     <br/>
                 <div layout="row">
                   <div ng-show="localLibrary">
-                        <md-button ng-click="toggleEditMode()" ng-hide='editMode'><i  class="ion-edit"></i> Edit </md-button>
                         <md-button ng-show="editMode" ng-click="toggleEditMode()"><i  class="ion-android-cancel"></i> Cancel  </md-button>
                         <md-button ng-show="editMode" ng-click="saveLibraryEdit()"><i  class="ion-android-done"></i> Save </md-button>
-
-                      <md-button ng-hide='editMode' ng-click ="addNewGame($event)"> <img src="images/rkcardSmall.png" class="reallysmall"> Add </md-button>
                     </div>
 
-                    <div ng-hide="editMode">
-
-                      <md-button  aria-label="Import games from steam" ng-show ="localLibrary" ng-click ="importFromSteam($event)" ng-show="myLibrary">
-                         <img class="smalllogo" src="images/Steam_Icon_2014.png"></img> <span class="logoText"></span>import
-                     </md-button>
-
-                </div>
                 <md-content class="smallText" layout="row" ng-hide="editMode">
                     <md-select id="sort" ng-model="sort" ng-init="sort='-releasedate'"  placeholder="Sort By">
                         <md-option value="-releasedate" selected>Release Date </md-option>
@@ -93,16 +83,6 @@
             </md-select>
         </md-content>
         </h1>
-
-
-
-    <span ng-show="myLibrary && localLibrary">
-
-            <div class="hideDesktop pure-u-1 game_mobile  gameAdder" ng-click ="addNewGame($event)">
-               <span class="newGameAdder">+ New</span>
-            </div>
-
-    </span>
    
     <div class="" ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
         <librarycard ></librarycard>
@@ -112,6 +92,25 @@
 </div>
 
 </div>
+ <md-fab-speed-dial class="fabarea" md-open="demo.isOpen" md-direction="up" ng-show ="myLibrary && localLibrary">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-fab">
+            <md-icon md-svg-src="images/ic_menu_black_24px.svg"></md-icon>
+          </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+          <md-button aria-label="Add" class="md-fab md-raised md-mini" ng-click ="addNewGame($event)" >
+             <md-icon md-svg-src="images/ic_add_circle_outline_black_24px.svg"></md-icon>
+          </md-button>
+          <md-button ng-click="toggleEditMode()" ng-hide='editMode' class="md-fab md-raised md-mini">
+              <i  class="ion-edit"></i>
+            </md-button>
+           <md-button  aria-label="Import games from steam" class="md-fab md-raised md-mini"  ng-click ="importFromSteam($event)" ng-show="myLibrary">
+                         <img class="smalllogo" src="images/Steam_Icon_2014.png"></img>
+                     </md-button>
+        </md-fab-actions>
+      </md-fab-speed-dial>
+
 <div class="addedMargin" ng-show ="isLoading && !NoLibraryError">
     <searching text="Loading"> </searching>
 </div>

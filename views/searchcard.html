@@ -3,16 +3,15 @@
 <div class="click panel circle flip hideMobile">
 
 	<div class="back" ng-class="convertAverageClass(game.details.avgscore)" > 
-      <div class="game_image" ng-style="getGameStyle(game.image.medium_url)">
-           
-        </div>
+
+
+          <md-button class="game_image" ng-style="getGameStyle(game.image.medium_url)" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture,$event)'>
+
+            </md-button>
+
          <div class="game_header" >
           <div class="game_name" >
-
               <div flex class="trucatedName"> {{game.name}} </div>
-              <md-button class="md-fab infoIcon" ng-click='showGameDescription(game.id, game.name,game.image.medium_url,$event )'>
-                   <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
-                 </md-button>
              </div>
         </div>
         <div class="game_recomendation">
@@ -50,16 +49,12 @@
 
 <div class="pure-u-1 game_mobile hideDesktop" ng-class="convertAverageClass(game.details.avgscore)">
  <div layout="row">
-    <div flex="40" class="game_image mobile" ng-style="getGameStyle(game.image.medium_url)">
 
-    </div>
+      <md-button  flex="40" class="game_image mobile" ng-style="getGameStyle(game.image.medium_url)" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture,$event)'>
+
+            </md-button>
     <div class="game_recomendation_text mobile">
          <md-list>
-            <md-list-item class="md-2-line maxwidth  largeText" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.image.medium_url,$event)'>
-                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
-                {{game.name}}
-            </md-list-item>
-          <md-divider></md-divider>
 
        <md-list-item class="md-2-line maxwidth mobileText" ng-click="getGuruDetails(game.details.id ,$event)" >
                       <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>   Pros say: <span ng-show="game.details.guruscore"> {{convertRating(game.details.guruscore)}}

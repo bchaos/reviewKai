@@ -4,16 +4,14 @@
         <p/> click to reveal
 	</div>
 	<div class="back" ng-class="convertAverageClass(game.guruscore,game.peerscore)" >
-        <div class="game_image" ng-style="getGameStyle(game.game_picture)"> 
-           
-        </div>
+        <md-button class="game_image" ng-style="getGameStyle(game.game_picture)" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture,$event)'>
+
+            </md-button>
          <div class="game_header" >
           <div class=" game_name" >
 
               <div flex class="trucatedName"> {{game.game_name}} </div>
-              <md-button class="md-fab infoIcon" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture,$event)'>
-                   <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
-                 </md-button>
+
              </div>
 
         <div class="game_recomendation">
@@ -41,7 +39,8 @@
                          <span ng-hide="game.peerscore ">TBD </span></h4>
                      </div>
               </md-list-item>
-</md-list>
+
+                                </md-list>
             </div>
         </div>
 	</div>
@@ -58,16 +57,13 @@
 	</div>
     <div class="back" ng-class="convertAverageClass(game.guruscore,game.peerscore)">
         <div layout="row" >
-    <div flex="40" class="game_image mobile" ng-style="getGameStyle(game.game_picture)">
+    <md-button  flex="40" class="game_image mobile" ng-style="getGameStyle(game.game_picture)" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture,$event)'>
 
-    </div>
+            </md-button>
     <div class="game_recomendation_text mobile">
 
         <md-list>
-            <md-list-item class="md-2-line maxwidth  largeText" ng-click='showGameDescription(game.giantBomb_id,game.game_name, game.game_picture,$event)'>
-                  <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
-                {{game.game_name}}
-            </md-list-item>
+
           <md-divider></md-divider>
 
        <md-list-item class="md-2-line maxwidth mobileText" ng-click="getGuruDetails(game.id ,$event)" >

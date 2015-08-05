@@ -6,63 +6,83 @@
         </div>
         <div class="game_header ">
 
-            <div class="pure-u-19-24 game_name">{{confidant.name}}</div>
-            <a  href="#/{{confidant.name}}" >
-            <md-button class="md-fab infoIcon">
-                   <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
-                 </md-button>
-        </a>
+            {{confidant.name}}
 
         </div>
 
-        <div class="game_recomendation">
+        <div class="game_recomendation confidant">
             <div class="game_recomendation_text">
-                 <md-list>
-                     <md-list-item>
-                    <md-list-item-text class="md-3-line maxwidth">
-
-               Games reviewed: {{confidant.reviews}}
-                     </md-list-item-text>
-                         </md-list-item> <md-list-item>
-                     <md-list-item-text class="md-3-line maxwidth">  Confidant to:{{confidant.confidantCount}}  users
-                     </md-list-item-text>
-            </md-list-item> <md-list-item>
-                      <md-list-item-text class="md-3-line maxwidth">
-
-               <span ng-show="confidant.site"> Site: <a href="{{confidant.site}}">  {{confidant.site}}</a></span>
-                     </md-list-item-text></md-list-item>
-                     <md-list-item>
-
-                           <md-list-item-text class="md-3-line maxwidth">
-                <span ng-show="confidant.stream"> Stream:<a href="{{confidant.stream}}"> {{confidant.stream}}</a></span>
-                           </md-list-item-text></md-list-item>
+                {{confidant.name}} has reviewed {{confidant.reviews}} games and is a confidant to {{confidant.confidantCount}}  users
+             <p/>
+                <a  href="#/{{confidant.name}}">
+                    <md-button>
+                        Library
+                    </md-button>
+                </a>
+                   <span ng-show="confidant.site">
+                        <a href="{{confidant.site}}" target="_blank">
+                  <md-button>
+                   Site
+                 </md-button>
+                       </a>
+                     </span>
+                <span ng-show="confidant.stream">
+                    <a href="{{confidant.stream}}" target="_blank">
+                 <md-button>
+                   Stream
+                 </md-button>
+                        </a>
+                </span>
             </div>
         </div>
 	</div>
 </div>
 
-<div class="pure-u-1 game_mobile hideDesktop postive">
+<div class="game_mobile hideDesktop postive">
 
-<div class="pure-u-1 game_name mobile">
- <span  ><a href="#/{{confidant.name}}" class="button  button-icon icon ion-ios-information-outline infobutton"></a></span>
-    <span class="addingGameMargin"> {{confidant.name}}</span>
+<div layout="row"  >
+
+
+    <div flex="40" class="game_image mobile" ng-style="getGameStyle('userimages/'+confidant.picture)">
+
+    </div>
+        <div class="game_recomendation_text mobile">
+         <md-list>
+            <md-list-item >
+            <a href="#/{{confidant.name}}">
+                <md-button>
+                <md-icon md-svg-src="images/ic_info_outline_white_24px.svg"></md-icon>
+              {{confidant.name}}
+                    </md-button>
+                </a>
+             </md-list-item>
+
+              <md-list-item >
+                  <md-list-item-text class="md-3-line maxwidth">
+                          Games Reviewed: {{confidant.reviews}}
+                  </md-list-item-text>
+             </md-list-item>
+
+              <md-list-item >
+                  <md-list-item-text class="md-3-line maxwidth">
+                          Confidant to: {{confidant.confidantCount}}
+                  </md-list-item-text>
+             </md-list-item>
+  <span ng-show="confidant.site">
+                        <a href="{{confidant.site}}" target="_blank">
+                  <md-button>
+                   Site
+                 </md-button>
+                       </a>
+                     </span>
+                <span ng-show="confidant.stream">
+                    <a href="{{confidant.stream}}" target="_blank">
+                 <md-button>
+                   Stream
+                 </md-button>
+                        </a>
+                </span>
+            </md-list>
+    </div>
 </div>
-
-<div class="pure-u-1-4">
-   <img src="images/userimages/{{confidant.picture}}" class="logo">
-    </div>
-    <div class="pure-u-3-5 game_recomendation_text mobile">
-        <div class="pure-u-1">
-             <span> Games Reviewed: {{confidant.reviews}}</span>
-        </div>
-        <div class="pure-u-1">
-            <span> Confidant to: {{confidant.confidantCount}}</span> users
-        </div>
-        <div class="pure-u-1">
-             <span ng-show="confidant.site">Site: {{confidant.site}}</span>
-        </div>
-        <div class="pure-u-1">
-             <span ng-show="confidant.stream">Stream:{{confidant.stream}} </span>
-        </div>
-    </div>
 </div>

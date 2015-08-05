@@ -155,7 +155,6 @@ margin-right: auto;
 
 .splash-container-dashboard{
     background: $whiteColour;
-    width: 90%;
 margin-left: auto;
 margin-right: auto;
     top: 0;
@@ -179,9 +178,16 @@ margin-right: auto;
     text-align: center;
     text-transform: uppercase;
 }
+.cardActions{
+    position: absolute;
+    bottom: 0px;
+  .md-button{
+    min-width: 0px;
 
+  }
+}
 .splash-dashboard {
-    width: 80%;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -322,10 +328,10 @@ margin-right: auto;
 }
 .md-dialog-container{
     z-index:98;
-    position: fixed important!;
+    position: fixed !important;
 }
 .md-backdrop{
-    position: fixed important!;
+    position: fixed !important;
 }
 .md-select-menu-container {
 
@@ -471,7 +477,7 @@ margin-right: auto;
             background:$redColour;
         }
         &.unknown{
-            background:$whiteColour; 
+            background:$whiteHover;
         }
         &.ok{
             background:$yellowColour;
@@ -560,7 +566,7 @@ margin-right: auto;
             background:$redColour;
         }
         &.unknown{
-            background:$whiteColour;
+            background:$whiteHover;
         }
         &.ok{
 
@@ -712,6 +718,8 @@ margin-right: auto;
     background-repeat: no-repeat;
     background-position: center;
     height: 55%;
+    width:100%;
+    margin: 0px;
     &.mobile{
         border-radius: 0%;
         height: 140px;
@@ -720,9 +728,13 @@ margin-right: auto;
         background-color: $whiteColour  !important;
     }
 }
+.game_image:hover{
+  opacity: 0.7;
+
+}
 .trucatedName{
   overflow: hidden;
-  max-width: 200px;
+  max-width: 275px;
   white-space: nowrap;
 }
 .KaiadderText{
@@ -758,7 +770,7 @@ margin-right: auto;
   background-color:  rgba(253,222,9,0.8);
 }
  .unknown .game_header{
-            background-color:  rgba(247,241,230,0.8);
+            background-color:  rgba(243,226,196,0.8);
         }
 .game_header, .game_recomendation{
     margin-top:5px;
@@ -779,7 +791,7 @@ margin-right: auto;
     position: relative;
 }
 .game_recomendation{
-    top: -67px;
+
     position: relative;
     width: 100%;
 
@@ -791,6 +803,9 @@ margin-right: auto;
      }
     &.medium{
         height:50%
+    }
+    &.confidant{
+         top: 0px;
     }
 }
 .game_mobile {
@@ -810,8 +825,9 @@ margin-right: auto;
     margin-left: 5px;
 }
 .game_recomendation_text{
-    margin-top:-15px;
+
     margin-left: 10px;
+    margin-right: 10px;
     font-size:1em;
     md-list{
         padding: 0px;
@@ -833,7 +849,7 @@ margin-right: auto;
         background:$redColour;
     }
     &.unknown{
-        background:$whiteColour;
+        background:$whiteHover;
     }
     &.ok{
 
@@ -857,6 +873,12 @@ margin-right: auto;
     
 
 }
+
+.fabarea{
+    position: fixed;
+   right:50px;
+    bottom:50px;
+}
 .editHeader{
     &.postive{
             color:$greenColour;
@@ -865,7 +887,7 @@ margin-right: auto;
         color:$redColour;
     }
     &.unknown{
-        color:$whiteColour;
+        color:$whiteHover;
     }
     &.ok{
 
@@ -880,8 +902,8 @@ margin-right: auto;
     position: absolute;
 }
 .pure-menu-selected{
-  background-color: $whiteHover;
-    color:$primaryDark
+  background-color: $whiteColour;
+    color:$primaryOrange !important;
 }
 
 .item-input{

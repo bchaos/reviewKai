@@ -6,43 +6,23 @@
                     <div class="pure-u-1 movedown">
                         <span class="username">My</span> Confidants
                         <p class="splash-subhead confidants">
-                            Confidants are other gamers who opinions you trust
+                         Gamers who opinions you trust
                         </p>
                     </div>
                 </div>
             </h1>
             <p/>
             <span>
-                <div class="hideMobile">
-                    <div class="click panel circle">
-                        <div class="front">
-                            <div class="circleLogo" >
-                               <md-button ng-click ="showConfidantAdder($event)">
-                                   <div class="gameadderbutton"> <h2>+</h2></div>
-                                </md-button>
-                            </div>
-                            <p/>
-                            Add Confidant
-                        </div>
-                        <div class="back">
-                        </div>
-                    </div>
-                </div>
-                <div class="hideDesktop pure-u-1 game_mobile gameAdder">
-                     <md-button ng-click ="showConfidantAdder($event)">
-                         <span class="newGameAdder">+ New</span>
-                    </md-button>
-                </div>
-                 <div   class="" ng-repeat="confidant in myConfidants">
+                 <div class="" ng-repeat="confidant in myConfidants">
                     <confidantcard></confidantcard>
-                </div>
-                <div>
-
                 </div>
             </span>
         </div>
     </div>
 </div>
+<md-button ng-hide ="isLoading" ng-click ="showConfidantAdder($event)" class="fabarea md-fab" aria-label="add confidant">
+        <md-icon md-svg-src="images/ic_add_circle_outline_black_24px.svg"></md-icon>
+</md-button>
 
 <div class="pure-g-r addedMargin" ng-show ="isLoading">
     <searching text="Loading"> </searching>

@@ -31,25 +31,27 @@
         </div>
     </div>
     <div class="back postive" >
-        <div class="list moveupby10" ng-show="confidantSelected">
-            <div class="game_header">
-              <div class="pure-u-19-24 game_name">
-                <md-button ng-click="goback()"> &lang; back</md-button>
-                 {{newConfidant.name}}
-              </div>
-            </div>
 
-              <div class="game_recomendation tall">
-                <div class="game_recomendation_text ">
-                     <button ng-click="addConfidant()" class="button  button-modal">Add Confidant +</button>
+        <div class="list moveupby10" ng-show="confidantSelected">
+            <div class="">
+
+                <md-button ng-click="goback()"> &lang; back</md-button>
+
+            </div>
+            <div class="game_image confidant" ng-style="getGameStyle('userimages/'+newConfidant.picture)">
+
+        </div>
+        <div >
+
+            {{newConfidant.name}}
+
+        </div>
+              <div class="game_recomendation tall confidant">
+                <div class="game_recomendation_text  ">
+
+                    {{newConfidant.name}} has reviewed {{newConfidant.reviews}} games and is a confidant to {{newConfidant.confidantCount}}  users. <span ng-show="newConfidant.site"> Their personal site is located at {{newConfidant.site}}.</span> <span ng-show="newConfidant.stream">They stream at {{newConfidant.stream}}.</span>
+                      <md-button ng-click="addConfidant()" class="button  button-modal">Add Confidant </md-button>
                     <p/>
-                    <span> Games reviewed: {{newConfidant.reviews}}</span>
-                    <p/>
-                    <span> Confidant to: {{newConfidant.confidantCount}}</span> users
-                    <p/>
-                    <span ng-show="confidant.site">Site:{{newConfidant.site}}</span>
-                    <p/>
-                    <span ng-show="confidant.stream">Stream:{{newConfidant.stream}} </span>
                 </div>
         </div>
             </div>
