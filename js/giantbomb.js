@@ -22,7 +22,7 @@
       GameSearchURL = giantbombInfo.baseurl + giantbombInfo.gamePath + gameid + '/?' + giantbombInfo.apikey + giantbombInfo.fiedList;
       return request(GameSearchURL, function(error, response, body) {
         var data, endPos, jsonString, startPos;
-        if (!error && response.statusCode === 200) {
+        if (!error) {
           startPos = body.indexOf('({');
           endPos = body.indexOf('})');
           jsonString = body.substring(startPos + 1, endPos + 1);
@@ -42,7 +42,7 @@
         console.log(response.statusCode);
         console.log(error);
         console.log(GameSearchURL);
-        if (!error && response.statusCode === 200) {
+        if (!error) {
           startPos = body.indexOf('({');
           endPos = body.indexOf('})');
           jsonString = body.substring(startPos + 1, endPos + 1);
