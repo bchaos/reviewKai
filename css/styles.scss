@@ -904,6 +904,13 @@ margin-right: auto;
 .pure-menu-selected{
   background-color: $whiteColour;
     color:$primaryOrange !important;
+    a{
+      button{
+        span{
+           color:$primaryOrange !important;
+        }
+      }
+    }
 }
 
 .item-input{

@@ -761,6 +761,8 @@ md-toolbar {
 .pure-menu-selected {
   background-color: #f7f1e6;
   color: #f8931d !important; }
+  .pure-menu-selected a button span {
+    color: #f8931d !important; }
 
 .item-input {
   padding: 1px 0px 1px 12px; }
