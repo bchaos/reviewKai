@@ -23,6 +23,7 @@ module.exports =  (client,request,connection) ->
             else console.log error
     getGameInfo = (game, callback)->
         GameSearchURL = giantbombInfo.baseurl+giantbombInfo.searchPath+giantbombInfo.apikey+'&query='+game+giantbombInfo.fiedList;
+        console.log GameSearchURL
         request GameSearchURL, (error, response, body) ->
             data=''
             if !error && response.statusCode is 200

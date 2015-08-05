@@ -36,6 +36,7 @@
     getGameInfo = function(game, callback) {
       var GameSearchURL;
       GameSearchURL = giantbombInfo.baseurl + giantbombInfo.searchPath + giantbombInfo.apikey + '&query=' + game + giantbombInfo.fiedList;
+      console.log(GameSearchURL);
       return request(GameSearchURL, function(error, response, body) {
         var data, endPos, jsonString, startPos;
         data = '';
