@@ -14,7 +14,7 @@ module.exports =  (client,request,connection) ->
     client.on 'getGameInfoFromWiki', (gameid)->
         GameSearchURL = giantbombInfo.baseurl+giantbombInfo.gamePath+gameid+'/?'+giantbombInfo.apikey+giantbombInfo.fiedList;
         request GameSearchURL, (error, response, body) ->
-            if !error
+            if !error && response.statusCode is 200
                 startPos = body.indexOf('({');
                 endPos = body.indexOf('})');
                 jsonString = body.substring(startPos+1, endPos+1);
@@ -28,7 +28,7 @@ module.exports =  (client,request,connection) ->
             console.log response.statusCode
             console.log error
             console.log GameSearchURL
-            if !error
+            if !error && response.statusCode is 200
                 startPos = body.indexOf('({');
                 endPos = body.indexOf('})');
                 jsonString = body.substring(startPos+1, endPos+1);
