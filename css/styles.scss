@@ -322,6 +322,10 @@ margin-right: auto;
 }
 .md-dialog-container{
     z-index:98;
+    position: fixed important!;
+}
+.md-backdrop{
+    position: fixed important!;
 }
 .md-select-menu-container {
 

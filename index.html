@@ -91,7 +91,8 @@
                 <a>     <md-button>Signup </md-button></a>
                 </li>
                 <li class="pure-menu-item" ng-click ='signUpModal($event,false)' ><a><md-button>Login </md-button></a></li>
-                <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button></li>
+                <li class="pure-menu-item"> <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='large'></fb:login-button>
+                </li>
 
             </span>
                <li  ng-repeat="access in accessList"   ng-class="isActive(access.link)" class="pure-menu-item">

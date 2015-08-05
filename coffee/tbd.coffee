@@ -774,10 +774,9 @@ app.controller 'libraryController',
                 $scope.editingindex = $scope.getIndexOfGame game
                 confirm  = $mdDialog.confirm()
                 .parent(angular.element(document.body))
-                .title('Would you like to delete this game?')
-                .content('Deleting this game will remove it from your library.')
-                .ok('Yes')
-                .cancel('No')
+                .content('Would you like to delete this game?')
+                .ok('Remove')
+                .cancel('Cancel')
                 .targetEvent(ev);
                 $mdDialog.show(confirm).then ->
                       socket.emit 'deleteGame', $scope.games[$scope.editingindex]

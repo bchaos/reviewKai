@@ -1097,7 +1097,7 @@
       $scope.showRemove = function(game, ev) {
         var confirm;
         $scope.editingindex = $scope.getIndexOfGame(game);
-        confirm = $mdDialog.confirm().parent(angular.element(document.body)).title('Would you like to delete this game?').content('Deleting this game will remove it from your library.').ok('Yes').cancel('No').targetEvent(ev);
+        confirm = $mdDialog.confirm().parent(angular.element(document.body)).content('Would you like to delete this game?').ok('Remove').cancel('Cancel').targetEvent(ev);
         return $mdDialog.show(confirm).then(function() {
           return socket.emit('deleteGame', $scope.games[$scope.editingindex]);
         }, function() {});
