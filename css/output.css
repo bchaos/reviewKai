@@ -529,8 +529,22 @@ md-toolbar {
   -webkit-animation-duration: 1s;
   /* Chrome, Safari, Opera */
   animation-duration: 1s;
+  -webkit-animation-delay: .5s;
+  /* Chrome, Safari, Opera */
+  animation-delay: .5s;
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite; }
+
+.addedMargin.ng-hide searching {
+  -webkit-animation: zoomOutUp .5s;
+  -moz-animation: zoomOutUp .5s;
+  -ms-animation: zoomOutUp .5s;
+  animation: zoomOutUp .5s; }
+.addedMargin searching {
+  -webkit-animation: zoomInDown .5s;
+  -moz-animation: zoomInDown .5s;
+  -ms-animation: zoomInDown .5s;
+  animation: zoomInDown .5s; }
 
 .loadingCard {
   position: fixed;
@@ -985,6 +999,25 @@ a :visited {
   position: absolute; }
 .dropzone.ng-enter-stagger, .userLibaryImage.ng-enter-stagger, .userHeaderName.ng-enter-stagger {
   transition-delay: 0.1s;
+  transition-duration: 0s; }
+
+.libraryanimation.ng-move, .libraryanimation.ng-enter, .libraryanimation.ng-enter-active {
+  -webkit-animation: fadeInLeft .5s;
+  -moz-animation: fadeInLeft .5s;
+  -ms-animation: fadeInLeft .5s;
+  animation: fadeInLeft .5s; }
+.libraryanimation.ng-leave, .libraryanimation.ng-leave-active {
+  -webkit-animation: fadeOutRight .5s;
+  -moz-animation: fadeOutRight .5s;
+  -ms-animation: fadeOutRight .5s;
+  animation: fadeOutRight .5s;
+  position: absolute; }
+.libraryanimation.ng-enter-stagger {
+  -webkit-transition-delay: .2s;
+  -moz-transition-delay: .2s;
+  transition-delay: .2s;
+  -webkit-transition-duration: 0;
+  -moz-transition-delay: .2s;
   transition-duration: 0s; }
 
 md-select {

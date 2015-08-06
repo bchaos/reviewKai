@@ -627,15 +627,32 @@ margin-right: auto;
         -webkit-animation-name: shuffleanimation; /* Chrome, Safari, Opera */
         -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
         animation-duration: 1s;
+       -webkit-animation-delay: .5s; /* Chrome, Safari, Opera */
+       animation-delay: .5s;
        -webkit-animation-iteration-count: infinite;
         animation-iteration-count: infinite;
 }
+.addedMargin{
+    &.ng-hide searching {
+    -webkit-animation: zoomOutUp .5s;
+    -moz-animation: zoomOutUp .5s;
+    -ms-animation: zoomOutUp .5s;
+    animation: zoomOutUp .5s;
 
+  }
+  searching{
+    -webkit-animation: zoomInDown .5s;
+    -moz-animation: zoomInDown .5s;
+    -ms-animation: zoomInDown .5s;
+    animation: zoomInDown .5s;
+  }
+}
 .loadingCard{
     position: fixed;
     float: left;
     left: 38%;
     top: 38%;
+
 }
 .loadingPadding{
   min-height: 400px;
@@ -1161,6 +1178,35 @@ a :visited{
     transition-duration: 0s;
   }
 }
+.libraryanimation{
+  &.ng-move,
+    &.ng-enter,
+    &.ng-enter-active{
+    -webkit-animation: fadeInLeft .5s;
+    -moz-animation: fadeInLeft .5s;
+    -ms-animation: fadeInLeft .5s;
+    animation: fadeInLeft .5s;
+
+  }
+  &.ng-leave,
+    &.ng-leave-active{
+    -webkit-animation: fadeOutRight .5s;
+    -moz-animation: fadeOutRight .5s;
+    -ms-animation: fadeOutRight .5s;
+    animation: fadeOutRight .5s;
+      position: absolute;
+  }
+  &.ng-enter-stagger{
+    -webkit-transition-delay:.2s;
+    -moz-transition-delay:.2s;
+    transition-delay: .2s;
+    -webkit-transition-duration:0;
+    -moz-transition-delay:.2s;
+    transition-duration: 0s;
+  }
+}
+
+
 md-select {
   padding: 0;
   background-color: $whiteColour;
