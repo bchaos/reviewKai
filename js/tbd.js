@@ -893,7 +893,7 @@
     libraryController.$inject = ['$scope', '$mdDialog', 'socket', '$location'];
 
     function libraryController($scope, $mdDialog, socket, $location) {
-      var myDropzone, path;
+      var path;
       this.$scope = $scope;
       this.socket = socket;
       this.$location = $location;
@@ -929,6 +929,9 @@
       this.socket.on('gameLibraryFound', function(data) {
         var item, score1, score2, _i, _len, _ref;
         $scope.localLibrary = data.myLibrary;
+        if ($scope.localLibrary) {
+          $scope.createDropZone();
+        }
         $scope.user = data.user[0];
         $scope.games = [];
         _ref = data.games;
@@ -1096,25 +1099,28 @@
         parallelUploads: 1,
         maxFileSize: 5
       };
-      Dropzone.autoDiscover = false;
-      myDropzone = new Dropzone("div#profileZone", {
-        url: "/"
-      });
-      myDropzone.previewsContainer = false;
-      myDropzone.dictDefaultMessage = 'Drop your profile image here';
-      myDropzone.options = {
-        paramName: "icon",
-        maxFilesize: 5,
-        createImageThumbnails: false,
-        dictDefaultMessage: 'Drop your profile image here',
-        accept: function(file, done) {
-          var stream;
-          stream = ss.createStream();
-          ss(socket.mySocket).emit('newProfileImage', stream, {
-            name: file.name
-          });
-          return ss.createBlobReadStream(file).pipe(stream);
-        }
+      $scope.createDropZone = function() {
+        var myDropzone;
+        Dropzone.autoDiscover = false;
+        myDropzone = new Dropzone("div#profileZone", {
+          url: "/"
+        });
+        myDropzone.previewsContainer = false;
+        myDropzone.dictDefaultMessage = 'Drop your profile image here';
+        return myDropzone.options = {
+          paramName: "icon",
+          maxFilesize: 5,
+          createImageThumbnails: false,
+          dictDefaultMessage: 'Drop your profile image here',
+          accept: function(file, done) {
+            var stream;
+            stream = ss.createStream();
+            ss(socket.mySocket).emit('newProfileImage', stream, {
+              name: file.name
+            });
+            return ss.createBlobReadStream(file).pipe(stream);
+          }
+        };
       };
       socket.on('pictureUpdated', function(filename) {
         $scope.user.picture = filename;

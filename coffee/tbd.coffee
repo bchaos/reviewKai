@@ -628,6 +628,8 @@ app.controller 'libraryController',
                 $scope.NoLibraryError=true
             @socket.on 'gameLibraryFound', (data)->
                 $scope.localLibrary=data.myLibrary
+                if $scope.localLibrary
+                    $scope.createDropZone()
                 $scope.user=data.user[0]
                 $scope.games = []
                 for item in data.games
@@ -778,20 +780,21 @@ app.controller 'libraryController',
               parallelUploads: 1,
               maxFileSize: 5
             };
-            Dropzone.autoDiscover = false;
-            myDropzone = new Dropzone("div#profileZone", { url: "/"});
-            myDropzone.previewsContainer=false
-            myDropzone.dictDefaultMessage = 'Drop your profile image here'
-            myDropzone.options = {
-              paramName: "icon"
-              maxFilesize: 5
-              createImageThumbnails :false
-              dictDefaultMessage: 'Drop your profile image here'
-              accept: (file, done)->
-                stream = ss.createStream();
-                ss(socket.mySocket).emit('newProfileImage', stream, {name: file.name});
-                ss.createBlobReadStream(file).pipe(stream);
-            }
+            $scope.createDropZone=->
+                Dropzone.autoDiscover = false;
+                myDropzone = new Dropzone("div#profileZone", { url: "/"});
+                myDropzone.previewsContainer=false
+                myDropzone.dictDefaultMessage = 'Drop your profile image here'
+                myDropzone.options = {
+                  paramName: "icon"
+                  maxFilesize: 5
+                  createImageThumbnails :false
+                  dictDefaultMessage: 'Drop your profile image here'
+                  accept: (file, done)->
+                    stream = ss.createStream();
+                    ss(socket.mySocket).emit('newProfileImage', stream, {name: file.name});
+                    ss.createBlobReadStream(file).pipe(stream);
+                }
             socket.on 'pictureUpdated', (filename)->
                 $scope.user.picture=filename
                 $scope.updatedPicture = true;
