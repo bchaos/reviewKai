@@ -778,7 +778,9 @@ app.controller 'libraryController',
               parallelUploads: 1,
               maxFileSize: 5
             };
+
             myDropzone = new Dropzone("div#profileZone", { url: "/"});
+            Dropzone.autoDiscover = false;
             myDropzone.previewsContainer=false
             myDropzone.dictDefaultMessage = 'Drop your profile image here'
             myDropzone.options = {

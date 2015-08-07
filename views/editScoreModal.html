@@ -7,7 +7,7 @@
         </div>
     </md-toolbar>
    <md-dialog-content>
-            <h2 class="md-title"> How much did you enjoy <span class="editHeader" ng-class="convertAverageClass(edit.rating)"> {{edit.game_name}}</span></h2>
+            <h2 class="md-title"> Thoughts about: <span class="editHeader" ng-class="convertAverageClass(edit.rating)"> {{edit.game_name}}</span></h2>
 
             <md-select placeholder="Enjoyment Value" ng-model="edit.rating">
                <md-option value="1">Pretty much unplayable</md-option>
@@ -19,7 +19,7 @@
 
           <form class="pure-form">
             <md-input-container flex>
-                <label>Review</label>
+                <label>Additional thoughts</label>
                 <textarea  placeholder="Enter an optional review of the game this will be used to help your peers" ng-model ="edit.description"></textarea>
               </md-input-container>
           </form>
