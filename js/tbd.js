@@ -210,23 +210,10 @@
       $scope.pages = [];
       length = 9;
       hasElispes = false;
-      if ($scope.maxPages > length + 1 && $scope.currentPage + 4 >= $scope.maxPages - 1) {
-        firstPage = $scope.maxPages - length;
-        lastPage = $scope.maxPages;
-      } else if ($scope.maxPages > length + 1 && $scope.currentPage >= length - 1) {
-        firstPage = $scope.currentPage - 4;
-        lastPage = $scope.currentPage + 4;
-      } else if ($scope.maxPages > length + 1) {
-        lastPage = length;
-      }
       if (firstPage > 0) {
         $scope.pages.push({
           number: 0,
           startingPoint: 0
-        });
-        $scope.pages.push({
-          elispe: true,
-          number: false
         });
       }
       for (i = _i = firstPage; firstPage <= lastPage ? _i < lastPage : _i > lastPage; i = firstPage <= lastPage ? ++_i : --_i) {
@@ -236,10 +223,6 @@
         });
       }
       if (lastPage < $scope.maxPages - 1) {
-        $scope.pages.push({
-          elispe: true,
-          number: false
-        });
         return $scope.pages.push({
           number: $scope.maxPages - 1,
           startingPoint: ($scope.maxPages - 1) * $scope.itemsPerPage

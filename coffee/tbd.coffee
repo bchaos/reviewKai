@@ -166,25 +166,14 @@ createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
                 $scope.pages=[]
                 length =9 
                 hasElispes=false;
-                if $scope.maxPages > length+1 && $scope.currentPage+4 >=   $scope.maxPages-1
-                    firstPage=$scope.maxPages-length
-                    lastPage =$scope.maxPages
-                    
-                else if $scope.maxPages > length+1 && $scope.currentPage >= length-1
-                    firstPage=$scope.currentPage-4
-                    lastPage= $scope.currentPage+4
-                
-                else if $scope.maxPages > length+1
-                    lastPage= length
-                
                 if  firstPage > 0 
                     $scope.pages.push {number:0, startingPoint:0}
-                    $scope.pages.push {elispe:true, number:false}
+
                 for i in [firstPage...lastPage]
                     $scope.pages.push {number:i, startingPoint:i*$scope.itemsPerPage}
                 
                 if lastPage < $scope.maxPages-1
-                    $scope.pages.push {elispe:true, number:false}
+
                     $scope.pages.push {number:$scope.maxPages-1, startingPoint:($scope.maxPages-1)*$scope.itemsPerPage}
             $scope.setPlatform =(platform)->
                 newPath =platform
@@ -302,9 +291,7 @@ createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
                     $scope.gameDetails= data 
                     $scope.peerInfoLoading = false
 
-        
 signInSetup = ($scope, $mdDialog, socket)->
-
     $scope.logdata = {}
     socket.on 'NeedUsername',()->
         $scope.modal.show()
@@ -370,7 +357,6 @@ signInSetup = ($scope, $mdDialog, socket)->
         $scope.errormessage = message
     socket.on 'userLoggedin', ->
         $scope.closeModal()
-
 
 app.controller 'reviewController', 
     class reviewController
