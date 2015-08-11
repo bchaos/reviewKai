@@ -9,23 +9,22 @@
                     <img src="images/userimages/{{user.picture}}" class="userLibaryImage" ng-hide='editMode  || updatedPicture'>
 
                 </div>
-                 <div class="pure-u-6-8">
+                <div class="pure-u-6-8">
                     <span class="userHeaderName" ng-hide='editMode' ><span class="username">{{user.name}}'s </span> Library</span>
                 </div><div class="pure-u-1">
                     <span class="smallText"> Site :
                         <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
-                          <md-input-container   ng-show="editMode">
-                        <input type="text" ng-model ="user.site">
+                        <md-input-container   ng-show="editMode">
+                            <input type="text" ng-model ="user.site">
                         </md-input-container>
                     </span>
                     <br/>
-                    <span  class="smallText">  Stream :
+                    <span class="smallText">  Stream :
                         <a ng-hide="editMode" href="{{user.stream}}" target="_blank">
                             {{user.stream}}
                         </a>
-                         <md-input-container   ng-show="editMode">
-
-                        <input type="text" ng-model ="user.stream" >
+                        <md-input-container ng-show="editMode">
+                            <input type="text" ng-model ="user.stream" >
                         </md-input-container>
                     </span>
                     <br/>
@@ -69,32 +68,32 @@
             </md-select>
         </md-content>
     </h1>
-   
     <div class="libraryanimation" ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
-        <librarycard ></librarycard>
+        <librarycard></librarycard>
     </div>
  </div>
 </div>
 
 </div>
- <md-fab-speed-dial class="fabarea" md-open="demo.isOpen" md-direction="up" ng-show ="myLibrary && localLibrary">
-        <md-fab-trigger>
-          <md-button aria-label="menu" class="md-fab">
-            <md-icon md-svg-src="images/ic_menu_black_24px.svg"></md-icon>
-          </md-button>
-        </md-fab-trigger>
-        <md-fab-actions>
-          <md-button aria-label="Add" class="md-fab md-raised md-mini" ng-click ="addNewGame($event)" >
-             <md-icon md-svg-src="images/ic_add_circle_outline_black_24px.svg"></md-icon>
-          </md-button>
-          <md-button ng-click="toggleEditMode()" ng-hide='editMode' class="md-fab md-raised md-mini">
-              <i  class="ion-edit"></i>
-            </md-button>
-           <md-button  aria-label="Import games from steam" class="md-fab md-raised md-mini"  ng-click ="importFromSteam($event)" ng-show="myLibrary">
-                         <img class="smalllogo" src="images/Steam_Icon_2014.png"></img>
-                     </md-button>
-        </md-fab-actions>
-      </md-fab-speed-dial>
+
+<md-fab-speed-dial class="fabarea" md-open="demo.isOpen" md-direction="up" ng-show ="myLibrary && localLibrary">
+    <md-fab-trigger>
+      <md-button aria-label="menu" class="md-fab">
+        <md-icon md-svg-src="images/ic_menu_black_24px.svg"></md-icon>
+      </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <md-button aria-label="Add" class="md-fab md-raised md-mini" ng-click ="addNewGame($event)" >
+         <md-icon md-svg-src="images/ic_add_circle_outline_black_24px.svg"></md-icon>
+        </md-button>
+        <md-button ng-click="toggleEditMode()" ng-hide='editMode' class="md-fab md-raised md-mini">
+            <i  class="ion-edit"></i>
+        </md-button>
+        <md-button aria-label="Import games from Steam" class="md-fab md-raised md-mini"  ng-click ="importFromSteam($event)" ng-show="myLibrary">
+            <img class="smalllogo" src="images/Steam_Icon_2014.png"></img>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>
 
 <div class="addedMargin" ng-show ="isLoading && !NoLibraryError">
     <searching text="Loading"> </searching>

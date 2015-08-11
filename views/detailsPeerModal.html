@@ -2,21 +2,21 @@
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h1 class="title"> What your Peers say about this game </h1>
-             <span flex></span>
+            <span flex></span>
             <md-button ng-click="closePeer()">x</md-button>
         </div>
     </md-toolbar>
     <md-dialog-content>
        <md-list>
-            <span ng-show="peerInfoLoading"> <div class="item item-divider"> loading ....</div> </span>       
+            <span ng-show="peerInfoLoading"> <div class="item item-divider"> loading ....</div> </span>
             <span ng-hide="peerInfoLoading"> 
                 <md-list-item class="md-3-line" ng-repeat="details in gameDetails"  >
-                <div class="md-list-item-text">
-                <h3>{{details.reviewerName}}</h3>
-              <h4> Thoughts: {{convertMyRating(details.score)}}</h4>
-             <p>Review: {{details.details}}</p>
-                </div>
-            </md-list-item>
+                    <div class="md-list-item-text">
+                        <h3>{{details.reviewerName}}</h3>
+                        <h4> Thoughts: {{convertMyRating(details.score)}}</h4>
+                        <p>Review: {{details.details}}</p>
+                    </div>
+                </md-list-item>
             </span>
         </md-list>
     </md-dialog-content>
