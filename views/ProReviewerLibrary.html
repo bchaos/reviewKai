@@ -1,52 +1,43 @@
 <div class="pure-g-r addedMargin">
     <div class="pure-u-1">
         <form class="pure-form">
-    <input  class="pure-input-2-3" ng-model="searchText" placeholder="Filter games">   
-    <div class="pure-u-1-8">
+            <input  class="pure-input-2-3" ng-model="searchText" placeholder="Filter games">
+            <div class="pure-u-1-8">
                 <select id="sort" ng-model="sort">
                     <option value="-added">Most Recent </option>
                     <option value ="+game_name">Name </option>
                     <option value = "-{{scoreName}}">Score </option>
                 </select>
             </div>
-            </form>
+        </form>
     </div>
-     <span ng-show="myLibrary">
-    <div class="card pure-u-1-4"  >
-      <div class="item item-divider">
-        Add Game 
-      </div>
-      <div class="item item-body" >
-         <p>
-
-              <md-button ng-hide='editMode'  ng-click ="addNewGame($event)"> <img src="images/rkcardSmall.png" class="reallysmall"> Add </md-button>
-          </p>
-      </div>
-      <div class="item item-divider">
-      </div>
-    </div>
+    <span ng-show="myLibrary">
+        <div class="card pure-u-1-4"  >
+            <div class="item item-divider">
+                Add Game
+            </div>
+            <div class="item item-body" >
+                <p>
+                    <md-button ng-hide='editMode'  ng-click ="addNewGame($event)"> <img src="images/rkcardSmall.png" class="reallysmall"> Add </md-button>
+                </p>
+            </div>
+              <div class="item item-divider">
+              </div>
+        </div>
     </span>
-   
-        <div class="card pure-u-1-4"  ng-repeat="game in games | filter:searchText | orderBy:sort">
-          <div class="item item-divider">
+    <div class="card pure-u-1-4"  ng-repeat="game in games | filter:searchText | orderBy:sort">
+        <div class="item item-divider">
             {{game.game_name}}
-          </div>
-          <div class="item item-body">
-             <div class="pure-g-r"> 
+        </div>
+        <div class="item item-body">
+            <div class="pure-g-r">
                  <div class="pure-u-1-3"> 
             <img class="full-image" src="{{game.game_picture}}">
             </div>
-            <div class="pure-u-5-8"> 
-                Internal Score: {{game.rating}}/5 </div>  
-               
-                
+            <div class="pure-u-5-8"> Internal Score: {{game.rating}}/5 </div>
             True score: {{game.true_score}}/{{game.true_score_max}} 
-
-            
-             
-                    <a ng-href="{{game.review_link}}"> <button>Link to review </button> </a>
- 
-          
-    
+            <a ng-href="{{game.review_link}}"> <button>Link to review </button> </a>
+            </div>
         </div>
+    </div>
 </div>
