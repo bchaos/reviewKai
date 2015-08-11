@@ -21,54 +21,42 @@ app = angular.module 'reviewApp',['ngAnimate', 'ngRoute','ngResource','ngSanitiz
             }
             $routeProvider.when '/faqs', {
                 templateUrl: 'views/faqs.html'
-               
             }
             $routeProvider.when '/contact', {
                 templateUrl: 'views/contact.html'
                 controller: 'genericController'
-               
             }
-
             $routeProvider.when '/confidants', {
                 templateUrl: 'views/confidants.html'
                 controller: 'confidantController'
-
             }
-
             $routeProvider.when '/PrivacyPolicy', {
                 templateUrl: 'views/PrivacyPolicy.html'
                 controller: 'genericController'
             }
-        
             $routeProvider.when '/recommendations', {
                 templateUrl: 'views/recommendations.html'
                 controller: 'recommendationController'
             }
             $routeProvider.when '/blog', {
                 templateUrl: 'views/blog.html'
-               
             }
             $routeProvider.when '/peer', {
                 templateUrl: 'views/library.html'
                 controller: 'peerController'
             }
-
             $routeProvider.when '/dashboard', {
                 templateUrl: 'views/dashboard.html'
                 controller: 'dashboardController'
             }
-    
             $routeProvider.when '/settings', {
                 templateUrl: 'views/settings.html'
                 controller: 's'
             }
-
             $routeProvider.when '/search', {
                 templateUrl: 'views/search.html'
                 controller: 'searchController'
             }
-
-        
             $routeProvider.otherwise {
                 templateUrl: 'views/library.html'
                 controller: 'libraryController'
@@ -104,9 +92,7 @@ app.config ($httpProvider) ->
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 app.service 'socket',($rootScope) ->
-
     socket = io.connect 'http://Reviewkai.com:8080'
-
     {
         on: (eventname, callback) -> 
             socket.on eventname, ->
@@ -131,7 +117,7 @@ app.filter('myLimitTo', [->
         count = 0
         startingpoint=0
         angular.forEach keys, (key, arrayIndex)->
-           if(count >= limit)
+            if(count >= limit)
                 return false;
             if startingpoint>=offset
                 ret[key] = obj[key];
@@ -144,8 +130,6 @@ app.filter('myLimitTo', [->
 isloggedin = (socket, location)-> 
     if window.localStorage.sessionkey
         socket.emit 'isUserLoggedin', {key:window.localStorage.sessionkey, location:location}
-    
-        
 createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
             $scope.newOffset = 0;   
             $scope.itemsPerPage = 12;
@@ -173,7 +157,6 @@ createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
                     $scope.pages.push {number:i, startingPoint:i*$scope.itemsPerPage}
                 
                 if lastPage < $scope.maxPages-1
-
                     $scope.pages.push {number:$scope.maxPages-1, startingPoint:($scope.maxPages-1)*$scope.itemsPerPage}
             $scope.setPlatform =(platform)->
                 newPath =platform
@@ -236,8 +219,6 @@ createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
                     when score < 4   then {'color': '#E6C805', 'font-size':'12px'}
                     when score < 4.5 then  {'color': 'green', 'font-size':'12px'}
                     else {'color': 'green', 'font-size':'12px'}
-            	
-
             $scope.showGameDescription = (id, gameToShownName, image,ev)->
                 $mdDialog.show({
                       scope: $scope,
@@ -320,7 +301,7 @@ signInSetup = ($scope, $mdDialog, socket)->
         $scope.logdata = {}
         $mdDialog.hide()
     $scope.signUpModal =(ev ,signingup) ->
-       $mdDialog.show({
+        $mdDialog.show({
           scope: $scope,
           templateUrl: 'views/signupSignInModal.html',
           targetEvent: ev
@@ -395,10 +376,9 @@ app.controller 'reviewController',
 
 app.controller 'homeController', 
 	class homeController
-        @$inject: ['$scope',   '$mdDialog','socket']
-        constructor: (@$scope,  $mdDialog, @socket) ->
+        @$inject: ['$scope','$mdDialog','socket']
+        constructor: (@$scope, $mdDialog, @socket) ->
             $scope.loggedin=false
-            
             if window.localStorage.sessionkey
                 socket.emit 'isUserLoggedin' , {key:window.localStorage.sessionkey , location:'/home'}
             socket.on 'userLoggedin', (data)->
@@ -408,11 +388,11 @@ app.controller 'homeController',
 
 app.controller 'recommendationController', 
     class recommendationController
-        @$inject: ['$scope',   '$mdDialog','socket', '$location']
-        constructor: (@$scope,  $mdDialog, @socket, @$location) ->
+        @$inject: ['$scope', '$mdDialog','socket', '$location']
+        constructor: (@$scope, $mdDialog, @socket, @$location) ->
             $scope.isLoading=true;
             socket.emit 'GetListOfPlatforms' , {data:'1'}
-            socket.on  'platformsFound', (data)->
+            socket.on 'platformsFound', (data)->
                 $scope.platforms =data
                 $scope.isLoading=false;
                 
@@ -474,7 +454,6 @@ app.controller 'dashboardController',
             @socket.on 'noGames' , ()->
                 $scope.isLoading=false
                 $scope.recentGames = false
-                
             createGameDetailViewer $mdDialog, $scope, socket,$location
 
 app.controller 'confidantController',
@@ -507,7 +486,7 @@ app.controller 'confidantController',
                 $scope.canFlip='false'
                 $scope.newConfidant = {}
             $scope.closeModal = ->
-               $mdDialog.hide()
+                $mdDialog.hide()
             $scope.findConfidant =(requirements) ->
                 data ={search:requirements}
                 $scope.isLoadingAdder = true
@@ -702,9 +681,8 @@ app.controller 'libraryController',
                 $scope.importMode=true
                 $scope.isTransfering=true
                 $scope.vanityErrorMessage =false
-
             $scope.closeImportModal = ->
-                    $mdDialog.hide()
+                $mdDialog.hide()
             $scope.getGamesFromSteam = () ->
                 $scope.importMode=false
                 socket.emit 'importGamesFromSteam', $scope.vanity
@@ -739,13 +717,13 @@ app.controller 'libraryController',
                 $mdDialog.hide()
                 $scope.edit = {}
             $scope.getIndexOfGame = (gameToCheck)->
-                 foundindex=0
-                 curindex=0
-                 for agame in $scope.games
+                foundindex=0
+                curindex=0
+                for agame in $scope.games
                     if agame.id is gameToCheck.id
                         foundindex=curindex
                     curindex++
-                 foundindex
+                foundindex
 
             $scope.showEdit = (game,ev)->
                 $scope.edit = {}

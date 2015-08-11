@@ -1,20 +1,16 @@
-
 <div class="pure-u-1" ng-hide =" isLoading">
-    <div class="splash-container-dashboard "  >
+    <div class="splash-container-dashboard">
     <div class="splash-dashboard">
         <h1 class="splash-head library" ng-show="myLibrary">
             <div class="pure-g-r pure-u-1">
-            
             <div class="pure-u-1 movedown">
-                  <div id="profileZone" class="dropzone" ng-show="editMode || updatedPicture"  ></div>
+                <div id="profileZone" class="dropzone" ng-show="editMode || updatedPicture"  ></div>
                 <div class="userImageInLibrary " >
                     <img src="images/userimages/{{user.picture}}" class="userLibaryImage" ng-hide='editMode  || updatedPicture'>
 
                 </div>
                  <div class="pure-u-6-8">
-
                     <span class="userHeaderName" ng-hide='editMode' ><span class="username">{{user.name}}'s </span> Library</span>
-
                 </div><div class="pure-u-1">
                     <span class="smallText"> Site :
                         <a href="{{user.site}}" ng-hide="editMode" target="_blank">{{user.site}} </a>
@@ -38,22 +34,17 @@
                         <md-button ng-show="editMode" ng-click="toggleEditMode()"><i  class="ion-android-cancel"></i> Cancel  </md-button>
                         <md-button ng-show="editMode" ng-click="saveLibraryEdit()"><i  class="ion-android-done"></i> Save </md-button>
                     </div>
-
                 <md-content class="smallText" layout="row" ng-hide="editMode">
                     <md-select id="sort" ng-model="sort" ng-init="sort='-releasedate'"  placeholder="Sort By">
-                        <md-option value="-releasedate" selected>Release Date </md-option>
+                        <md-option value ="-releasedate" selected>Release Date </md-option>
                         <md-option value ="+game_name">Name </md-option>
-                        <md-option value = "-{{scoreName}}">Recomendation </md-option>
+                        <md-option value ="-{{scoreName}}">Recomendation </md-option>
                     </md-select>
-
-
                     <md-select id="sort" ng-model="currentPage" ng-init ="currentPage=0"  placeholder="Page" ng-change="setPage(currentPage)">
                         <md-option value ="{{page.number}}" ng-repeat="page in pages">{{page.number+1}} </md-option>
                     </md-select>
                 </md-content>
-
                 </div>
-
                 </div>
             </div>
             </div>
@@ -69,25 +60,20 @@
                 <md-option value ="+game_name">Name </md-option>
                 <md-option value = "-{{scoreName}}">Recomendation </md-option>
             </md-select>
-
-
             <md-select id="sort" ng-model="currentPage" ng-init ="currentPage=0"  placeholder="Page" ng-change="setPage(currentPage)">
                 <md-option value ="{{page.number}}" ng-repeat="page in pages">{{page.number+1}} </md-option>
             </md-select>
-
-
             <md-select placeholder="Platform" ng-change="setPlatform(display_name)" ng-model="display_name">
-               <md-option value ="{{platform.display_name}}" ng-repeat="platform in platforms">
+                <md-option value ="{{platform.display_name}}" ng-repeat="platform in platforms">
                     {{platform.display_name}}
                 </md-option>
             </md-select>
         </md-content>
-        </h1>
+    </h1>
    
     <div class="libraryanimation" ng-repeat="game in games | orderBy:sort | limitTo : itemsPerPage : newOffset " ng-init="newOffset=0">
         <librarycard ></librarycard>
     </div>
-
  </div>
 </div>
 

@@ -17,13 +17,11 @@ module.exports =  (client,ss,connection,fs) ->
     ss(client).on 'newProfileImage', (stream, data) ->
         baseUploadPath = './../images/userimages/'
         baseFilename = client.username+'_'+data.name
-
         newFilename = baseUploadPath+baseFilename
         console.log newFilename
-        stream.pipe(fs.createWriteStream(newFilename))
+        stream.pipe fs.createWriteStream(newFilename)
         getCurrentPicture (pic)->
             if pic isnt 'rkdefault.png'
                 deleteOldPicture baseUploadPath+pic
-
             updatePicture baseFilename, ->
                 client.emit 'pictureUpdated' ,baseFilename
