@@ -1,9 +1,11 @@
 
 <div class="click panel circle hideMobile flip" >
 	<div class="back postive ">
+        <a  href="#/{{confidant.name}}">
         <div class="game_image confidant" ng-style="getGameStyle('userimages/'+confidant.picture)">
 
         </div>
+        </a>
         <div class="game_header ">
 
             {{confidant.name}}
@@ -14,11 +16,6 @@
             <div class="game_recomendation_text">
                 {{confidant.name}} has reviewed {{confidant.reviews}} games and is a confidant to {{confidant.confidantCount}}  users
              <p/>
-                <a  href="#/{{confidant.name}}">
-                    <md-button>
-                        Library
-                    </md-button>
-                </a>
                    <span ng-show="confidant.site">
                         <a href="{{confidant.site}}" target="_blank">
                   <md-button>
@@ -41,11 +38,12 @@
 <div class="game_mobile hideDesktop postive">
 
 <div layout="row"  >
-
+ <a href="#/{{confidant.name}}">
 
     <div flex="40" class="game_image mobile" ng-style="getGameStyle('userimages/'+confidant.picture)">
 
     </div>
+    </a>
         <div class="game_recomendation_text mobile">
          <md-list>
             <md-list-item >

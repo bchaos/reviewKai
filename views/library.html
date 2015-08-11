@@ -1,4 +1,4 @@
-<div class="pure-u-1" ng-hide =" isLoading">
+<div ng-hide =" isLoading">
     <div class="splash-container-dashboard">
     <div class="splash-dashboard">
         <h1 class="splash-head library" ng-show="myLibrary">
@@ -53,7 +53,6 @@
  <div class="pure-g-r pure-u-1">
             <img class="platformLarge"  src="images/platforms/{{currentPlatform}}/icon.png">
             </div>
-
           <md-content class="smallText" layout="row" ng-hide="editMode">
             <md-select id="sort" ng-model="sort" ng-init="sort='-releasedate'"  placeholder="Sort by">
                 <md-option value="-releasedate" selected>Release Date </md-option>

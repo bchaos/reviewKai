@@ -50,7 +50,7 @@ module.exports =  (client,connection, bcrypt,crypto,validator) ->
                 newData.password= 'facebookuser'
                 newData.facebookkey= data.id
                 console.log newData
-                connection.query sqls,  newData, (err,results) ->
+                connection.query sqls, newData, (err,results) ->
                     client.userid = results.insertId
                     console.log client.userid
                     client.emit 'NeedUsername'

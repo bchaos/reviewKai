@@ -50,7 +50,6 @@ module.exports =  (client,request,connection) ->
     }
     isSteamAccountLinked = (callback)->
         sql = 'Select Count(*) as userCount , steamID from user where steamID != 0 and steamID != -1  and id = ' + client.userid
-        
         connection.query sql, (err, result) ->
             if result[0].userCount is 0 
                 callback false
@@ -90,12 +89,11 @@ module.exports =  (client,request,connection) ->
         sql =  'Select count(*) as count from library l, games g where l.user_id ='+client.userid+' and g.giantBomb_id ='+gameid+' and g.id = l.game_id'
         console.log sql
         connection.query sql, (err,results)->
-
             callback results[0].count
 
     getGiantBombVersionOfGames = (games,index, length, callback) ->
         if index is length 
-            callback(games)
+            callback games
         else
             if games[index].playtime_forever > 20
                 getGameWithSteamId games[index].appid ,(steamToGameid)->
@@ -112,7 +110,6 @@ module.exports =  (client,request,connection) ->
                             game = gamelist.results[0]
                             console.log gamelist
                             console.log game
-
                             newgame.giantBombinfo={}
                             newgame.giantBombinfo.giantBomb_id= game.id
                             newgame.giantBombinfo.game_name= game.name
