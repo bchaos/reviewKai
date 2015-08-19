@@ -1152,7 +1152,12 @@ a :visited {
   background-repeat: no-repeat;
   background: url("../images/steamcardSmall.png"); }
 
-/* line 1121, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1120, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+.ion-navicon-round:before {
+  color: #f8931d;
+  font-size: 2.2em; }
+
+/* line 1124, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .rkCard {
   animation-name: rkCardAnimation;
   -webkit-animation-name: rkCardAnimation;
@@ -1163,13 +1168,13 @@ a :visited {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite; }
 
-/* line 1129, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1132, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .circlebutton.activated {
   background-color: #f8931d;
   border-color: #f8931d;
   color: white; }
 
-/* line 1134, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1137, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .circlebutton {
   border-radius: 40px;
   border-color: #f8931d;
@@ -1177,32 +1182,32 @@ a :visited {
   border-width: 2px;
   color: white; }
 
-/* line 1142, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1145, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .circleselected {
   border-color: #f8931d;
   background-color: #f8931d;
   border-width: 2px;
   color: white; }
 
-/* line 1149, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1152, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .userImageInLibrary {
   width: 73px;
   height: 73px;
   float: left; }
 
-/* line 1154, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1157, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .userLibaryImage {
   width: inherit;
   height: inherit; }
 
-/* line 1162, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1165, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.ng-hide-remove.ng-hide-remove-active, .userLibaryImage.ng-hide-remove.ng-hide-remove-active, .userHeaderName.ng-hide-remove.ng-hide-remove-active {
   -webkit-animation: zoomInDown 0.5s;
   -moz-animation: zoomInDown 0.5s;
   -ms-animation: zoomInDown 0.5s;
   animation: zoomInDown 0.5s; }
 
-/* line 1169, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1172, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.ng-hide-add.ng-hide-add-active, .userLibaryImage.ng-hide-add.ng-hide-add-active, .userHeaderName.ng-hide-add.ng-hide-add-active {
   -webkit-animation: zoomOutUp 0.5s;
   -moz-animation: zoomOutUp 0.5s;
@@ -1210,12 +1215,12 @@ a :visited {
   animation: zoomOutUp 0.5s;
   position: absolute; }
 
-/* line 1176, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1179, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.ng-enter-stagger, .userLibaryImage.ng-enter-stagger, .userHeaderName.ng-enter-stagger {
   transition-delay: 0.1s;
   transition-duration: 0s; }
 
-/* line 1184, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1187, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .libraryanimation.ng-move,
 .libraryanimation.ng-enter,
 .libraryanimation.ng-enter-active {
@@ -1224,7 +1229,7 @@ a :visited {
   -ms-animation: fadeInLeft 0.5s;
   animation: fadeInLeft 0.5s; }
 
-/* line 1192, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1195, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .libraryanimation.ng-leave,
 .libraryanimation.ng-leave-active {
   -webkit-animation: fadeOutRight 0.5s;
@@ -1233,7 +1238,7 @@ a :visited {
   animation: fadeOutRight 0.5s;
   position: absolute; }
 
-/* line 1199, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1202, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .libraryanimation.ng-enter-stagger {
   -webkit-transition-delay: .2s;
   -moz-transition-delay: .2s;
@@ -1242,16 +1247,16 @@ a :visited {
   -moz-transition-delay: .2s;
   transition-duration: 0s; }
 
-/* line 1210, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1213, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 md-select {
   padding: 0;
   background-color: #f7f1e6;
   color: #f8931d; }
-  /* line 1214, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+  /* line 1217, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
   md-select .md-select-label.md-placeholder {
     color: #f8931d; }
 
-/* line 1218, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1221, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 md-content {
   background-color: #f7f1e6 !important; }
 
@@ -1436,47 +1441,47 @@ md-content {
     -o-transform: scale(1);
     transform: scale(1); } }
 
-/* line 1395, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1398, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone, .dropzone * {
   box-sizing: border-box; }
 
-/* line 1398, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1401, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone {
   min-height: 150px;
   border: 2px solid rgba(0, 0, 0, 0.3);
   background: white;
   padding: 20px 20px; }
 
-/* line 1403, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1406, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.dz-clickable {
   cursor: pointer; }
 
-/* line 1405, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1408, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.dz-clickable * {
   cursor: default; }
 
-/* line 1407, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1410, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
   cursor: pointer; }
 
-/* line 1409, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1412, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.dz-started .dz-message {
   display: none; }
 
-/* line 1411, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1414, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.dz-drag-hover {
   border-style: solid; }
 
-/* line 1413, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1416, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone.dz-drag-hover .dz-message {
   opacity: 0.5; }
 
-/* line 1415, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1418, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-message {
   text-align: center;
   margin: 2em 0; }
 
-/* line 1418, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1421, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview {
   position: relative;
   display: inline-block;
@@ -1484,29 +1489,29 @@ md-content {
   margin: 16px;
   min-height: 100px; }
 
-/* line 1424, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1427, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview:hover {
   z-index: 1000; }
 
-/* line 1426, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1429, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview:hover .dz-details {
   opacity: 1; }
 
-/* line 1428, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1431, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-file-preview .dz-image {
   border-radius: 20px;
   background: #999;
   background: linear-gradient(to bottom, #eee, #ddd); }
 
-/* line 1432, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1435, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-file-preview .dz-details {
   opacity: 1; }
 
-/* line 1434, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1437, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-image-preview {
   background: white; }
 
-/* line 1436, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1439, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-image-preview .dz-details {
   -webkit-transition: opacity 0.2s linear;
   -moz-transition: opacity 0.2s linear;
@@ -1514,7 +1519,7 @@ md-content {
   -o-transition: opacity 0.2s linear;
   transition: opacity 0.2s linear; }
 
-/* line 1442, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1445, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-remove {
   font-size: 14px;
   text-align: center;
@@ -1522,15 +1527,15 @@ md-content {
   cursor: pointer;
   border: none; }
 
-/* line 1448, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1451, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-remove:hover {
   text-decoration: underline; }
 
-/* line 1450, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1453, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview:hover .dz-details {
   opacity: 1; }
 
-/* line 1452, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1455, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-details {
   z-index: 20;
   position: absolute;
@@ -1545,36 +1550,36 @@ md-content {
   color: rgba(0, 0, 0, 0.9);
   line-height: 150%; }
 
-/* line 1465, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1468, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-details .dz-size {
   margin-bottom: 1em;
   font-size: 16px; }
 
-/* line 1468, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1471, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-details .dz-filename {
   white-space: nowrap; }
 
-/* line 1470, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1473, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-details .dz-filename:hover span {
   border: 1px solid rgba(200, 200, 200, 0.8);
   background-color: rgba(255, 255, 255, 0.8); }
 
-/* line 1473, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1476, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-details .dz-filename:not(:hover) {
   overflow: hidden;
   text-overflow: ellipsis; }
 
-/* line 1476, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1479, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-details .dz-filename:not(:hover) span {
   border: 1px solid transparent; }
 
-/* line 1478, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1481, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-details .dz-filename span, .dropzone .dz-preview .dz-details .dz-size span {
   background-color: rgba(255, 255, 255, 0.4);
   padding: 0 0.4em;
   border-radius: 3px; }
 
-/* line 1482, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1485, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview:hover .dz-image img {
   -webkit-transform: scale(1.05, 1.05);
   -moz-transform: scale(1.05, 1.05);
@@ -1584,7 +1589,7 @@ md-content {
   -webkit-filter: blur(8px);
   filter: blur(8px); }
 
-/* line 1490, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1493, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-image {
   border-radius: 20px;
   overflow: hidden;
@@ -1594,11 +1599,11 @@ md-content {
   display: block;
   z-index: 10; }
 
-/* line 1498, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1501, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-image img {
   display: block; }
 
-/* line 1500, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1503, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-success .dz-success-mark {
   -webkit-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
   -moz-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
@@ -1606,7 +1611,7 @@ md-content {
   -o-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
   animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1); }
 
-/* line 1506, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1509, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-error .dz-error-mark {
   opacity: 1;
   -webkit-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
@@ -1615,7 +1620,7 @@ md-content {
   -o-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
   animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1); }
 
-/* line 1513, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1516, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-success-mark, .dropzone .dz-preview .dz-error-mark {
   pointer-events: none;
   opacity: 0;
@@ -1627,13 +1632,13 @@ md-content {
   margin-left: -27px;
   margin-top: -27px; }
 
-/* line 1523, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1526, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-success-mark svg, .dropzone .dz-preview .dz-error-mark svg {
   display: block;
   width: 54px;
   height: 54px; }
 
-/* line 1527, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1530, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-processing .dz-progress {
   opacity: 1;
   -webkit-transition: all 0.2s linear;
@@ -1642,7 +1647,7 @@ md-content {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear; }
 
-/* line 1534, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1537, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-complete .dz-progress {
   opacity: 0;
   -webkit-transition: opacity 0.4s ease-in;
@@ -1651,7 +1656,7 @@ md-content {
   -o-transition: opacity 0.4s ease-in;
   transition: opacity 0.4s ease-in; }
 
-/* line 1541, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1544, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview:not(.dz-processing) .dz-progress {
   -webkit-animation: pulse 6s ease infinite;
   -moz-animation: pulse 6s ease infinite;
@@ -1659,7 +1664,7 @@ md-content {
   -o-animation: pulse 6s ease infinite;
   animation: pulse 6s ease infinite; }
 
-/* line 1547, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1550, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-progress {
   opacity: 1;
   z-index: 1000;
@@ -1676,7 +1681,7 @@ md-content {
   border-radius: 8px;
   overflow: hidden; }
 
-/* line 1562, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1565, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-progress .dz-upload {
   background: #333;
   background: linear-gradient(to bottom, #666, #444);
@@ -1691,16 +1696,16 @@ md-content {
   -o-transition: width 300ms ease-in-out;
   transition: width 300ms ease-in-out; }
 
-/* line 1575, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1578, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-error .dz-error-message {
   display: block; }
 
-/* line 1577, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1580, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview.dz-error:hover .dz-error-message {
   opacity: 1;
   pointer-events: auto; }
 
-/* line 1580, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1583, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-error-message {
   pointer-events: none;
   z-index: 1000;
@@ -1723,7 +1728,7 @@ md-content {
   padding: 0.5em 1.2em;
   color: white; }
 
-/* line 1601, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1604, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .dropzone .dz-preview .dz-error-message:after {
   content: '';
   position: absolute;
@@ -1735,12 +1740,12 @@ md-content {
   border-right: 6px solid transparent;
   border-bottom: 6px solid #be2626; }
 
-/* line 1613, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1616, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 [angular-ripple] {
   position: relative;
   overflow: hidden; }
 
-/* line 1617, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1620, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .angular-ripple {
   display: block;
   position: absolute;
@@ -1748,7 +1753,7 @@ md-content {
   border-radius: 50%;
   transform: scale(0); }
 
-/* line 1624, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
+/* line 1627, /Users/bradfordfarmer/Zend/workspaces/DefaultWorkspace/reviewGuru/css/styles.scss */
 .angular-ripple.animate {
   animation: ripple 0.35s linear; }
 
