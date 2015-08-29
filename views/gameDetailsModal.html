@@ -18,7 +18,7 @@
                 Platforms: <span ng-repeat="platform in gamedetails.platforms"> {{platform.name}}</span> <p/>
                 Release Date : {{gamedetails.original_release_date}}<p/>
                 Trailers : <span ng-repeat="video in gamedetails.videos"> <a ng-href="{{video.site_detail_url}}" targe="_blank"> 
-                <button class="pure-button" style="max-width: 250px;white-space: normal;">{{video.name}} </button> </a> </span>
+                <md-button  style="max-width: 250px;white-space: normal;">{{video.name}} </md-buttton> </a> </span>
             </div>
         </div>
     </md-dialog-content>

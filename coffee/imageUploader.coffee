@@ -1,7 +1,6 @@
 #  cfcoptions : { "out": "../js/"   }
-module.exports =  (client,ss,connection,fs) ->
-
-    getCurrentPicture=   (callback)->
+module.exports = (client,ss,connection,fs) ->
+    getCurrentPicture= (callback)->
         sql = 'select picture from user where user.id = ' + client.userid
         connection.query sql, (err, result) ->
             callback result[0].picture

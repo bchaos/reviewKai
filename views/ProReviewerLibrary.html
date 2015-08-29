@@ -21,8 +21,8 @@
                     <md-button ng-hide='editMode'  ng-click ="addNewGame($event)"> <img src="images/rkcardSmall.png" class="reallysmall"> Add </md-button>
                 </p>
             </div>
-              <div class="item item-divider">
-              </div>
+            <div class="item item-divider">
+            </div>
         </div>
     </span>
     <div class="card pure-u-1-4"  ng-repeat="game in games | filter:searchText | orderBy:sort">
