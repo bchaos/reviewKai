@@ -201,10 +201,11 @@ margin-right: auto;
     color: $primaryOrange;
     border: 3px solid $primaryOrange;
     padding: 1em 1.6em;
-    font-weight: 100;
+    font-weight: 300;
     border-radius: 5px;
     line-height: 1em;
     text-transform: uppercase;
+    
     &.library{
         padding: .5em .5em;
     }
@@ -213,6 +214,7 @@ margin-right: auto;
     color: $primaryOrange;
     letter-spacing: 0.05em;
     opacity: 0.8;
+    font-weight: 400;
     &.confidants{
       font-size: .5em;
     }

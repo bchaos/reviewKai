@@ -613,10 +613,11 @@ libraryController = (@$scope,  $mdDialog, @socket, @$location) ->
             , ->
 
     $scope.updateGame = ->
+        $mdDialog.hide()
         $scope.games[$scope.editingindex] = $scope.edit
         $scope.edit.rating= parseInt $scope.edit.rating
         socket.emit 'updateGame', $scope.edit
-        $scope.editModal.hide()
+        
     createGameDetailViewer $mdDialog, $scope, socket,$location
     $scope.dropzoneConfig = {
       parallelUploads: 1,
