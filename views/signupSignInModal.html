@@ -3,63 +3,54 @@
         <div class="md-toolbar-tools">
             <h1 class="title" ng-show = 'signUp'> Sign up  </h1>
             <h1 class="title" ng-hide = 'signUp'> Login  </h1>
-             <span flex></span>
+            <span flex></span>
             <md-button ng-click="closeModal()">x</md-button>
         </div>
     </md-toolbar>
-    <form  ng-submit="signInOrSignUpNow()" name="userForm">
+    <form ng-submit="signInOrSignUpNow()" name="userForm">
       <md-dialog-content>
            <md-input-container>
-            <span  ng-show="needUsername">
-                Create a User name:
-                <label>Display name</label>
-                <input type="text"  ng-model='logdata.name'>
-            </span>
-           </md-input-container>
-            <span  ng-hide="needUsername">
-                 <div layout layout-sm="column">
-                <md-input-container flex>
-                 <label>Email</label>
-                <input type="text"  ng-model='logdata.username'>
-                </md-input-container>
-            <span ng-show = 'signUp'>
-                <md-input-container flex>
-                     <label>Display name </label>
-
-                    <input type="text" ng-model='logdata.name'>
-                </md-input-container>
-
+                <span  ng-show="needUsername">
+                    Create a User name:
+                    <label>Display name</label>
+                    <input type="text"  ng-model='logdata.name'>
+                </span>
+            </md-input-container>
+            <span ng-hide="needUsername">
+                <div layout layout-sm="column">
+                    <md-input-container flex>
+                         <label>Email</label>
+                        <input type="text"  ng-model='logdata.username'>
+                    </md-input-container>
+                <span ng-show = 'signUp'>
+                    <md-input-container flex>
+                         <label>Display name</label>
+                        <input type="text" ng-model='logdata.name'>
+                    </md-input-container>
                 </span>
                 </div>
-                 <div layout layout-sm="column">
-                 <md-input-container flex>
-                     <label>Password </label>
-
-                    <input type="password" ng-model='logdata.temppassword'>
-                </md-input-container>
-
-
-            <span ng-show = 'signUp' >
-                 <md-input-container flex>
-                     <label>Retype Password </label>
-
-                    <input type="password" ng-model='logdata.repeat'>
-                </md-input-container>
-
-
-            </span>
+                <div layout layout-sm="column">
+                    <md-input-container flex>
+                        <label>Password</label>
+                        <input type="password" ng-model='logdata.temppassword'>
+                    </md-input-container>
+                    <span ng-show = 'signUp' >
+                        <md-input-container flex>
+                            <label>Retype Password </label>
+                            <input type="password" ng-model='logdata.repeat'>
+                        </md-input-container>
+                    </span>
                 </div>
           </span>
-             <div class="bar-assertive" ng-show='errormessage'> {{errormessage}} </div>
-             <div ng-hide="needUsername">
-                 <span flex="33"></span>
-                <md-button type="submit">
-                    <span ng-hide = 'signUp'> Signin</span>
-                    <span ng-show = 'signUp'> Signup </span>
-                </md-button>
-               <span flex="33"></span>
-
-            </div>
+          <div class="bar-assertive" ng-show='errormessage'> {{errormessage}} </div>
+          <div ng-hide="needUsername">
+            <span flex="33"></span>
+            <md-button type="submit">
+                <span ng-hide = 'signUp'> Signin</span>
+                <span ng-show = 'signUp'> Signup </span>
+            </md-button>
+           <span flex="33"></span>
+          </div>
 
         <div class="button-bar" ng-show="needUsername">
             <a class="button button-modal  " ng-click="createUsername()"  > Create Username </a> 
