@@ -25,10 +25,8 @@ createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
                 hasElispes=false;
                 if  firstPage > 0 
                     $scope.pages.push {number:0, startingPoint:0}
-
                 for i in [firstPage...lastPage]
                     $scope.pages.push {number:i, startingPoint:i*$scope.itemsPerPage}
-                
                 if lastPage < $scope.maxPages-1
                     $scope.pages.push {number:$scope.maxPages-1, startingPoint:($scope.maxPages-1)*$scope.itemsPerPage}
             $scope.setPlatform =(platform)->
@@ -319,12 +317,12 @@ dashboardController = (@$scope,  $mdDialog, @socket,$location) ->
     @socket.on 'recentReleases', (data)->
         $scope.isLoading=false;
         $scope.recentGames = data
-    @socket.on 'noGames' , ()->
+    @socket.on 'noGames', ()->
         $scope.isLoading=false
         $scope.recentGames = false
     createGameDetailViewer $mdDialog, $scope, socket,$location
 dashboardController
-    .$inject= ['$scope',   '$mdDialog','socket','$location']
+    .$inject= ['$scope','$mdDialog','socket','$location']
 
 confidantController = (@$scope,  $mdDialog, @socket,@$location) ->
     socket.emit 'GetConfidants'
