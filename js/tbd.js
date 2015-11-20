@@ -872,10 +872,10 @@
       }, function() {});
     };
     $scope.updateGame = function() {
+      $mdDialog.hide();
       $scope.games[$scope.editingindex] = $scope.edit;
       $scope.edit.rating = parseInt($scope.edit.rating);
-      socket.emit('updateGame', $scope.edit);
-      return $scope.editModal.hide();
+      return socket.emit('updateGame', $scope.edit);
     };
     createGameDetailViewer($mdDialog, $scope, socket, $location);
     $scope.dropzoneConfig = {

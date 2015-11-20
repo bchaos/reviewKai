@@ -58,9 +58,9 @@ createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
                     else 'A nearly flawless gameplay experience'
             $scope.convertAverageLibraryClass=(score,rating,islibrary)->   
                 if not islibrary
-                    return  $scope.convertAverageClass score
+                    return $scope.convertAverageClass score
                 else
-                    return  $scope.convertAverageClass rating
+                    return $scope.convertAverageClass rating
             $scope.convertAverageClass =(score)->
                 if not score || score is 0 || score is -1
                     return 'unknown'
@@ -88,7 +88,7 @@ createGameDetailViewer= ( $mdDialog, $scope, socket, $location) ->
                     when score < 2.5 then {'color': 'red', 'font-size':'12px'}
                     when score < 3.5 then {'color': '#E6C805', 'font-size':'12px'}
                     when score < 4   then {'color': '#E6C805', 'font-size':'12px'}
-                    when score < 4.5 then  {'color': 'green', 'font-size':'12px'}
+                    when score < 4.5 then {'color': 'green', 'font-size':'12px'}
                     else {'color': 'green', 'font-size':'12px'}
             $scope.showGameDescription = (id, gameToShownName, image,ev)->
                 $mdDialog.show({
@@ -208,7 +208,6 @@ signInSetup = ($scope, $mdDialog, socket)->
         $scope.errormessage = message
     socket.on 'userLoggedin', ->
         $scope.closeModal()
-
 
 ###Controller Classes ###
 homeController = (@$scope, $mdDialog, @socket) ->
@@ -400,9 +399,9 @@ peerController =(@$scope,  $mdDialog, @socket,@$location) ->
     createGameDetailViewer $mdDialog, $scope, socket,$location
 
 peerController
-    .$inject= ['$scope',   '$mdDialog','socket','$location']
+    .$inject= ['$scope', '$mdDialog','socket','$location']
 
-guruController=  (@$scope,  $mdDialog, @socket,@$location) ->
+guruController= (@$scope, $mdDialog, @socket,@$location) ->
     $scope.myLibrary=false
     $scope.scoreName='avgscore'
     $scope.isLoading=true;
@@ -431,7 +430,6 @@ guruController=  (@$scope,  $mdDialog, @socket,@$location) ->
         $scope.isLoading=false;
     createGameDetailViewer $mdDialog, $scope, socket,$location
 guruController
-    
     .$inject= ['$scope',   '$mdDialog','socket','$location']
 
 genericController = (@$scope) ->
@@ -510,7 +508,7 @@ libraryController = (@$scope,  $mdDialog, @socket, @$location) ->
         $scope.gameSelected=false
     $scope.editUserResponse = (index) ->
 
-    $scope.closeModal  = ->
+    $scope.closeModal = ->
         $scope.newgame={}
         $scope.gamesfound={}
         $mdDialog.hide()
@@ -578,6 +576,7 @@ libraryController = (@$scope,  $mdDialog, @socket, @$location) ->
     $scope.closeEdit  = ()->
         $mdDialog.hide()
         $scope.edit = {}
+    
     $scope.getIndexOfGame = (gameToCheck)->
         foundindex=0
         curindex=0
@@ -598,6 +597,7 @@ libraryController = (@$scope,  $mdDialog, @socket, @$location) ->
           preserveScope: true
           clickOutsideToClose: true
         })
+
     $scope.showRemove = (game,ev)->
         $scope.editingindex = $scope.getIndexOfGame game
         confirm  = $mdDialog.confirm()
@@ -713,16 +713,16 @@ angular
 
     .directive 'platfromcard', ->  
         restrict: 'E',
-        templateUrl: 'views/platformcard.html',
+        templateUrl: 'views/platformcard.html'
     .directive 'confidantcard', ->
         restrict: 'E',
-        templateUrl: 'views/confidantCard.html',
+        templateUrl: 'views/confidantCard.html'
     .directive 'card', ->  
         restrict: 'E',
-        templateUrl: 'views/card.html',
+        templateUrl: 'views/card.html'
     .directive 'searching', ->  
         restrict: 'E',
-        templateUrl: 'views/searching.html',
+        templateUrl: 'views/searching.html'
     .directive 'librarycard', ->  
         restrict: 'E',
         templateUrl: 'views/librarycard.html'
@@ -733,8 +733,8 @@ angular
         restrict: 'E',
         templateUrl: 'views/steamTransfer.html'
     .config ($httpProvider) -> 
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        $httpProvider.defaults.useXDomain = true
+        delete $httpProvider.defaults.headers.common['X-Requested-With']
 
     .service 'socket', ['$rootScope', ($rootScope) ->
         socket = io.connect 'http://Reviewkai.com:8080'
